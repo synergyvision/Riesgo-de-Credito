@@ -1,6 +1,6 @@
 source("text.R")
 source("conf.R")
-shinythemes::themeSelector()
+
 header<-dashboardHeader( title = tags$img(src="img/BV.png", width=80, height=60) )
 
 menu<-dashboardSidebar(
@@ -17,6 +17,9 @@ menu<-dashboardSidebar(
 
 datatab<-tabItem(
   tabName="data",
+  fluidRow(box(background="red", checkboxInput("dataset", strong("Selecciona para inciar Datos de Ejemplo"), FALSE))),
+  fluidRow(box(background="red", checkboxInput('userFile', strong('Cargar Datos Propios'), FALSE))),
+  conditionalPanel(condition = "input.userFile == true",
   fluidRow(
     box(width = 15, title = h3(UPLOADDATA_TEXT),
         box( width=12,background = "red",
@@ -32,9 +35,9 @@ datatab<-tabItem(
               radioButtons( width="40%", 'quote', COMILLAS_TEXT, UPLOADCOMILLAS_CONF, ''))
         )
     )
-  ),
+  )),
   fluidRow(
-    box(width=12,status = "success",dataTableOutput('datatable'))
+    box(width=12,status = "danger",dataTableOutput('datatable'))
   )
 )
 

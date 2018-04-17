@@ -4,7 +4,8 @@ UPLOADFILETYPE_CONF<-c('text/csv',
                        'text/tab-separated-values',
                        'text/plain',
                        '.csv',
-                       '.tsv')
+                       '.tsv', 
+                       '.rda')
 
 UPLOADFILESEP_CONF<-c('Coma'=',',
                       'Punto y coma'=';',
@@ -15,12 +16,12 @@ UPLOADCOMILLAS_CONF<-c('Ninguna'='',
                        'Comilla simple'="'")
 
 #Selección análisis cuentas de ahorro
-# DISTANALAH_CONF<-c("Normal"="Normal", "Exponential"="Exponential",
-#                    "Cauchy"="Cauchy", "Logistic"="Logistic",
-#                    "Beta"="Beta", "Chi-square"="Chi-square",
-#                    "Uniform"="Uniform","Gamma"="Gamma",
-#                    "Lognormal"="Lognormal", "Weibull"="Weibull",
-#                    "F"="F", "Student"="Student", "Gompertz"="Gompertz")
+DISTANALAH_CONF<-c("Normal"="Normal", "Exponential"="Exponential",
+                   "Cauchy"="Cauchy", "Logistic"="Logistic",
+                   "Beta"="Beta", "Chi-square"="Chi-square",
+                   "Uniform"="Uniform","Gamma"="Gamma",
+                   "Lognormal"="Lognormal", "Weibull"="Weibull",
+                   "F"="F", "Student"="Student", "Gompertz"="Gompertz")
 
 #Selección para el tipo de cuenta GAP de liquidez
 #TIPCUENT_CONF<- c("AHORRO"="ahorro", "CORRIENTE"="corriente", "CORRIENTE REMUNERADA"="corriente.rem")

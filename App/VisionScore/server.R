@@ -20,14 +20,19 @@ library(readr)
 library(webshot)
 library(rintrojs)
 library(highcharter)
+library(CASdatasets)
 
 source("text.R")
 source("conf.R")
-
+data("credit")
 # Define server logic required to draw a histogram
 shinyServer(function(input, output) {
+ 
+   datasetSelect <- reactive({
+   datasetSelect <- credit
+  })
    
-  data <- reactive({
+  datasetInput <- reactive({
     # input$file1 will be NULL initially. After the user selects
     # and uploads a file, it will be a data frame with 'name',
     # 'size', 'type', and 'datapath' columns. The 'datapath'
@@ -38,25 +43,41 @@ shinyServer(function(input, output) {
     
     if (is.null(inFile))
       return(NULL)
-    
     read.table(inFile$datapath, header = input$header,
                sep = input$sep, quote = input$quote)
+  
   })
   
-  
+  data1 <- reactive({
+    if(input$dataset){
+        data <- datasetSelect()}
+      
+         else {
+      data <- datasetInput()
+    }
+  })
   ###Datos
   
   output$datatable<-renderDataTable({
-    if(is.null(data())){return()}
-    datatable(data()) %>% formatCurrency(1:3, 'Bs. ', mark = '.', dec.mark = ',')
+   data1()
   })
   
   
   ###Estadísticas
+  output$rendimientos <- renderDataTable({
+    if(is.null(data1())){return()}
+    D <-data1()
+    datatable(D, options = list(dom = 't'),selection = list(target = 'column')) %>% formatCurrency(1:3, 'Bs. ', mark = '.', dec.mark = ',')
+  })
+  output$frecuencia <- renderDataTable({
+    if(is.null(data1())){return()}
+    D <-summary(data1())
+    datatable(D, options = list(dom = 't')) %>% formatCurrency(1:3, 'Bs. ', mark = '.', dec.mark = ',')
+  })
   
   output$estadisticas1 <- renderDataTable({
-    if(is.null(data())){return()}
-    D <- summary(data())
+    if(is.null(data1())){return()}
+    D <-summary(data1())
     datatable(D, options = list(dom = 't')) %>% formatCurrency(1:3, 'Bs. ', mark = '.', dec.mark = ',')
   })
 })
