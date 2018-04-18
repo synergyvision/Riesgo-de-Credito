@@ -46,7 +46,10 @@ statab<-tabItem( tabName = "stat",
                     tabBox( height = "1250px", width = 12,side = "left",
                             tabPanel( title = tagList(shiny::icon("gear"), strong(RENDTITLE_TEXT)),
                                       box( width=12,status = "success",
-                                           dataTableOutput('rendimientos')
+                                           numericInput("idc", "Seleccione Variable (Columna)", 1, min=1, max=1000, step=1),
+                                           verbatimTextOutput('rendimientos'),
+                                           tags$hr(),
+                                           verbatimTextOutput('dataSelecta')
                                       )
                             ),
                             tabPanel( title = tagList(shiny::icon("gear"), strong(FRETITLE_TEXT)),

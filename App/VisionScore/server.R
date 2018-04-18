@@ -1,31 +1,4 @@
-#
-# This is the server logic of a Shiny web application. You can run the 
-# application by clicking 'Run App' above.
-#
-# Find out more about building applications with Shiny here:
-# 
-#    http://shiny.rstudio.com/
-#
 
-library(shiny)
-library(shinydashboard)
-library(shinythemes)
-library(shinyjs)
-library(rriskDistributions)
-library(DT)
-library(VaRES)
-library(rmarkdown)
-library(dygraphs)
-library(readr)
-library(webshot)
-library(rintrojs)
-library(highcharter)
-library(CASdatasets)
-
-source("text.R")
-source("conf.R")
-data("credit")
-# Define server logic required to draw a histogram
 shinyServer(function(input, output) {
  
    datasetSelect <- reactive({
@@ -56,6 +29,11 @@ shinyServer(function(input, output) {
       data <- datasetInput()
     }
   })
+  
+  D <- reactive({
+    data1()[,input$idc]
+  })
+  
   ###Datos
   
   output$datatable<-renderDataTable({
@@ -64,11 +42,16 @@ shinyServer(function(input, output) {
   
   
   ###Estadísticas
-  output$rendimientos <- renderDataTable({
+  output$rendimientos <- renderPrint({
     if(is.null(data1())){return()}
-    D <-data1()
-    datatable(D, options = list(dom = 't'),selection = list(target = 'column')) %>% formatCurrency(1:3, 'Bs. ', mark = '.', dec.mark = ',')
+    (D <-table(data1()$class))
+    #datatable(D, options = list(dom = 't'),selection = list(target = 'column')) %>% formatCurrency(1:3, 'Bs. ', mark = '.', dec.mark = ',')
   })
+  
+  output$dataSelecta <- renderPrint({
+    D()
+  })
+  
   output$frecuencia <- renderDataTable({
     if(is.null(data1())){return()}
     D <-summary(data1())
