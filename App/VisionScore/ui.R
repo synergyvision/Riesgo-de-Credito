@@ -19,6 +19,7 @@ datatab<-tabItem(
   tabName="data",
   fluidRow(box(background="red", checkboxInput("dataset", strong("Selecciona para inciar Datos de Ejemplo"), FALSE))),
   fluidRow(box(background="red", checkboxInput('userFile', strong('Cargar Datos Propios'), FALSE))),
+  fluidRow(box(background="red", selectInput('selected'))),
   conditionalPanel(condition = "input.userFile == true",
   fluidRow(
     box(width = 15, title = h3(UPLOADDATA_TEXT),
