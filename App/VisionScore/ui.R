@@ -19,7 +19,6 @@ datatab<-tabItem(
   tabName="data",
   fluidRow(box(background="red", checkboxInput("dataset", strong("Selecciona para inciar Datos de Ejemplo"), FALSE))),
   fluidRow(box(background="red", checkboxInput('userFile', strong('Cargar Datos Propios'), FALSE))),
-  fluidRow(box(background="red", selectInput('selected'))),
   conditionalPanel(condition = "input.userFile == true",
   fluidRow(
     box(width = 15, title = h3(UPLOADDATA_TEXT),
@@ -50,6 +49,7 @@ statab<-tabItem( tabName = "stat",
                                            numericInput("idc", "Seleccione Variable (Columna)", 1, min=1, max=1000, step=1),
                                            verbatimTextOutput('rendimientos'),
                                            tags$hr(),
+                                           selectInput('selected', 'Variables:', names(credit), multiple = TRUE, selected = names(credit)),
                                            verbatimTextOutput('dataSelecta')
                                       )
                             ),

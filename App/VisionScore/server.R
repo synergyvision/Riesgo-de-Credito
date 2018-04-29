@@ -24,12 +24,13 @@ shinyServer(function(input, output) {
   data1 <- reactive({
     if(input$dataset){
         data <- datasetSelect()}
-      
+
          else {
       data <- datasetInput()
     }
   })
   
+ 
   D <- reactive({
     data1()[,input$idc]
   })
@@ -49,7 +50,7 @@ shinyServer(function(input, output) {
   })
   
   output$dataSelecta <- renderPrint({
-    D()
+    summary(data1()[, c(input$selected), drop = TRUE])
   })
   
   output$frecuencia <- renderDataTable({
