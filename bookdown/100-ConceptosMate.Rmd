@@ -103,7 +103,7 @@ Si la variable aleatoria es continua, hay infinitos valores posibles de la varia
 
  
 ```{definition, defi-func-dens} 
-Sea $X$ una variable aleatoria continua, se llama función de densidad y se representa como $f(x)$ a una función no negativa definida sobre la recta real, tal que para cualquier intervalo $(a,b)$ que estudiemos se verifica: $$P(a\leq X \leq b)\int_{a}^{b}  \! f(x) \, dx$$ 
+Sea $X$ una variable aleatoria continua, se llama función de densidad y se representa como $f(x)$ a una función no negativa definida sobre la recta real, tal que para cualquier intervalo $(a,b)$ que estudiemos se verifica: $$P(a\leq X \leq b) = \int_{a}^{b}  \! f(x) \, dx$$ 
 ``` 
 
 ### Función de distribución: 
@@ -112,16 +112,35 @@ La función de distribución describe el comportamiento probabilístico de una v
 
 #### Caso discreto
 
-Sea $X$ una variable aleatoria discreta asociada a un espacio de probabilidad, se define la función de distribución: $$F_x:R\rightarrow [0,1] \quad \textrm{que verifica} \qquad F_x(x)=P[X\leq x]=\sum_{x_i<x} P_i$$ 
+Sea $X$ una variable aleatoria discreta asociada a un espacio de probabilidad, se define la función de distribución: $$F_x:R\rightarrow [0,1] \quad \textrm{que verifica} \quad F_x(x)=P[X\leq x]=\sum_{x_i<x} P_i$$ 
 
+#### Caso continuo
 
+Sea $X$ una variable aleatoria continua con función de densidad $f(x)$, se define la función de distribución, $F_x$, como:$$F_x(x)=P[X \leq b ] = \int_{-\infty}^{b}  \! f(x) \, dx$$
 
+### Algunos tipos de variables aleatorias
 
+#### Bernoulli
 
+Es un experimento en el cual solo existen dos eventos, en general exito(1) y fracaso(0), y ademas tiene asociada un parametro $p$ el cual es la probabilidad de exito, es decir, $$P(X=1)=p \quad \textrm{y} \quad P(X=0)=1-p$$
 
+#### Binomial
 
+La distribución de probabilidad discreta más usada es la distribución binomial  y consiste en :
 
+* Repetimos un experimento de Bernoulli $n$ veces de forma identica
 
+* Cada experimento es independiente de los anteriores
+
+La variable aleatoria de Bernulli es la que expresa el número de éxitos, por lo tanto esta variable aleatoria tiene asociada dos parametros: un parametro $p$ que nos indica la probabilidad de éxito de cada evento, y un numero natural $n$ que nos indica la cantidad de veces que se realizó el experimento.
+
+#### Poisson
+
+Esta distribución es una de las más importantes distribuciones de variable discreta. Sus principales aplicaciones hacen referencia a la modelización de situaciones en las que nos interesa determinar el número de hechos de cierto tipo que se pueden producir en un intervalo de tiempo o de espacio, bajo presupuestos de aleatoriedad y ciertas circunstancias restrictivas. Otro de sus usos frecuentes es la consideración límite de procesos dicotómicos reiterados un gran número de veces si la probabilidad de obtener un éxito es muy pequeña .  
+
+La distribución de Poisson tiene ajustado un parametros positivo $\lambda$ que representa el número de veces que se espera que ocurra el fenomeno durante un intervalo dado.
+
+La Probabilidad de que un experimento de Poisson tenga $k$ ocurrencias es $$\frac{e^{-\lambda}\lambda^k}{k!}$$ 
 
 
 
