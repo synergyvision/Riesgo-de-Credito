@@ -59,8 +59,80 @@ Esta forma de interpretar las medida de probabilidad no significa que esta sea l
 
  
 ```{definition, defi-esp-prob} 
-Definimos como *espacio de probabilidad*  la terna $( \Omega, S, P)$.
+Definimos como *espacio de probabilidad*  a la terna $( \Omega, S, P)$.
 ``` 
 
 
+## Variables aleatorias y función de distribución.
 
+En este tema se tratará de formalizar numéricamente los resultados de un fenómeno aleatorio. Por tanto, una variable aleatoria es un valor numérico que corresponde a un resultado de un experimento aleatorio. Algunos ejemplos son: número de caras obtenidas al lanzar seis veces una moneda, número de llamadas que recibe un teléfono durante una hora, tiempo de fallo de una componente eléctrica, etc. 
+
+###  Variable aleatoria
+
+ 
+```{definition, defi-var-alea} 
+Dado un experimento aleatorio y asociado al mismo, un espacio de probabilidad $( \Omega, S, P)$, una variable aleatoria es una aplicación $Χ : \Omega → R$ , que a cada valor de $X$, del espacio muestral, le hace corresponder un número real. 
+``` 
+
+Ejemplo:  Consideramos un experimento aleatorio de lanzar una moneda al aire tres veces y anotamos el resultado. Se define la variable aleatoria X como número de caras aparecidas en los tres lanzamientos. 
+
+
+### Tipos de variables aleatorias
+
+Las variables aleatorias se clasifican en discretas y continuas: 
+
+* *Discreta*: La variable aleatoria $X$ se dice que es discreta si los números asignados a los sucesos elementales de $\Omega$ son puntos aislados. Sus posibles valores constituyen un conjunto finito o infinito numerable. Por ejemplo, supongamos el experimento consistente en lanzar tres veces una moneda no trucada; si consideramos la variable aleatoria $X$="número de caras obtenidas en los tres lanzamientos"", los valores que puede tomar esta variable aleatoria son finitos "(0,1,2,3)". 
+
+* *Continua*: La variable aleatoria $X$ será continua si los valores asignados pueden ser cualesquiera, dentro de ciertos intervalos, es decir, puede tomar cualquier valor real. Por ejemplo, si consideramos el experimento aleatoria consistente en medir el nivel de agua en un embalse y tomamos la variable aleatoria $X$="nivel de agua", esta puede tomar cualquier valor positivo.
+
+### Distribución de probabilidad:
+
+Es un modelo teórico que describe la forma en que varían los resultados de un experimento aleatorio, es decir, nos da todas las probabilidades de todos los posibles resultados que podrían obtenerse cuando se realiza un experimento aleatorio. Se clasifican como discretas o continuas. En la distribución de probabilidad discreta está permitido tomar sólo un número limitado de valores. En la continua, llamada función de densidad, la variable que se está considerando puede tomar cualquier valor dentro de un intervalo dado. 
+
+#### Distribución de probabilidad discreta
+
+Sea $X$ una variable aleatoria discreta que tomacomo posibles valores $x_1,x_2,.....x_n$, se define la distribución de probabilidad de X como el conjunto de pares (xi, pi) que a cada valor de la variable le asocia una probabilidad, donde $p_i= P(X=x_i)$, tal que la suma de todas las probabilidades es igual a uno.
+
+Por ejemplo, en el experimento del dado la distribución de probabilidad biene dado por: (1;1/6),(2;1/6),(3;1/6),(4;1/6),(5;1/6),(6;1/6)
+
+
+#### Distribución de probabilidad continua
+
+Si la variable aleatoria es continua, hay infinitos valores posibles de la variable y entra cada dos de ellos se podrían definir infinitos valores. En estas condiciones no es posible deducir la probabilidad de un valor puntual de la variable como se puede hacer en el caso de las variables discretas. Pero sí es posible calcular la probabilidad acumulada hasta un cierto valor (función de distribución) y cómo cambia esa probabilidad acumulada en cada punto (densidad de probabilidad). Por tanto, cuando la variable aleatoria sea continua hablaremos de función de densidad. 
+
+
+ 
+```{definition, defi-func-dens} 
+Sea $X$ una variable aleatoria continua, se llama función de densidad y se representa como $f(x)$ a una función no negativa definida sobre la recta real, tal que para cualquier intervalo $(a,b)$ que estudiemos se verifica: $$P(a\leq X \leq b)\int_{a}^{b}  \! f(x) \, dx$$ 
+``` 
+
+### Función de distribución: 
+
+La función de distribución describe el comportamiento probabilístico de una variable aleatoria X asociada a un experimento aleatorio y se representa como $F_x$. De igual forma estudiaremos el caso discreto y continuo.
+
+#### Caso discreto
+
+Sea $X$ una variable aleatoria discreta asociada a un espacio de probabilidad, se define la función de distribución: $$F_x:R\rightarrow [0,1] \quad \textrm{que verifica} \qquad F_x(x)=P[X\leq x]=\sum_{x_i<x} P_i$$ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+. 
