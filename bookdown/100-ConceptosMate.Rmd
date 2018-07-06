@@ -1,0 +1,66 @@
+\mainmatter
+
+# Introducción a la teoría de probabilidad
+
+El mundo actual esta regido por metodologías que en su mayoría están estructuradas por hipótesis matemáticas, estas en la mayoría de los casos son fundamentales y de no cumplirse, la mayoría de los modelos pueden dejar de ser prácticos, por ejemplo, imaginase que usted quiera introducir un motor de un automóvil de la década de los sesenta en su automóvil moderno, con esto no queremos decir que no pueda funcionar, solo que estaría ignorando los principios mecánicos de su carro y con mucha seguridad provocaría fallas futuras. Igual pasa con los modelos de riesgo de crédito, por esto, dedicaremos este capítulo a dar un breve repaso, a la teoría de probabilidad y algún otro concepto matemático que sea necesario conocer.
+
+## Espacio de probabilidad
+
+Los espacios de probabilidad son las estructuras que se utilizan en matemáticas
+para estudiar los fenómenos aleatorios, es decir, aquellos fenómenos que
+tienen un alto grado de incertidumbre en sus resultados.
+
+Los modelos de probabilidad trabajan con las "probabilidades" de los
+diferentes resultados o sucesos que nos puedan interesar en un fenómeno
+aleatorio, y nos dan respuestas más que satisfactorias en el estudio de dichos
+fenómenos.
+
+El enorme interés de la Teoría de la Probabilidad reside en que, aparte de tener unos preciosos desarrollos matemáticos, permite estudiar, a través de la Inferencia Estadística, los problemas que surgen en los estudios científicos que intentan obtener conclusiones a partir de datos reales.
+ 
+```{definition, defi-espacio-muestral} 
+El *espacio muestral*, $\Omega$, es el conjunto de todos los posibles resultados del fenómeno aleatorio que deseamos estudiar.
+``` 
+ \
+ 
+ 
+```{definition, defi-sigma-algebra} 
+Una $\sigma$-*algebra* de sucesos, $S$, es un subconjunto de partes
+de $\Omega$ que verifíca:
+
+* Si $A \in S$ , entonces $A^c \in S$ ($c$ denota el coplemento de un conjunto).
+  
+* Si $A_1,A_2,...,A_n,...\in S$, entonces $\cup _n A_n \in S$
+``` 
+
+La idea de una $\sigma$-algebra es que contenga todos los sucesos en los que
+podemos estar interesados en un fenómenos aleatorio.
+ 
+Ejemplo: Cuando el espacio muestral,$\Omega$, es fínito o numerable, la $\sigma$-algebra habitualmente utilizada es partes de $\Omega$. Es decir, consideramos que cualquier subconjunto de $\Omega$ puede ser un suceso de interés. Esta elección es la más sencilla y no ofrece ningún problema.
+
+Con este par de definiciones podemos definir lo que es una medida de probabilidad.
+
+```{definition, defi-probabilidad} 
+Consideramos un espacio muestral $\Omega$ y una $\sigma$-algebra $S$. Una *función de probabilidad* o *medida de probabilidad* es una función $P : S \rightarrow [0, 1]$, que verifíca:
+
+* $P(\Omega)=1$
+  
+* Si $A_1,A_2,...,A_n,...\in S$ son disjuntos, entonces: $$ P\big{(}\cup _n A_n\big{)}=\sum_n P(A_n)$$
+``` 
+
+La manera más sencilla de entender el motivo de esta definición es pensar que el concepto de probabilidad trata de formalizar lo que ocurre con las frecuencias relativas de los distintos sucesos que podemos encontrarnos al lanzar un dado con 6 caras numeradas del 1 al 6:
+
+* La frecuencia relativa de cualquier suceso siempre es un número entre 0 y 1.
+
+* La frecuencia relativa de que salga algún número de los posibles (es decir, entre 1 y 6) es, evidentemente, 1.
+
+* La frecuencia relativa de la unión de sucesos disjuntos es la suma de sus frecuencias relativas.
+
+Esta forma de interpretar las medida de probabilidad no significa que esta sea la única posible, solo que a manera de ejemplo es la más fácil de explicar y visualizar.
+
+ 
+```{definition, defi-esp-prob} 
+Definimos como *espacio de probabilidad*  la terna $( \Omega, S, P)$.
+``` 
+
+
+
