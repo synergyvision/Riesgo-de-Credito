@@ -162,11 +162,20 @@ Es usada muchas veces para modelizar el comportamiento de variables aleatorias d
 
 La distribución normal o gaussiana es muy importante puesto que se utiliza para modelar muchísimos fenómenos aleatorios; además incluso para aproximar otras distribuciones. La distribución normal aproxima lo observado en muchos procesos de medición sin errores sistemáticos, por ejemplo medida fisicas del cuerpo humano, medidas en la calidad de ciertos procesos industriales, entre otros. 
 
-Esta distribución depende de dos parámetros: un parametro $\mu$ que es un indicador de la promedio del experimento que se esta estudiando y un parametro positivo $sigma$ que es un indicador de la volatilidad del mismo. Su función de densidad es $$f(x)=\frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{(x-\mu)^2}{2\sigma^2}}$$
+Esta distribución depende de dos parámetros: un parametro $\mu$ que es un indicador de la promedio del experimento que se esta estudiando y un parametro positivo $\sigma$ que es un indicador de la volatilidad del mismo. Su función de densidad es $$f(x)=\frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{(x-\mu)^2}{2\sigma^2}}$$
 
 
+### Esperanza de una variable aleatoria.
 
+La esperanza matemática de una variable aleatoria $X$ es el número que expresa el valor medio del fenómeno que representa dicha variable.
 
+#### Esperanza de una variable aleatoria discreta.
+
+Dada una variable aleatoria $X$ que toma valores $x_1,x_2,x_3....x_n$ con distribución de probabilidad $P(X=x_i)=P_i$, se define la esperanza matemática de una variable aleatoria como: $$E[X]=\sum_{i=1}^{n}x_iP(X=x_i)=\sum_{i=1}^{n}x_iP_i$$
+
+#### Esperanza de una variable aleatoria continua.
+
+Sea $X$ una variable aleatoria continua con función de densidad $f(x)$, se define la esperanza matemática de esa variable aleatoria como:$$E[X]=\int_{-\infty}^{\infty}xf(x)dx$$
 
 
 
