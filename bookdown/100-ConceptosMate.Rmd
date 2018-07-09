@@ -177,6 +177,14 @@ Dada una variable aleatoria $X$ que toma valores $x_1,x_2,x_3....x_n$ con distri
 
 Sea $X$ una variable aleatoria continua con función de densidad $f(x)$, se define la esperanza matemática de esa variable aleatoria como:$$E[X]=\int_{-\infty}^{\infty}xf(x)dx$$
 
+### Varianza de una variable aleatoria.
+
+La varianza de una variable aleatoria es una característica numérica que proporciona una idea de la dispersión de la variable aleatoria respecto de su esperanza. Decimos que es un parámetro de dispersión y se define por:$$Var(X)=E((X-E(X))^2)=E(X^2)-(E(X))^2$$
+
+### Covarianza de variables aleatorias.
+
+La covarianza es un valor que indica el grado de variación conjunta de dos variables aleatorias. Es el dato básico para determinar si existe una dependencia entre ambas variables y además es el dato necesario para estimar otros parámetros básicos y se define como: Sean $X$, $Y$ variables aleatorias se define la covarianza entre $X$ y $Y$ como: $$Cov(X,Y)=E((X-E(X))(Y-E(Y)))$$
 
 
-. 
+
+
