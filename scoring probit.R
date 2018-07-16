@@ -1,20 +1,23 @@
 library(plyr)
 library("MASS")
 
-##  scoring modelo probit
+##  modelo scoring
 
-#comnjunto de datos de prueba.
+#comnjunto de datos
 
 mydata <- read.csv("datos_completos.csv")
 #View(mydata)
+
+##Eliminando algunas variables poco significativas
 mydata <- mydata[ ,!colnames(mydata)=="X"]
 mydata <- mydata[ ,!colnames(mydata)=="Telephone"]
 
+##convirtiendo la data de interes a los valores clasicos
 mydata$Creditability <- replace(mydata$Creditability, mydata$Creditability==1,-1)
 mydata$Creditability <- replace(mydata$Creditability, mydata$Creditability==0,1)
 mydata$Creditability <- replace(mydata$Creditability, mydata$Creditability==-1,0)
 
-#####estableciendo los datos categoricos
+#####estableciendo los datos que son categoricos 
 
 mydata$Account.Balance <- factor(mydata$Account.Balance)
 mydata$Payment.Status.of.Previous.Credit <- factor(mydata$Payment.Status.of.Previous.Credit)
@@ -28,48 +31,23 @@ mydata$Occupation <- factor(mydata$Occupation)
 mydata$Foreign.Worker <- factor(mydata$Foreign.Worker)
 
 
-#construccion del modelo 
+#construccion del modelo, se uso probit, pero en general los mas usados son logit y probit
 
 probit <- glm(Creditability ~. , data = mydata, family = binomial(link = "probit"))
 
 
-##Reduciendo las variables con backward
+##Reduciendo las variables con backward, step usa por defecto backward
 
 backwards = step(probit)
 
-backwards$fitted.values[340]
-
-backwards$linear.predictors
-
-attach(probit)
-
-coefficients
-
-co <- c(-2.386836312,0.001375591,0.477730048,-0.812138076)
-
-val <- c(1,380,3.61,3)
-
-s <- sum(co*val)
-
-probit$fitted.values
+###el score, entre menor menos probabilidad de incumplimiento y entre mayor
+### aumenta la probabilidad de incumplimiento.
 
 
-## confidence intervals
-confint(probit)
+Score <- backwards$linear.predictors
+head(Score)
 
-probit$fitted.values
+##probabilidades de incumplimiento de los clientes
 
-
-probit$effects
-
-
-??glm
-
-qnorm(s)
-
-View(mydata)
-
-?glm
-
-
--3.052e-01
+PD <- probit$fitted.values
+#head(PD)
