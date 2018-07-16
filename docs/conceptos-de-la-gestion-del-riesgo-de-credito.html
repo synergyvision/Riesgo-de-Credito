@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-
-<link rel="next" href="acerca-del-autor.html">
+<link rel="prev" href="introduccion-a-la-teoria-de-probabilidad.html">
+<link rel="next" href="scoring-de-credito.html">
 <script src="libs/jquery/jquery.min.js"></script>
 <link href="libs/gitbook/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook/css/plugin-bookdown.css" rel="stylesheet" />
@@ -162,47 +162,21 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">Riesgo de Crédito</h1>
-<h3 class="subtitle"><em>Ciencia de los Datos Financieros</em></h3>
-<h4 class="author"><em>Synergy Vision</em></h4>
-<h4 class="date"><em>2018-07-16</em></h4>
-</div>
-<div id="prefacio" class="section level1 unnumbered">
-<h1>Prefacio</h1>
-<p><a href="https://synergy.vision/LibrosInteractivos/" target="_blank"><img src="images/cover.png" style="display: block; margin: auto;" /></a></p>
-<p><img src="images/by-nc-sa.png" alt="Creative Commons License" /><br />
-La versión en línea de este libro se comparte bajo la licencia <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.</p>
-<div id="por-que-leer-este-libro" class="section level2 unnumbered">
-<h2>¿Por qué leer este libro?</h2>
-<p>Este libro es el resultado de enfocarnos en proveer la mayor cantidad de material sobre Probabilidad y Estadística Matemática con un desarrollo teórico lo más explícito posible, con el valor agregado de incorporar ejemplos de las finanzas y la programación en <code>R</code>. Finalmente tenemos un libro interactivo que ofrece una experiencia de aprendizaje distinta e innovadora.</p>
-<p>El un mundo abierto, ya no es tanto el acceso a la información, sino el acceso al conocimiento. Este libro es la base teórica para nuestro Diplomado en Probabilidades y Estadística Matemática aplicado a las Finanzas. Aunque es un material de corte general, hay ejemplos específicos traido de las finanzas. En el Diplomado nos enfocamos en el participante, el propósito es que el instructor ocupa a lo sumo el 20% del tiempo y el resto del tiempo los participantes se dedican a practicar y resolver ejercicios, tanto teóricos como de programación y modelaje en <code>R</code> al nivel de un curso de Postgrado. Ésta es la base de un programa en Ciencia de los Datos Financieros.</p>
-<p>Es mucha la literatura, pero son pocas las opciones donde se pueda navegar el libro de forma amigable y además contar con ejemplos en <code>R</code> y ejercicios interactivos, además del contenido multimedia. Esperamos que ésta sea un contribución sobre nuevas prácticas para publicar el contenido y darle vida, crear una experiencia distinta, una experiencia interactiva y visual. El reto es darle vida al contenido asistidos con las herramientas de Internet.</p>
-<p>Finalmente este es un intento de ofrecer otra visión sobre la enseñanza y la generación de material más accesible. Estamos en un mundo multidisciplinado, es por ello que ahora hay que generar contenido que conjugue en un mismo lugar las matemáticas, estadística, finanzas y la computación.</p>
-<p>Lo dejamos público ya que las herramientas que usamos para ensamblarlo son abiertas y públicas.</p>
-</div>
-<div id="estructura-del-libro" class="section level2 unnumbered">
-<h2>Estructura del libro</h2>
-<p>TODO: Describir la estructura</p>
-</div>
-<div id="informacion-sobre-los-programas-y-convenciones" class="section level2 unnumbered">
-<h2>Información sobre los programas y convenciones</h2>
-<p>Este libro es posible gracias a una gran cantidad de desarrolladores que contribuyen en la construcción de herramientas para generar documentos enriquecidos e interactivos. En particular al autor de los paquetes Yihui Xie xie2015.</p>
-</div>
-<div id="practicas-interactivas-con-r" class="section level2 unnumbered">
-<h2>Prácticas interactivas con R</h2>
-<p>Vamos a utilizar el paquete <a href="https://github.com/datacamp/tutorial">Datacamp Tutorial</a> que utiliza la librería en JavaScript <a href="https://github.com/datacamp/datacamp-light">Datacamp Light</a> para crear ejercicios y prácticas con <code>R</code>. De esta forma el libro es completamente interactivo y con prácticas incluidas. De esta forma estamos creando una experiencia única de aprendizaje en línea.</p>
-<div data-datacamp-exercise="" data-height="300" data-encoded="true">
-eyJsYW5ndWFnZSI6InIiLCJwcmVfZXhlcmNpc2VfY29kZSI6ImIgPC0gNSIsInNhbXBsZSI6IiMgQ3JlYSB1bmEgdmFyaWFibGUgYSwgaWd1YWwgYSA1XG5cblxuIyBNdWVzdHJhIGVsIHZhbG9yIGRlIGEiLCJzb2x1dGlvbiI6IiMgQ3JlYSB1bmEgdmFyaWFibGUgYSwgaWd1YWwgYSA1XG5hIDwtIDVcblxuIyBNdWVzdHJhIGVsIHZhbG9yIGRlIGFcbmEiLCJzY3QiOiJ0ZXN0X29iamVjdChcImFcIilcbnRlc3Rfb3V0cHV0X2NvbnRhaW5zKFwiYVwiLCBpbmNvcnJlY3RfbXNnID0gXCJBc2VnJnVhY3V0ZTtyYXRlIGRlIG1vc3RyYXIgZWwgdmFsb3IgZGUgYGFgLlwiKVxuc3VjY2Vzc19tc2coXCJFeGNlbGVudGUhXCIpIn0=
-</div>
-</div>
-<div id="agradecimientos" class="section level2 unnumbered">
-<h2>Agradecimientos</h2>
-<p>A todo el equipo de Synergy Vision que no deja de soñar. Hay que hacer lo que pocos hacen, insistir, insistir hasta alcanzar. Lo más importante es concretar las ideas. La idea es sólo el inicio y solo vale cuando se concreta.</p>
-
-<p class="flushright">
-Synergy Vision, Caracas, Venezuela
-</p>
+<div id="conceptos-de-la-gestion-del-riesgo-de-credito" class="section level1">
+<h1><span class="header-section-number">Capítulo 3</span> Conceptos de la gestión del riesgo de crédito</h1>
+<p>A la hora de aplicar o construir cualquier modelo matemático debemos conocer los conceptos que están involucrados en la integración de este, la falta de dicho conocimiento casi seguramente nos conducirá a tesis erradas y modelos mal elaborados. El manejo del riesgo de crédito no se escapa a esto, en el presente capítulo definiremos las nociones y conceptos básicos que estarán presente prácticamente en todos los capítulos del libro.</p>
+<div id="probabilidad-de-incumplimiento-dp" class="section level2">
+<h2><span class="header-section-number">3.1</span> Probabilidad de incumplimiento (DP)</h2>
+<p>La tarea de asignar una probabilidad de incumplimiento (default probability) a cada uno de los clientes de la cartera de crédito del banco dista mucho de ser fácil. Hay esencialmente dos enfoques para las probabilidades de incumplimiento:</p>
+<ul>
+<li>Aproximación a partir de datos de mercado:</li>
+</ul>
+<p>El más famoso representante de este tipo de aproximación es el concepto de de frecuencias por defecto esperadas (expected default frequencies [EDF]) de KVM Corporation.</p>
+<p>Otro método para calibrar las probabilidades de incumplimiento a partir de los datos de mercado se basa en los márgenes de crédito de los productos negociados que conllevan riesgo de crédito.</p>
+<ul>
+<li>Aproximación a partir de ratings:</li>
+</ul>
+<p>En esta aproximación, la probabilidad de incumplimiento esta asociada con ratings, y estos ratings son asociado a los clientes por agencias externas de ratings o por metodologías internas de la institución financiera.</p>
 
 
 </div>
@@ -218,8 +192,8 @@ ga('send', 'pageview');
           </div>
         </div>
       </div>
-
-<a href="acerca-del-autor.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="introduccion-a-la-teoria-de-probabilidad.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="scoring-de-credito.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook/js/app.min.js"></script>
@@ -249,7 +223,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/synergyvision/Teoria-de-Portafolio/edit/master/bookdown/index.Rmd",
+"link": "https://github.com/synergyvision/Teoria-de-Portafolio/edit/master/bookdown/200-nociones.Rmd",
 "text": "Edit"
 },
 "download": ["Riesgo-de-Credito.pdf"],

@@ -1,13 +1,10 @@
-# Riesgo de Crédito
-Synergy Vision  
-`r Sys.Date()`  
 <script src="https://cdn.datacamp.com/datacamp-light-latest.min.js"></script>
 
 --- 
 title: "Riesgo de Crédito"
 subtitle: "Ciencia de los Datos Financieros"
 author: "Synergy Vision"
-date: "2018-02-20"
+date: "2018-07-16"
 knit: "bookdown::render_book"
 documentclass: krantz
 bibliography: [book.bib, packages.bib]
@@ -159,6 +156,261 @@ El trabajo de tesis consiste en la investigación documental del estado del arte
 
 <!--chapter:end:010-introduction.Rmd-->
 
+\mainmatter
+
+# Introducción a la teoría de probabilidad
+
+El mundo actual esta regido por metodologías que en su mayoría están estructuradas por hipótesis matemáticas, estas en la mayoría de los casos son fundamentales y de no cumplirse, la mayoría de los modelos pueden dejar de ser prácticos, por ejemplo, imaginase que usted quiera introducir un motor de un automóvil de la década de los sesenta en su automóvil moderno, con esto no queremos decir que no pueda funcionar, solo que estaría ignorando los principios mecánicos de su carro y con mucha seguridad provocaría fallas futuras. Igual pasa con los modelos de riesgo de crédito, por esto, dedicaremos este capítulo a dar un breve repaso, a la teoría de probabilidad y algún otro concepto matemático que sea necesario conocer.
+
+## Espacio de probabilidad
+
+Los espacios de probabilidad son las estructuras que se utilizan en matemáticas
+para estudiar los fenómenos aleatorios, es decir, aquellos fenómenos que
+tienen un alto grado de incertidumbre en sus resultados.
+
+Los modelos de probabilidad trabajan con las "probabilidades" de los
+diferentes resultados o sucesos que nos puedan interesar en un fenómeno
+aleatorio, y nos dan respuestas más que satisfactorias en el estudio de dichos
+fenómenos.
+
+El enorme interés de la Teoría de la Probabilidad reside en que, aparte de tener unos preciosos desarrollos matemáticos, permite estudiar, a través de la Inferencia Estadística, los problemas que surgen en los estudios científicos que intentan obtener conclusiones a partir de datos reales.
+ 
+\BeginKnitrBlock{definition}<div class="definition"><span class="definition" id="def:defi-espacio-muestral"><strong>(\#def:defi-espacio-muestral) </strong></span>El *espacio muestral*, $\Omega$, es el conjunto de todos los posibles resultados del fenómeno aleatorio que deseamos estudiar.</div>\EndKnitrBlock{definition}
+ \
+ 
+ 
+\BeginKnitrBlock{definition}<div class="definition"><span class="definition" id="def:defi-sigma-algebra"><strong>(\#def:defi-sigma-algebra) </strong></span>Una $\sigma$-*algebra* de sucesos, $S$, es un subconjunto de partes
+de $\Omega$ que verifíca:
+
+* Si $A \in S$ , entonces $A^c \in S$ ($c$ denota el coplemento de un conjunto).
+  
+* Si $A_1,A_2,...,A_n,...\in S$, entonces $\cup _n A_n \in S$</div>\EndKnitrBlock{definition}
+
+La idea de una $\sigma$-algebra es que contenga todos los sucesos en los que
+podemos estar interesados en un fenómenos aleatorio.
+ 
+Ejemplo: Cuando el espacio muestral,$\Omega$, es fínito o numerable, la $\sigma$-algebra habitualmente utilizada es partes de $\Omega$. Es decir, consideramos que cualquier subconjunto de $\Omega$ puede ser un suceso de interés. Esta elección es la más sencilla y no ofrece ningún problema.
+
+Con este par de definiciones podemos definir lo que es una medida de probabilidad.
+
+\BeginKnitrBlock{definition}<div class="definition"><span class="definition" id="def:defi-probabilidad"><strong>(\#def:defi-probabilidad) </strong></span>Consideramos un espacio muestral $\Omega$ y una $\sigma$-algebra $S$. Una *función de probabilidad* o *medida de probabilidad* es una función $P : S \rightarrow [0, 1]$, que verifíca:
+
+* $P(\Omega)=1$
+  
+* Si $A_1,A_2,...,A_n,...\in S$ son disjuntos, entonces: $$ P\big{(}\cup _n A_n\big{)}=\sum_n P(A_n)$$</div>\EndKnitrBlock{definition}
+
+La manera más sencilla de entender el motivo de esta definición es pensar que el concepto de probabilidad trata de formalizar lo que ocurre con las frecuencias relativas de los distintos sucesos que podemos encontrarnos al lanzar un dado con 6 caras numeradas del 1 al 6:
+
+* La frecuencia relativa de cualquier suceso siempre es un número entre 0 y 1.
+
+* La frecuencia relativa de que salga algún número de los posibles (es decir, entre 1 y 6) es, evidentemente, 1.
+
+* La frecuencia relativa de la unión de sucesos disjuntos es la suma de sus frecuencias relativas.
+
+Esta forma de interpretar las medida de probabilidad no significa que esta sea la única posible, solo que a manera de ejemplo es la más fácil de explicar y visualizar.
+
+ 
+\BeginKnitrBlock{definition}<div class="definition"><span class="definition" id="def:defi-esp-prob"><strong>(\#def:defi-esp-prob) </strong></span>Definimos como *espacio de probabilidad*  a la terna $( \Omega, S, P)$.</div>\EndKnitrBlock{definition}
+
+
+## Variables aleatorias y función de distribución.
+
+En este tema se tratará de formalizar numéricamente los resultados de un fenómeno aleatorio. Por tanto, una variable aleatoria es un valor numérico que corresponde a un resultado de un experimento aleatorio. Algunos ejemplos son: número de caras obtenidas al lanzar seis veces una moneda, número de llamadas que recibe un teléfono durante una hora, tiempo de fallo de una componente eléctrica, etc. 
+
+###  Variable aleatoria
+
+ 
+\BeginKnitrBlock{definition}<div class="definition"><span class="definition" id="def:defi-var-alea"><strong>(\#def:defi-var-alea) </strong></span>Dado un experimento aleatorio y asociado al mismo, un espacio de probabilidad $( \Omega, S, P)$, una variable aleatoria es una aplicación $Χ : \Omega → R$ , que a cada valor de $X$, del espacio muestral, le hace corresponder un número real. </div>\EndKnitrBlock{definition}
+
+Ejemplo:  Consideramos un experimento aleatorio de lanzar una moneda al aire tres veces y anotamos el resultado. Se define la variable aleatoria X como número de caras aparecidas en los tres lanzamientos. 
+
+
+### Tipos de variables aleatorias
+
+Las variables aleatorias se clasifican en discretas y continuas: 
+
+* *Discreta*: La variable aleatoria $X$ se dice que es discreta si los números asignados a los sucesos elementales de $\Omega$ son puntos aislados. Sus posibles valores constituyen un conjunto finito o infinito numerable. Por ejemplo, supongamos el experimento consistente en lanzar tres veces una moneda no trucada; si consideramos la variable aleatoria $X$="número de caras obtenidas en los tres lanzamientos"", los valores que puede tomar esta variable aleatoria son finitos "(0,1,2,3)". 
+
+* *Continua*: La variable aleatoria $X$ será continua si los valores asignados pueden ser cualesquiera, dentro de ciertos intervalos, es decir, puede tomar cualquier valor real. Por ejemplo, si consideramos el experimento aleatoria consistente en medir el nivel de agua en un embalse y tomamos la variable aleatoria $X$="nivel de agua", esta puede tomar cualquier valor positivo.
+
+### Distribución de probabilidad:
+
+Es un modelo teórico que describe la forma en que varían los resultados de un experimento aleatorio, es decir, nos da todas las probabilidades de todos los posibles resultados que podrían obtenerse cuando se realiza un experimento aleatorio. Se clasifican como discretas o continuas. En la distribución de probabilidad discreta está permitido tomar sólo un número limitado de valores. En la continua, llamada función de densidad, la variable que se está considerando puede tomar cualquier valor dentro de un intervalo dado. 
+
+#### Distribución de probabilidad discreta
+
+Sea $X$ una variable aleatoria discreta que tomacomo posibles valores $x_1,x_2,.....x_n$, se define la distribución de probabilidad de X como el conjunto de pares (xi, pi) que a cada valor de la variable le asocia una probabilidad, donde $p_i= P(X=x_i)$, tal que la suma de todas las probabilidades es igual a uno.
+
+Por ejemplo, en el experimento del dado la distribución de probabilidad biene dado por: (1;1/6),(2;1/6),(3;1/6),(4;1/6),(5;1/6),(6;1/6)
+
+
+#### Distribución de probabilidad continua
+
+Si la variable aleatoria es continua, hay infinitos valores posibles de la variable y entra cada dos de ellos se podrían definir infinitos valores. En estas condiciones no es posible deducir la probabilidad de un valor puntual de la variable como se puede hacer en el caso de las variables discretas. Pero sí es posible calcular la probabilidad acumulada hasta un cierto valor (función de distribución) y cómo cambia esa probabilidad acumulada en cada punto (densidad de probabilidad). Por tanto, cuando la variable aleatoria sea continua hablaremos de función de densidad. 
+
+
+ 
+\BeginKnitrBlock{definition}<div class="definition"><span class="definition" id="def:defi-func-dens"><strong>(\#def:defi-func-dens) </strong></span>Sea $X$ una variable aleatoria continua, se llama función de densidad y se representa como $f(x)$ a una función no negativa definida sobre la recta real, tal que para cualquier intervalo $(a,b)$ que estudiemos se verifica: $$P(a\leq X \leq b) = \int_{a}^{b}  \! f(x) \, dx$$ </div>\EndKnitrBlock{definition}
+
+### Función de distribución: 
+
+La función de distribución describe el comportamiento probabilístico de una variable aleatoria X asociada a un experimento aleatorio y se representa como $F_x$. De igual forma estudiaremos el caso discreto y continuo.
+
+#### Caso discreto
+
+Sea $X$ una variable aleatoria discreta asociada a un espacio de probabilidad, se define la función de distribución: $$F_x:R\rightarrow [0,1] \quad \textrm{que verifica} \quad F_x(x)=P[X\leq x]=\sum_{x_i<x} P_i$$ 
+
+#### Caso continuo
+
+Sea $X$ una variable aleatoria continua con función de densidad $f(x)$, se define la función de distribución, $F_x$, como:$$F_x(x)=P[X \leq b ] = \int_{-\infty}^{b}  \! f(x) \, dx$$
+
+### Algunos tipos de variables aleatorias
+
+#### Bernoulli
+
+Es un experimento en el cual solo existen dos eventos, en general exito(1) y fracaso(0), y ademas tiene asociada un parametro $p$ el cual es la probabilidad de exito, es decir, $$P(X=1)=p \quad \textrm{y} \quad P(X=0)=1-p$$
+
+#### Binomial
+
+La distribución de probabilidad discreta más usada es la distribución binomial  y consiste en :
+
+* Repetimos un experimento de Bernoulli $n$ veces de forma identica
+
+* Cada experimento es independiente de los anteriores
+
+La variable aleatoria de Bernulli es la que expresa el número de éxitos, por lo tanto esta variable aleatoria tiene asociada dos parametros: un parametro $p$ que nos indica la probabilidad de éxito de cada evento, y un numero natural $n$ que nos indica la cantidad de veces que se realizó el experimento.
+
+#### Poisson
+
+Esta distribución es una de las más importantes distribuciones de variable discreta. Sus principales aplicaciones hacen referencia a la modelización de situaciones en las que nos interesa determinar el número de hechos de cierto tipo que se pueden producir en un intervalo de tiempo o de espacio, bajo presupuestos de aleatoriedad y ciertas circunstancias restrictivas. Otro de sus usos frecuentes es la consideración límite de procesos dicotómicos reiterados un gran número de veces si la probabilidad de obtener un éxito es muy pequeña .  
+
+La distribución de Poisson tiene ajustado un parametros positivo $\lambda$ que representa el número de veces que se espera que ocurra el fenomeno durante un intervalo dado. La probabilidad de que un experimento de Poisson tenga $k$ ocurrencias es $$\frac{e^{-\lambda}\lambda^k}{k!}$$ 
+
+
+#### Distribución uniforme
+
+Es la distribución que sigue una variable aleatoria $X$ que toma valores en un intervalo $[a,b]$ con la misma probabilidad, su función de densidad es: $$f(x)= \left\{ \begin{array}{lcc}
+             \frac{1}{b-a} &   \textrm{si}  & a \leq x \leq b \\
+             \\ 0 &  \textrm{en otro caso} \\
+             \end{array}
+   \right.$$
+
+#### Distribución exponencial
+
+Es usada muchas veces para modelizar el comportamiento de variables aleatorias del tipo "tiempo transcurrido hasta el fallo de un componente industrial" o "el tiempo que se tarda en comletarse un proceso determinado". Depende de un parametro positivo $\lambda$, que esta relacionado con la media de ocurrecia de un evento. La función de densidad es:$$f(x)= \left\{ \begin{array}{lcc}
+             0 &   \textrm{si}  & x \leq 0 \\
+             \\ \lambda e^{-\lambda x} &  \textrm{si} & x>0 \\
+             \end{array}
+   \right.$$
+
+
+#### Distribución normal
+
+La distribución normal o gaussiana es muy importante puesto que se utiliza para modelar muchísimos fenómenos aleatorios; además incluso para aproximar otras distribuciones. La distribución normal aproxima lo observado en muchos procesos de medición sin errores sistemáticos, por ejemplo medida fisicas del cuerpo humano, medidas en la calidad de ciertos procesos industriales, entre otros. 
+
+Esta distribución depende de dos parámetros: un parametro $\mu$ que es un indicador de la promedio del experimento que se esta estudiando y un parametro positivo $\sigma$ que es un indicador de la volatilidad del mismo. Su función de densidad es $$f(x)=\frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{(x-\mu)^2}{2\sigma^2}}$$
+
+
+### Esperanza de una variable aleatoria.
+
+La esperanza matemática de una variable aleatoria $X$ es el número que expresa el valor medio del fenómeno que representa dicha variable.
+
+#### Esperanza de una variable aleatoria discreta.
+
+Dada una variable aleatoria $X$ que toma valores $x_1,x_2,x_3....x_n$ con distribución de probabilidad $P(X=x_i)=P_i$, se define la esperanza matemática de una variable aleatoria como: $$E[X]=\sum_{i=1}^{n}x_iP(X=x_i)=\sum_{i=1}^{n}x_iP_i$$
+
+#### Esperanza de una variable aleatoria continua.
+
+Sea $X$ una variable aleatoria continua con función de densidad $f(x)$, se define la esperanza matemática de esa variable aleatoria como:$$E[X]=\int_{-\infty}^{\infty}xf(x)dx$$
+
+### Varianza de una variable aleatoria.
+
+La varianza de una variable aleatoria es una característica numérica que proporciona una idea de la dispersión de la variable aleatoria respecto de su esperanza. Decimos que es un parámetro de dispersión y se define por:$$Var(X)=E((X-E(X))^2)=E(X^2)-(E(X))^2$$
+
+### Covarianza de variables aleatorias.
+
+La covarianza es un valor que indica el grado de variación conjunta de dos variables aleatorias. Es el dato básico para determinar si existe una dependencia entre ambas variables y además es el dato necesario para estimar otros parámetros básicos y se define como: Sean $X$, $Y$ variables aleatorias se define la covarianza entre $X$ y $Y$ como: $$Cov(X,Y)=E((X-E(X))(Y-E(Y)))$$
+
+
+
+
+
+<!--chapter:end:100-ConceptosMate.Rmd-->
+
+\mainmatter
+
+# Conceptos de la gestión del riesgo de crédito
+
+A la hora de aplicar o construir cualquier modelo matemático debemos conocer los conceptos que están involucrados en la integración de este, la falta de dicho conocimiento casi seguramente nos conducirá a tesis erradas y modelos mal elaborados. El manejo del riesgo de crédito no se escapa a esto, en el presente capítulo definiremos las nociones y conceptos básicos que estarán presente prácticamente en todos los capítulos del libro.  
+
+## Probabilidad de incumplimiento (DP)
+
+La tarea de asignar una probabilidad de incumplimiento (default probability) a cada uno de los clientes de la cartera de crédito del banco dista mucho de ser fácil. Hay esencialmente dos enfoques para las probabilidades de incumplimiento:  
+
+* Aproximación a partir de datos de mercado:
+
+El más famoso representante de este tipo de aproximación es el concepto de de frecuencias por defecto esperadas (expected default frequencies [EDF]) de KVM Corporation.
+
+Otro método para calibrar las probabilidades de incumplimiento a partir de los datos de mercado se basa en los márgenes de crédito de los productos negociados que conllevan riesgo de crédito.
+
+* Aproximación a partir de ratings:
+
+En esta aproximación, la probabilidad de incumplimiento esta asociada con ratings, y estos ratings son asociado a los clientes por agencias externas de ratings o por metodologías internas de la institución financiera.
+
+
+
+<!--chapter:end:200-nociones.Rmd-->
+
+\mainmatter
+
+# Scoring de credito
+
+Los métodos o modelos de credit scoring, a veces denominados score-cards o classifiers, son algoritmos que de manera automática evalúan el riesgo de crédito de un solicitante de financiamiento o de alguien que ya es cliente de la entidad. Tienen una dimensión individual, ya que se enfocan en el riesgo de incumplimiento del individuo o empresa, independientemente de lo que ocurra con el resto de la cartera de préstamos. Este es uno de los aspectos en los que se diferencian de otras herramientas de medición del riesgo de crédito, como son los modelos de cartera y los VaR marginales, que tienen en cuenta la correlación de la calidad crediticia de los deudores de una cartera de préstamos. 
+
+Los modelos de scoring fueron introducidos a partir del año 1970 en el análisis del otorgamiento del crédito, pero generalizados después de 1990 gracias al desarrollo estadístico y tecnológico. Entre los métodos para la construcción de modelos de scoring se pueden tener en cuenta como los más comunes, el modelo LOGIT, PROBIT, las Redes Neuronales y el Análisis Discriminante.
+
+El resultado de la evaluación se refleja en la asignación de alguna medida que permita comparar y ordenar a los evaluados en función de su riesgo, a la vez que cuantificarlo. Por lo general, los modelos de credit scoring le asignan al evaluado un puntaje o score, o una calificación, clasificación o rating. Algunos métodos los asignan a grupos, en donde cada grupo tiene un perfil de riesgo distinto; sin embargo, en la práctica esto equivale a una calificación. A su vez, estos ordenamientos de los deudores permiten obtener estimaciones más concretas del riesgo; en general se busca obtener alguna estimación de la probabilidad de incumplimiento del deudor (PD, por probabilidad de default) asociada a su score, rating o calificación
+
+## Estructura del Scoring de Crédito
+
+Cuando al plantear un modelo la variable dependiente o a explicar toma valores discretos, se emplean modelos de regresión discreta. El caso más simple se da cuando ella es binaria y toma los valores 0 o 1, y se puede estimar con distintos enfoques como el modelo de probabilidad lineal, análisis discriminante, los modelos de tipo probit y logit o con una regresión logística. 
+
+Sea $Y$ una variable aleatoria binaria que toma el valor 1 si ocurre el evento (el deudor cumple con los pagos normalmente) y 0 si entra en mora, se cuenta con una muestra aleatoria de $n$ observaciones, $Y_i$, $i: 1,...,n$, y se define como $\Omega_i$ al conjunto de información relevante asociado con el individuo $i$, que se utilizará para explicar a $Y_i$.
+
+Un modelo de elección binaria es un modelo de la probabilidad de ocurrencia del evento $Y_i$ condicional en el conjunto de información $\Omega_i$. 
+
+$$
+\begin{equation}
+P_i = Pr(Y_i=1|\Omega_i)
+(\#eq:ecuacion1) 
+\end{equation}
+$$
+Dado que $Y_i$ toma los valores 0 y 1, la esperanza de $Y_i$ condicional en $\Omega_i$ es: $$E(Y_i|\Omega_i)=(1*P_i)+(0*(1-P_i))=P_i=Pr(Y_i=1|\Omega_i)
+(\#eq:ecuacion2)$$
+
+En consecuencia, cuando la variable a explicar es binaria, su esperanza condicional es la probabilidad condicional de ocurrencia del evento. 
+
+##El modelo de probabilidad lineal
+
+Supóngase que $\Omega_i$ está constituido por un vector columna $X_i$ compuesto por $k$ variables explicativas, incluyendo a la ordenada al origen, $\beta$ es un vector columna que contiene los parámetros correspondientes a las variables explicativas, y que se intenta modelar a la variable $Y_i$ a través del modelo de probabilidad lineal, postulando la siguiente relación: 
+
+$$Y_i=\beta^TX_i+\epsilon_i,\quad\textrm{donde}\quad E(\epsilon_i|X_i)=0\quad \textrm{y}\quad E(\epsilon_i)=0 
+(\#eq:ecuacion3)$$
+
+y usando \@ref(eq:ecuacion2)
+
+$$E(Y_i|X_i)=P_i=\beta^TX_i
+(\#eq:ecuacion4)$$
+
+El modelo de probabilidad lineal, como se observa en la ecuación \@ref(eq:ecuacion3), implica estimar un modelo lineal en los parámetros para $Y_i$. Los valores predichos deberían en su mayoría ubicarse en el intervalo $[0,1]$, pudiendo ser interpretados como la probabilidad de que la variable a explicar tome alguno de estos valores. 
+
+Mientras que su estimación e interpretación es simple, su utilización se ha visto desalentada por dos problemas en la metodología. En primer lugar, como la esperanza condicionada de $Y_i$ es igual a la probabilidad condicionada de ocurrencia del evento (de $Y_i=1$), ella debería estar restringida al intervalo $[0,1]$. Sin embargo, el modelo lineal no impone ninguna restricción sobre $\beta^TX_i$i, asumiendo implícitamente que la variable dependiente puede tomar cualquier valor. Es por esto que el modelo puede estimar probabilidades negativas o mayores que uno, lo cual carece de significado económico. A su vez, el término de error de este modelo no es homocedástico, ya que la varianza condicional varía según las observaciones, por lo que las estimaciones de $\beta$ no son eficientes. 
+
+Para resolver estos inconvenientes hay modelos econométricos, generalmenteestimados por máxima verosimilitud, que tienen en cuenta la naturaleza discreta de la variable dependiente: se trata de los modelos de respuesta o elección binaria. Ellos utilizan ciertas funciones de distribución para la innovación, con el objetivo de limitar las probabilidades estimadas al intervalo [0,1]: las más usadas son la función de probabilidad acumulada normal estándar y la función logística. Cuando se usa la normal estándar se trata de un modelo probit, y logit cuando se usa la función logística. 
+
+
+<!--chapter:end:300-Scoring.Rmd-->
+
 \cleardoublepage 
 
 # (APPENDIX) Apéndice {-}
@@ -259,13 +511,18 @@ LaTeX distributions and packages are also updated from time to time, and you may
 
 ```r
 system('pdflatex --version')
-## MiKTeX-pdfTeX 2.9.5900 (1.40.17) (MiKTeX 2.9 64-bit)
-## Copyright (C) 1982 D. E. Knuth, (C) 1996-2016 Han The Thanh
-## TeX is a trademark of the American Mathematical Society.
-## compiled with zlib version 1.2.8; using 1.2.8
-## compiled with libpng version 1.6.21; using 1.6.21
-## compiled with poppler version 0.42.0
-## compiled with jpeg version 8.4
+## pdfTeX 3.14159265-2.6-1.40.18 (TeX Live 2017)
+## kpathsea version 6.2.3
+## Copyright 2017 Han The Thanh (pdfTeX) et al.
+## There is NO warranty.  Redistribution of this software is
+## covered by the terms of both the pdfTeX copyright and
+## the Lesser GNU General Public License.
+## For more information about these matters, see the file
+## named COPYING and the pdfTeX source.
+## Primary author of pdfTeX: Han The Thanh (pdfTeX) et al.
+## Compiled with libpng 1.6.29; using libpng 1.6.29
+## Compiled with zlib 1.2.11; using zlib 1.2.11
+## Compiled with xpdf version 3.04
 ```
 
 <!--chapter:end:400-apendice.Rmd-->

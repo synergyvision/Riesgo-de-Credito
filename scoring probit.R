@@ -5,8 +5,8 @@ library("MASS")
 
 #comnjunto de datos
 
-mydata <- read.csv("datos_completos.csv")
-#View(mydata)
+mydata <- read.csv("App/data/datos_completos.csv")
+View(mydata)
 
 ##Eliminando algunas variables poco significativas
 mydata <- mydata[ ,!colnames(mydata)=="X"]
@@ -54,5 +54,5 @@ PD <- probit$fitted.values
 #head(PD)
 
 
-
 View(data.frame(Score,PD))
+
