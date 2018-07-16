@@ -46,9 +46,6 @@ statab<-tabItem( tabName = "stat",
                     tabBox( height = "1250px", width = 12,side = "left",
                             tabPanel( title = tagList(shiny::icon("gear"), strong(RENDTITLE_TEXT)),
                                       box( width=12,status = "success",
-                                           numericInput("idc", "Seleccione Variable (Columna)", 1, min=1, max=1000, step=1),
-                                           verbatimTextOutput('rendimientos'),
-                                           tags$hr(),
                                            selectInput('selected', 'Variables:', names(credit), multiple = TRUE, selected = names(credit)),
                                            verbatimTextOutput('dataSelecta')
                                       )
@@ -166,15 +163,9 @@ analitab<-tabItem( tabName = "variables",
                    )
 )
 
-acerca<-tabItem(
-  tabName = "acer",
-  fluidRow(
-    uiOutput("acerca")
-  )
-)
 
 body<-dashboardBody(
-  tabItems( datatab, statab, analitab, acerca)
+  tabItems(datatab, statab, analitab, acerca)
 )
 
 dashboardPage(skin = "black", header, menu, body)

@@ -5,7 +5,7 @@ APPTITLE_TEXT<-"VisionScore™"
 #Menu titles
 DATAMENUTITLE_TEXT<-"Datos"
 STATMENUTITLE_TEXT<-"Estadística"
-ANALMENUTITLE_TEXT<-"Variables"
+ANALMENUTITLE_TEXT<-"Selección de Variables"
 VARMENUTITLE_TEXT<-"Valor en Riesgo"
 GARCHMENUTITLE_TEXT <- "Modelo GARCH"
 GAPMENUTITLE_TEXT<-"GAP de liquidez"

@@ -29,12 +29,7 @@ shinyServer(function(input, output) {
       data <- datasetInput()
     }
   })
-  
- 
-  D <- reactive({
-    data1()[,input$idc]
-  })
-  
+
   ###Datos
   
   output$datatable<-renderDataTable({
