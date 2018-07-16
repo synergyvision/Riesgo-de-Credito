@@ -1,0 +1,190 @@
+\mainmatter
+
+# Introducción a la teoría de probabilidad
+
+El mundo actual esta regido por metodologías que en su mayoría están estructuradas por hipótesis matemáticas, estas en la mayoría de los casos son fundamentales y de no cumplirse, la mayoría de los modelos pueden dejar de ser prácticos, por ejemplo, imaginase que usted quiera introducir un motor de un automóvil de la década de los sesenta en su automóvil moderno, con esto no queremos decir que no pueda funcionar, solo que estaría ignorando los principios mecánicos de su carro y con mucha seguridad provocaría fallas futuras. Igual pasa con los modelos de riesgo de crédito, por esto, dedicaremos este capítulo a dar un breve repaso, a la teoría de probabilidad y algún otro concepto matemático que sea necesario conocer.
+
+## Espacio de probabilidad
+
+Los espacios de probabilidad son las estructuras que se utilizan en matemáticas
+para estudiar los fenómenos aleatorios, es decir, aquellos fenómenos que
+tienen un alto grado de incertidumbre en sus resultados.
+
+Los modelos de probabilidad trabajan con las "probabilidades" de los
+diferentes resultados o sucesos que nos puedan interesar en un fenómeno
+aleatorio, y nos dan respuestas más que satisfactorias en el estudio de dichos
+fenómenos.
+
+El enorme interés de la Teoría de la Probabilidad reside en que, aparte de tener unos preciosos desarrollos matemáticos, permite estudiar, a través de la Inferencia Estadística, los problemas que surgen en los estudios científicos que intentan obtener conclusiones a partir de datos reales.
+ 
+```{definition, defi-espacio-muestral} 
+El *espacio muestral*, $\Omega$, es el conjunto de todos los posibles resultados del fenómeno aleatorio que deseamos estudiar.
+``` 
+ \
+ 
+ 
+```{definition, defi-sigma-algebra} 
+Una $\sigma$-*algebra* de sucesos, $S$, es un subconjunto de partes
+de $\Omega$ que verifíca:
+
+* Si $A \in S$ , entonces $A^c \in S$ ($c$ denota el coplemento de un conjunto).
+  
+* Si $A_1,A_2,...,A_n,...\in S$, entonces $\cup _n A_n \in S$
+``` 
+
+La idea de una $\sigma$-algebra es que contenga todos los sucesos en los que
+podemos estar interesados en un fenómenos aleatorio.
+ 
+Ejemplo: Cuando el espacio muestral,$\Omega$, es fínito o numerable, la $\sigma$-algebra habitualmente utilizada es partes de $\Omega$. Es decir, consideramos que cualquier subconjunto de $\Omega$ puede ser un suceso de interés. Esta elección es la más sencilla y no ofrece ningún problema.
+
+Con este par de definiciones podemos definir lo que es una medida de probabilidad.
+
+```{definition, defi-probabilidad} 
+Consideramos un espacio muestral $\Omega$ y una $\sigma$-algebra $S$. Una *función de probabilidad* o *medida de probabilidad* es una función $P : S \rightarrow [0, 1]$, que verifíca:
+
+* $P(\Omega)=1$
+  
+* Si $A_1,A_2,...,A_n,...\in S$ son disjuntos, entonces: $$ P\big{(}\cup _n A_n\big{)}=\sum_n P(A_n)$$
+``` 
+
+La manera más sencilla de entender el motivo de esta definición es pensar que el concepto de probabilidad trata de formalizar lo que ocurre con las frecuencias relativas de los distintos sucesos que podemos encontrarnos al lanzar un dado con 6 caras numeradas del 1 al 6:
+
+* La frecuencia relativa de cualquier suceso siempre es un número entre 0 y 1.
+
+* La frecuencia relativa de que salga algún número de los posibles (es decir, entre 1 y 6) es, evidentemente, 1.
+
+* La frecuencia relativa de la unión de sucesos disjuntos es la suma de sus frecuencias relativas.
+
+Esta forma de interpretar las medida de probabilidad no significa que esta sea la única posible, solo que a manera de ejemplo es la más fácil de explicar y visualizar.
+
+ 
+```{definition, defi-esp-prob} 
+Definimos como *espacio de probabilidad*  a la terna $( \Omega, S, P)$.
+``` 
+
+
+## Variables aleatorias y función de distribución.
+
+En este tema se tratará de formalizar numéricamente los resultados de un fenómeno aleatorio. Por tanto, una variable aleatoria es un valor numérico que corresponde a un resultado de un experimento aleatorio. Algunos ejemplos son: número de caras obtenidas al lanzar seis veces una moneda, número de llamadas que recibe un teléfono durante una hora, tiempo de fallo de una componente eléctrica, etc. 
+
+###  Variable aleatoria
+
+ 
+```{definition, defi-var-alea} 
+Dado un experimento aleatorio y asociado al mismo, un espacio de probabilidad $( \Omega, S, P)$, una variable aleatoria es una aplicación $Χ : \Omega → R$ , que a cada valor de $X$, del espacio muestral, le hace corresponder un número real. 
+``` 
+
+Ejemplo:  Consideramos un experimento aleatorio de lanzar una moneda al aire tres veces y anotamos el resultado. Se define la variable aleatoria X como número de caras aparecidas en los tres lanzamientos. 
+
+
+### Tipos de variables aleatorias
+
+Las variables aleatorias se clasifican en discretas y continuas: 
+
+* *Discreta*: La variable aleatoria $X$ se dice que es discreta si los números asignados a los sucesos elementales de $\Omega$ son puntos aislados. Sus posibles valores constituyen un conjunto finito o infinito numerable. Por ejemplo, supongamos el experimento consistente en lanzar tres veces una moneda no trucada; si consideramos la variable aleatoria $X$="número de caras obtenidas en los tres lanzamientos"", los valores que puede tomar esta variable aleatoria son finitos "(0,1,2,3)". 
+
+* *Continua*: La variable aleatoria $X$ será continua si los valores asignados pueden ser cualesquiera, dentro de ciertos intervalos, es decir, puede tomar cualquier valor real. Por ejemplo, si consideramos el experimento aleatoria consistente en medir el nivel de agua en un embalse y tomamos la variable aleatoria $X$="nivel de agua", esta puede tomar cualquier valor positivo.
+
+### Distribución de probabilidad:
+
+Es un modelo teórico que describe la forma en que varían los resultados de un experimento aleatorio, es decir, nos da todas las probabilidades de todos los posibles resultados que podrían obtenerse cuando se realiza un experimento aleatorio. Se clasifican como discretas o continuas. En la distribución de probabilidad discreta está permitido tomar sólo un número limitado de valores. En la continua, llamada función de densidad, la variable que se está considerando puede tomar cualquier valor dentro de un intervalo dado. 
+
+#### Distribución de probabilidad discreta
+
+Sea $X$ una variable aleatoria discreta que tomacomo posibles valores $x_1,x_2,.....x_n$, se define la distribución de probabilidad de X como el conjunto de pares (xi, pi) que a cada valor de la variable le asocia una probabilidad, donde $p_i= P(X=x_i)$, tal que la suma de todas las probabilidades es igual a uno.
+
+Por ejemplo, en el experimento del dado la distribución de probabilidad biene dado por: (1;1/6),(2;1/6),(3;1/6),(4;1/6),(5;1/6),(6;1/6)
+
+
+#### Distribución de probabilidad continua
+
+Si la variable aleatoria es continua, hay infinitos valores posibles de la variable y entra cada dos de ellos se podrían definir infinitos valores. En estas condiciones no es posible deducir la probabilidad de un valor puntual de la variable como se puede hacer en el caso de las variables discretas. Pero sí es posible calcular la probabilidad acumulada hasta un cierto valor (función de distribución) y cómo cambia esa probabilidad acumulada en cada punto (densidad de probabilidad). Por tanto, cuando la variable aleatoria sea continua hablaremos de función de densidad. 
+
+
+ 
+```{definition, defi-func-dens} 
+Sea $X$ una variable aleatoria continua, se llama función de densidad y se representa como $f(x)$ a una función no negativa definida sobre la recta real, tal que para cualquier intervalo $(a,b)$ que estudiemos se verifica: $$P(a\leq X \leq b) = \int_{a}^{b}  \! f(x) \, dx$$ 
+``` 
+
+### Función de distribución: 
+
+La función de distribución describe el comportamiento probabilístico de una variable aleatoria X asociada a un experimento aleatorio y se representa como $F_x$. De igual forma estudiaremos el caso discreto y continuo.
+
+#### Caso discreto
+
+Sea $X$ una variable aleatoria discreta asociada a un espacio de probabilidad, se define la función de distribución: $$F_x:R\rightarrow [0,1] \quad \textrm{que verifica} \quad F_x(x)=P[X\leq x]=\sum_{x_i<x} P_i$$ 
+
+#### Caso continuo
+
+Sea $X$ una variable aleatoria continua con función de densidad $f(x)$, se define la función de distribución, $F_x$, como:$$F_x(x)=P[X \leq b ] = \int_{-\infty}^{b}  \! f(x) \, dx$$
+
+### Algunos tipos de variables aleatorias
+
+#### Bernoulli
+
+Es un experimento en el cual solo existen dos eventos, en general exito(1) y fracaso(0), y ademas tiene asociada un parametro $p$ el cual es la probabilidad de exito, es decir, $$P(X=1)=p \quad \textrm{y} \quad P(X=0)=1-p$$
+
+#### Binomial
+
+La distribución de probabilidad discreta más usada es la distribución binomial  y consiste en :
+
+* Repetimos un experimento de Bernoulli $n$ veces de forma identica
+
+* Cada experimento es independiente de los anteriores
+
+La variable aleatoria de Bernulli es la que expresa el número de éxitos, por lo tanto esta variable aleatoria tiene asociada dos parametros: un parametro $p$ que nos indica la probabilidad de éxito de cada evento, y un numero natural $n$ que nos indica la cantidad de veces que se realizó el experimento.
+
+#### Poisson
+
+Esta distribución es una de las más importantes distribuciones de variable discreta. Sus principales aplicaciones hacen referencia a la modelización de situaciones en las que nos interesa determinar el número de hechos de cierto tipo que se pueden producir en un intervalo de tiempo o de espacio, bajo presupuestos de aleatoriedad y ciertas circunstancias restrictivas. Otro de sus usos frecuentes es la consideración límite de procesos dicotómicos reiterados un gran número de veces si la probabilidad de obtener un éxito es muy pequeña .  
+
+La distribución de Poisson tiene ajustado un parametros positivo $\lambda$ que representa el número de veces que se espera que ocurra el fenomeno durante un intervalo dado. La probabilidad de que un experimento de Poisson tenga $k$ ocurrencias es $$\frac{e^{-\lambda}\lambda^k}{k!}$$ 
+
+
+#### Distribución uniforme
+
+Es la distribución que sigue una variable aleatoria $X$ que toma valores en un intervalo $[a,b]$ con la misma probabilidad, su función de densidad es: $$f(x)= \left\{ \begin{array}{lcc}
+             \frac{1}{b-a} &   \textrm{si}  & a \leq x \leq b \\
+             \\ 0 &  \textrm{en otro caso} \\
+             \end{array}
+   \right.$$
+
+#### Distribución exponencial
+
+Es usada muchas veces para modelizar el comportamiento de variables aleatorias del tipo "tiempo transcurrido hasta el fallo de un componente industrial" o "el tiempo que se tarda en comletarse un proceso determinado". Depende de un parametro positivo $\lambda$, que esta relacionado con la media de ocurrecia de un evento. La función de densidad es:$$f(x)= \left\{ \begin{array}{lcc}
+             0 &   \textrm{si}  & x \leq 0 \\
+             \\ \lambda e^{-\lambda x} &  \textrm{si} & x>0 \\
+             \end{array}
+   \right.$$
+
+
+#### Distribución normal
+
+La distribución normal o gaussiana es muy importante puesto que se utiliza para modelar muchísimos fenómenos aleatorios; además incluso para aproximar otras distribuciones. La distribución normal aproxima lo observado en muchos procesos de medición sin errores sistemáticos, por ejemplo medida fisicas del cuerpo humano, medidas en la calidad de ciertos procesos industriales, entre otros. 
+
+Esta distribución depende de dos parámetros: un parametro $\mu$ que es un indicador de la promedio del experimento que se esta estudiando y un parametro positivo $\sigma$ que es un indicador de la volatilidad del mismo. Su función de densidad es $$f(x)=\frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{(x-\mu)^2}{2\sigma^2}}$$
+
+
+### Esperanza de una variable aleatoria.
+
+La esperanza matemática de una variable aleatoria $X$ es el número que expresa el valor medio del fenómeno que representa dicha variable.
+
+#### Esperanza de una variable aleatoria discreta.
+
+Dada una variable aleatoria $X$ que toma valores $x_1,x_2,x_3....x_n$ con distribución de probabilidad $P(X=x_i)=P_i$, se define la esperanza matemática de una variable aleatoria como: $$E[X]=\sum_{i=1}^{n}x_iP(X=x_i)=\sum_{i=1}^{n}x_iP_i$$
+
+#### Esperanza de una variable aleatoria continua.
+
+Sea $X$ una variable aleatoria continua con función de densidad $f(x)$, se define la esperanza matemática de esa variable aleatoria como:$$E[X]=\int_{-\infty}^{\infty}xf(x)dx$$
+
+### Varianza de una variable aleatoria.
+
+La varianza de una variable aleatoria es una característica numérica que proporciona una idea de la dispersión de la variable aleatoria respecto de su esperanza. Decimos que es un parámetro de dispersión y se define por:$$Var(X)=E((X-E(X))^2)=E(X^2)-(E(X))^2$$
+
+### Covarianza de variables aleatorias.
+
+La covarianza es un valor que indica el grado de variación conjunta de dos variables aleatorias. Es el dato básico para determinar si existe una dependencia entre ambas variables y además es el dato necesario para estimar otros parámetros básicos y se define como: Sean $X$, $Y$ variables aleatorias se define la covarianza entre $X$ y $Y$ como: $$Cov(X,Y)=E((X-E(X))(Y-E(Y)))$$
+
+
+
+
