@@ -51,3 +51,7 @@ head(Score)
 
 PD <- probit$fitted.values
 #head(PD)
+
+
+
+View(data.frame(Score,PD))
