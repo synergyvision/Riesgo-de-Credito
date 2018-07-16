@@ -12,6 +12,7 @@ mydata <- read.csv("datos_completos.csv")
 mydata <- mydata[ ,!colnames(mydata)=="X"]
 mydata <- mydata[ ,!colnames(mydata)=="Telephone"]
 
+
 ##convirtiendo la data de interes a los valores clasicos
 mydata$Creditability <- replace(mydata$Creditability, mydata$Creditability==1,-1)
 mydata$Creditability <- replace(mydata$Creditability, mydata$Creditability==0,1)
