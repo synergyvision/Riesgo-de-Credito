@@ -43,5 +43,62 @@ El modelo de probabilidad lineal, como se observa en la ecuación \@ref(eq:ecuac
 
 Mientras que su estimación e interpretación es simple, su utilización se ha visto desalentada por dos problemas en la metodología. En primer lugar, como la esperanza condicionada de $Y_i$ es igual a la probabilidad condicionada de ocurrencia del evento (de $Y_i=1$), ella debería estar restringida al intervalo $[0,1]$. Sin embargo, el modelo lineal no impone ninguna restricción sobre $\beta^TX_i$i, asumiendo implícitamente que la variable dependiente puede tomar cualquier valor. Es por esto que el modelo puede estimar probabilidades negativas o mayores que uno, lo cual carece de significado económico. A su vez, el término de error de este modelo no es homocedástico, ya que la varianza condicional varía según las observaciones, por lo que las estimaciones de $\beta$ no son eficientes. 
 
-Para resolver estos inconvenientes hay modelos econométricos, generalmenteestimados por máxima verosimilitud, que tienen en cuenta la naturaleza discreta de la variable dependiente: se trata de los modelos de respuesta o elección binaria. Ellos utilizan ciertas funciones de distribución para la innovación, con el objetivo de limitar las probabilidades estimadas al intervalo [0,1]: las más usadas son la función de probabilidad acumulada normal estándar y la función logística. Cuando se usa la normal estándar se trata de un modelo probit, y logit cuando se usa la función logística. 
+Para resolver estos inconvenientes hay modelos econométricos, generalmente estimados por máxima verosimilitud, que tienen en cuenta la naturaleza discreta de la variable dependiente: se trata de los modelos de respuesta o elección binaria. Ellos utilizan ciertas funciones de distribución para la innovación, con el objetivo de limitar las probabilidades estimadas al intervalo [0,1]: las más usadas son la función de probabilidad acumulada normal estándar y la función logística. Cuando se usa la normal estándar se trata de un modelo probit, y logit cuando se usa la función logística. 
+
+### Los modelos probit y logit.
+
+El modelo probit es una de varias alternativas para estimar modelos de respuesta binaria. La idea consiste en utilizar una función de transformación F(x) que tenga las siguientes propiedades: 
+
+$$F(-\infty)=0, \quad F(\infty)=1\quad\textrm{y}\quad f(x)\equiv\frac{dF(x)}{dx}>0
+(\#eq:ecuacion5)$$
+
+$F(x)$ es una función monótona creciente que mapea de la línea real al intervalo [0,1]. Varias funciones de distribución acumulada tienen estas propiedades: la normal, la logística, la de Cauchy y la de Burr, entre otras. Estas distintas alternativas para los modelos de respuesta binaria consisten en una función de transformación F(x) aplicada a una función índice que depende de las variables explicativas del modelo y que tiene las propiedades de una función de regresión, pudiendo ser lineal o no lineal. 
+
+La siguiente es una especificación general para cualquiera de los modelos de elección binaria: 
+
+$$E(Y_i|\Omega_i)=F(h(X_i))
+(\#eq:ecuacion6)$$
+
+Donde $h$ es la función índice.
+
+Si bien $h$ puede ser cualquier función, en general se usa una función lineal, es decir:
+
+$$E(Y_i|\Omega_i)=F(\beta^TX_i)
+(\#eq:ecuacion7)$$
+
+Por lo cual el modelo de elección binaria es simplemente una transformación no lineal de una regresión lineal, y si bien $\beta^TX_i$ puede tomar cualquier valor sobre la línea real, $F(\beta^TX_i)$ está limitado al intervalo [0,1]. En el modelo probit, la función de transformación $F(x)$ es la función de distribución acumulada normal estándar, y por definición satisface las condiciones impuestas en \@ref(eq:ecuacion5). En este caso, el modelo de elección binaria puede escribirse de la siguiente manera:
+
+$$P_i=E(Y_i|\Omega_i)=F(\beta^TX_i)=\Phi(\beta^TX_i)=\int_{-\infty}^{\frac{\beta^TX_i}{\sigma}}\frac{e^{\frac{-s^2}{2}}}{\sqrt{2\pi}}ds
+(\#eq:ecuacion8)$$
+
+Cuando se trata del modelo logit, $F(x)$ es la función logística y el modelo de respuesta binaria se escribe como:
+
+$$P_i=E(Y_i|\Omega_i)=F(\beta^TX_i)=\Phi(\beta^TX_i)=\frac{e^{\beta^TX_i}}{1+e^{\beta^TX_i}}
+(\#eq:ecuacion9)$$
+ 
+Los modelos probit y logit pueden ser derivados de otro modelo que introduce una variable no observada o latente $y^*$, de la siguiente manera. Sea:
+
+$$y^*_i=\beta^TX_i+\epsilon_i, \quad \textrm{con} \quad \epsilon_i\sim iid(0,1)
+(\#eq:ecuacion10)$$
+
+Si bien $y^*$ no se observa, decimos que:
+
+$$Y_i=1\quad\quad\textrm{si} \quad y^*>0 \quad \textrm{y} \quad Y_i=0\quad\quad\textrm{si} \quad y^*<0
+(\#eq:ecuacion11)$$
+
+Luego, la probabilidad que $Y_i=1$ viene dada por: 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
