@@ -57,3 +57,62 @@ PD <- probit$fitted.values
 
 View(data.frame(Score,PD))
 
+
+###control con malos perfiles
+
+
+one <- which(mydata$Creditability==1)
+
+c1 <- probit$linear.predictors[one]
+c2 <- probit$fitted.values[one]
+
+
+###si establecemos el corte en 0.5
+bienCali1 <- length(which(c1 > 0.5))/300
+bienCali1
+
+###si establecemos el corte en 0.3
+bienCali1 <- length(which(c1 > 0.3))/300
+bienCali1
+
+###si establecemos el corte en 0.1
+bienCali1 <- length(which(c1 > 0))/300
+bienCali1
+
+
+###control con buenos perfiles
+
+
+one <- which(mydata$Creditability==0)
+
+c1 <- probit$linear.predictors[one]
+c2 <- probit$fitted.values[one]
+
+
+###si establecemos el corte en 0.5
+bienCali0 <- length(which(c1 < 0.5))/700
+bienCali0
+
+###si establecemos el corte en 0.3
+bienCali0 <- length(which(c1 < 0.3))/700
+bienCali0
+
+###si establecemos el corte en 0.1
+bienCali0 <- length(which(c1 < 0.1))/700
+bienCali0
+
+
+
+
+
+
+?boxplot
+
+boxplot(mydata$No.of.dependents~ factor(Creditability), data = mydata)
+
+
+mydata$Creditability <- factor(mydata$Creditability)
+
+d <- mydata$Account.Balance
+
+boxplot(s~d)
