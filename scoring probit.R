@@ -8,6 +8,36 @@ library("MASS")
 mydata <- read.csv("App/data/datos_completos.csv")
 View(mydata)
 
+
+
+
+
+################ estudio de independencia entre variables cualitativas 
+
+##caso en que no pasa la prueba, es decir, es posible que se elimine esta variable
+V1 <- mydata$Creditability
+V2 <- mydata$Telephone
+
+tabla <- table(V1,V2)
+tabla
+prueba <- chisq.test(tabla)
+pvalor <- prueba$p.value
+pvalor
+
+##caso que si la pasa, es decir, es posible que se incluya esta variable
+
+V1 <- mydata$Creditability
+V2 <- mydata$Account.Balance
+
+tabla <- table(V1,V2)
+tabla
+prueba <- chisq.test(tabla)
+pvalor <- prueba$p.value
+pvalor
+
+
+
+
 ##Eliminando algunas variables poco significativas
 mydata <- mydata[ ,!colnames(mydata)=="X"]
 mydata <- mydata[ ,!colnames(mydata)=="Telephone"]
@@ -106,13 +136,8 @@ bienCali0
 
 
 
-?boxplot
-
-boxplot(mydata$No.of.dependents~ factor(Creditability), data = mydata)
 
 
-mydata$Creditability <- factor(mydata$Creditability)
 
-d <- mydata$Account.Balance
 
-boxplot(s~d)
+
