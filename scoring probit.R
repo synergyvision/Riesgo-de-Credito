@@ -7,10 +7,12 @@ library("MASS")
 
 mydata <- read.csv("App/data/datos_completos.csv")
 View(mydata)
+attach(mydata)
 
-
-
-
+##convirtiendo la data de interes a los valores clasicos
+mydata$Creditability <- replace(mydata$Creditability, mydata$Creditability==1,-1)
+mydata$Creditability <- replace(mydata$Creditability, mydata$Creditability==0,1)
+mydata$Creditability <- replace(mydata$Creditability, mydata$Creditability==-1,0)
 
 ################ estudio de independencia entre variables cualitativas 
 
@@ -36,18 +38,57 @@ pvalor <- prueba$p.value
 pvalor
 
 
+################ estudio de independencia entre variables cuantitativas
+attach(mydata)
+
+df0 <- subset(mydata,Creditability==0 )
+df1 <- subset(mydata,Creditability==1 )
+
+#####Posible variable a incluir debido a su diferencia entre factores
+media0 <- mean(df0$Credit.Amount)
+sd0 <- sd(df0$Credit.Amount)
+median0 <- median(df0$Credit.Amount)
+
+media0
+sd0
+median0 
+
+media1 <- mean(df1$Credit.Amount)
+sd1 <- sd(df1$Credit.Amount)
+median1 <- median(df1$Credit.Amount)
+
+media1
+sd1
+median1
+
+boxplot(Credit.Amount~Creditability, data = mydata)
 
 
+
+###########Posible variable a no incluir debido a su poca diferencia entre factores
+media0 <- mean(df0$Age..years.)
+sd0 <- sd(df0$Age..years.)
+median0 <- median(df0$Age..years.)
+media0
+sd0
+median0 
+
+media1 <- mean(df1$Age..years.)
+sd1 <- sd(df1$Age..years.)
+median1 <- median(df1$Age..years.)
+media1
+sd1
+median1
+
+
+
+boxplot(Age..years.~Creditability, data = mydata)
 ##Eliminando algunas variables poco significativas
 mydata <- mydata[ ,!colnames(mydata)=="X"]
 mydata <- mydata[ ,!colnames(mydata)=="Telephone"]
 
 
 
-##convirtiendo la data de interes a los valores clasicos
-mydata$Creditability <- replace(mydata$Creditability, mydata$Creditability==1,-1)
-mydata$Creditability <- replace(mydata$Creditability, mydata$Creditability==0,1)
-mydata$Creditability <- replace(mydata$Creditability, mydata$Creditability==-1,0)
 
 #####estableciendo los datos que son categoricos 
 
@@ -130,8 +171,6 @@ bienCali0
 ###si establecemos el corte en 0.1
 bienCali0 <- length(which(c1 < 0.1))/700
 bienCali0
-
-
 
 
 
