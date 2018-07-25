@@ -91,6 +91,47 @@ Luego, la probabilidad que $Y_i=1$ viene dada por:
 
 
 
+\begin{equation} \label{eq1}
+\begin{split}
+P(Y_i=1) & = P(y_i^*>0)=P(\beta^TX_i+\epsilon_i>0)= 1-P(\beta^TX_i+\epsilon_i\leq 0)=1-P(\epsilon_i\leq -\beta^TX_i)\\
+ & = 1-F(-\beta^TX_i)=F(\beta^TX_i)
+\end{split}
+\end{equation}
+
+ya que se supone que εi tiene una distribución simétrica. Cuando $\epsilon_i ~ N(0,1)$ $F$ es $\Phi$, la función de distribución de probabilidades acumuladas normal estándar y se trata del modelo probit, mientras que si F es la función logística se trata de un modelo logit y su densidad también es simétrica alrededor de cero.
+
+###Estimación de los modelos logit y probit
+
+La estimación de estos modelos se hace por el método de máxima verosimilitud. Con métodos numéricos se buscan los valores de $\beta$ que maximizan la siguiente función logarítmica de verosimilitud:
+
+$$l(\beta)=\sum^{n}_{i=1}\big{(}Y_ilog\big{(}F\big{(}\beta^TX_i\big{)}\big{)}+\big{(}1-Y_i\big{)}log\big{(}1-F\big{(}\beta^TX_i\big{)}\big{)}\big{)}
+(\#eq:ecuacion12)$$
+
+Las condiciones de primer orden para un máximo en \@ref(eq:ecuacion12) son:
+
+$$\sum_{i=1}^n\frac{(Y_i-\hat{F_i)}\hat{f_i}X_{ij}}{\hat{F_i}(1-\hat{F_i})}=0,\quad j=1,...,k
+(\#eq:ecuacion13)$$
+
+donde $\hat{F_i}\equiv F_i(b^TX_i) \quad \textrm{y} \quad \hat{f_i}\equiv f_i(b^TX_i)$
+
+Los modelos probit, logit y otros tipos de modelos de respuesta binaria satisfacen las condiciones de regularidad necesarias para que las estimaciones de los parámetros sean consistentes y asintóticamente normales, con la matriz de covarianzas asintótica dada por la inversa de la matriz de información.
+
+### Interpretación del modelo
+
+En el contexto de los modelos de credit scoring se puede asociar $\beta^TX_i$ a la calidad crediticia del individuo (variable latente o no observada). Cambiando su denominación por $Z_i$, esta variable representa la calidad crediticia del individuo, que se puede suponer el resultado de una función lineal en sus parámetros, como por ejemplo:
+
+$$Z_i=\beta_0+\beta_1X_{1j}+\beta_2X_{2j}+...+\epsilon_i
+(\#eq:ecuacion14)$$
+
+Las estimaciones de los parámetros $\beta_j$ se obtienen por máxima verosimilitud como se explicó en los párrafos anteriores, y las variables $X_j$ contienen la información de los deudores. Habiendo obtenido las estimaciones $b_j$, el modelo empírico con el que trabajará el analista de riesgo es,
+
+$$Z_i=\beta_0+\beta_1X_{1j}+\beta_2X_{2j}+\beta_3X_{3j}
+(\#eq:ecuacion14)$$
+
+
+
+
+
 
 
 
