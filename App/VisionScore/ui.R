@@ -165,7 +165,7 @@ analitab<-tabItem( tabName = "variables",
 
 
 body<-dashboardBody(
-  tabItems(datatab, statab, analitab, acerca)
+  tabItems(datatab, statab, analitab)
 )
 
 dashboardPage(skin = "black", header, menu, body)

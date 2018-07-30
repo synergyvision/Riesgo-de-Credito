@@ -27,14 +27,7 @@ shinyUI(
       
       sidebarMenu(id = "tabs",
                   
-        menuItem("Gráficos", icon = icon("bar-chart-o"),
-                 
-          menuSubItem("Sub-item 1", tabName = "subitem1", icon = icon("circle-o")),
-          
-          menuSubItem("Sub-item 2", tabName = "subitem2", icon = icon("circle-o"))
-        ),
-        
-        menuItem("Dashboard", tabName = "dashboard", icon = icon("dashboard")),
+        menuItem("Datos", tabName = "data", icon = icon("fal fa-database")),
         
         menuItem("Indicadores", icon = icon("th"), tabName = "widgets"),
         menuItem("Acerca", icon = icon("exclamation-circle"), tabName = "acerca"))
@@ -43,17 +36,31 @@ shinyUI(
 
       tabItems(
 
-        tabItem(tabName = "dashboard",
+        tabItem(tabName = "data",
                 
-          fluidRow(
-            
-            box(plotOutput("plot1", height = 250),status = "warning"),
-            
-            box(
-              title = "Controls",
-              sliderInput("slider", "Number of observations:", 1, 100, 50)
-            )
-          )
+                
+                fluidRow(box(background="red", checkboxInput("dataset", strong("Selecciona para inciar Datos de Ejemplo"), FALSE))),
+                fluidRow(box(background="red", checkboxInput('userFile', strong('Cargar Datos Propios'), FALSE))),
+                conditionalPanel(condition = "input.userFile == true",
+                                 fluidRow(
+                                   box(width = 15, title = h3(UPLOADDATA_TEXT),
+                                       box( width=12,background = "red",
+                                            fileInput('file_data', SELECTFILE_TEXT, accept = UPLOADFILETYPE_CONF,
+                                                      placeholder = FILESELEC_TEXT, buttonLabel = BUTTSELEC_TEXT )
+                                       ),
+                                       fluidRow(
+                                         box(width=4,background="red",strong(ENCABEZADO_TEXT),
+                                             checkboxInput( width="80%", 'header', WITHHEADER_TEXT, TRUE)),
+                                         box(width=4,background="red",
+                                             radioButtons( width="40%", 'sep', SEPARATOR_TEXT, UPLOADFILESEP_CONF, ';')),
+                                         box(width=4,background="red",
+                                             radioButtons( width="40%", 'quote', COMILLAS_TEXT, UPLOADCOMILLAS_CONF, ''))
+                                       )
+                                   )
+                                 )),
+                fluidRow(
+                  box(width=12,status = "danger",dataTableOutput('datatable'))
+                )
         ),
 
         tabItem(tabName = "widgets",

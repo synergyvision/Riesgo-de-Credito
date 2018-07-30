@@ -2,6 +2,8 @@ rm(list = ls())
 
 library(shiny)
 library(shinydashboard)
+library(plyr)
+library(MASS)
 
 # Encabezado Vision
 VisionHeader <- function(){tags$head(
@@ -22,3 +24,36 @@ ACERRS_TEXT2 <- "All Rights Reserved"
 ACERDIR_TEXT<-"Centro Gerencial Mohedano, La Castellana"
 ACERTLF_TEXT<-"0212-2630808 / 0414-2769752"
 ACERCORR_TEXT<-"contacto@synergy.vision"
+
+####Data de Ejemplo
+
+mydata <- read.csv("/Users/dmorales/Documents/Vision/Riesgo-de-Credito/App/appTemplate/data/datos_completos.csv")
+attach(mydata)
+
+############################################# DATA TEXTO###############################################
+
+UPLOADDATA_TEXT<-"Cargar el archivo con los datos"
+SELECTFILE_TEXT<-'Seleccione el archivo'
+FILESELEC_TEXT<-'Aun no seleccionas el archivo...'
+BUTTSELEC_TEXT<-'Buscar'
+WITHHEADER_TEXT<-"Con encabezado"
+SEPARATOR_TEXT<-"Separador"
+COMILLAS_TEXT<-"Comillas"
+ENCABEZADO_TEXT<-"Encabezado de los datos"
+
+
+UPLOADFILETYPE_CONF<-c('text/csv',
+                       'text/comma-separated-values',
+                       'text/tab-separated-values',
+                       'text/plain',
+                       '.csv',
+                       '.tsv',
+                       '.rda')
+
+UPLOADFILESEP_CONF<-c('Coma'=',',
+                      'Punto y coma'=';',
+                      'Tab'='\t')
+
+UPLOADCOMILLAS_CONF<-c('Ninguna'='',
+                       'Comilla doble'='"',
+                       'Comilla simple'="'")
