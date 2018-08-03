@@ -57,10 +57,33 @@ shinyServer(function(input, output) {
     
     
     
-    #boxplot(s1[,input$num1~s1[,input$num])
+    
     boxplot( s1[,input$num1]~ s1[,input$num])
     
   })
+  
+  
+  output$estad1 <- renderTable({ 
+    
+    s <- input$file_data
+    
+    s1 <- read.table(s$datapath, header = input$header,
+                     sep = input$sep, quote = input$quote)
+    
+    
+    b <- as.data.frame(as.array(summary(s1[,1])))
+    
+    colnames(b) <- c(" "," ")
+    b
+    
+    #s2 <- subset(s1, s1[,input$num1] )
+    
+    
+    
+    
+    
+    })
+  
   
   
   output$variables1 <- renderText({
