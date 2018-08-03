@@ -79,11 +79,30 @@ shinyUI(
                                      
                                      
                            ),
-                           tabPanel( title = tagList(shiny::icon("gear"), strong('Rendimientos')),
-                                     box( width=12,status = "success",
-                                          dataTableOutput('frecuencia')
-                                     )
+                           
+                           
+                           
+                           
+                           tabPanel( title = tagList(shiny::icon("gear"), strong('Relacion de las variables independientes')),
+                                     box( background="red",width=12,status = "success",
+                                          textOutput('variables1')
+                                     ),
+                                     
+                                     box( background="red",width=12,status = "success",
+                                          numericInput("num1", 
+                                                       h3("Seleccione la variable a comparar"), 
+                                                       value = 1)
+                                     ),
+                                     
+                                     plotOutput("comparacion")
+                                     
+                                     
                            ),
+                           
+                           
+                           
+                           
+                           
                            tabPanel( title = tagList(shiny::icon("gear"), strong('Estadísticos Básicos')),
                                      box( width=12,status = "success",
                                           dataTableOutput('estadisticas1')

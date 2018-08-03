@@ -15,6 +15,10 @@ shinyServer(function(input, output) {
     datasetSelect <- mydata
   })
   
+  
+  
+  
+  
   datasetInput <- reactive({
     # input$file1 will be NULL initially. After the user selects
     # and uploads a file, it will be a data frame with 'name',
@@ -29,6 +33,46 @@ shinyServer(function(input, output) {
     read.table(inFile$datapath, header = input$header,
                sep = input$sep, quote = input$quote)
     
+  })
+  
+  output$variables <- renderText({
+    s <- input$file_data
+    
+    s1 <- read.table(s$datapath, header = input$header,
+                                            sep = input$sep, quote = input$quote)
+    
+    
+    tamano <- 1:length(names(s1))
+    
+    paste(tamano,names(s1),sep = "-") 
+    })
+  
+    
+  
+  output$comparacion <- renderPlot({
+    s <- input$file_data
+    
+    s1 <- read.table(s$datapath, header = input$header,
+                     sep = input$sep, quote = input$quote)
+    
+    
+    
+    #boxplot(s1[,input$num1~s1[,input$num])
+    boxplot( s1[,input$num1]~ s1[,input$num])
+    
+  })
+  
+  
+  output$variables1 <- renderText({
+    s <- input$file_data
+    
+    s1 <- read.table(s$datapath, header = input$header,
+                     sep = input$sep, quote = input$quote)
+    
+    
+    tamano <- 1:length(names(s1))
+    
+    paste(tamano,names(s1),sep = "-") 
   })
   
   data1 <- reactive({
