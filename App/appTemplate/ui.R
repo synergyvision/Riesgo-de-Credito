@@ -28,7 +28,7 @@ shinyUI(
       sidebarMenu(id = "tabs",
                   
         menuItem("Datos", tabName = "data", icon = icon("fal fa-database")),
-        
+        menuItem("Seleccion de variables", tabName="stat", icon=icon("fas fas fa-table")),
         menuItem("Indicadores", icon = icon("th"), tabName = "widgets"),
         menuItem("Acerca", icon = icon("exclamation-circle"), tabName = "acerca"))
   ),
@@ -62,7 +62,39 @@ shinyUI(
                   box(width=12,status = "danger",dataTableOutput('datatable'))
                 )
         ),
-
+        tabItem( tabName = "stat",
+                 fluidRow(
+                   tabBox( height = "1250px", width = 12,side = "left",
+                           tabPanel( title = tagList(shiny::icon("gear"), strong('Variable de estudio'))
+                                     ,box( background="red",width=12,status = "success",
+                                           textOutput('variables')
+                                     )   ,
+                                     box( background="red",width=12,status = "success",
+                                          numericInput("num", 
+                                                       h3("Seleccione la posicion de la variable de estudio"), 
+                                                       value = 1)
+                                     )  
+                                     
+                                     
+                                     
+                                     
+                           ),
+                           tabPanel( title = tagList(shiny::icon("gear"), strong('Rendimientos')),
+                                     box( width=12,status = "success",
+                                          dataTableOutput('frecuencia')
+                                     )
+                           ),
+                           tabPanel( title = tagList(shiny::icon("gear"), strong('Estadísticos Básicos')),
+                                     box( width=12,status = "success",
+                                          dataTableOutput('estadisticas1')
+                                     ),
+                                     box( width=12,status = "success",
+                                          dataTableOutput('estadisticas2')
+                                     )
+                           )
+                   )
+                 )
+        ),
         tabItem(tabName = "widgets",
                 
                 h2("Ingrese códigos para generar indicadores")
