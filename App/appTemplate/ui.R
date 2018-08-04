@@ -104,8 +104,13 @@ shinyUI(
                            
                            
                            tabPanel( title = tagList(shiny::icon("gear"), strong('Estadísticos Básicos')),
+                                     
+                                     box( background="red",width=12,status = "success",
+                                          textOutput('varia23')
+                                     ),
+                                     
                                      box( width=12,status = "success",
-                                          tableOutput('estad1')
+                                          dataTableOutput('estad1')
                                      )
                                      
                            )

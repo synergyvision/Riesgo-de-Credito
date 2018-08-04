@@ -63,7 +63,7 @@ shinyServer(function(input, output) {
   })
   
   
-  output$estad1 <- renderTable({ 
+  output$estad1 <- renderDataTable({ 
     
     s <- input$file_data
     
@@ -71,15 +71,31 @@ shinyServer(function(input, output) {
                      sep = input$sep, quote = input$quote)
     
     
-    b <- as.data.frame(as.array(summary(s1[,1])))
+    numcol <- dim(s1)[2]
     
-    colnames(b) <- c(" "," ")
-    b
+    Posicion <- c("")
+    for (i in 1:numcol) {
+      Posicion[i+1] <- i
+    }
+    
+    suma <- matrix(c("Minimo","Primer quartil","Mediana","Media","Tercer quartil","Maximo"),ncol = 6)
+    
+    for (i in 1:numcol) {
+      suma <- rbind(suma,summary(s1[,i]))
+    }
+    
+    suma <- cbind(Posicion,suma)
+    
+    
+    
+    #b <- as.data.frame(as.array(summary(s1[,1])))
+    
+    #colnames(b) <- c(" "," ")
+    #b
     
     #s2 <- subset(s1, s1[,input$num1] )
     
-    
-    
+    as.data.frame(suma)
     
     
     })
@@ -87,6 +103,18 @@ shinyServer(function(input, output) {
   
   
   output$variables1 <- renderText({
+    s <- input$file_data
+    
+    s1 <- read.table(s$datapath, header = input$header,
+                     sep = input$sep, quote = input$quote)
+    
+    
+    tamano <- 1:length(names(s1))
+    
+    paste(tamano,names(s1),sep = "-") 
+  })
+  
+  output$varia23 <- renderText({
     s <- input$file_data
     
     s1 <- read.table(s$datapath, header = input$header,
