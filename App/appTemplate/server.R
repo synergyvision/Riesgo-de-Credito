@@ -163,7 +163,7 @@ output$accur <- renderTable({
   
   
 
-  modelo <- glm(train[,1] ~. , data = train, family = binomial(link = "probit"))
+  modelo <- glm(Win.Loss ~. , data = train, family = binomial(link = "probit"))
   
   
   reduccion = step(modelo)

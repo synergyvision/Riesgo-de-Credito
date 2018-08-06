@@ -315,3 +315,42 @@ bienCali0
 ###si establecemos el corte en 0
 bienCali0 <- length(which(c1 < 0))/200
 bienCali0
+
+
+
+
+
+
+
+
+
+ceros <- subset(s1, s1[,1]==0)
+unos <- subset(s1, s1[,1]==1)
+
+
+indices0 <- sample( 1:nrow( ceros ), nrow(ceros)*0.7 )
+ceros.muestreado <- ceros[ indices0, ]
+ceros.test <- ceros[-indices0,]
+
+indices1 <- sample( 1:nrow( unos ), nrow(unos)*0.7 )
+unos.muestreado <- unos[ indices1, ]
+unos.test <- unos[-indices1,]
+
+train <- rbind(ceros.muestreado,unos.muestreado)
+test <- rbind(ceros.test,unos.test)
+
+
+
+
+View(train)
+
+att
+
+modelo <- glm(Creditability ~. , data = train, family = binomial(link = "probit"))
+
+
+reduccion = step(modelo)
+
+pred.log <- predict(reduccion, newdata = test, type = "response")
+
+table(test[,1], pred.log >= 0)
