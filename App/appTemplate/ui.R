@@ -29,7 +29,7 @@ shinyUI(
                   
         menuItem("Datos", tabName = "data", icon = icon("fal fa-database")),
         menuItem("Seleccion de variables", tabName="stat", icon=icon("fas fas fa-table")),
-        menuItem("Indicadores", icon = icon("th"), tabName = "widgets"),
+        menuItem("Modelo de probabiidad lineal", icon = icon("th"), tabName = "glm"),
         menuItem("Acerca", icon = icon("exclamation-circle"), tabName = "acerca"))
   ),
     dashboardBody(VisionHeader(),
@@ -117,9 +117,13 @@ shinyUI(
                    )
                  )
         ),
-        tabItem(tabName = "widgets",
+        tabItem(tabName = "glm",
                 
-                h2("Ingrese códigos para generar indicadores")
+                h2("Modelos de probabilidad lineal"),
+               box(width=12, background="red",radioButtons("radio", h3("Escoga el link del Modelo"),
+                            choices = list("Modelo Probit" = "probit", "Modelo Logit" = "logit",
+                                           "Modelo Cauchit" = "cauchit"),selected = "probit"))
+                
         ),
         tabItem(tabName = "acerca",
                 box( width = 9, status="warning",
