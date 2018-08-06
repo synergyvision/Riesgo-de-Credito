@@ -38,11 +38,11 @@ mydata <- mydata[,!colnames(mydata)=="Sex...Marital.Status"]
 mydata <- cbind(mydata,dummies)
 #View(dummies)
 
-###
+###train and test
 ceros <- subset(mydata, Creditability==0)
 unos <- subset(mydata, Creditability==1)
 
-
+nrow(ceros)
 indices0 <- sample( 1:nrow( ceros ), 400 )
 ceros.muestreado <- ceros[ indices0, ]
 ceros.test <- ceros[-indices0,]

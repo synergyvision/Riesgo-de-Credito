@@ -130,7 +130,15 @@ shinyUI(
                h3("Convertir perfiles negativos al valor 1 y perfiles positivos al valor 0")
                ,box(width=12, background="red",radioButtons("radio2", h3("Radio buttons"),
                             choices = list("Cambiar" = 1, "Mantener por defecto" = 2),selected = 2))
-        )))),
+        ),
+        tabPanel( title = tagList(shiny::icon("gear"), strong('Resultados del modelo')),
+                
+                  tableOutput("accur")
+                  )
+                  
+        
+        
+        ))),
         tabItem(tabName = "acerca",
                 box( width = 9, status="warning",
                      h3(ACERTITLE_TEXT),

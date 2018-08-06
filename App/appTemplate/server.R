@@ -141,7 +141,38 @@ shinyServer(function(input, output) {
     data1()
   })
   
+output$accur <- renderTable({
+  s <- input$file_data
   
+  s1 <- read.table(s$datapath, header = input$header, sep = input$sep, quote = input$quote)
+  
+  ceros <- subset(s1, s1[,1]==0)
+  unos <- subset(s1, s1[,1]==1)
+  
+  
+  indices0 <- sample( 1:nrow( ceros ), nrow(ceros)*0.7 )
+  ceros.muestreado <- ceros[ indices0, ]
+  ceros.test <- ceros[-indices0,]
+  
+  indices1 <- sample( 1:nrow( unos ), nrow(unos)*0.7 )
+  unos.muestreado <- unos[ indices1, ]
+  unos.test <- unos[-indices1,]
+  
+  train <- rbind(ceros.muestreado,unos.muestreado)
+  test <- rbind(ceros.test,unos.test)
+  
+  
+
+  modelo <- glm(train[,1] ~. , data = train, family = binomial(link = "probit"))
+  
+  
+  reduccion = step(modelo)
+  
+  pred.log <- predict(reduccion, newdata = test, type = "response")
+  
+  table(test[,1], pred.log >= 0)
+  
+})
   
   
 })
