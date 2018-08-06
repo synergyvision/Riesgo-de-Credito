@@ -119,12 +119,18 @@ shinyUI(
         ),
         tabItem(tabName = "glm",
                 
-                h2("Modelos de probabilidad lineal"),
-               box(width=12, background="red",radioButtons("radio", h3("Escoga el link del Modelo"),
-                            choices = list("Modelo Probit" = "probit", "Modelo Logit" = "logit",
-                                           "Modelo Cauchit" = "cauchit"),selected = "probit"))
+                fluidRow(
+                  tabBox( height = "1250px", width = 12,side = "left",
+                          tabPanel( title = tagList(shiny::icon("gear"), strong('Seleccion del modelo')),
                 
-        ),
+                h2("Modelos de probabilidad lineal"),
+               box(width=12, background="red",radioButtons("radio1", h3("Escoga el link del Modelo"),
+                            choices = list("Modelo Probit" = "probit", "Modelo Logit" = "logit",
+                                           "Modelo Cauchit" = "cauchit"),selected = "probit")),
+               h3("Convertir perfiles negativos al valor 1 y perfiles positivos al valor 0")
+               ,box(width=12, background="red",radioButtons("radio2", h3("Radio buttons"),
+                            choices = list("Cambiar" = 1, "Mantener por defecto" = 2),selected = 2))
+        )))),
         tabItem(tabName = "acerca",
                 box( width = 9, status="warning",
                      h3(ACERTITLE_TEXT),

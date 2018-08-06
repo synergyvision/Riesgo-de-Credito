@@ -10,9 +10,9 @@ View(mydata)
 attach(mydata)
 
 ##convirtiendo la data de interes a los valores clasicos
-mydata$Creditability <- replace(mydata$Creditability, mydata$Creditability==1,-1)
-mydata$Creditability <- replace(mydata$Creditability, mydata$Creditability==0,1)
-mydata$Creditability <- replace(mydata$Creditability, mydata$Creditability==-1,0)
+mydata[,1] <- replace(mydata[,1], mydata[,1]==1,-1)
+mydata[,1] <- replace(mydata[,1], mydata[,1]==0,1)
+mydata[,1] <- replace(mydata[,1], mydata[,1]==-1,0)
 
 
 
