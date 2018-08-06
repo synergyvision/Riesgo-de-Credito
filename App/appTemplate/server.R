@@ -161,16 +161,17 @@ output$accur <- renderTable({
   train <- rbind(ceros.muestreado,unos.muestreado)
   test <- rbind(ceros.test,unos.test)
   
+  colnames(train)[input$num] <- "dependiente"
+  colnames(test)[input$num] <- "dependiente"
   
-
-  modelo <- glm(Win.Loss ~. , data = train, family = binomial(link = "probit"))
+  modelo <- glm(dependiente ~. , data = train, family = binomial(link = input$radio1))
   
   
   reduccion = step(modelo)
   
   pred.log <- predict(reduccion, newdata = test, type = "response")
   
-  table(test[,1], pred.log >= 0)
+  table(test$dependiente, pred.log >= 0)
   
 })
   
