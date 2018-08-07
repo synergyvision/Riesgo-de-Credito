@@ -133,8 +133,13 @@ shinyUI(
         ),
         tabPanel( title = tagList(shiny::icon("gear"), strong('Resultados del modelo')),
                 
-                  tableOutput("accur")
-                  )
+                  
+                  
+                  
+                  box(width=4, background="red",tableOutput("accur")
+                  ),
+                  box(width=12, background="red",plotOutput("roc")
+                  ))
                   
         
         
