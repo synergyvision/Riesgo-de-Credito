@@ -146,8 +146,18 @@ output$accur <- renderTable({
   
   s1 <- read.table(s$datapath, header = input$header, sep = input$sep, quote = input$quote)
   
-  ceros <- subset(s1, s1[,1]==0)
-  unos <- subset(s1, s1[,1]==1)
+  if (input$radio2==1) {
+    
+    s1[,input$num] <- replace(s1[,input$num], s1[,input$num]==1,-1)
+    s1[,input$num] <- replace(s1[,input$num], s1[,input$num]==0,1)
+    s1[,input$num] <- replace(s1[,input$num], s1[,input$num]==-1,0)
+    
+  }
+  
+  
+  
+  ceros <- subset(s1, s1[,input$num]==0)
+  unos <- subset(s1, s1[,input$num]==1)
   
   
   indices0 <- sample( 1:nrow( ceros ), nrow(ceros)*0.7 )
@@ -169,9 +179,17 @@ output$accur <- renderTable({
   
   reduccion = step(modelo)
   
-  pred.log <- predict(reduccion, newdata = test, type = "response")
+  pdata <- predict(reduccion, newdata = test, type = "response")
   
-  table(test$dependiente, pred.log >= 0)
+  pred <- confusionMatrix(data = as.factor(as.numeric(pdata>0.5)), reference = as.factor(test$dependiente))
+  
+  conf <- pred$table
+  c1 <- c("Prediccion",0,1)
+  c2 <- c(0,conf[1,1],conf[1,2])
+  c3 <- c(1,conf[2,1],conf[2,2])
+  
+  cbind(c1,c2,c3)
+  
   
 })
   

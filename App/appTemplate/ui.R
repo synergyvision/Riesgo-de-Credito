@@ -91,7 +91,7 @@ shinyUI(
                                      box( background="red",width=12,status = "success",
                                           numericInput("num1", 
                                                        h3("Seleccione la variable a comparar"), 
-                                                       value = 1)
+                                                       value = 2)
                                      ),
                                      
                                      plotOutput("comparacion")
@@ -128,7 +128,7 @@ shinyUI(
                             choices = list("Modelo Probit" = "probit", "Modelo Logit" = "logit",
                                            "Modelo Cauchit" = "cauchit"),selected = "probit")),
                h3("Convertir perfiles negativos al valor 1 y perfiles positivos al valor 0")
-               ,box(width=12, background="red",radioButtons("radio2", h3("Radio buttons"),
+               ,box(width=12, background="red",radioButtons("radio2", h3("Escoga una opcion"),
                             choices = list("Cambiar" = 1, "Mantener por defecto" = 2),selected = 2))
         ),
         tabPanel( title = tagList(shiny::icon("gear"), strong('Resultados del modelo')),

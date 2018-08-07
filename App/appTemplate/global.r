@@ -4,6 +4,8 @@ library(shiny)
 library(shinydashboard)
 library(plyr)
 library(MASS)
+library(caret)
+library(e1071)
 
 # Encabezado Vision
 VisionHeader <- function(){tags$head(
@@ -27,7 +29,7 @@ ACERCORR_TEXT<-"contacto@synergy.vision"
 
 ####Data de Ejemplo
 
-mydata <- read.csv("/Users/Guest/Desktop/Riesgo-de-Credito/App/appTemplate/data/datos_completos.csv")
+mydata <- read.csv("C:/Users/arturo/Documents/Riesgo-de-Credito/App/appTemplate/data/datos_completos.csv")
 attach(mydata)
 
 ############################################# DATA TEXTO###############################################
