@@ -136,7 +136,7 @@ shinyUI(
                   
                   
                   
-                  box(width=4, background="red",tableOutput("accur")
+                  box(width=5, background="red",tableOutput("accur")
                   ),
                   box(width=12, background="red",plotOutput("roc")
                   ))

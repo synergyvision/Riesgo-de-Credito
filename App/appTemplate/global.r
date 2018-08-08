@@ -6,6 +6,8 @@ library(plyr)
 library(MASS)
 library(caret)
 library(e1071)
+library(pROC)
+
 
 # Encabezado Vision
 VisionHeader <- function(){tags$head(
