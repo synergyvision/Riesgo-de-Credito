@@ -139,7 +139,17 @@ shinyUI(
                   box(width=5, background="red",tableOutput("accur")
                   ),
                   box(width=12, background="red",plotOutput("roc")
-                  ))
+                  )),
+        
+        tabPanel( title = tagList(shiny::icon("gear"), strong('Score de la cartera de credito')),
+                  
+                  h2("Score y probabilidad de incumplimiento de los clientes"),
+                  dataTableOutput("score")
+                  
+                  
+                  
+                  
+                  )
                   
         
         
