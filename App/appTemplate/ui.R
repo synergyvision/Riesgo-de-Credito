@@ -153,9 +153,40 @@ shinyUI(
                                       
                                       tabPanel( title = tagList(shiny::icon("gear"), strong('Proyeccion a nuevos clientes')),
                                                 
-                                                h2("Score y probabilidad de incumplimiento del nuevo cliente")
+                                                h2("Score y probabilidad de incumplimiento del nuevo cliente"),
                                                 
-                                                
+                                                fluidRow(box(background="red", checkboxInput("datasetr", strong("Selecciona para inciar Datos de Ejemplo"), FALSE))),
+                                                fluidRow(box(background="red", checkboxInput('userFiler', strong('Cargar Datos Propios'), FALSE)))
+                                                , conditionalPanel(condition = "input.userFiler == true",
+                                                                  fluidRow(
+                                                                    box(width = 15, title = h3("Cargar el archivo con los datos"),
+                                                                        box( width=12,background = "red",
+                                                                             fileInput('file_datar', 'Seleccione el archivo', accept = c('text/csv',
+                                                                                                                                           'text/comma-separated-values',
+                                                                                                                                            'text/tab-separated-values',
+                                                                                                                                            'text/plain',
+                                                                                                                                            '.csv',
+                                                                                                                                            '.tsv',
+                                                                                                                                            '.rda'),
+                                                                                       placeholder = 'Aun no seleccionas el archivo...', buttonLabel = 'Buscar' )
+                                                                        ),
+                                                                        fluidRow(
+                                                                          box(width=4,background="red",strong("Encabezado de los datos"),
+                                                                              checkboxInput( width="80%", 'headerr', "Con encabezado", TRUE)),
+                                                                          box(width=4,background="red",
+                                                                               radioButtons( width="40%", 'sepr', "Separador", c('Coma'=',',
+                                                 'Punto y coma'=';',
+                                                  'Tab'='\t'), ';')),
+                                                                          box(width=4,background="red",
+                                                                              radioButtons( width="40%", 'quoter', "Comillas", c('Ninguna'='',
+                                                 'Comilla doble'='"',
+                                                 'Comilla simple'="'"), ''))
+                                                                        )
+                                                                   )
+                                                                 )),
+                                                fluidRow(
+                                                  box(width=12,status = "danger",dataTableOutput('datatabler'))
+                                                )
                                                 
                                                 
                                                 

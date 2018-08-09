@@ -32,6 +32,9 @@ ACERCORR_TEXT<-"contacto@synergy.vision"
 ####Data de Ejemplo
 
 mydata <- read.csv("C:/Users/arturo/Documents/Riesgo-de-Credito/App/appTemplate/data/datos_completos.csv")
+
+reg <- read.csv("C:/Users/arturo/Documents/Riesgo-de-Credito/App/appTemplate/data/reg.csv")
+
 attach(mydata)
 
 ############################################# DATA TEXTO###############################################

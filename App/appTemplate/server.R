@@ -88,12 +88,6 @@ shinyServer(function(input, output) {
     
     
     
-    #b <- as.data.frame(as.array(summary(s1[,1])))
-    
-    #colnames(b) <- c(" "," ")
-    #b
-    
-    #s2 <- subset(s1, s1[,input$num1] )
     
     as.data.frame(suma)
     
@@ -301,5 +295,36 @@ shinyServer(function(input, output) {
     
   })
   
+  datasetSelectr <- reactive({
+    datasetSelectr <- reg
+  })
+  
+  
+  datasetInputr <- reactive({
+   
+    inFiler <- input$file_datar
+    
+    if (is.null(inFiler))
+      return(NULL)
+    read.table(inFiler$datapath, header = input$headerr,
+               sep = input$sepr, quote = input$quoter)
+    
+  })
+  
+  
+  data2 <- reactive({
+    if(input$datasetr){
+      data <- datasetSelectr()}
+    
+    else {
+      data <- datasetInputr()
+    }
+  })
+  
+  ###Datos
+  
+  output$datatabler<-renderDataTable({
+    data2()
+  })
   
 })
