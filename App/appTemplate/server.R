@@ -1,8 +1,8 @@
 shinyServer(function(input, output) {
-
+  
   # Almacenar Variables Reactivas
   RV <- reactiveValues()
-
+  
   set.seed(122)
   histdata <- rnorm(500)
   
@@ -10,7 +10,7 @@ shinyServer(function(input, output) {
     data <- histdata[seq_len(input$slider)]
     hist(data)
   })
- 
+  
   datasetSelect <- reactive({
     datasetSelect <- mydata
   })
@@ -39,15 +39,15 @@ shinyServer(function(input, output) {
     s <- input$file_data
     
     s1 <- read.table(s$datapath, header = input$header,
-                                            sep = input$sep, quote = input$quote)
+                     sep = input$sep, quote = input$quote)
     
     
     tamano <- 1:length(names(s1))
     
     paste(tamano,names(s1),sep = "-") 
-    })
+  })
   
-    
+  
   
   output$comparacion <- renderPlot({
     s <- input$file_data
@@ -98,7 +98,7 @@ shinyServer(function(input, output) {
     as.data.frame(suma)
     
     
-    })
+  })
   
   
   
@@ -141,165 +141,165 @@ shinyServer(function(input, output) {
     data1()
   })
   
-output$accur <- renderTable({
-  s <- input$file_data
-  
-  s1 <- read.table(s$datapath, header = input$header, sep = input$sep, quote = input$quote)
-  
-  if (input$radio2==1) {
+  output$accur <- renderTable({
+    s <- input$file_data
     
-    s1[,input$num] <- replace(s1[,input$num], s1[,input$num]==1,-1)
-    s1[,input$num] <- replace(s1[,input$num], s1[,input$num]==0,1)
-    s1[,input$num] <- replace(s1[,input$num], s1[,input$num]==-1,0)
+    s1 <- read.table(s$datapath, header = input$header, sep = input$sep, quote = input$quote)
     
-  }
-  
-  
-  
-  ceros <- subset(s1, s1[,input$num]==0)
-  unos <- subset(s1, s1[,input$num]==1)
-  
-  
-  indices0 <- sample( 1:nrow( ceros ), nrow(ceros)*0.7 )
-  ceros.muestreado <- ceros[ indices0, ]
-  ceros.test <- ceros[-indices0,]
-  
-  indices1 <- sample( 1:nrow( unos ), nrow(unos)*0.7 )
-  unos.muestreado <- unos[ indices1, ]
-  unos.test <- unos[-indices1,]
-  
-  train <- rbind(ceros.muestreado,unos.muestreado)
-  test <- rbind(ceros.test,unos.test)
-  
-  colnames(train)[input$num] <- "dependiente"
-  colnames(test)[input$num] <- "dependiente"
-  
-  modelo <- glm(dependiente ~. , data = train, family = binomial(link = input$radio1))
-  
-  
-  reduccion = step(modelo)
-  
-  pdata <- predict(reduccion, newdata = test, type = "response")
-  
-  pred <- confusionMatrix(data = as.factor(as.numeric(pdata>0.5)), reference = as.factor(test$dependiente))
-  
-  conf <- pred$table
-  Valores <- c("Prediccion",0,1)
-  Positivos <- c(0,conf[1,1],conf[1,2])
-  Negativos  <- c(1,conf[2,1],conf[2,2])
-  
-  cbind(Valores,Positivos, Negativos)
-  
-  
-})
-  
-  
-output$roc <- renderPlot({
-  
-  
-  
-  s <- input$file_data
-  
-  s1 <- read.table(s$datapath, header = input$header, sep = input$sep, quote = input$quote)
-  
-  if (input$radio2==1) {
+    if (input$radio2==1) {
+      
+      s1[,input$num] <- replace(s1[,input$num], s1[,input$num]==1,-1)
+      s1[,input$num] <- replace(s1[,input$num], s1[,input$num]==0,1)
+      s1[,input$num] <- replace(s1[,input$num], s1[,input$num]==-1,0)
+      
+    }
     
-    s1[,input$num] <- replace(s1[,input$num], s1[,input$num]==1,-1)
-    s1[,input$num] <- replace(s1[,input$num], s1[,input$num]==0,1)
-    s1[,input$num] <- replace(s1[,input$num], s1[,input$num]==-1,0)
     
-  }
-  
-  
-  
-  ceros <- subset(s1, s1[,input$num]==0)
-  unos <- subset(s1, s1[,input$num]==1)
-  
-  
-  indices0 <- sample( 1:nrow( ceros ), nrow(ceros)*0.7 )
-  ceros.muestreado <- ceros[ indices0, ]
-  ceros.test <- ceros[-indices0,]
-  
-  indices1 <- sample( 1:nrow( unos ), nrow(unos)*0.7 )
-  unos.muestreado <- unos[ indices1, ]
-  unos.test <- unos[-indices1,]
-  
-  train <- rbind(ceros.muestreado,unos.muestreado)
-  test <- rbind(ceros.test,unos.test)
-  
-  colnames(train)[input$num] <- "dependiente"
-  colnames(test)[input$num] <- "dependiente"
-  
-  modelo <- glm(dependiente ~. , data = train, family = binomial(link = input$radio1))
-  
-  
-  reduccion = step(modelo)
-  
-  l <- roc(train$dependiente  ~ reduccion$fitted.values)
-  plot(l,legacy.axes=T)
-  
-  
-  
-  
-  
-  
-  
-  
-})
-
-
-output$score <- renderDataTable({
-  
-  
-  
-  s <- input$file_data
-  
-  s1 <- read.table(s$datapath, header = input$header, sep = input$sep, quote = input$quote)
-  
-  if (input$radio2==1) {
     
-    s1[,input$num] <- replace(s1[,input$num], s1[,input$num]==1,-1)
-    s1[,input$num] <- replace(s1[,input$num], s1[,input$num]==0,1)
-    s1[,input$num] <- replace(s1[,input$num], s1[,input$num]==-1,0)
+    ceros <- subset(s1, s1[,input$num]==0)
+    unos <- subset(s1, s1[,input$num]==1)
     
-  }
+    
+    indices0 <- sample( 1:nrow( ceros ), nrow(ceros)*0.7 )
+    ceros.muestreado <- ceros[ indices0, ]
+    ceros.test <- ceros[-indices0,]
+    
+    indices1 <- sample( 1:nrow( unos ), nrow(unos)*0.7 )
+    unos.muestreado <- unos[ indices1, ]
+    unos.test <- unos[-indices1,]
+    
+    train <- rbind(ceros.muestreado,unos.muestreado)
+    test <- rbind(ceros.test,unos.test)
+    
+    colnames(train)[input$num] <- "dependiente"
+    colnames(test)[input$num] <- "dependiente"
+    
+    modelo <- glm(dependiente ~. , data = train, family = binomial(link = input$radio1))
+    
+    
+    reduccion = step(modelo)
+    
+    pdata <- predict(reduccion, newdata = test, type = "response")
+    
+    pred <- confusionMatrix(data = as.factor(as.numeric(pdata>0.5)), reference = as.factor(test$dependiente))
+    
+    conf <- pred$table
+    Valores <- c("Prediccion",0,1)
+    Positivos <- c(0,conf[1,1],conf[1,2])
+    Negativos  <- c(1,conf[2,1],conf[2,2])
+    
+    cbind(Valores,Positivos, Negativos)
+    
+    
+  })
   
   
+  output$roc <- renderPlot({
+    
+    
+    
+    s <- input$file_data
+    
+    s1 <- read.table(s$datapath, header = input$header, sep = input$sep, quote = input$quote)
+    
+    if (input$radio2==1) {
+      
+      s1[,input$num] <- replace(s1[,input$num], s1[,input$num]==1,-1)
+      s1[,input$num] <- replace(s1[,input$num], s1[,input$num]==0,1)
+      s1[,input$num] <- replace(s1[,input$num], s1[,input$num]==-1,0)
+      
+    }
+    
+    
+    
+    ceros <- subset(s1, s1[,input$num]==0)
+    unos <- subset(s1, s1[,input$num]==1)
+    
+    
+    indices0 <- sample( 1:nrow( ceros ), nrow(ceros)*0.7 )
+    ceros.muestreado <- ceros[ indices0, ]
+    ceros.test <- ceros[-indices0,]
+    
+    indices1 <- sample( 1:nrow( unos ), nrow(unos)*0.7 )
+    unos.muestreado <- unos[ indices1, ]
+    unos.test <- unos[-indices1,]
+    
+    train <- rbind(ceros.muestreado,unos.muestreado)
+    test <- rbind(ceros.test,unos.test)
+    
+    colnames(train)[input$num] <- "dependiente"
+    colnames(test)[input$num] <- "dependiente"
+    
+    modelo <- glm(dependiente ~. , data = train, family = binomial(link = input$radio1))
+    
+    
+    reduccion = step(modelo)
+    
+    l <- roc(train$dependiente  ~ reduccion$fitted.values)
+    plot(l,legacy.axes=T)
+    
+    
+    
+    
+    
+    
+    
+    
+  })
   
-  ceros <- subset(s1, s1[,input$num]==0)
-  unos <- subset(s1, s1[,input$num]==1)
+  
+  output$score <- renderDataTable({
+    
+    
+    
+    s <- input$file_data
+    
+    s1 <- read.table(s$datapath, header = input$header, sep = input$sep, quote = input$quote)
+    
+    if (input$radio2==1) {
+      
+      s1[,input$num] <- replace(s1[,input$num], s1[,input$num]==1,-1)
+      s1[,input$num] <- replace(s1[,input$num], s1[,input$num]==0,1)
+      s1[,input$num] <- replace(s1[,input$num], s1[,input$num]==-1,0)
+      
+    }
+    
+    
+    
+    ceros <- subset(s1, s1[,input$num]==0)
+    unos <- subset(s1, s1[,input$num]==1)
+    
+    
+    indices0 <- sample( 1:nrow( ceros ), nrow(ceros)*0.7 )
+    ceros.muestreado <- ceros[ indices0, ]
+    ceros.test <- ceros[-indices0,]
+    
+    indices1 <- sample( 1:nrow( unos ), nrow(unos)*0.7 )
+    unos.muestreado <- unos[ indices1, ]
+    unos.test <- unos[-indices1,]
+    
+    train <- rbind(ceros.muestreado,unos.muestreado)
+    test <- rbind(ceros.test,unos.test)
+    
+    colnames(train)[input$num] <- "dependiente"
+    colnames(test)[input$num] <- "dependiente"
+    
+    modelo <- glm(dependiente ~. , data = train, family = binomial(link = input$radio1))
+    
+    
+    reduccion = step(modelo)
+    
+    
+    Score <- predict(reduccion, newdata = test, type = "link")
+    PD <- predict(reduccion, newdata = test, type = "response")
+    cbind(1:1000,Score,PD)
+    
+    
+    
+    
+    
+    
+  })
   
   
-  indices0 <- sample( 1:nrow( ceros ), nrow(ceros)*0.7 )
-  ceros.muestreado <- ceros[ indices0, ]
-  ceros.test <- ceros[-indices0,]
-  
-  indices1 <- sample( 1:nrow( unos ), nrow(unos)*0.7 )
-  unos.muestreado <- unos[ indices1, ]
-  unos.test <- unos[-indices1,]
-  
-  train <- rbind(ceros.muestreado,unos.muestreado)
-  test <- rbind(ceros.test,unos.test)
-  
-  colnames(train)[input$num] <- "dependiente"
-  colnames(test)[input$num] <- "dependiente"
-  
-  modelo <- glm(dependiente ~. , data = train, family = binomial(link = input$radio1))
-  
-  
-  reduccion = step(modelo)
-  
-  
-  Score <- predict(reduccion, newdata = test, type = "link")
-  PD <- predict(reduccion, newdata = test, type = "response")
-  cbind(1:1000,Score,PD)
-  
-  
-  
-  
-  
-  
-})
-
-
 })
