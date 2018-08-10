@@ -186,7 +186,7 @@ shinyUI(
                                                                  )),
                                                 fluidRow(
                                                   box(width=12,status = "danger",dataTableOutput('datatabler'))
-                                                )
+                                                ), box(width=12,status = "danger",tableOutput('dat'))
                                                 
                                                 
                                                 
