@@ -11,6 +11,10 @@ shinyServer(function(input, output) {
     hist(data)
   })
   
+  
+  
+  
+  
   datasetSelect <- reactive({
     datasetSelect <- mydata
   })
@@ -34,12 +38,49 @@ shinyServer(function(input, output) {
                sep = input$sep, quote = input$quote)
     
   })
+  # 
+  # datasetSelectr <- reactive({
+  #   datasetSelectr <- reg
+  # })
+  
+  
+  # datasetInputr <- reactive({
+  #   
+  #   inFiler <- input$file_datar
+  #   
+  #   if (is.null(inFiler))
+  #     return(NULL)
+  #   read.table(inFiler$datapath, header = input$headerr,
+  #              sep = input$sepr, quote = input$quoter)
+  #   
+  # })
+  
+  
+  data1 <- reactive({
+    if(input$dataset){
+      data <- datasetSelect()}
+    
+    else {
+      data <- datasetInput()
+    }
+  })
+  
+  # ###Datos
+  # 
+  # output$datatabler<-renderDataTable({
+  #   data2()
+  # })
+  # 
+  
+  
+  
+  
+  
+  
   
   output$variables <- renderText({
-    s <- input$file_data
-    
-    s1 <- read.table(s$datapath, header = input$header,
-                     sep = input$sep, quote = input$quote)
+
+    s1 <- data1()
     
     
     tamano <- 1:length(names(s1))
@@ -50,10 +91,8 @@ shinyServer(function(input, output) {
   
   
   output$comparacion <- renderPlot({
-    s <- input$file_data
-    
-    s1 <- read.table(s$datapath, header = input$header,
-                     sep = input$sep, quote = input$quote)
+  
+    s1 <- data1()
     
     
     
@@ -65,11 +104,8 @@ shinyServer(function(input, output) {
   
   output$estad1 <- renderDataTable({ 
     
-    s <- input$file_data
-    
-    s1 <- read.table(s$datapath, header = input$header,
-                     sep = input$sep, quote = input$quote)
-    
+
+    s1 <- data1()
     
     numcol <- dim(s1)[2]
     
@@ -97,10 +133,8 @@ shinyServer(function(input, output) {
   
   
   output$variables1 <- renderText({
-    s <- input$file_data
-    
-    s1 <- read.table(s$datapath, header = input$header,
-                     sep = input$sep, quote = input$quote)
+
+    s1 <- data1()
     
     
     tamano <- 1:length(names(s1))
@@ -109,10 +143,8 @@ shinyServer(function(input, output) {
   })
   
   output$varia23 <- renderText({
-    s <- input$file_data
-    
-    s1 <- read.table(s$datapath, header = input$header,
-                     sep = input$sep, quote = input$quote)
+
+    s1 <- data1()
     
     
     tamano <- 1:length(names(s1))
@@ -136,9 +168,8 @@ shinyServer(function(input, output) {
   })
   
   output$accur <- renderTable({
-    s <- input$file_data
-    
-    s1 <- read.table(s$datapath, header = input$header, sep = input$sep, quote = input$quote)
+
+    s1 <- data1()
     
     if (input$radio2==1) {
       
@@ -192,9 +223,8 @@ shinyServer(function(input, output) {
     
     
     
-    s <- input$file_data
-    
-    s1 <- read.table(s$datapath, header = input$header, sep = input$sep, quote = input$quote)
+   
+    s1 <- data1()
     
     if (input$radio2==1) {
       
@@ -246,9 +276,7 @@ shinyServer(function(input, output) {
     
     
     
-    s <- input$file_data
-    
-    s1 <- read.table(s$datapath, header = input$header, sep = input$sep, quote = input$quote)
+    s1 <- data1()
     
     if (input$radio2==1) {
       
@@ -330,8 +358,8 @@ shinyServer(function(input, output) {
   output$dat <- renderTable({
     
     
-    s <- input$file_data
-    s1 <- read.table(s$datapath, header = input$header, sep = input$sep, quote = input$quote)
+   
+    s1 <- data1()
     
     if (input$radio2==1) {
       
