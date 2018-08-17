@@ -351,9 +351,10 @@ shinyServer(function(input, output) {
     reduccion = mod()
     
     
-    Score <- predict(reduccion, newdata = test, type = "link")
-    PD <- predict(reduccion, newdata = test, type = "response")
-    cbind(1:1000,Score,PD)
+    Score <- predict(reduccion, newdata = s1, type = "link")
+    PD <- predict(reduccion, newdata = s1, type = "response")
+    n <- length(PD)
+    cbind(1:n,Score,PD)
     
     
     

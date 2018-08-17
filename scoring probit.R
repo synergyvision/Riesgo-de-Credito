@@ -44,7 +44,7 @@ mydata <- mydata[ ,!colnames(mydata)=="X"]
 
 #construccion del modelo, se uso probit, pero en general los mas usados son logit y probit
 
-modelo <- glm(Creditability ~. , data = mydata, family = binomial(link = "cauchit"))
+modelo <- glm(Creditability ~. , data = mydata, family = binomial(link = "probit"))
 
 ##Reduciendo las variables con backward, step usa por defecto backward
 
@@ -63,7 +63,7 @@ PD <- reduccion$fitted.values
 #head(PD)
 
 
-#View(data.frame(Score,PD))
+View(data.frame(Score,PD))
 
 ###control con malos perfiles
 

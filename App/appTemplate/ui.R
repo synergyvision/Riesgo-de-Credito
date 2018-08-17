@@ -30,6 +30,7 @@ shinyUI(
                   menuItem("Datos", tabName = "data", icon = icon("fal fa-database")),
                   menuItem("Seleccion de variables", tabName="stat", icon=icon("fas fas fa-table")),
                   menuItem("Modelo de probabiidad lineal", icon = icon("th"), tabName = "glm"),
+                  menuItem("CreditRisk+", icon = icon("th"), tabName = "cr"),
                   menuItem("Acerca", icon = icon("exclamation-circle"), tabName = "acerca"))
     ),
     dashboardBody(VisionHeader(),
@@ -195,6 +196,14 @@ shinyUI(
                                       
                                       
                               ))),
+                    
+                    
+                    tabItem(tabName = "cr", h3("Modelo CreditRisk+"),
+                            box(width = 4, background="red",status = "danger", numericInput("uni","Ingrese unidad de perdida",value = 1000)),
+                            box(width = 6, background="red",status = "danger", numericInput("uni","Ingrese porcentaje de recuperacion luego del default",value = 80))
+                    ),
+                    
+                    
                     tabItem(tabName = "acerca",
                             box( width = 9, status="warning",
                                  h3(ACERTITLE_TEXT),
