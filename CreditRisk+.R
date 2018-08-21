@@ -2,6 +2,10 @@
 
 mydata <- read.csv("App/appTemplate/data/datos_completos.csv")
 
+
+reg <- read.csv("Macintosh_HD/Documents/Riesgo-de-Credito/App/appTemplate/data/reg.csv")
+
+
 ###supondremos que son activos sin lineas extra 
 ### en este caso la exposicion coincide con el saldo
 
