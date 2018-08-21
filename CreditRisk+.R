@@ -3,7 +3,7 @@
 mydata <- read.csv("App/appTemplate/data/datos_completos.csv")
 
 
-reg <- read.csv("Macintosh_HD/Documents/Riesgo-de-Credito/App/appTemplate/data/reg.csv")
+reg <- read.csv("App/appTemplate/data/reg.csv")
 
 
 ###supondremos que son activos sin lineas extra 
@@ -121,9 +121,27 @@ for (k in 1:range(L)[2]) {
 ei <- lambdaj*1:56
 
 
+###factor de ajuste
+
+gamm <- numeric(length(Ei)) 
+
+
+for(i in 1:length(lambdaj)){
+  
+  
+  gamm[bandas[[i]]] <- Ei[bandas[[i]]]/(i*E)
+  
+}
+
+
+bandas[[1]]
 
 
 
+
+
+length(lambdaj)
+View(gamm)
 
 
 
