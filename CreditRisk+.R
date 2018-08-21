@@ -10,7 +10,7 @@ reg <- read.csv("Macintosh_HD/Documents/Riesgo-de-Credito/App/appTemplate/data/r
 ### en este caso la exposicion coincide con el saldo
 
 ##exposicion de la cartera
-View(mydata)
+#View(mydata)
 
 
 EAD <- mydata[,6]
@@ -106,7 +106,29 @@ for (k in 1:range(L)[2]) {
 }
 
 
-bandas
+###se calculan los parametros de poisson por banda
+
+lambdaj <- numeric(range(L)[2])
+
+for (k in 1:range(L)[2]) {
+  lambdaj[k] <- sum(lambda[bandas[[k]]])
+}
+
+
+
+#calculamos la perdida esperada por banda
+
+ei <- lambdaj*1:56
+
+
+
+
+
+
+
+
+
+
 
 
 
