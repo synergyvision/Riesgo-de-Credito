@@ -1,6 +1,6 @@
 ### Primero necesitamos las espocisiones al default
 
-mydata <- read.csv("C:/Users/arturo/Documents/Riesgo-de-Credito/App/appTemplate/data/datos_completos.csv")
+mydata <- read.csv("App/appTemplate/data/datos_completos.csv")
 
 ###supondremos que son activos sin lineas extra 
 ### en este caso la exposicion coincide con el saldo
