@@ -1,4 +1,4 @@
-### Primero necesitamos las espocisiones al default
+## Primero necesitamos las espocisiones al default
 
 mydata <- read.csv("App/appTemplate/data/datos_completos.csv")
 
@@ -25,10 +25,10 @@ LGD <- 0.6
 s1 <- mydata
 
 
-  
-  s1[,1] <- replace(s1[,1], s1[,1]==1,-1)
-  s1[,1] <- replace(s1[,1], s1[,1]==0,1)
-  s1[,1] <- replace(s1[,1], s1[,1]==-1,0)
+
+s1[,1] <- replace(s1[,1], s1[,1]==1,-1)
+s1[,1] <- replace(s1[,1], s1[,1]==0,1)
+s1[,1] <- replace(s1[,1], s1[,1]==-1,0)
 
 
 
@@ -73,7 +73,7 @@ Ei <- EAD*LGD
 
 #### Se escoge una unidad de perdida
 
-E <- 200 
+E <- 100
 
 
 
@@ -118,8 +118,7 @@ for (k in 1:range(L)[2]) {
 
 #calculamos la perdida esperada por banda
 
-ei <- lambdaj*1:56
-
+ei <- lambdaj*1:length(bandas)
 
 ###factor de ajuste
 
@@ -132,33 +131,38 @@ for(i in 1:length(lambdaj)){
   gamm[bandas[[i]]] <- Ei[bandas[[i]]]/(i*E)
   
 }
-
-
-bandas[[1]]
-
-
+####Numero de incumplimientos de toda la cartera
 
 
 
 length(lambdaj)
-View(gamm)
+IncCar <- sum(lambdaj)
 
 
 
+### Probabilides de unidades de perdida de toda la cartera
+
+p0 <- exp(-IncCar)
 
 
+probandas <- numeric(50000)
 
+probandas[1] <- p0
 
+probandasc <- probandas
 
+length(ei)
+eii <- numeric(50000)
+eii[1:length(bandas)] <- ei[1:length(bandas)]
+#View(eii)
+for (i in 2:50000) {
+  
+  probandas[i] <- sum(probandasc[1:i-1]*rev(eii[1:i-1]))/(i-1)
+  probandasc <- probandas
+}
 
-
-
-
-
-
-
-
-
+#View(probandas)
+sum(probandas)
 
 
 
