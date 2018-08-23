@@ -162,8 +162,18 @@ for (i in 2:10000) {
   probandasc <- probandas
 }
 
-#View(probandas)
-sum(probandas)
+#View(probandas)ç
 
+length(probandas)
+sum(probandas[1:10000])
+  
+4550*300
+acum <- c()
 
+for (l in 1:10000) {
+  acum[l] <- sum(probandas[1:l]) 
+}
+
+#####Var
+min(which(acum > 0.95))
 
