@@ -166,4 +166,6 @@ for (i in 2:10000) {
 sum(probandas)
 
 
-
+ar <- c(1)
+ar[2]<-3
+ar
