@@ -664,7 +664,7 @@ shinyServer(function(input, output) {
     }
     
     #####Var
-    min(which(acum > (as.numeric(input$conf)/100)))
+    min(which(acum > (as.numeric(input$conf)/100)))*E
     
     
      
