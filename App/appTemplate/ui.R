@@ -198,10 +198,59 @@ shinyUI(
                               ))),
                     
                     
-                    tabItem(tabName = "cr", h3("Modelo CreditRisk+"),
+                    tabItem(tabName = "cr", 
+                            
+                            fluidRow(
+                              tabBox( height = "1250px", width = 12,side = "left",
+                                      tabPanel( title = tagList(shiny::icon("gear"), strong('Parametros iniciales')),
+                            h3("Modelo CreditRisk+"),
                             box(width = 4, background="red",status = "danger", numericInput("uni","Ingrese unidad de perdida",value = 1000)),
-                            box(width = 6, background="red",status = "danger", numericInput("uni","Ingrese porcentaje de recuperacion luego del default",value = 80))
-                    ),
+                            box(width = 6, background="red",status = "danger", numericInput("uni","Ingrese porcentaje de recuperacion luego del default",value = 80)),
+                           
+                            box(width = 12, background="red",status = "danger",h2("Score y probabilidad de incumplimiento del nuevo cliente")),
+                            fluidRow( box(background="red", checkboxInput("datasetr1", strong("Probabilidades de incumplimiento provenientes del Score"), FALSE))),
+                            fluidRow(box(background="red", checkboxInput('userFiler1', strong("Probabilidades de incumplimiento propias"), FALSE)))
+                           
+                            , conditionalPanel(condition = "input.userFiler1 == true",
+                                               fluidRow(
+                                                 box(width = 15, title = h3("Cargar el archivo con las probabiidades de incumplimiento"),
+                                                     box( width=12,background = "red",
+                                                          fileInput('file_datar1', 'Seleccione el archivo', accept = c('text/csv',
+                                                                                                                      'text/comma-separated-values',
+                                                                                                                      'text/tab-separated-values',
+                                                                                                                      'text/plain',
+                                                                                                                      '.csv',
+                                                                                                                      '.tsv',
+                                                                                                                      '.rda'),
+                                                                    placeholder = 'Aun no seleccionas el archivo...', buttonLabel = 'Buscar' )
+                                                     ),
+                                                     fluidRow(
+                                                       box(width=4,background="red",strong("Encabezado de los datos"),
+                                                           checkboxInput( width="80%", 'headerr1', "Con encabezado", TRUE)),
+                                                       box(width=4,background="red",
+                                                           radioButtons( width="40%", 'sepr1', "Separador", c('Coma'=',',
+                                                                                                             'Punto y coma'=';',
+                                                                                                             'Tab'='\t'), ';')),
+                                                       box(width=4,background="red",
+                                                           radioButtons( width="40%", 'quoter1', "Comillas", c('Ninguna'='',
+                                                                                                              'Comilla doble'='"',
+                                                                                                              'Comilla simple'="'"), ''))
+                                                     )
+                                                 )
+                                               )),fluidRow(
+                                                 box(width=12,status = "danger",dataTableOutput('datatabler1'))
+                                               )),
+                            
+                            tabPanel( title = tagList(shiny::icon("gear"), strong('Resultados del modeloçb'))
+                                      
+                                      
+                                      
+                                      
+                                      
+                            )
+                                              
+                            
+                             ))),
                     
                     
                     tabItem(tabName = "acerca",

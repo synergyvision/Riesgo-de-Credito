@@ -444,4 +444,89 @@ shinyServer(function(input, output) {
   })
   
   
+  score1 <- reactive({
+    s1 <- data1()
+    
+    if (input$radio2==1) {
+      
+      s1[,input$num] <- replace(s1[,input$num], s1[,input$num]==1,-1)
+      s1[,input$num] <- replace(s1[,input$num], s1[,input$num]==0,1)
+      s1[,input$num] <- replace(s1[,input$num], s1[,input$num]==-1,0)
+      
+    }
+    
+    
+    
+    ceros <- subset(s1, s1[,input$num]==0)
+    unos <- subset(s1, s1[,input$num]==1)
+    
+    
+    indices0 <- sample( 1:nrow( ceros ), nrow(ceros)*0.7 )
+    ceros.muestreado <- ceros[ indices0, ]
+    ceros.test <- ceros[-indices0,]
+    
+    indices1 <- sample( 1:nrow( unos ), nrow(unos)*0.7 )
+    unos.muestreado <- unos[ indices1, ]
+    unos.test <- unos[-indices1,]
+    
+    train <- rbind(ceros.muestreado,unos.muestreado)
+    test <- rbind(ceros.test,unos.test)
+    
+    colnames(train)[input$num] <- "dependiente"
+    colnames(test)[input$num] <- "dependiente"
+    
+    #modelo <- glm(dependiente ~. , data = train, family = binomial(link = input$radio1))
+    
+    
+    reduccion = mod()
+    
+    s2 <- data1()
+    
+    
+    PD <- predict(reduccion, newdata = s2, type = "response")
+    return(cbind(PD))
+    
+    
+    
+    
+  })
+  
+  
+  pdPropias <- reactive({
+    
+    inFiler <- input$file_datar1
+    
+    if (is.null(inFiler))
+      return(NULL)
+    read.table(inFiler$datapath, header = input$headerr1,
+               sep = input$sepr1, quote = input$quoter1)
+    
+  })
+  
+  
+  data3 <- reactive({
+    if(input$datasetr1){
+      
+      
+      score1()
+      
+      
+      }
+    
+    else {
+      data <- pdPropias()
+    }
+  })
+  
+  ###Datos
+  
+  output$datatabler1<-renderDataTable({
+    data3()
+  })
+  
 })
+
+
+
+
+
