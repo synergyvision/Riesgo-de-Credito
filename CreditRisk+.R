@@ -164,7 +164,7 @@ for (i in 2:10000) {
 
 #View(probandas)ç
 
-length(probandas)
+View(acum)
 sum(probandas[1:10000])
   
 4550*300
