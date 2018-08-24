@@ -204,7 +204,7 @@ shinyUI(
                               tabBox( height = "1250px", width = 12,side = "left",
                                       tabPanel( title = tagList(shiny::icon("gear"), strong('Parametros iniciales')),
                             h3("Modelo CreditRisk+"),
-                            box(width = 4, background="red",status = "danger", numericInput("uni","Ingrese unidad de perdida",value = 1000)),
+                            box(width = 4, background="red",status = "danger", numericInput("uniper","Ingrese unidad de perdida",value = 1000)),
                             box(width = 6, background="red",status = "danger", numericInput("uni","Ingrese porcentaje de recuperacion luego del default",value = 80)),
                            
                             box(width = 12, background="red",status = "danger",h2("Score y probabilidad de incumplimiento del nuevo cliente")),
@@ -241,11 +241,13 @@ shinyUI(
                                                  box(width=12,status = "danger",dataTableOutput('datatabler1'))
                                                )),
                             
-                            tabPanel( title = tagList(shiny::icon("gear"), strong('Resultados del modeloçb'))
+                            tabPanel( title = tagList(shiny::icon("gear"), strong('Resultados del modelo')),
                                       
+                                      box(width=12,status = "danger",background="red",radioButtons("conf", h3("Escoga nivel de confianza para el VaR"),
+                                                                                  choices = list("90%" = 90, "95%" = 95,
+                                                                                                 "99%" = 99),selected = 95)),     
                                       
-                                      
-                                      
+                                      box(width=12,status = "danger",background="red",h2("Valor en rieso"), textOutput("var"))
                                       
                             )
                                               
