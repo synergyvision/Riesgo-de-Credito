@@ -85,17 +85,19 @@ shinyUI(
                                        
                                        
                                        tabPanel( title = tagList(shiny::icon("gear"), strong('Relacion de las variables independientes')),
-                                                 box( background="red",width=12,status = "success",
-                                                      textOutput('variables1')
-                                                 ),
+                                                fluidRow(box( background="red",width=12,status = "success",
+                                                              textOutput('variables1')
+                                                ),
+                                                
+                                                box( background="red",width=12,status = "success",
+                                                     numericInput("num1", 
+                                                                  h3("Seleccione la variable a comparar"), 
+                                                                  value = 2)
+                                                ))
                                                  
-                                                 box( background="red",width=12,status = "success",
-                                                      numericInput("num1", 
-                                                                   h3("Seleccione la variable a comparar"), 
-                                                                   value = 2)
-                                                 ),
+                                                  ,
+                                                 fluidRow(plotlyOutput("comparacion"))
                                                  
-                                                 plotOutput("comparacion")
                                                  
                                                  
                                        ),

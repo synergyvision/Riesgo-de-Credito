@@ -127,14 +127,21 @@ shinyServer(function(input, output) {
   
   
   
-  output$comparacion <- renderPlot({
+  output$comparacion <- renderPlotly({
   
     s1 <- data1()
     
+    s1[,input$num]<-  as.factor(s1[,input$num])
+    
+    
+    p10 <- ggplot(s1, aes(x = s1[,input$num], y = s1[,input$num1])) +
+      geom_boxplot(fill = "#56B4E9") +
+      scale_y_continuous(name = "Escala de valores") +  scale_x_discrete(name = "Categorias") +
+      ggtitle("Comparación entre las categorias de la variable seleccionada") 
+    ggplotly(p10)
     
     
     
-    boxplot( s1[,input$num1]~ s1[,input$num])
     
   })
   
