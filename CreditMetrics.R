@@ -2,10 +2,10 @@
 ##A,B,C,D,E
 
 
-MT <- matrix(c(96.5,1.9,0.9,0.6,0.1,29.8,24.2,28,8,10,13.2,5.5,17.7,8.7,54.9,7.6,2.2,2.5,14,73.7,2.7,0.6,0.4,0.5,95.8),ncol = 5, nrow = 5,byrow = T)
+MT <- matrix(c(96.5,1.9,0.9,0.6,0.1,29.8,24.2,28,8,10,16,7.8,14.9,10.3,51,7.6,2.2,2.5,14,73.7,2.7,0.6,0.4,0.5,95.8),ncol = 5, nrow = 5,byrow = T)
 colnames(MT) <- c("A","B","C","D","E")
 rownames(MT) <- c("A","B","C","D","E")
-
+clasi <- c("A","B","C","D","E")
 apply(MT,1,sum)
 
 ##Tasas de interes
@@ -18,7 +18,7 @@ apply(MT,1,sum)
 ## dependiendo de cada clase se espera recuperar del credito cierta cantidad
 
 
-RP <- c(0.999,0.95,0.87,0.75,0.55)
+RP <- c(0.001,0.05,0.13,0.25,0.45)
 
 
 ###En realidad necesitamos son el valor que cobrara el banco de un credito por ejemplo
@@ -34,6 +34,16 @@ names(creditos) <- c("A","A","A","A","A","A","A","A","A","A","A","A","B","B","B"
 sum(creditos[which(names(creditos)=="A")]*(1-RP[1]))+ sum(creditos[which(names(creditos)=="B")]*(1-RP[2]))+ sum(creditos[which(names(creditos)=="C")]*(1-RP[3]))+ sum(creditos[which(names(creditos)=="D")]*(1-RP[4]))+ sum(creditos[which(names(creditos)=="E")]*(1-RP[5]))
 sum(creditos)
 
-464711/96194
 
+N <- NULL 
+for (i in 1:length(clasi)) {
+  l <- creditos[which(names(creditos)==clasi[i])]
+  g <- dice.roll(faces=length(clasi), dice=length(l), rolls=1, weights=as.numeric(MT[i,]/100))
+  
+  N[i] <- sum(l*RP[as.numeric(g$results[,1:length(l)])])
+  }
 
+l <- creditos[which(names(creditos)==clasi[3])]
+
+dice.roll(faces=5, dice=3 , rolls=1, weights=as.vector(MT[3,]/100))
+    
