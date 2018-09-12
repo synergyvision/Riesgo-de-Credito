@@ -680,6 +680,55 @@ shinyServer(function(input, output) {
     
     
     })
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  MatrizPropias <- reactive({
+    
+    inFiler <- input$file_datacrm
+    
+    if (is.null(inFiler))
+      return(NULL)
+    read.table(inFiler$datapath, header = input$headecrm,
+               sep = input$sepcrm, quote = input$quotecrm)
+    
+  })
+  
+  
+  data4 <- reactive({
+    if(input$datasetcrm){
+      
+      
+      score1()
+      
+      
+    }
+    
+    else {
+      data <- MatrizPropias()
+    }
+  })
+  
+  ###Datos
+  
+  output$datatablecrm<-renderDataTable({
+    data4()
+  })
+  
+  
+  
+  
+  
+  
+  
+  
 })
 
 

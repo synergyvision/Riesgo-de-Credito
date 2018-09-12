@@ -9,7 +9,7 @@ colnames(MT) <- c("A","B","C","D","E")
 rownames(MT) <- c("A","B","C","D","E")
 clasi <- c("A","B","C","D","E")
 apply(MT,1,sum)
-
+write.table(MT, "Matiz.txt", sep = "\t", quote = F, row.names = T)
 ##Tasas de interes
 ## En general las tasas de interes varian con el tiempo
 ## Como estamos en una cartera de micro creditos 
@@ -86,3 +86,16 @@ dice.roll(faces=5, dice=3 , rolls=1, weights=as.vector(MT[3,]/100))
 varnormal(.95, mean(M), sigma=sd(M), log.p=FALSE, lower.tail=TRUE)
 
 qnorm(.95)*sd(M)+mean(M)
+
+
+
+
+
+
+
+
+
+
+library(forecast)
+data = arima.sim( n=1E4, list(ar=.5, ma=.2) )
+auto.arima(data)
