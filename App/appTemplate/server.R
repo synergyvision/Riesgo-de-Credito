@@ -560,10 +560,10 @@ shinyServer(function(input, output) {
     
     ####Calculamos ahora la perdida esperada
     
-    EL <- EAD*LGD*DP
+    EL <- EAD*LGD*DP[,"PD"]
     
     
-    ### Se calcula la expocicion que se espera érder en caso de default
+    ### Se calcula la expocicion que se espera pérder en caso de default
     
     Ei <- EAD*LGD
     
@@ -583,7 +583,7 @@ shinyServer(function(input, output) {
     ###se calcula el paramtro de poisson
     ### correspondiente a la posibilidad de incumplimiento
     
-    lambda <- - log(1-DP)
+    lambda <- -log(1-DP[,"PD"])
     
     
     ###creando las bandas
@@ -725,8 +725,60 @@ shinyServer(function(input, output) {
   
   
   
+  clasesPropias <- reactive({
+    
+    inFiler <- input$file_datacrm1
+    
+    if (is.null(inFiler))
+      return(NULL)
+    read.table(inFiler$datapath, header = input$headecrm1,
+               sep = input$sepcrm1, quote = input$quotecrm1)
+    
+  })
   
   
+  data5 <- reactive({
+    data <- clasesPropias()
+  })
+  
+  ###Datos
+  
+  output$datatablecrm1<-renderDataTable({
+    data5()
+  })
+  
+  
+  datasetSelect0 <- reactive({
+    datasetSelect0 <- creditos
+  })
+  
+  
+  datasetInput0 <- reactive({
+    
+    inFiler <- input$file_datacrm0
+    
+    if (is.null(inFiler))
+      return(NULL)
+    read.table(inFiler$datapath, header = input$headecrm0,
+               sep = input$sepcrm0, quote = input$quotecrm0)
+    
+  })
+  
+  
+  data6 <- reactive({
+    if(input$dataset0){
+      data <- datasetSelect0()}
+    
+    else {
+      data <- datasetInput0()
+    }
+  })
+  
+  ###Datos
+  
+  output$datatable0<-renderDataTable({
+    data6()
+  })
   
   
 })

@@ -35,6 +35,7 @@ mydata <- read.csv("data/datos_completos.csv")
 
 reg <- read.csv("data/reg.csv")
 
+creditos <- read.csv("data/creditos.csv")
 attach(mydata)
 
 ############################################# DATA TEXTO###############################################
