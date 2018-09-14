@@ -265,7 +265,7 @@ shinyUI(
                                                 fluidRow(box(background="red", checkboxInput('userFile0', strong('Cargar Datos Propios'), FALSE))),
                                                 conditionalPanel(condition = "input.userFile0 == true",
                                                                  fluidRow(
-                                                                   box(width = 15, title = h3("Cargar el archivo con la matriz de transicion"),
+                                                                   box(width = 15, title = h3("Cargar el archivo con los creditos"),
                                                                        box( width=12,background = "red",
                                                                             fileInput('file_datacrm0', 'Seleccione el archivo', accept = c('text/csv',
                                                                                                                                           'text/comma-separated-values',
@@ -368,7 +368,17 @@ shinyUI(
                                                                  ),fluidRow(
                                                                    box(width=12,status = "danger",dataTableOutput('datatablecrm1')))
                                                                  
-                                                ))
+                                                )),
+                                      
+                                      tabPanel( title = tagList(shiny::icon("gear"), strong('Simulación')),
+                                                box(width=4,background="red", numericInput("simcrm","suimulación",value = 2) ),
+                                                box(width=12,status = "danger",background="red",radioButtons("conf1", h3("Escoga nivel de confianza para el VaR"),
+                                                                                                             choices = list("90%" = 90, "95%" = 95,
+                                                                                                                            "99%" = 99),selected = 95)),
+                                                box(title = h1("El resultado del VaR es:"),width=12,status = "danger",background="red", textOutput("var122") )
+                                                
+                                                                 
+                                                )
                                                 
                                                
                                       )

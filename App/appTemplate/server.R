@@ -779,7 +779,54 @@ shinyServer(function(input, output) {
   output$datatable0<-renderDataTable({
     data6()
   })
+ 
+
   
+  
+  
+  output$var122 <- renderText({
+    
+    
+    MT <- data4()
+    
+    
+    clasi <- colnames(MT)
+    
+    
+    RP <- data5()
+    RP <- RP[,"Perdida"]
+   
+    creditos1 <- data6()
+    
+    
+    
+    NSim <- as.numeric(input$simcrm)
+    
+    M <- NULL
+    for (j in 1:NSim) {
+      
+      
+      N <- NULL 
+      for (i in 1:length(clasi)) {
+        l <- subset(creditos1,calif==clasi[i]) 
+        g <- dice.roll(faces=length(clasi), dice=length(l[,"creditos"]), rolls=1, weights=as.numeric(MT[i,]/100))
+        
+        N[i] <- sum((l[,"creditos"])*RP[as.numeric(g$results[,1:length(l[,"creditos"])])])
+      }
+      
+      M[j] <- sum(N)
+      
+    }
+    
+    var <- qnorm(as.numeric(input$conf1)/100,mean = mean(M),sd = sd(M))
+    
+    var
+    
+    
+  })  
+  
+  
+   
   
 })
 
