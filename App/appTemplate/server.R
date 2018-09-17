@@ -701,12 +701,89 @@ shinyServer(function(input, output) {
     
   })
   
+  MTR <- reactive({
+    
+    migra <- data10()
+    clases <- levels(migra[,1])
+    
+    
+    periodos <- length(migra)/2
+    
+    n <- NULL
+    
+    
+    
+    for (k in 1:periodos) {
+      
+      
+      
+      for (j in 1:length(clases)) {
+        
+        
+        orig <- length(which(migra[,(2*k)-1]==clases[j]))
+        s <- migra[,2*k]
+        s1<- s[which(migra[,(2*k)-1]==clases[j])]
+        
+        
+        for (i in 1:length(clases)) {
+          
+          
+          final <-length(which(s1==clases[i]))
+          
+          
+          n[i+(5*(j-1))+(25*(k-1))] <- 100*final/orig
+          
+          
+        }
+        
+        
+      }
+      
+      
+      
+    }
+    
+    
+    
+    
+    
+    o <- matrix(numeric(25),nrow = 5)
+    
+    
+    
+    for (b in 0:9) {
+      
+      h <- matrix(n[(1+(25*b)):(25+(25*b))],5, byrow = T)
+      o <- o + h
+      
+    }
+    
+    Matrix <- o / 10
+    colnames(Matrix) <- clases
+    MT <- round(Matrix)
+    
+    
+    return(as.data.frame(MT))
+    
+    
+    
+  })
+  
+  
+  
+  output$datatableMTR<-renderDataTable({
+    
+    MTR()
+    
+  })
+  
+  
   
   data4 <- reactive({
     if(input$datasetcrm){
       
       
-      score1()
+      MTR()
       
       
     }
@@ -785,9 +862,8 @@ shinyServer(function(input, output) {
   
   
   output$var122 <- renderText({
-    
-    
-    MT <- data4()
+    withProgress(message="simulando", value = 0,{
+      MT <- data4()
     
     
     clasi <- colnames(MT)
@@ -795,7 +871,7 @@ shinyServer(function(input, output) {
     
     RP <- data5()
     RP <- RP[,"Perdida"]
-   
+    
     creditos1 <- data6()
     
     
@@ -820,13 +896,59 @@ shinyServer(function(input, output) {
     
     var <- qnorm(as.numeric(input$conf1)/100,mean = mean(M),sd = sd(M))
     
-    var
+    var})
+    
+    
     
     
   })  
   
   
-   
+  datasetSelectMT <- reactive({
+    datasetSelect <- transic
+  })
+  
+  
+  
+  
+  
+  datasetInputMT <- reactive({
+    
+    inFile <- input$file_dataMT
+    
+    if (is.null(inFile))
+      return(NULL)
+    read.table(inFile$datapath, header = input$headerMT,
+               sep = input$sepMT, quote = input$quoteMT)
+    
+  })
+  
+  
+  
+  data10 <- reactive({
+    if(input$datasetMT){
+      data <- datasetSelectMT()}
+    
+    else {
+      data <- datasetInputMT()
+    }
+  })
+  output$datatableMT<-renderDataTable({
+    data10()
+  })
+  
+  
+
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
   
 })
 

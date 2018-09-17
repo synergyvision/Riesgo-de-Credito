@@ -32,6 +32,8 @@ ACERCORR_TEXT<-"contacto@synergy.vision"
 
 ####Data de Ejemplo
 
+transic <- read.csv("data/Historica_de_migraciones.csv",sep = ";")
+
 mydata <- read.csv("data/datos_completos.csv")
 
 reg <- read.csv("data/reg.csv")

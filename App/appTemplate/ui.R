@@ -295,7 +295,36 @@ shinyUI(
                                                   box(style = "overflow-x:scroll",width=12,status = "danger",dataTableOutput('datatable0'))
                                                 )
                                                 
-                                                )
+                                                ),tabPanel( title = tagList(shiny::icon("gear"), strong('Calculo de la Matriz de transición')),
+                                                            fluidRow(box(background="red", checkboxInput("datasetMT", strong("Selecciona para inciar Datos de Ejemplo"), FALSE))),
+                                                            fluidRow(box(background="red", checkboxInput('userFileMT', strong('Cargar Datos Propios'), FALSE))),
+                                                            conditionalPanel(condition = "input.userFileMT == true",
+                                                                                                                   fluidRow(
+                                                                                                                  box(width = 15, title = h3(UPLOADDATA_TEXT),
+                                                                                                                   box( width=12,background = "red",
+                                                                                                                     fileInput('file_dataMT', SELECTFILE_TEXT, accept = UPLOADFILETYPE_CONF,
+                                                                                                                                   placeholder = FILESELEC_TEXT, buttonLabel = BUTTSELEC_TEXT )
+                                                                                                                                                                                       ),
+                                                                                                                 fluidRow(
+                                                                                                                   box(width=4,background="red",strong(ENCABEZADO_TEXT),
+                                                                                                                  checkboxInput( width="80%", 'headerMT', WITHHEADER_TEXT, TRUE)),
+                                                                                                                  box(width=4,background="red",
+                                                                                                                  radioButtons( width="40%", 'sepMT', SEPARATOR_TEXT, UPLOADFILESEP_CONF, ';')),
+                                                                                                                  box(width=4,background="red",
+                                                                                                                  radioButtons( width="40%", 'quoteMT', COMILLAS_TEXT, UPLOADCOMILLAS_CONF, ''))
+                                                                                                                  )
+                                                                                                                  )
+                                                                                                                  )),
+                                                            fluidRow(
+                                                              box(style = "overflow-x:scroll",width=12,status = "danger",dataTableOutput('datatableMT'))
+                                                            ),
+                                                            fluidRow(
+                                                              box(title = h3("Matriz de transicion"),style = "overflow-x:scroll",width=12,status = "danger",dataTableOutput('datatableMTR'))
+                                                            )
+                                                            )
+                                      
+                                      
+                                      
                                       ,tabPanel( title = tagList(shiny::icon("gear"), strong('Matriz de transición'))
                                       ,box(width = 12, background="red",status = "danger",h2("Matriz de probabilidades de transicion de la cartera de clientes")),
                                       fluidRow( column(width=5,box(background="red", checkboxInput("datasetcrm", strong("Matriz de transicion calculada"), FALSE))),column(width=5,box(background="red", checkboxInput('userFilecrm', strong("Matriz de transicion propia"), FALSE)))),
@@ -326,10 +355,10 @@ shinyUI(
                                                                                                                        'Comilla simple'="'"), ''))
                                                              )
                                                          )
+                                                       )
+                                                       
                                                        ),fluidRow(
                                                          box(width=12,status = "danger",dataTableOutput('datatablecrm')))
-                                                       
-                                                       )
                                       
                                       
                                       
@@ -338,7 +367,7 @@ shinyUI(
                                                 
                                       tabPanel( title = tagList(shiny::icon("gear"), strong('Perdida esperada por clase')),
                                                 box(width = 15, title = h1("Cargar el archivo con las perdida por clase")),
-                                                box(background="red", checkboxInput('userFilecrm1', strong("Ingresar perdida esperada por clase"), FALSE)),
+                                                box(background="red", checkboxInput('userFilecrm1', strong("Ingresar perdida esperada por clase"), F)),
                                                 conditionalPanel(condition = "input.userFilecrm1 == true",
                                                                  fluidRow(
                                                                   
