@@ -364,6 +364,41 @@ shinyUI(
                                       
                                       
                                       ),
+                                      
+                                      
+                                      
+                                      
+                                      tabPanel( title = tagList(shiny::icon("gear"), strong('Calculo de las Perdidas esperada por clases')),
+                                                fluidRow(box(background="red", checkboxInput("datasetC", strong("Selecciona para inciar Datos de Ejemplo"), FALSE))),
+                                                fluidRow(box(background="red", checkboxInput('userFileC', strong('Cargar Datos Propios'), FALSE))),
+                                                conditionalPanel(condition = "input.userFileC == true",
+                                                                 fluidRow(
+                                                                   box(width = 15, title = h3(UPLOADDATA_TEXT),
+                                                                       box( width=12,background = "red",
+                                                                            fileInput('file_dataC', SELECTFILE_TEXT, accept = UPLOADFILETYPE_CONF,
+                                                                                      placeholder = FILESELEC_TEXT, buttonLabel = BUTTSELEC_TEXT )
+                                                                       ),
+                                                                       fluidRow(
+                                                                         box(width=4,background="red",strong(ENCABEZADO_TEXT),
+                                                                             checkboxInput( width="80%", 'headerC', WITHHEADER_TEXT, TRUE)),
+                                                                         box(width=4,background="red",
+                                                                             radioButtons( width="40%", 'sepC', SEPARATOR_TEXT, UPLOADFILESEP_CONF, ';')),
+                                                                         box(width=4,background="red",
+                                                                             radioButtons( width="40%", 'quoteC', COMILLAS_TEXT, UPLOADCOMILLAS_CONF, ''))
+                                                                       )
+                                                                   )
+                                                                 )),
+                                                fluidRow(
+                                                  box(style = "overflow-x:scroll",width=12,status = "danger",dataTableOutput('datatableC'))
+                                                ),
+                                                fluidRow(
+                                                  box(title = h3("Matriz de transicion"),style = "overflow-x:scroll",width=12,status = "danger",dataTableOutput('datatableCR'))
+                                                )
+                                      )
+                                      
+                                      
+                                      
+                                      ,
                                                 
                                       tabPanel( title = tagList(shiny::icon("gear"), strong('Perdida esperada por clase')),
                                                 box(width = 15, title = h1("Cargar el archivo con las perdida por clase")),

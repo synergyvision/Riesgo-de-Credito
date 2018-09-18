@@ -943,9 +943,81 @@ shinyServer(function(input, output) {
 
   
   
+  datasetSelectC <- reactive({
+    datasetSelect <- clases1
+  })
   
   
   
+  
+  
+  datasetInputC <- reactive({
+    
+    inFile <- input$file_dataC
+    
+    if (is.null(inFile))
+      return(NULL)
+    read.table(inFile$datapath, header = input$headerMT,
+               sep = input$sepMT, quote = input$quoteMT)
+    
+  })
+  
+  
+  
+  data11 <- reactive({
+    if(input$datasetC){
+      data <- datasetSelectC()}
+    
+    else {
+      data <- datasetInputC()
+    }
+  })
+  output$datatableC<-renderDataTable({
+    data11()
+  })
+  
+  
+  
+  
+  CR <- reactive({
+    
+    histo <- data11()
+    
+    N <- NULL
+    
+    
+    clases <- levels(histo[,1])
+    
+    for (i in 1:length(clases)) {
+      
+      s <- which(histo[,1]==clases[i])
+      
+      s1 <- histo[,2]
+      
+      N[i] <- mean(s1[s])
+      
+    }
+    
+    N <- N /100
+    
+    
+    result <- data.frame(clases,N)
+    
+    colnames(result) <- c("Perdida","Calif")
+    
+    return(result)
+    
+    
+    
+  })
+  
+  
+  
+  output$datatableCR<-renderDataTable({
+    
+    CR()
+    
+  })
   
   
   

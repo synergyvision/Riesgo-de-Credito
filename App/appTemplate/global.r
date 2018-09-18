@@ -31,6 +31,7 @@ ACERTLF_TEXT<-"0212-2630808 / 0414-2769752"
 ACERCORR_TEXT<-"contacto@synergy.vision"
 
 ####Data de Ejemplo
+clases1 <- read.csv("data/Historica_de_perdidas.csv",sep = ";")
 
 transic <- read.csv("data/Historica_de_migraciones.csv",sep = ";")
 
