@@ -392,7 +392,7 @@ shinyUI(
                                                   box(style = "overflow-x:scroll",width=12,status = "danger",dataTableOutput('datatableC'))
                                                 ),
                                                 fluidRow(
-                                                  box(title = h3("Matriz de transicion"),style = "overflow-x:scroll",width=12,status = "danger",dataTableOutput('datatableCR'))
+                                                  box(title = h3("Perdida esperada por clase"),style = "overflow-x:scroll",width=12,status = "danger",dataTableOutput('datatableCR'))
                                                 )
                                       )
                                       
@@ -402,7 +402,8 @@ shinyUI(
                                                 
                                       tabPanel( title = tagList(shiny::icon("gear"), strong('Perdida esperada por clase')),
                                                 box(width = 15, title = h1("Cargar el archivo con las perdida por clase")),
-                                                box(background="red", checkboxInput('userFilecrm1', strong("Ingresar perdida esperada por clase"), F)),
+                                                box(background="red",checkboxInput("datasetcrm1", strong("Perdida por clases calculada"), FALSE))
+                                                ,box(background="red", checkboxInput('userFilecrm1', strong("Ingresar perdida esperada por clase"), F)),
                                                 conditionalPanel(condition = "input.userFilecrm1 == true",
                                                                  fluidRow(
                                                                   
@@ -429,10 +430,10 @@ shinyUI(
                                                                                                                                    'Comilla simple'="'"), ''))
                                                                        )
                                                                    
-                                                                 ),fluidRow(
-                                                                   box(width=12,status = "danger",dataTableOutput('datatablecrm1')))
+                                                                 )
                                                                  
-                                                )),
+                                                ),fluidRow(
+                                                  box(width=12,status = "danger",dataTableOutput('datatablecrm1')))),
                                       
                                       tabPanel( title = tagList(shiny::icon("gear"), strong('Simulación')),
                                                 box(width=4,background="red", numericInput("simcrm","suimulación",value = 2) ),

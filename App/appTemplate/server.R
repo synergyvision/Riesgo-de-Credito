@@ -814,9 +814,25 @@ shinyServer(function(input, output) {
   })
   
   
-  data5 <- reactive({
-    data <- clasesPropias()
+  datasetInputcrm1 <- reactive({
+    datasetInputcrm1 <-CR()
   })
+  
+  
+  data5 <- reactive({
+    if(input$datasetcrm1){
+      data <-datasetInputcrm1() }
+    
+    else {
+      data <- clasesPropias()
+    }
+  })
+
+  
+  
+  
+  
+  
   
   ###Datos
   
@@ -1001,9 +1017,9 @@ shinyServer(function(input, output) {
     N <- N /100
     
     
-    result <- data.frame(clases,N)
+    result <- data.frame(N,clases)
     
-    colnames(result) <- c("Perdida","Calif")
+    colnames(result) <- c("Perdida" , "Calif")
     
     return(result)
     
