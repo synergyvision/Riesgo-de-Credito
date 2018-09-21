@@ -27,18 +27,40 @@ shinyUI(
       
       sidebarMenu(id = "tabs",
                   
-                  menuItem("Datos", tabName = "data", icon = icon("fal fa-database")),
-                  menuItem("Seleccion de variables", tabName="stat", icon=icon("fas fas fa-table")),
-                  menuItem("Modelo de probabiidad lineal", icon = icon("th"), tabName = "glm"),
-                  menuItem("CreditRisk+", icon = icon("th"), tabName = "cr"),
-                  menuItem("Creditmetrics", icon = icon("th"), tabName = "crm"),
+                  menuItem("CreditRisk+", tabName = "data", icon = icon("fal fa-database"),
+                          
+                           
+                           
+                            menuSubItem("Datos", tabName = "subitem1", icon = icon("circle-o")),
+                           menuSubItem("Estadisticos", tabName = "stat", icon = icon("circle-o")),
+                           menuSubItem("Modelo de probabiidad lineal", tabName = "glm", icon = icon("circle-o")),
+                           menuSubItem("Parametros iniciales", tabName = "Param", icon = icon("circle-o")),
+                           menuSubItem("Resultados del modelo", tabName = "Res", icon = icon("circle-o"))
+                           ),
+                  
+                  
+                  menuItem("Creditmetrics", icon = icon("th"), tabName = "crm",
+                           menuSubItem("creditos", tabName = "CRED", icon = icon("circle-o")),
+                           menuSubItem("Calculo Matriz de transicion", tabName = "CMT", icon = icon("circle-o")),
+                           menuSubItem("Matriz de transicion", tabName = "MT", icon = icon("circle-o")),
+                           
+                           menuSubItem("Cálculo de perdia por clase", tabName = "CPC", icon = icon("circle-o")),
+                           menuSubItem("Perdida por clase", tabName = "PC", icon = icon("circle-o")),
+                           menuSubItem("Simulación y Resultados", tabName = "RES", icon = icon("circle-o"))
+                           
+                           
+                           ),
+                  
+                  
+                  
+                  
                   menuItem("Acerca", icon = icon("exclamation-circle"), tabName = "acerca"))
     ),
     dashboardBody(VisionHeader(),
                   
                   tabItems(
                     
-                    tabItem(tabName = "data",
+                    tabItem(tabName = "subitem1",
                             
                             
                             fluidRow(box(background="red", checkboxInput("dataset", strong("Selecciona para inciar Datos de Ejemplo"), FALSE))),
@@ -200,256 +222,239 @@ shinyUI(
                                       
                               ))),
                     
+                    tabItem(tabName = "Param",
                     
-                    tabItem(tabName = "cr", 
+                    tabPanel( title = tagList(shiny::icon("gear"), strong('Parametros iniciales')),
+                              h3("Modelo CreditRisk+"),
+                              box(width = 4, background="red",status = "danger", numericInput("uniper","Ingrese unidad de perdida",value = 1000)),
+                              box(width = 6, background="red",status = "danger", numericInput("uni","Ingrese porcentaje de recuperacion luego del default",value = 80)),
+                              
+                              box(width = 12, background="red",status = "danger",h2("Score y probabilidad de incumplimiento del nuevo cliente")),
+                              fluidRow( box(background="red", checkboxInput("datasetr1", strong("Probabilidades de incumplimiento provenientes del Score"), FALSE))),
+                              fluidRow(box(background="red", checkboxInput('userFiler1', strong("Probabilidades de incumplimiento propias"), FALSE)))
+                              
+                              , conditionalPanel(condition = "input.userFiler1 == true",
+                                                 fluidRow(
+                                                   box(width = 15, title = h3("Cargar el archivo con las probabiidades de incumplimiento"),
+                                                       box( width=12,background = "red",
+                                                            fileInput('file_datar1', 'Seleccione el archivo', accept = c('text/csv',
+                                                                                                                         'text/comma-separated-values',
+                                                                                                                         'text/tab-separated-values',
+                                                                                                                         'text/plain',
+                                                                                                                         '.csv',
+                                                                                                                         '.tsv',
+                                                                                                                         '.rda'),
+                                                                      placeholder = 'Aun no seleccionas el archivo...', buttonLabel = 'Buscar' )
+                                                       ),
+                                                       fluidRow(
+                                                         box(width=4,background="red",strong("Encabezado de los datos"),
+                                                             checkboxInput( width="80%", 'headerr1', "Con encabezado", TRUE)),
+                                                         box(width=4,background="red",
+                                                             radioButtons( width="40%", 'sepr1', "Separador", c('Coma'=',',
+                                                                                                                'Punto y coma'=';',
+                                                                                                                'Tab'='\t'), ';')),
+                                                         box(width=4,background="red",
+                                                             radioButtons( width="40%", 'quoter1', "Comillas", c('Ninguna'='',
+                                                                                                                 'Comilla doble'='"',
+                                                                                                                 'Comilla simple'="'"), ''))
+                                                       )
+                                                   )
+                                                 )),fluidRow(
+                                                   box(width=12,status = "danger",dataTableOutput('datatabler1'))
+                                                 ))),
+                    
+                    
+                    
+                    
+                    tabItem( tabName = "Res",
+                            box(width=12,status = "danger",background="red",radioButtons("conf", h3("Escoga nivel de confianza para el VaR"),
+                                                                                         choices = list("90%" = 90, "95%" = 95,
+                                                                                                        "99%" = 99),selected = 95)),     
                             
-                            fluidRow(
-                              tabBox( height = "1250px", width = 12,side = "left",
-                                      tabPanel( title = tagList(shiny::icon("gear"), strong('Parametros iniciales')),
-                            h3("Modelo CreditRisk+"),
-                            box(width = 4, background="red",status = "danger", numericInput("uniper","Ingrese unidad de perdida",value = 1000)),
-                            box(width = 6, background="red",status = "danger", numericInput("uni","Ingrese porcentaje de recuperacion luego del default",value = 80)),
-                           
-                            box(width = 12, background="red",status = "danger",h2("Score y probabilidad de incumplimiento del nuevo cliente")),
-                            fluidRow( box(background="red", checkboxInput("datasetr1", strong("Probabilidades de incumplimiento provenientes del Score"), FALSE))),
-                            fluidRow(box(background="red", checkboxInput('userFiler1', strong("Probabilidades de incumplimiento propias"), FALSE)))
-                           
-                            , conditionalPanel(condition = "input.userFiler1 == true",
+                            box(width=12,status = "danger",background="red",h2("Valor en rieso"), textOutput("var"))
+                    ),
+                    tabItem( tabName = "CRED",
+                             h1("Creditos"),
+                              
+                              fluidRow(box(background="red", checkboxInput("dataset0", strong("Selecciona para inciar Datos de Ejemplo"), FALSE))),
+                              fluidRow(box(background="red", checkboxInput('userFile0', strong('Cargar Datos Propios'), FALSE))),
+                              conditionalPanel(condition = "input.userFile0 == true",
                                                fluidRow(
-                                                 box(width = 15, title = h3("Cargar el archivo con las probabiidades de incumplimiento"),
+                                                 box(width = 15, title = h3("Cargar el archivo con los creditos"),
                                                      box( width=12,background = "red",
-                                                          fileInput('file_datar1', 'Seleccione el archivo', accept = c('text/csv',
-                                                                                                                      'text/comma-separated-values',
-                                                                                                                      'text/tab-separated-values',
-                                                                                                                      'text/plain',
-                                                                                                                      '.csv',
-                                                                                                                      '.tsv',
-                                                                                                                      '.rda'),
+                                                          fileInput('file_datacrm0', 'Seleccione el archivo', accept = c('text/csv',
+                                                                                                                         'text/comma-separated-values',
+                                                                                                                         'text/tab-separated-values',
+                                                                                                                         'text/plain',
+                                                                                                                         '.csv',
+                                                                                                                         '.tsv',
+                                                                                                                         '.rda'),
                                                                     placeholder = 'Aun no seleccionas el archivo...', buttonLabel = 'Buscar' )
                                                      ),
                                                      fluidRow(
                                                        box(width=4,background="red",strong("Encabezado de los datos"),
-                                                           checkboxInput( width="80%", 'headerr1', "Con encabezado", TRUE)),
+                                                           checkboxInput( width="80%", 'headecrm0', "Con encabezado", TRUE)),
                                                        box(width=4,background="red",
-                                                           radioButtons( width="40%", 'sepr1', "Separador", c('Coma'=',',
-                                                                                                             'Punto y coma'=';',
-                                                                                                             'Tab'='\t'), ';')),
+                                                           radioButtons( width="40%", 'sepcrm0', "Separador", c('Coma'=',',
+                                                                                                                'Punto y coma'=';',
+                                                                                                                'Tab'='\t'), ';')),
                                                        box(width=4,background="red",
-                                                           radioButtons( width="40%", 'quoter1', "Comillas", c('Ninguna'='',
-                                                                                                              'Comilla doble'='"',
-                                                                                                              'Comilla simple'="'"), ''))
+                                                           radioButtons( width="40%", 'quotecrm0', "Comillas", c('Ninguna'='',
+                                                                                                                 'Comilla doble'='"',
+                                                                                                                 'Comilla simple'="'"), ''))
                                                      )
                                                  )
-                                               )),fluidRow(
-                                                 box(width=12,status = "danger",dataTableOutput('datatabler1'))
+                                               )
+                              ),
+                              fluidRow(
+                                box(style = "overflow-x:scroll",width=12,status = "danger",dataTableOutput('datatable0'))
+                              )
+                              
+                     ),   
+                    tabItem(tabName = "CMT", h1('Calculo de la Matriz de transición'),
+                              fluidRow(box(background="red", checkboxInput("datasetMT", strong("Selecciona para inciar Datos de Ejemplo"), FALSE))),
+                              fluidRow(box(background="red", checkboxInput('userFileMT', strong('Cargar Datos Propios'), FALSE))),
+                              conditionalPanel(condition = "input.userFileMT == true",
+                                               fluidRow(
+                                                 box(width = 15, title = h3(UPLOADDATA_TEXT),
+                                                     box( width=12,background = "red",
+                                                          fileInput('file_dataMT', SELECTFILE_TEXT, accept = UPLOADFILETYPE_CONF,
+                                                                    placeholder = FILESELEC_TEXT, buttonLabel = BUTTSELEC_TEXT )
+                                                     ),
+                                                     fluidRow(
+                                                       box(width=4,background="red",strong(ENCABEZADO_TEXT),
+                                                           checkboxInput( width="80%", 'headerMT', WITHHEADER_TEXT, TRUE)),
+                                                       box(width=4,background="red",
+                                                           radioButtons( width="40%", 'sepMT', SEPARATOR_TEXT, UPLOADFILESEP_CONF, ';')),
+                                                       box(width=4,background="red",
+                                                           radioButtons( width="40%", 'quoteMT', COMILLAS_TEXT, UPLOADCOMILLAS_CONF, ''))
+                                                     )
+                                                 )
                                                )),
-                            
-                            tabPanel( title = tagList(shiny::icon("gear"), strong('Resultados del modelo')),
-                                      
-                                      box(width=12,status = "danger",background="red",radioButtons("conf", h3("Escoga nivel de confianza para el VaR"),
-                                                                                  choices = list("90%" = 90, "95%" = 95,
-                                                                                                 "99%" = 99),selected = 95)),     
-                                      
-                                      box(width=12,status = "danger",background="red",h2("Valor en rieso"), textOutput("var"))
-                                      
-                            )
-                                              
-                            
-                             ))),
-                    tabItem(tabName = "crm",
-                            fluidRow(
-                              tabBox( height = "1250px", width = 12,side = "left",
-                                      tabPanel( title = tagList(shiny::icon("gear"), strong('Creditos')),
-                                                
-                                                fluidRow(box(background="red", checkboxInput("dataset0", strong("Selecciona para inciar Datos de Ejemplo"), FALSE))),
-                                                fluidRow(box(background="red", checkboxInput('userFile0', strong('Cargar Datos Propios'), FALSE))),
-                                                conditionalPanel(condition = "input.userFile0 == true",
-                                                                 fluidRow(
-                                                                   box(width = 15, title = h3("Cargar el archivo con los creditos"),
-                                                                       box( width=12,background = "red",
-                                                                            fileInput('file_datacrm0', 'Seleccione el archivo', accept = c('text/csv',
-                                                                                                                                          'text/comma-separated-values',
-                                                                                                                                          'text/tab-separated-values',
-                                                                                                                                          'text/plain',
-                                                                                                                                          '.csv',
-                                                                                                                                          '.tsv',
-                                                                                                                                          '.rda'),
-                                                                                      placeholder = 'Aun no seleccionas el archivo...', buttonLabel = 'Buscar' )
-                                                                       ),
-                                                                       fluidRow(
-                                                                         box(width=4,background="red",strong("Encabezado de los datos"),
-                                                                             checkboxInput( width="80%", 'headecrm0', "Con encabezado", TRUE)),
-                                                                         box(width=4,background="red",
-                                                                             radioButtons( width="40%", 'sepcrm0', "Separador", c('Coma'=',',
-                                                                                                                                 'Punto y coma'=';',
-                                                                                                                                 'Tab'='\t'), ';')),
-                                                                         box(width=4,background="red",
-                                                                             radioButtons( width="40%", 'quotecrm0', "Comillas", c('Ninguna'='',
-                                                                                                                                  'Comilla doble'='"',
-                                                                                                                                  'Comilla simple'="'"), ''))
-                                                                       )
-                                                                   )
-                                                                 )
-                                                ),
-                                                fluidRow(
-                                                  box(style = "overflow-x:scroll",width=12,status = "danger",dataTableOutput('datatable0'))
-                                                )
-                                                
-                                                ),tabPanel( title = tagList(shiny::icon("gear"), strong('Calculo de la Matriz de transición')),
-                                                            fluidRow(box(background="red", checkboxInput("datasetMT", strong("Selecciona para inciar Datos de Ejemplo"), FALSE))),
-                                                            fluidRow(box(background="red", checkboxInput('userFileMT', strong('Cargar Datos Propios'), FALSE))),
-                                                            conditionalPanel(condition = "input.userFileMT == true",
-                                                                                                                   fluidRow(
-                                                                                                                  box(width = 15, title = h3(UPLOADDATA_TEXT),
-                                                                                                                   box( width=12,background = "red",
-                                                                                                                     fileInput('file_dataMT', SELECTFILE_TEXT, accept = UPLOADFILETYPE_CONF,
-                                                                                                                                   placeholder = FILESELEC_TEXT, buttonLabel = BUTTSELEC_TEXT )
-                                                                                                                                                                                       ),
-                                                                                                                 fluidRow(
-                                                                                                                   box(width=4,background="red",strong(ENCABEZADO_TEXT),
-                                                                                                                  checkboxInput( width="80%", 'headerMT', WITHHEADER_TEXT, TRUE)),
-                                                                                                                  box(width=4,background="red",
-                                                                                                                  radioButtons( width="40%", 'sepMT', SEPARATOR_TEXT, UPLOADFILESEP_CONF, ';')),
-                                                                                                                  box(width=4,background="red",
-                                                                                                                  radioButtons( width="40%", 'quoteMT', COMILLAS_TEXT, UPLOADCOMILLAS_CONF, ''))
-                                                                                                                  )
-                                                                                                                  )
-                                                                                                                  )),
-                                                            fluidRow(
-                                                              box(style = "overflow-x:scroll",width=12,status = "danger",dataTableOutput('datatableMT'))
-                                                            ),
-                                                            fluidRow(
-                                                              box(title = h3("Matriz de transicion"),style = "overflow-x:scroll",width=12,status = "danger",dataTableOutput('datatableMTR'))
-                                                            )
-                                                            )
-                                      
-                                      
-                                      
-                                      ,tabPanel( title = tagList(shiny::icon("gear"), strong('Matriz de transición'))
-                                      ,box(width = 12, background="red",status = "danger",h2("Matriz de probabilidades de transicion de la cartera de clientes")),
-                                      fluidRow( column(width=5,box(background="red", checkboxInput("datasetcrm", strong("Matriz de transicion calculada"), FALSE))),column(width=5,box(background="red", checkboxInput('userFilecrm', strong("Matriz de transicion propia"), FALSE)))),
-                                      #fluidRow(box(background="red", checkboxInput('userFilecrm', strong("Matriz de transicion propia"), FALSE))),
-                                      conditionalPanel(condition = "input.userFilecrm == true",
-                                                       fluidRow(
-                                                         box(width = 15, title = h3("Cargar el archivo con la matriz de transicion"),
-                                                             box( width=12,background = "red",
-                                                                  fileInput('file_datacrm', 'Seleccione el archivo', accept = c('text/csv',
-                                                                                                                               'text/comma-separated-values',
-                                                                                                                               'text/tab-separated-values',
-                                                                                                                               'text/plain',
-                                                                                                                               '.csv',
-                                                                                                                               '.tsv',
-                                                                                                                               '.rda'),
-                                                                            placeholder = 'Aun no seleccionas el archivo...', buttonLabel = 'Buscar' )
-                                                             ),
-                                                             fluidRow(
-                                                               box(width=4,background="red",strong("Encabezado de los datos"),
-                                                                   checkboxInput( width="80%", 'headecrm', "Con encabezado", TRUE)),
-                                                               box(width=4,background="red",
-                                                                   radioButtons( width="40%", 'sepcrm', "Separador", c('Coma'=',',
-                                                                                                                      'Punto y coma'=';',
-                                                                                                                      'Tab'='\t'), ';')),
-                                                               box(width=4,background="red",
-                                                                   radioButtons( width="40%", 'quotecrm', "Comillas", c('Ninguna'='',
-                                                                                                                       'Comilla doble'='"',
-                                                                                                                       'Comilla simple'="'"), ''))
-                                                             )
-                                                         )
-                                                       )
-                                                       
-                                                       ),fluidRow(
-                                                         box(width=12,status = "danger",dataTableOutput('datatablecrm')))
-                                      
-                                      
-                                      
-                                      
-                                      ),
-                                      
-                                      
-                                      
-                                      
-                                      tabPanel( title = tagList(shiny::icon("gear"), strong('Calculo de las Perdidas esperada por clases')),
-                                                fluidRow(box(background="red", checkboxInput("datasetC", strong("Selecciona para inciar Datos de Ejemplo"), FALSE))),
-                                                fluidRow(box(background="red", checkboxInput('userFileC', strong('Cargar Datos Propios'), FALSE))),
-                                                conditionalPanel(condition = "input.userFileC == true",
-                                                                 fluidRow(
-                                                                   box(width = 15, title = h3(UPLOADDATA_TEXT),
-                                                                       box( width=12,background = "red",
-                                                                            fileInput('file_dataC', SELECTFILE_TEXT, accept = UPLOADFILETYPE_CONF,
-                                                                                      placeholder = FILESELEC_TEXT, buttonLabel = BUTTSELEC_TEXT )
-                                                                       ),
-                                                                       fluidRow(
-                                                                         box(width=4,background="red",strong(ENCABEZADO_TEXT),
-                                                                             checkboxInput( width="80%", 'headerC', WITHHEADER_TEXT, TRUE)),
-                                                                         box(width=4,background="red",
-                                                                             radioButtons( width="40%", 'sepC', SEPARATOR_TEXT, UPLOADFILESEP_CONF, ';')),
-                                                                         box(width=4,background="red",
-                                                                             radioButtons( width="40%", 'quoteC', COMILLAS_TEXT, UPLOADCOMILLAS_CONF, ''))
-                                                                       )
-                                                                   )
-                                                                 )),
-                                                fluidRow(
-                                                  box(style = "overflow-x:scroll",width=12,status = "danger",dataTableOutput('datatableC'))
-                                                ),
-                                                fluidRow(
-                                                  box(title = h3("Perdida esperada por clase"),style = "overflow-x:scroll",width=12,status = "danger",dataTableOutput('datatableCR'))
-                                                )
-                                      )
-                                      
-                                      
-                                      
-                                      ,
-                                                
-                                      tabPanel( title = tagList(shiny::icon("gear"), strong('Perdida esperada por clase')),
-                                                box(width = 15, title = h1("Cargar el archivo con las perdida por clase")),
-                                                box(background="red",checkboxInput("datasetcrm1", strong("Perdida por clases calculada"), FALSE))
-                                                ,box(background="red", checkboxInput('userFilecrm1', strong("Ingresar perdida esperada por clase"), F)),
-                                                conditionalPanel(condition = "input.userFilecrm1 == true",
-                                                                 fluidRow(
-                                                                  
-                                                                       box( width=12,background = "red",
-                                                                            fileInput('file_datacrm1', 'Seleccione el archivo', accept = c('text/csv',
-                                                                                                                                           'text/comma-separated-values',
-                                                                                                                                           'text/tab-separated-values',
-                                                                                                                                           'text/plain',
-                                                                                                                                           '.csv',
-                                                                                                                                           '.tsv',
-                                                                                                                                           '.rda'),
-                                                                                      placeholder = 'Aun no seleccionas el archivo...', buttonLabel = 'Buscar' )
-                                                                       ),
-                                                                       fluidRow(
-                                                                         box(width=4,background="red",strong("Encabezado de los datos"),
-                                                                             checkboxInput( width="80%", 'headecrm1', "Con encabezado", TRUE)),
-                                                                         box(width=4,background="red",
-                                                                             radioButtons( width="40%", 'sepcrm1', "Separador", c('Coma'=',',
-                                                                                                                                  'Punto y coma'=';',
-                                                                                                                                  'Tab'='\t'), ';')),
-                                                                         box(width=4,background="red",
-                                                                             radioButtons( width="40%", 'quotecrm1', "Comillas", c('Ninguna'='',
-                                                                                                                                   'Comilla doble'='"',
-                                                                                                                                   'Comilla simple'="'"), ''))
-                                                                       )
-                                                                   
-                                                                 )
-                                                                 
-                                                ),fluidRow(
-                                                  box(width=12,status = "danger",dataTableOutput('datatablecrm1')))),
-                                      
-                                      tabPanel( title = tagList(shiny::icon("gear"), strong('Simulación')),
-                                                box(width=4,background="red", numericInput("simcrm","suimulación",value = 2) ),
-                                                box(width=12,status = "danger",background="red",radioButtons("conf1", h3("Escoga nivel de confianza para el VaR"),
-                                                                                                             choices = list("90%" = 90, "95%" = 95,
-                                                                                                                            "99%" = 99),selected = 95)),
-                                                box(title = h1("El resultado del VaR es:"),width=12,status = "danger",background="red", textOutput("var122") )
-                                                
-                                                                 
-                                                )
-                                                
+                              fluidRow(
+                                box(style = "overflow-x:scroll",width=12,status = "danger",dataTableOutput('datatableMT'))
+                              ),
+                              fluidRow(
+                                box(title = h3("Matriz de transicion"),style = "overflow-x:scroll",width=12,status = "danger",dataTableOutput('datatableMTR'))
+                              )
+                    ),
+                       
+                    tabItem( tabName="MT", h1('Matriz de transición')
+                              ,box(width = 12, background="red",status = "danger",h2("Matriz de probabilidades de transicion de la cartera de clientes")),
+                              fluidRow( column(width=5,box(background="red", checkboxInput("datasetcrm", strong("Matriz de transicion calculada"), FALSE))),column(width=5,box(background="red", checkboxInput('userFilecrm', strong("Matriz de transicion propia"), FALSE)))),
+                              #fluidRow(box(background="red", checkboxInput('userFilecrm', strong("Matriz de transicion propia"), FALSE))),
+                              conditionalPanel(condition = "input.userFilecrm == true",
+                                               fluidRow(
+                                                 box(width = 15, title = h3("Cargar el archivo con la matriz de transicion"),
+                                                     box( width=12,background = "red",
+                                                          fileInput('file_datacrm', 'Seleccione el archivo', accept = c('text/csv',
+                                                                                                                        'text/comma-separated-values',
+                                                                                                                        'text/tab-separated-values',
+                                                                                                                        'text/plain',
+                                                                                                                        '.csv',
+                                                                                                                        '.tsv',
+                                                                                                                        '.rda'),
+                                                                    placeholder = 'Aun no seleccionas el archivo...', buttonLabel = 'Buscar' )
+                                                     ),
+                                                     fluidRow(
+                                                       box(width=4,background="red",strong("Encabezado de los datos"),
+                                                           checkboxInput( width="80%", 'headecrm', "Con encabezado", TRUE)),
+                                                       box(width=4,background="red",
+                                                           radioButtons( width="40%", 'sepcrm', "Separador", c('Coma'=',',
+                                                                                                               'Punto y coma'=';',
+                                                                                                               'Tab'='\t'), ';')),
+                                                       box(width=4,background="red",
+                                                           radioButtons( width="40%", 'quotecrm', "Comillas", c('Ninguna'='',
+                                                                                                                'Comilla doble'='"',
+                                                                                                                'Comilla simple'="'"), ''))
+                                                     )
+                                                 )
+                                               )
                                                
-                                      )
-                                    
-                                      
-                              )),
+                              ),fluidRow(
+                                box(width=12,status = "danger",dataTableOutput('datatablecrm')))
+                              
+                              
+                              
+                              
+                    ),
+                    
+                    
+                    
+                    tabItem( tabName = "CPC", h1('Calculo de las Perdidas esperada por clases'),
+                              fluidRow(box(background="red", checkboxInput("datasetC", strong("Selecciona para inciar Datos de Ejemplo"), FALSE))),
+                              fluidRow(box(background="red", checkboxInput('userFileC', strong('Cargar Datos Propios'), FALSE))),
+                              conditionalPanel(condition = "input.userFileC == true",
+                                               fluidRow(
+                                                 box(width = 15, title = h3(UPLOADDATA_TEXT),
+                                                     box( width=12,background = "red",
+                                                          fileInput('file_dataC', SELECTFILE_TEXT, accept = UPLOADFILETYPE_CONF,
+                                                                    placeholder = FILESELEC_TEXT, buttonLabel = BUTTSELEC_TEXT )
+                                                     ),
+                                                     fluidRow(
+                                                       box(width=4,background="red",strong(ENCABEZADO_TEXT),
+                                                           checkboxInput( width="80%", 'headerC', WITHHEADER_TEXT, TRUE)),
+                                                       box(width=4,background="red",
+                                                           radioButtons( width="40%", 'sepC', SEPARATOR_TEXT, UPLOADFILESEP_CONF, ';')),
+                                                       box(width=4,background="red",
+                                                           radioButtons( width="40%", 'quoteC', COMILLAS_TEXT, UPLOADCOMILLAS_CONF, ''))
+                                                     )
+                                                 )
+                                               )),
+                              fluidRow(
+                                box(style = "overflow-x:scroll",width=12,status = "danger",dataTableOutput('datatableC'))
+                              ),
+                              fluidRow(
+                                box(title = h3("Perdida esperada por clase"),style = "overflow-x:scroll",width=12,status = "danger",dataTableOutput('datatableCR'))
+                              )
+                    ),   
+                    
+                    tabItem( tabName ="PC"  , h1('Perdida esperada por clase'),
+                              box(width = 15, title = h1("Cargar el archivo con las perdida por clase")),
+                              box(background="red",checkboxInput("datasetcrm1", strong("Perdida por clases calculada"), FALSE))
+                              ,box(background="red", checkboxInput('userFilecrm1', strong("Ingresar perdida esperada por clase"), F)),
+                              conditionalPanel(condition = "input.userFilecrm1 == true",
+                                               fluidRow(
+                                                 
+                                                 box( width=12,background = "red",
+                                                      fileInput('file_datacrm1', 'Seleccione el archivo', accept = c('text/csv',
+                                                                                                                     'text/comma-separated-values',
+                                                                                                                     'text/tab-separated-values',
+                                                                                                                     'text/plain',
+                                                                                                                     '.csv',
+                                                                                                                     '.tsv',
+                                                                                                                     '.rda'),
+                                                                placeholder = 'Aun no seleccionas el archivo...', buttonLabel = 'Buscar' )
+                                                 ),
+                                                 fluidRow(
+                                                   box(width=4,background="red",strong("Encabezado de los datos"),
+                                                       checkboxInput( width="80%", 'headecrm1', "Con encabezado", TRUE)),
+                                                   box(width=4,background="red",
+                                                       radioButtons( width="40%", 'sepcrm1', "Separador", c('Coma'=',',
+                                                                                                            'Punto y coma'=';',
+                                                                                                            'Tab'='\t'), ';')),
+                                                   box(width=4,background="red",
+                                                       radioButtons( width="40%", 'quotecrm1', "Comillas", c('Ninguna'='',
+                                                                                                             'Comilla doble'='"',
+                                                                                                             'Comilla simple'="'"), ''))
+                                                 )
+                                                 
+                                               )
+                                               
+                              ),fluidRow(
+                                box(width=12,status = "danger",dataTableOutput('datatablecrm1')))),
+                    
+                    tabItem( tabName = "RES" , h1('Simulación y Resultados'),
+                              box(width=4,background="red", numericInput("simcrm","suimulación",value = 2) ),
+                              box(width=12,status = "danger",background="red",radioButtons("conf1", h3("Escoga nivel de confianza para el VaR"),
+                                                                                           choices = list("90%" = 90, "95%" = 95,
+                                                                                                          "99%" = 99),selected = 95)),
+                              box(title = h1("El resultado del VaR es:"),width=12,status = "danger",background="red", textOutput("var122") )
+                              
+                              
+                    ),
+                      
+                    
                             
                     
                     tabItem(tabName = "acerca",
