@@ -1,5 +1,6 @@
 shinyServer(function(input, output) {
   
+  
   # Almacenar Variables Reactivas
   RV <- reactiveValues()
   

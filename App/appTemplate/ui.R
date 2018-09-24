@@ -450,7 +450,8 @@ shinyUI(
                                                                                            choices = list("90%" = 90, "95%" = 95,
                                                                                                           "99%" = 99),selected = 95)),
                               box(title = h1("El resultado del VaR es:"),width=12,status = "danger",background="red", textOutput("var122") )
-                              
+                        
+                                   
                               
                     ),
                       
