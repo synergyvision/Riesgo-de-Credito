@@ -875,12 +875,10 @@ shinyServer(function(input, output) {
   })
  
 
-  
-  
-  
-  output$var122 <- renderText({
+  calvar <- reactive({
+    
     withProgress(message="simulando", value = 0,{
-      MT <- data4()
+    MT <- data4()
     
     
     clasi <- colnames(MT)
@@ -913,8 +911,15 @@ shinyServer(function(input, output) {
     
     var <- qnorm(as.numeric(input$conf1)/100,mean = mean(M),sd = sd(M))
     
-    var})
+    return(var)
+  })
     
+  })
+  
+  
+  output$var122 <- renderText({
+    
+    calvar()
     
     
     
@@ -1038,6 +1043,20 @@ shinyServer(function(input, output) {
   
   
   
+  
+  output$reporte1 <- downloadHandler(
+    
+    filename = "reporte1.pdf",
+    content = function(file){
+      tempReport <- file.path(tempdir(),"reporte1.Rmd")
+      file.copy("reporte1.Rmd", tempReport, overwrite = TRUE)
+      params <- list(titulo =c(input$num),titulo2=c(calvar()))
+      
+      
+      
+      rmarkdown::render(tempReport,output_file = file,params = params, envir = new.env(parent = globalenv()))
+    }
+  )
   
 })
 

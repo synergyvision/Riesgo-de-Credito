@@ -271,7 +271,9 @@ shinyUI(
                                                                                          choices = list("90%" = 90, "95%" = 95,
                                                                                                         "99%" = 99),selected = 95)),     
                             
-                            box(width=12,status = "danger",background="red",h2("Valor en rieso"), textOutput("var"))
+                            box(width=12,status = "danger",background="red",h2("Valor en rieso"), textOutput("var")),
+                            h2("Reporte"),
+                            downloadButton("reporte1","Descargar")
                     ),
                     tabItem( tabName = "CRED",
                              h1("Creditos"),
