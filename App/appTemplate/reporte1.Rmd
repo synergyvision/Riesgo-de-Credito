@@ -4,6 +4,8 @@ output: pdf_document
 params:
   titulo: NA
   titulo2: NA
+  titulo3: NA
+  titulo4: NA
 ---
 
 ```{r setup, include=FALSE}
@@ -15,8 +17,13 @@ knitr::opts_chunk$set(echo = TRUE)
 Este docuemento es un reporte de riesgo de credito, basado en la metodología CrediRisk+. En el presente informe observamos métricas que cuantifican el riesgo de credito (VaR, Perdida Esperada, TVaR)
 
 
-```{r, echo=FALSE}
-params$titulo2
+```{r, echo=FALSE, results='asis'}
+library(knitr)
+w<-data.frame(c("Perdida Esperada","VaR", "TVaR"),c(params$titulo3,params$titulo2,params$titulo4))
+
+colnames(w) <- c("Metrica","Valor")
+
+kable(w)
 
 ```
 
@@ -26,7 +33,7 @@ s <- params$titulo
 
 ```
 
-el rvalor es: `r s`
+el rvalor es: 
 
 
 ## Including Plots

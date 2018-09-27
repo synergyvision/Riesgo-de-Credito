@@ -164,7 +164,7 @@ for (i in 2:10000) {
 
 #View(probandas)ç
 
-View(acum)
+View(probandasc)
 sum(probandas[1:10000])
   
 4550*300
@@ -174,6 +174,31 @@ for (l in 1:10000) {
   acum[l] <- sum(probandas[1:l]) 
 }
 
+View(acum)
+
 #####Var
-min(which(acum > 0.95))
+
+
+
+min(which(acum > 0.95))*E
+
+### Perdida esperada
+
+saltos <- diff(acum)
+pe <- saltos*1:9999
+sum(pe)*E
+
+
+### tVar
+
+c <- min(which(acum > 0.95))
+
+v <- sum((saltos[c:length(saltos)]*c:9999))
+
+pw <- 1-sum(saltos[1:c])
+
+v/pw*E
+
+
+
 
