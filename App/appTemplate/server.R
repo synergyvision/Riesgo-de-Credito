@@ -532,9 +532,9 @@ shinyServer(function(input, output) {
     data3()
   })
   
-  
-  output$var <- renderText({
-   
+  calvar1 <- reactive({
+    
+    
     # Primero necesitamos las espocisiones al default
     
     s1 <- data1()
@@ -632,7 +632,7 @@ shinyServer(function(input, output) {
     
     
     
-   
+    
     IncCar <- sum(lambdaj)
     
     
@@ -672,12 +672,16 @@ shinyServer(function(input, output) {
     }
     
     #####Var
-    min(which(acum > (as.numeric(input$conf)/100)))*E
+   var <-  min(which(acum > (as.numeric(input$conf)/100)))*E
+    return(var)
     
+  })
+  output$var <- renderText({
+   
     
      
     
-    
+    calvar1()
     
     
     })
@@ -1050,7 +1054,7 @@ shinyServer(function(input, output) {
     content = function(file){
       tempReport <- file.path(tempdir(),"reporte1.Rmd")
       file.copy("reporte1.Rmd", tempReport, overwrite = TRUE)
-      params <- list(titulo =c(input$num),titulo2=c(calvar()))
+      params <- list(titulo =c(input$num),titulo2=c(calvar1()))
       
       
       
