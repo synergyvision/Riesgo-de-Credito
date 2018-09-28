@@ -263,12 +263,8 @@ shinyServer(function(input, output) {
     
   })
   
-  
-  output$roc <- renderPlot({
+  calroc <- reactive({
     
-    
-    
-   
     s1 <- data1()
     
     if (input$radio2==1) {
@@ -299,23 +295,18 @@ shinyServer(function(input, output) {
     colnames(train)[input$num] <- "dependiente"
     colnames(test)[input$num] <- "dependiente"
     
-    #modelo <- glm(dependiente ~. , data = train, family = binomial(link = input$radio1))
-    
-    
-    #reduccion = step(modelo)
     
     reduccion <- mod()
     
     l <- roc(train$dependiente  ~ reduccion$fitted.values)
-    plot(l,legacy.axes=T)
+    return(l)
+  })
+  output$roc <- renderPlot({
     
     
+    plot(calroc(),legacy.axes=T)
     
-    
-    
-    
-    
-    
+
   })
   
   
@@ -1368,7 +1359,8 @@ shinyServer(function(input, output) {
     content = function(file){
       tempReport <- file.path(tempdir(),"reporte1.Rmd")
       file.copy("reporte1.Rmd", tempReport, overwrite = TRUE)
-      params <- list(titulo =c(input$num),titulo2=c(calvar1()),titulo3=c(calpe()),titulo4=c(caltvar()))
+      params <- list(titulo =c(input$num),titulo2=c(calvar1()),titulo3=c(calpe()),titulo4=c(caltvar()),
+                     titulo5=c(mod()) ,titulo6=calroc() )
       
       
       

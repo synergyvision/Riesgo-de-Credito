@@ -6,6 +6,8 @@ params:
   titulo2: NA
   titulo3: NA
   titulo4: NA
+  titulo5: NA
+  titulo6: NA
 ---
 
 ```{r setup, include=FALSE}
@@ -14,7 +16,23 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ##  Informe de Riesgo de Credito
 
-Este docuemento es un reporte de riesgo de credito, basado en la metodología CrediRisk+. En el presente informe observamos métricas que cuantifican el riesgo de credito (VaR, Perdida Esperada, TVaR)
+Este docuemento es un reporte de riesgo de credito, basado en la metodología CrediRisk+. En el presente informe observamos métricas que cuantifican el riesgo de credito (VaR, Perdida Esperada, TVaR).
+
+Las variables usadas para la creacion del score de la cartera de clientes fueron:
+
+```{r, echo=FALSE, results='asis'}
+library(knitr)
+mod <- params$titulo5
+modn <- as.data.frame(names(mod$coefficients)[2:length(names(mod$coefficients))])
+names(modn) <- c("Variables")
+kable(modn)
+```
+
+El grafico acontinuación conocido como ROC es un indicador del ajuste del modelo.
+
+```{r, echo=FALSE}
+plot(params$titulo6)
+```
 
 
 ```{r, echo=FALSE, results='asis'}
@@ -29,7 +47,7 @@ kable(w)
 
 
 ```{r, include=FALSE}
-s <- params$titulo
+s <- plot(params$titulo6,legacy.axes=T)
 
 ```
 
@@ -39,9 +57,5 @@ el rvalor es:
 ## Including Plots
 
 You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
-```
 
 Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
