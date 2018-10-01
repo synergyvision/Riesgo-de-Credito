@@ -167,6 +167,9 @@ for (i in 2:10000) {
 View(probandasc)
 sum(probandas[1:10000])
   
+
+plot(probandas)
+
 4550*300
 acum <- c()
 
@@ -180,15 +183,15 @@ View(acum)
 
 
 
-min(which(acum > 0.95))*E
+var <- min(which(acum > 0.95))*E
 
 ### Perdida esperada
 
 saltos <- diff(acum)
 pe <- saltos*1:9999
-sum(pe)*E
+pe <-sum(pe)*E
 
-
+pe
 ### tVar
 
 c <- min(which(acum > 0.95))
@@ -196,9 +199,25 @@ c <- min(which(acum > 0.95))
 v <- sum((saltos[c:length(saltos)]*c:9999))
 
 pw <- 1-sum(saltos[1:c])
+pw
+tvar<- v/pw*E
 
-v/pw*E
+data.frame(probandas)
 
 
+ggplot(mtcars, aes(x=wt, y=mpg)) + geom_point()+geom_vline(xintercept =  2.45,show.legend = T)+geom_vline(xintercept =  4)
+
+
+ser <- data.frame(probandas,(1:10000)*300)
+ser
+colnames(ser)<- c("prob","num")
+
+as <- ggplot(ser, aes(x=num, y=prob)) + geom_point(color="yellow")+geom_vline(xintercept =  var)+geom_vline(xintercept =  pe)+geom_vline(xintercept =  tvar)
+as
+ggplotly(as)
+
+
+
+?geom_vline
 
 

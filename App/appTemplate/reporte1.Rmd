@@ -53,7 +53,7 @@ Para realizar este modelo se uso un análisis de *Regresión Lineal Generalizada
 Para el desarrollo de la metología CreditRisk+ se usaron los siguientes parametros: 
 
 * Como únidad de perdida se considero como `r unidper`
-* Como porcentaje de recuperación en caso de incumplimiento se considero como el  `r juni`
+* Como porcentaje de recuperación en caso de incumplimiento se considero como el  `r juni` %
 
 
 
