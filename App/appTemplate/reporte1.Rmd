@@ -8,6 +8,9 @@ params:
   titulo4: NA
   titulo5: NA
   titulo6: NA
+  titulo7: NA
+  titulo8: NA
+  titulo9: NA
 ---
 
 ```{r setup, include=FALSE}
@@ -34,6 +37,27 @@ El grafico acontinuación conocido como ROC es un indicador del ajuste del model
 plot(params$titulo6)
 ```
 
+```{r, include=FALSE}
+parame <- params$titulo7
+unidper <- params$titulo8
+juni <- params$titulo9
+```
+
+
+
+Para realizar este modelo se uso un análisis de *Regresión Lineal Generalizada* donde el enlace que se escogio fue *`r parame`* 
+
+
+
+
+Para el desarrollo de la metología CreditRisk+ se usaron los siguientes parametros: 
+
+* Como únidad de perdida se considero como `r unidper`
+* Como porcentaje de recuperación en caso de incumplimiento se considero como el  `r juni`
+
+
+
+
 
 ```{r, echo=FALSE, results='asis'}
 library(knitr)
@@ -46,16 +70,4 @@ kable(w)
 ```
 
 
-```{r, include=FALSE}
-s <- plot(params$titulo6,legacy.axes=T)
 
-```
-
-el rvalor es: 
-
-
-## Including Plots
-
-You can also embed plots, for example:
-
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.

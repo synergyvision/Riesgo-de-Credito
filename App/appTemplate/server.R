@@ -1360,7 +1360,8 @@ shinyServer(function(input, output) {
       tempReport <- file.path(tempdir(),"reporte1.Rmd")
       file.copy("reporte1.Rmd", tempReport, overwrite = TRUE)
       params <- list(titulo =c(input$num),titulo2=c(calvar1()),titulo3=c(calpe()),titulo4=c(caltvar()),
-                     titulo5=c(mod()) ,titulo6=calroc() )
+                     titulo5=c(mod()) ,titulo6=calroc(),titulo7=input$radio1, titulo8=input$uniper, titulo9=input$uni)
+                     
       
       
       
