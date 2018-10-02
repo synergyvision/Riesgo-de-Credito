@@ -1,5 +1,5 @@
 ---
-title: "Reporte Credimetrics"
+title: "Reporte CreditRisk+"
 output: pdf_document
 params:
   titulo: NA
@@ -32,6 +32,24 @@ names(modn) <- c("Variables")
 kable(modn)
 ```
 
+```{r, include=FALSE}
+parame <- params$titulo7
+unidper <- params$titulo8
+juni <- params$titulo9
+```
+
+
+
+Para realizar este modelo se uso un análisis de *Regresión Lineal Generalizada* donde el enlace que se escogio fue *`r parame`* 
+
+El grafico acontinuación conocido como ROC es un indicador del ajuste del modelo.
+
+```{r, echo=FALSE, fig.width = 5,fig.height=4,fig.align = "center"}
+plot(params$titulo6)
+```
+
+
+
 Los resultados del modelo sobre la data de entrenamiento se podran apreciar en la siguiente cuadro, conocido como matriz de confusión
 
 ```{r, echo=FALSE, results='asis'}
@@ -43,21 +61,7 @@ kable(w)
 ```
 
 
-El grafico acontinuación conocido como ROC es un indicador del ajuste del modelo.
 
-```{r, echo=FALSE}
-plot(params$titulo6)
-```
-
-```{r, include=FALSE}
-parame <- params$titulo7
-unidper <- params$titulo8
-juni <- params$titulo9
-```
-
-
-
-Para realizar este modelo se uso un análisis de *Regresión Lineal Generalizada* donde el enlace que se escogio fue *`r parame`* 
 
 
 
