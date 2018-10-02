@@ -214,6 +214,11 @@ colnames(ser)<- c("prob","num")
 
 as <- ggplot(ser, aes(x=num, y=prob)) + geom_point(color="yellow")+geom_vline(xintercept =  var)+geom_vline(xintercept =  pe)+geom_vline(xintercept =  tvar)
 as
+
+library(ggplot2)
+library(plotly)
+
+
 ggplotly(as)
 
 

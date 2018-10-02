@@ -11,6 +11,7 @@ params:
   titulo7: NA
   titulo8: NA
   titulo9: NA
+  titulo10: NA
 ---
 
 ```{r setup, include=FALSE}
@@ -30,6 +31,17 @@ modn <- as.data.frame(names(mod$coefficients)[2:length(names(mod$coefficients))]
 names(modn) <- c("Variables")
 kable(modn)
 ```
+
+Los resultados del modelo sobre la data de entrenamiento se podran apreciar en la siguiente cuadro, conocido como matriz de confusión
+
+```{r, echo=FALSE, results='asis'}
+library(knitr)
+w<-as.data.frame(params$titulo10)
+
+kable(w)
+
+```
+
 
 El grafico acontinuación conocido como ROC es un indicador del ajuste del modelo.
 
@@ -68,6 +80,5 @@ colnames(w) <- c("Metrica","Valor")
 kable(w)
 
 ```
-
 
 
