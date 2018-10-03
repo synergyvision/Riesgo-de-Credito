@@ -3,6 +3,8 @@ rm(list = ls())
 
 
 library(Rdice)
+library(fastDummies)
+library(readr)
 library(shiny)
 library(shinydashboard)
 library(plyr)

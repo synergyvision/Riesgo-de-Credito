@@ -1,16 +1,7 @@
 shinyServer(function(input, output) {
   
   
-  # Almacenar Variables Reactivas
-  RV <- reactiveValues()
-  
-  set.seed(122)
-  histdata <- rnorm(500)
-  
-  output$plot1 <- renderPlot({
-    data <- histdata[seq_len(input$slider)]
-    hist(data)
-  })
+ 
   
   
   
@@ -39,23 +30,7 @@ shinyServer(function(input, output) {
                sep = input$sep, quote = input$quote)
     
   })
-  # 
-  # datasetSelectr <- reactive({
-  #   datasetSelectr <- reg
-  # })
-  
-  
-  # datasetInputr <- reactive({
-  #   
-  #   inFiler <- input$file_datar
-  #   
-  #   if (is.null(inFiler))
-  #     return(NULL)
-  #   read.table(inFiler$datapath, header = input$headerr,
-  #              sep = input$sepr, quote = input$quoter)
-  #   
-  # })
-  
+ 
   
   data1 <- reactive({
     if(input$dataset){
@@ -66,58 +41,128 @@ shinyServer(function(input, output) {
     }
   })
   
-  # ###Datos
-  # 
-  # output$datatabler<-renderDataTable({
-  #   data2()
-  # })
-  # 
+ datacual <- reactive({
+   
+   
+   datos <- data1()
+   
+   
+   D<- datos
+   M <- c()
+   
+   
+   for (i in 1:length(names(datos))) {
+     
+     if(summary(as.factor(D[[i]]))<=10){
+       M[length(M)+1] <- i
+       
+     }
+     
+   }
+   
+   
+   D1 <- D[,-M]
+   
+   
+   pval <- NULL
+   nomb <- colnames(D1)
+   
+   for (i in 2:length(colnames(D1))) {
+     
+     df <- D1[,c(1,i)]
+     df1 <- dummy_cols(df,select_columns = nomb[i])
+     
+     d0 <- subset(df1,Creditability==0)
+     d1 <- subset(df1,Creditability==1)
+     
+     d0 <- apply(d0, 2, sum)
+     d1 <- apply(d1, 2, sum)
+     
+     d <- data.frame(t(data.frame(d0,d1)))
+     
+     d <-d[,-2]
+     
+     
+     d$Creditability[2] <- 1
+     
+     d$Creditability[2] <- "buenos"
+     d$Creditability[1] <- "malos"
+     
+     
+     nombre <- d$Creditability
+     rownames(d) <- nombre
+     d <- d[,-1]
+     
+     pr <- chisq.test(d)
+     pval[i]<-pr$p.value
+     
+     
+   }
+   
   
+   pval <- t(pval)
+   
+   
+   vd <- nomb[which(pval > 0.05)]
+   
+   
+   j <- colnames(datos)
+   
+   
+   
+   final <- datos[, !(j %in% vd)]
+   return(final)
+ 
+   })
   
+ output$datatablecu <- renderDataTable({
+   datacual()
+ })
+ 
   mod <- reactive(  {s1 <- data1()
-                     
-                     if (input$radio2==1) {
-                       
-                       s1[,input$num] <- replace(s1[,input$num], s1[,input$num]==1,-1)
-                       s1[,input$num] <- replace(s1[,input$num], s1[,input$num]==0,1)
-                       s1[,input$num] <- replace(s1[,input$num], s1[,input$num]==-1,0)
-                       
-                     }
-                     
-                     
-                     
-                     ceros <- subset(s1, s1[,input$num]==0)
-                     unos <- subset(s1, s1[,input$num]==1)
-                    
-                     
-                     indices0 <- sample( 1:nrow( ceros ), nrow(ceros)*0.7 )
-                     ceros.muestreado <- ceros[ indices0, ]
-                     ceros.test <- ceros[-indices0,]
-                     
-                     indices1 <- sample( 1:nrow( unos ), nrow(unos)*0.7 )
-                     unos.muestreado <- unos[ indices1, ]
-                     unos.test <- unos[-indices1,]
-                     
-                     train <- rbind(ceros.muestreado,unos.muestreado)
-                     test <- rbind(ceros.test,unos.test)
-                     
-                     colnames(train)[input$num] <- "dependiente"
-                     colnames(test)[input$num] <- "dependiente"
-                     
-                     modelo <- glm(dependiente ~. , data = train, family = binomial(link = input$radio1))
-                     
-                     
-                     reduccion = step(modelo)
-                     
-                     return(reduccion)
-                     
-                     })
+  
+  if (input$radio2==1) {
+    
+    s1[,input$num] <- replace(s1[,input$num], s1[,input$num]==1,-1)
+    s1[,input$num] <- replace(s1[,input$num], s1[,input$num]==0,1)
+    s1[,input$num] <- replace(s1[,input$num], s1[,input$num]==-1,0)
+    
+  }
+  
+  
+  
+  ceros <- subset(s1, s1[,input$num]==0)
+  unos <- subset(s1, s1[,input$num]==1)
+  
+  
+  indices0 <- sample( 1:nrow( ceros ), nrow(ceros)*0.7 )
+  ceros.muestreado <- ceros[ indices0, ]
+  ceros.test <- ceros[-indices0,]
+  
+  indices1 <- sample( 1:nrow( unos ), nrow(unos)*0.7 )
+  unos.muestreado <- unos[ indices1, ]
+  unos.test <- unos[-indices1,]
+  
+  train <- rbind(ceros.muestreado,unos.muestreado)
+  test <- rbind(ceros.test,unos.test)
+  
+  colnames(train)[input$num] <- "dependiente"
+  colnames(test)[input$num] <- "dependiente"
+  
+  modelo <- glm(dependiente ~. , data = train, family = binomial(link = input$radio1))
+  
+  
+  reduccion = step(modelo)
+  
+  return(reduccion)
+  
+  })
   
   
   
   
   output$variables <- renderText({
-
+    
     s1 <- data1()
     
     
@@ -129,7 +174,7 @@ shinyServer(function(input, output) {
   
   
   output$comparacion <- renderPlotly({
-  
+    
     s1 <- data1()
     
     s1[,input$num]<-  as.factor(s1[,input$num])
@@ -149,7 +194,7 @@ shinyServer(function(input, output) {
   
   output$estad1 <- renderDataTable({ 
     
-
+    
     s1 <- data1()
     
     numcol <- dim(s1)[2]
@@ -178,7 +223,7 @@ shinyServer(function(input, output) {
   
   
   output$variables1 <- renderText({
-
+    
     s1 <- data1()
     
     
@@ -188,7 +233,7 @@ shinyServer(function(input, output) {
   })
   
   output$varia23 <- renderText({
-
+    
     s1 <- data1()
     
     
@@ -197,16 +242,9 @@ shinyServer(function(input, output) {
     paste(tamano,names(s1),sep = "-") 
   })
   
-  data1 <- reactive({
-    if(input$dataset){
-      data <- datasetSelect()}
-    
-    else {
-      data <- datasetInput()
-    }
-  })
+
   
-  ###Datos
+  
   
   output$datatable<-renderDataTable({
     data1()
@@ -243,7 +281,7 @@ shinyServer(function(input, output) {
       
       colnames(train)[input$num] <- "dependiente"
       colnames(test)[input$num] <- "dependiente"
-     
+      
       pdata <- predict(mod(), newdata = test, type = "response")
       
       pred <- confusionMatrix(data = as.factor(as.numeric(pdata>0.5)), reference = as.factor(test$dependiente))
@@ -260,7 +298,7 @@ shinyServer(function(input, output) {
   
   
   output$accur <- renderTable({
-
+    
     calaccur()
     
   })
@@ -308,7 +346,7 @@ shinyServer(function(input, output) {
     
     plot(calroc(),legacy.axes=T)
     
-
+    
   })
   
   
@@ -370,7 +408,7 @@ shinyServer(function(input, output) {
   
   
   datasetInputr <- reactive({
-   
+    
     inFiler <- input$file_datar
     
     if (is.null(inFiler))
@@ -399,7 +437,7 @@ shinyServer(function(input, output) {
   output$dat <- renderTable({
     
     
-   
+    
     s1 <- data1()
     
     if (input$radio2==1) {
@@ -512,7 +550,7 @@ shinyServer(function(input, output) {
       score1()
       
       
-      }
+    }
     
     else {
       data <- pdPropias()
@@ -665,19 +703,19 @@ shinyServer(function(input, output) {
     }
     
     #####Var
-   var <-  min(which(acum > (as.numeric(input$conf)/100)))*E
+    var <-  min(which(acum > (as.numeric(input$conf)/100)))*E
     return(var)
     
   })
   output$var <- renderText({
-   
     
-     
+    
+    
     
     calvar1()
     
     
-    })
+  })
   
   
   
@@ -984,8 +1022,8 @@ shinyServer(function(input, output) {
     
     pw <- 1-sum(saltos[1:c])
     
-   
-  
+    
+    
     
     return(v/pw*E)
     
@@ -1139,7 +1177,7 @@ shinyServer(function(input, output) {
       data <- clasesPropias()
     }
   })
-
+  
   
   
   
@@ -1184,46 +1222,46 @@ shinyServer(function(input, output) {
   output$datatable0<-renderDataTable({
     data6()
   })
- 
-
+  
+  
   calvar <- reactive({
     
     withProgress(message="simulando", value = 0,{
-    MT <- data4()
-    
-    
-    clasi <- colnames(MT)
-    
-    
-    RP <- data5()
-    RP <- RP[,"Perdida"]
-    
-    creditos1 <- data6()
-    
-    
-    
-    NSim <- as.numeric(input$simcrm)
-    
-    M <- NULL
-    for (j in 1:NSim) {
+      MT <- data4()
       
       
-      N <- NULL 
-      for (i in 1:length(clasi)) {
-        l <- subset(creditos1,calif==clasi[i]) 
-        g <- dice.roll(faces=length(clasi), dice=length(l[,"creditos"]), rolls=1, weights=as.numeric(MT[i,]/100))
+      clasi <- colnames(MT)
+      
+      
+      RP <- data5()
+      RP <- RP[,"Perdida"]
+      
+      creditos1 <- data6()
+      
+      
+      
+      NSim <- as.numeric(input$simcrm)
+      
+      M <- NULL
+      for (j in 1:NSim) {
         
-        N[i] <- sum((l[,"creditos"])*RP[as.numeric(g$results[,1:length(l[,"creditos"])])])
+        
+        N <- NULL 
+        for (i in 1:length(clasi)) {
+          l <- subset(creditos1,calif==clasi[i]) 
+          g <- dice.roll(faces=length(clasi), dice=length(l[,"creditos"]), rolls=1, weights=as.numeric(MT[i,]/100))
+          
+          N[i] <- sum((l[,"creditos"])*RP[as.numeric(g$results[,1:length(l[,"creditos"])])])
+        }
+        
+        M[j] <- sum(N)
+        
       }
       
-      M[j] <- sum(N)
+      var <- qnorm(as.numeric(input$conf1)/100,mean = mean(M),sd = sd(M))
       
-    }
-    
-    var <- qnorm(as.numeric(input$conf1)/100,mean = mean(M),sd = sd(M))
-    
-    return(var)
-  })
+      return(var)
+    })
     
   })
   
@@ -1271,9 +1309,9 @@ shinyServer(function(input, output) {
   })
   
   
-
   
-
+  
+  
   
   
   datasetSelectC <- reactive({
@@ -1364,7 +1402,7 @@ shinyServer(function(input, output) {
       params <- list(titulo =c(input$num),titulo2=c(calvar1()),titulo3=c(calpe()),titulo4=c(caltvar()),
                      titulo5=c(mod()) ,titulo6=calroc(),titulo7=input$radio1, titulo8=input$uniper, titulo9=input$uni,
                      titulo10 = calaccur())
-                     
+      
       
       
       
@@ -1373,8 +1411,3 @@ shinyServer(function(input, output) {
   )
   
 })
-
-
-
-
-
