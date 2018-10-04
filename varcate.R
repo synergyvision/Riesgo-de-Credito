@@ -56,10 +56,10 @@ for (i in 2:length(colnames(D1))) {
   
 }
 
-
+View(df1)
 
 pval <- t(pval)
-View(pval)
+j
 
 vd <- nomb[which(pval > 0.05)]
 
@@ -67,6 +67,10 @@ vd <- nomb[which(pval > 0.05)]
 j <- colnames(datos)
 
 
+inf <- data.frame(pval)
+colnames(inf)<-nomb
+
+View(inf)
 
 final <- datos[, !(j %in% vd)]
 names(final)

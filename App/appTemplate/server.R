@@ -32,7 +32,7 @@ shinyServer(function(input, output) {
   })
  
   
-  data1 <- reactive({
+  data1org <- reactive({
     if(input$dataset){
       data <- datasetSelect()}
     
@@ -41,10 +41,10 @@ shinyServer(function(input, output) {
     }
   })
   
- datacual <- reactive({
+ data1 <- reactive({
    
    
-   datos <- data1()
+   datos <- data1org()
    
    
    D<- datos
@@ -114,9 +114,83 @@ shinyServer(function(input, output) {
    return(final)
  
    })
+ 
+ pval <- reactive({
+   
+   
+   datos <- data1org()
+   
+   
+   D<- datos
+   M <- c()
+   
+   
+   for (i in 1:length(names(datos))) {
+     
+     if(summary(as.factor(D[[i]]))<=10){
+       M[length(M)+1] <- i
+       
+     }
+     
+   }
+   
+   
+   D1 <- D[,-M]
+   
+   
+   pval <- NULL
+   nomb <- colnames(D1)
+   
+   for (i in 2:length(colnames(D1))) {
+     
+     df <- D1[,c(1,i)]
+     df1 <- dummy_cols(df,select_columns = nomb[i])
+     
+     d0 <- subset(df1,Creditability==0)
+     d1 <- subset(df1,Creditability==1)
+     
+     d0 <- apply(d0, 2, sum)
+     d1 <- apply(d1, 2, sum)
+     
+     d <- data.frame(t(data.frame(d0,d1)))
+     
+     d <-d[,-2]
+     
+     
+     d$Creditability[2] <- 1
+     
+     d$Creditability[2] <- "buenos"
+     d$Creditability[1] <- "malos"
+     
+     
+     nombre <- d$Creditability
+     rownames(d) <- nombre
+     d <- d[,-1]
+     
+     pr <- chisq.test(d)
+     pval[i]<-pr$p.value
+     
+     
+   }
+   
+   
+   pval <- t(pval)
+   
+   
+   vd <- nomb[which(pval > 0.05)]
+   
+   
+   j <- colnames(datos)
+   
+   
+   
+   inf <- data.frame(pval)
+   colnames(inf) <- nomb
+   return(inf)
+ })
   
  output$datatablecu <- renderDataTable({
-   datacual()
+   pval()
  })
  
   mod <- reactive(  {s1 <- data1()
@@ -163,7 +237,7 @@ shinyServer(function(input, output) {
   
   output$variables <- renderText({
     
-    s1 <- data1()
+    s1 <- data1org()
     
     
     tamano <- 1:length(names(s1))
@@ -175,7 +249,7 @@ shinyServer(function(input, output) {
   
   output$comparacion <- renderPlotly({
     
-    s1 <- data1()
+    s1 <- data1org()
     
     s1[,input$num]<-  as.factor(s1[,input$num])
     
@@ -195,7 +269,7 @@ shinyServer(function(input, output) {
   output$estad1 <- renderDataTable({ 
     
     
-    s1 <- data1()
+    s1 <- data1org()
     
     numcol <- dim(s1)[2]
     
@@ -224,7 +298,7 @@ shinyServer(function(input, output) {
   
   output$variables1 <- renderText({
     
-    s1 <- data1()
+    s1 <- data1org()
     
     
     tamano <- 1:length(names(s1))
@@ -234,7 +308,7 @@ shinyServer(function(input, output) {
   
   output$varia23 <- renderText({
     
-    s1 <- data1()
+    s1 <- data1org()
     
     
     tamano <- 1:length(names(s1))
@@ -247,7 +321,7 @@ shinyServer(function(input, output) {
   
   
   output$datatable<-renderDataTable({
-    data1()
+    data1org()
   })
   
   calaccur <- reactive(
