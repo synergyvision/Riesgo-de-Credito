@@ -103,7 +103,7 @@ shinyServer(function(input, output) {
    pval <- t(pval)
    
    
-   vd <- nomb[which(pval > 0.05)]
+   vd <- nomb[which(pval > as.numeric(input$significancia))]
    
    
    j <- colnames(datos)
@@ -1475,7 +1475,7 @@ shinyServer(function(input, output) {
       file.copy("reporte1.Rmd", tempReport, overwrite = TRUE)
       params <- list(titulo =c(input$num),titulo2=c(calvar1()),titulo3=c(calpe()),titulo4=c(caltvar()),
                      titulo5=c(mod()) ,titulo6=calroc(),titulo7=input$radio1, titulo8=input$uniper, titulo9=input$uni,
-                     titulo10 = calaccur())
+                     titulo10 = calaccur(), titulo11 = input$significancia)
       
       
       

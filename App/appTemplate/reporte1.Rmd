@@ -12,6 +12,7 @@ params:
   titulo8: NA
   titulo9: NA
   titulo10: NA
+  titulo11: NA
 ---
 
 ```{r setup, include=FALSE}
@@ -21,6 +22,12 @@ knitr::opts_chunk$set(echo = TRUE)
 ##  Informe de Riesgo de Credito
 
 Este docuemento es un reporte de riesgo de credito, basado en la metodología CrediRisk+. En el presente informe observamos métricas que cuantifican el riesgo de credito (VaR, Perdida Esperada, TVaR).
+
+```{r, include=FALSE}
+signi <- params$titulo11
+```
+
+Para la selección de variables categoricas o cualitativas se uso la prueba chicuadrado con un nivel de significancia `r signi`
 
 Las variables usadas para la creacion del score de la cartera de clientes fueron:
 
