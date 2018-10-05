@@ -142,7 +142,11 @@ shinyUI(
                                        ),
                                        tabPanel( title = tagList(shiny::icon("gear"), strong("Selección de variables cualitativas ")),    
                                                   numericInput("significancia","Ingrese el nivel de significancia",value = 0.05,min = 0.001,max=1),
-                                                 box(style = "overflow-x:scroll",width=12,status = "danger", dataTableOutput('datatablecu')))
+                                                 box(style = "overflow-x:scroll",width=12,status = "danger", dataTableOutput('datatablecu'))),
+                                       
+                                       tabPanel( title = tagList(shiny::icon("gear"), strong("Selección de variables cuantitativas ")),    
+                                                 numericInput("significancia1","Ingrese el nivel de significancia",value = 0.05,min = 0.001,max=1),
+                                                 box(style = "overflow-x:scroll",width=12,status = "danger", dataTableOutput('datatablecu1')))
                                )
                              )
                     ),
