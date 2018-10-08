@@ -544,55 +544,40 @@ shinyServer(function(input, output) {
     
   })
   
+  scor <- function()
+    {
+      
+      
+      s1 <- data1()
+      
+      if (input$radio2==1) {
+        
+        s1[,input$num] <- replace(s1[,input$num], s1[,input$num]==1,-1)
+        s1[,input$num] <- replace(s1[,input$num], s1[,input$num]==0,1)
+        s1[,input$num] <- replace(s1[,input$num], s1[,input$num]==-1,0)
+        
+      }
+      
+      
+      reduccion = mod()
+      
+      
+      Score <- predict(reduccion, newdata = s1, type = "link")
+      PD <- predict(reduccion, newdata = s1, type = "response")
+      n <- length(PD)
+      ress <- cbind(1:n,Score,PD)
+      colnames(ress) <- c("Posición","Score","Probabilidad de incumplimiento") 
+      return(ress)
+      
+    }
+  
+  
   
   output$score <- renderDataTable({
     
     
     
-    s1 <- data1()
-    
-    if (input$radio2==1) {
-      
-      s1[,input$num] <- replace(s1[,input$num], s1[,input$num]==1,-1)
-      s1[,input$num] <- replace(s1[,input$num], s1[,input$num]==0,1)
-      s1[,input$num] <- replace(s1[,input$num], s1[,input$num]==-1,0)
-      
-    }
-    
-    
-    
-    ceros <- subset(s1, s1[,input$num]==0)
-    unos <- subset(s1, s1[,input$num]==1)
-    
-    
-    indices0 <- sample( 1:nrow( ceros ), nrow(ceros)*0.7 )
-    ceros.muestreado <- ceros[ indices0, ]
-    ceros.test <- ceros[-indices0,]
-    
-    indices1 <- sample( 1:nrow( unos ), nrow(unos)*0.7 )
-    unos.muestreado <- unos[ indices1, ]
-    unos.test <- unos[-indices1,]
-    
-    train <- rbind(ceros.muestreado,unos.muestreado)
-    test <- rbind(ceros.test,unos.test)
-    
-    colnames(train)[input$num] <- "dependiente"
-    colnames(test)[input$num] <- "dependiente"
-    
-    #modelo <- glm(dependiente ~. , data = train, family = binomial(link = input$radio1))
-    
-    
-    reduccion = mod()
-    
-    
-    Score <- predict(reduccion, newdata = s1, type = "link")
-    PD <- predict(reduccion, newdata = s1, type = "response")
-    n <- length(PD)
-    cbind(1:n,Score,PD)
-    
-    
-    
-    
+    scor()
     
     
   })
@@ -1604,5 +1589,7 @@ shinyServer(function(input, output) {
       rmarkdown::render(tempReport,output_file = file,params = params, envir = new.env(parent = globalenv()))
     }
   )
+  
+
   
 })
