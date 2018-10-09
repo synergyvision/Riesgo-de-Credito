@@ -178,6 +178,8 @@ shinyUI(
                                                 
                                                 h2("Score y probabilidad de incumplimiento de los clientes"),
                                                 dataTableOutput("score")
+                                                # ,
+                                                # downloadLink("downloadData", "Download")
                                                 
                                                 
                                                 
