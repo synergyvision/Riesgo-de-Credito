@@ -184,6 +184,7 @@ shinyUI(
                                                 
                                                 
                                                 
+                                                
                                       ),
                                       
                                       tabPanel( title = tagList(shiny::icon("gear"), strong('Proyeccion a nuevos clientes')),

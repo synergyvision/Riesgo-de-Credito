@@ -55,6 +55,52 @@ El grafico acontinuación conocido como ROC es un indicador del ajuste del model
 plot(params$titulo6)
 ```
 
+El grafico acontinuación conocido como QQnorm es un indicador de la independencia de los residuos del modelo
+
+```{r, echo=FALSE, fig.width = 5,fig.height=4,fig.align = "center"}
+d1 <- params$titulo5
+d <- d1[[2]]
+
+df <- data.frame(y = d)
+
+p <- ggplot(df,aes(sample = y))
+p + stat_qq() + stat_qq_line()
+
+```
+
+El resumen estadistico del modelo es:
+
+```{r, echo=FALSE, results='asis'}
+library(knitr)
+coef <- params$titulo5
+
+coef <- coef[[1]]
+
+coef <- as.data.frame(coef)
+
+nom <- row.names(coef)
+nom[1] <- "Corte con el eje y"
+coe <- coef[,1]
+
+coef <- data.frame(nom,coe) 
+colnames(coef) <- c("Variables","Coeficientes")
+
+
+kable(coef)
+
+```
+
+Los criterios de información aportan:
+
+```{r, echo=FALSE, results='asis'}
+library(knitr)
+reduccion <- params$titulo5
+
+inf <- data.frame(Criterios = c("Desviación","Desviación Nula","ACC"), Valor=c(reduccion[[10]],reduccion[[12]],reduccion[[11]]))
+
+kable(inf)
+
+```
 
 
 Los resultados del modelo sobre la data de entrenamiento se podran apreciar en la siguiente cuadro, conocido como matriz de confusión
