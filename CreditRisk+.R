@@ -223,6 +223,47 @@ ggplotly(as)
 
 
 
-?geom_vline
+
+# coef <- reduccion
+# 
+# coef <- coef[[1]]
+# 
+# coef <- as.data.frame(coef)
+# 
+# nom <- row.names(coef)
+# nom[1] <- "Corte con el eje y"
+# coe <- coef[,1]
+# 
+# coef <- data.frame(nom,coe) 
+# colnames(coef) <- c("Variables","Coeficientes")
+# coef
+# 
+
+library(ggplot2)
+library(plotly)
+
+d <- reduccion[[2]]
+d
+
+df <- data.frame(y = d)
+
+p <- ggplot(df,aes(sample = y))
+p + stat_qq() + stat_qq_line()
 
 
+names(df)
+
+
+
+
+
+
+
+
+
+
+
+inf <- data.frame(Criterios = c("Desviación","Desviación Nula","ACC"), Valor=c(reduccion[[10]],reduccion[[12]],reduccion[[11]]))
+
+
+View(inf)
