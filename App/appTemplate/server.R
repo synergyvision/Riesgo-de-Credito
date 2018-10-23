@@ -1440,15 +1440,22 @@ shinyServer(function(input, output) {
       
       var <- qnorm(as.numeric(input$conf1)/100,mean = mean(M),sd = sd(M))
       
-      return(var)
+      return(c(var,mean(M)))
     })
     
   })
   
+  output$pe122 <- renderText({
+    
+    calvar()[2]
+    
+    
+    
+  })  
   
   output$var122 <- renderText({
     
-    calvar()
+    calvar()[1]
     
     
     
@@ -1571,6 +1578,40 @@ shinyServer(function(input, output) {
   })
   
   
+  calraroc <- reactive({
+    varr <- NULL
+    per <- NULL
+    ing <- NULL
+    
+      
+    if (input$meto==2) {
+        varr = as.numeric(calvar()[1])
+        per <- as.numeric(calvar()[2])
+        ing <- 138519.4
+        
+        raroc <- (ing-per)/varr
+    }else{
+      
+      varr <-  calvar1()
+      per <- calpe()
+      ing <- 1385190.4
+      raroc <- (ing-per)/varr
+      }
+      
+      
+    
+    
+    return(raroc)
+  })
+  
+  output$Raroc1 <- renderText ({
+    
+    
+    
+  calraroc()
+    
+  })
+  
   
   
   output$reporte1 <- downloadHandler(
@@ -1590,15 +1631,6 @@ shinyServer(function(input, output) {
     }
   )
   
-  # data <- output$score
-  # 
-  # output$downloadData <- downloadHandler(
-  #   filename = function() {
-  #     paste("data-", Sys.Date(), ".csv", sep="")
-  #   },
-  #   content = function(file) {
-  #     write.csv(data, file)
-  #   }
-  # )
+
   
 })

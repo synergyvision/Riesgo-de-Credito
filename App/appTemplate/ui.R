@@ -51,7 +51,10 @@ shinyUI(
                            
                   ),
                   
-                  
+                  menuItem("Raroc", icon = icon("exclamation-circle"), tabName = "raroc",
+                  menuSubItem("Calculo del RAROC", tabName = "RAROC", icon = icon("circle-o")),
+                  menuSubItem("Valor del RAROC", tabName = "VRAROC", icon = icon("circle-o"))
+                  ),
                   
                   
                   menuItem("Acerca", icon = icon("exclamation-circle"), tabName = "acerca"))
@@ -178,8 +181,7 @@ shinyUI(
                                                 
                                                 h2("Score y probabilidad de incumplimiento de los clientes"),
                                                 dataTableOutput("score")
-                                                # ,
-                                                # downloadLink("downloadData", "Download")
+                                               
                                                 
                                                 
                                                 
@@ -463,12 +465,22 @@ shinyUI(
                              box(width=12,status = "danger",background="red",radioButtons("conf1", h3("Escoga nivel de confianza para el VaR"),
                                                                                           choices = list("90%" = 90, "95%" = 95,
                                                                                                          "99%" = 99),selected = 95)),
+                             box(title = h1("La perdida esperada es:"),width=12,status = "danger",background="red", textOutput("pe122") ),
                              box(title = h1("El resultado del VaR es:"),width=12,status = "danger",background="red", textOutput("var122") )
                              
                              
                              
                     ),
                     
+                    tabItem( tabName = "RAROC" , h1('Calculo del RAROC' ),hr(),withMathJax(), "La ecuacion estandar para el calculo del RAROC es: $$\\textrm{RAROC}=\\frac{RAR}{C}$$ Donde: $$RAR=\\textrm{Risk Adjusted Return}$$ $$C=\\textrm{Capital necesario para cumbrir el riesgo}$$"),
+                    tabItem(tabName = "VRAROC",
+                            box(width=12,background="red",checkboxGroupInput("meto",h3("Metodología"), 
+                                                                                               choices = list("CreditRisk+" = 1, 
+                                                                                                              "Credimetrics" = 2))),
+                            box(width=12,background="red",fileInput("file", h3("Ingrese Balance"),placeholder = 'Aun no seleccionas el archivo...', buttonLabel = 'Buscar')),
+                            box(width=12,background="red",h3("El resultado del RAROC es"),textOutput("Raroc1"))
+                            
+                            ),
                     
                     
                     
