@@ -40,11 +40,11 @@ shinyUI(
                   
                   
                   menuItem("Creditmetrics", icon = icon("th"), tabName = "crm",
-                           menuSubItem("creditos", tabName = "CRED", icon = icon("circle-o")),
+                           menuSubItem("Créditos", tabName = "CRED", icon = icon("circle-o")),
                            menuSubItem("Calculo Matriz de transicion", tabName = "CMT", icon = icon("circle-o")),
                            menuSubItem("Matriz de transicion", tabName = "MT", icon = icon("circle-o")),
                            
-                           menuSubItem("Cálculo de perdia por clase", tabName = "CPC", icon = icon("circle-o")),
+                           menuSubItem("Cálculo de perdida por clase", tabName = "CPC", icon = icon("circle-o")),
                            menuSubItem("Perdida por clase", tabName = "PC", icon = icon("circle-o")),
                            menuSubItem("Simulación y Resultados", tabName = "RES", icon = icon("circle-o"))
                            
@@ -466,7 +466,9 @@ shinyUI(
                                                                                           choices = list("90%" = 90, "95%" = 95,
                                                                                                          "99%" = 99),selected = 95)),
                              box(title = h1("La perdida esperada es:"),width=12,status = "danger",background="red", textOutput("pe122") ),
-                             box(title = h1("El resultado del VaR es:"),width=12,status = "danger",background="red", textOutput("var122") )
+                             box(title = h1("El resultado del VaR es:"),width=12,status = "danger",background="red", textOutput("var122") ,h2("Reporte"),
+                                 downloadButton("reporte2","Descargar"))
+                             
                              
                              
                              

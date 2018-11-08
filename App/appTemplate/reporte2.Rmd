@@ -1,0 +1,89 @@
+---
+title: "Reporte CrediMetrics"
+output: pdf_document
+params:
+  vari1: NA
+  vari2: NA
+  vari3: NA
+  vari4: NA
+  
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+##  Informe de Riesgo de Credito
+
+Este docuemento es un reporte de riesgo de credito, basado en la metodología CrediMetrics. En el presente informe observamos métricas que cuantifican el riesgo de credito (VaR, Perdida Esperada, TVaR).
+
+La cartera de clientes esta dividida por las siguientes calificaciones crediticias:
+
+
+```{r, echo=FALSE, results='asis'}
+library(knitr)
+mt <- params$vari1
+calif <- colnames(mt)
+calif <- t(as.data.frame(calif))
+row.names(calif) <- c("Calificaciones")
+kable(calif)
+
+```
+
+
+Para el cálculo se uso la siguiente matriz de transición, la cual representa las probabilidad de migración entre calificaciones crediticias (en porcentaje)
+
+
+
+```{r, echo=FALSE, results='asis'}
+library(knitr)
+mt <- params$vari1
+row.names(mt) <- colnames(mt)
+kable(mt)
+
+```
+
+Las perdidas esperadas por clase son:
+
+```{r, echo=FALSE, results='asis'}
+library(knitr)
+mt <- params$vari2
+mt["Perdida"] <- round(mt["Perdida"]*100,2)
+nam <- colnames(mt)
+
+
+  
+D <- mt[rev(nam)]
+
+kable(D)
+
+```
+
+```{r, include=FALSE}
+sim<- params$vari4
+```
+
+Para la estimación de la metricas de riesgo de uso el método de **Simulación de Monte Carlo** con `r sim` simulaciones. El histograma de las perdidas luego de la simulación es:
+
+```{r, echo=FALSE, fig.width = 5,fig.height=4,fig.align = "center"}
+
+sim<- params$vari4
+media <- params$vari3[[2]]
+varian <- params$vari3[[1]]
+
+
+
+hist( params$vari3[[3]], xlab = "Perdidas por simulación",ylab = "Frequecia",main = "Histograma de perdidas por simulación")
+```
+
+
+```{r, echo=FALSE, results='asis'}
+library(knitr)
+w<-data.frame(c("Perdida Esperada","VaR"),c(params$vari3[[2]],params$vari3[[1]]))
+
+colnames(w) <- c("Metrica","Valor")
+
+kable(w)
+
+```
+

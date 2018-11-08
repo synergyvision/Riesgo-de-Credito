@@ -1440,14 +1440,14 @@ shinyServer(function(input, output) {
       
       var <- qnorm(as.numeric(input$conf1)/100,mean = mean(M),sd = sd(M))
       
-      return(c(var,mean(M)))
+      return(list(var,mean(M),M))
     })
     
   })
   
   output$pe122 <- renderText({
     
-    calvar()[2]
+    calvar()[[2]]
     
     
     
@@ -1455,7 +1455,7 @@ shinyServer(function(input, output) {
   
   output$var122 <- renderText({
     
-    calvar()[1]
+    calvar()[[1]]
     
     
     
@@ -1631,6 +1631,19 @@ shinyServer(function(input, output) {
     }
   )
   
-
+  output$reporte2 <- downloadHandler(
+    
+    filename = "reporte2.pdf",
+    content = function(file){
+      tempReport <- file.path(tempdir(),"reporte2.Rmd")
+      file.copy("reporte2.Rmd", tempReport, overwrite = TRUE)
+      params <- list(vari1 =data4(),vari2=data5(),vari3=calvar(),vari4 = input$simcrm)
+      
+      
+      
+      
+      rmarkdown::render(tempReport,output_file = file,params = params, envir = new.env(parent = globalenv()))
+    }
+  )
   
 })
