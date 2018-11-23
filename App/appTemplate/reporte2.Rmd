@@ -13,9 +13,9 @@ params:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-##  Informe de Riesgo de Credito
+##  Informe de Riesgo de Crédito
 
-Este docuemento es un reporte de riesgo de credito, basado en la metodología CrediMetrics. En el presente informe observamos métricas que cuantifican el riesgo de credito (VaR, Perdida Esperada, TVaR).
+Este docuemento es un reporte de riesgo de crédito, basado en la metodología CrediMetrics. En el presente informe observamos métricas que cuantifican el riesgo de crédito (VaR, Pérdida Esperada, TVaR).
 
 La cartera de clientes esta dividida por las siguientes calificaciones crediticias:
 
@@ -43,7 +43,7 @@ kable(mt)
 
 ```
 
-Las perdidas esperadas por clase son:
+Las pérdidas esperadas por clases calculadas son:
 
 ```{r, echo=FALSE, results='asis'}
 library(knitr)
@@ -62,8 +62,8 @@ kable(D)
 ```{r, include=FALSE}
 sim<- params$vari4
 ```
-
-Para la estimación de la metricas de riesgo de uso el método de **Simulación de Monte Carlo** con `r sim` simulaciones. El histograma de las perdidas luego de la simulación es:
+\pagebreak
+Para la estimación de la métricas de riesgo de uso el método de **Simulación de Monte Carlo** con `r sim` simulaciones. El histograma de las pérdidas luego de la simulación es:
 
 ```{r, echo=FALSE, fig.width = 5,fig.height=4,fig.align = "center"}
 
@@ -73,16 +73,16 @@ varian <- params$vari3[[1]]
 
 
 
-hist( params$vari3[[3]], xlab = "Perdidas por simulación",ylab = "Frequecia",main = "Histograma de perdidas por simulación")
+hist( params$vari3[[3]], xlab = "Pérdidas por simulación",ylab = "Frequecia",main = "Histograma de pérdidas por simulación")
 ```
 
 
 
 ```{r, echo=FALSE, results='asis'}
 library(knitr)
-w<-data.frame(c("Perdida Esperada","VaR"),c(params$vari3[[2]],params$vari3[[1]]))
+w<-data.frame(c("Pérdida Esperada","VaR","TVaR"),c(params$vari3[[2]],params$vari3[[1]],params$vari3[[4]]))
 
-colnames(w) <- c("Metrica","Valor")
+colnames(w) <- c("Métrica","Valor")
 
 kable(w)
 

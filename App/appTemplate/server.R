@@ -4,7 +4,7 @@ shinyServer(function(input, output) {
  
   
   
-  
+ 
   
   
   datasetSelect <- reactive({
@@ -743,6 +743,41 @@ shinyServer(function(input, output) {
     data3()
   })
   
+  
+  datasetSelectrl <- reactive({
+    datasetSelectrl <- lgd
+  })
+  
+  
+  datasetInputrl <- reactive({
+    
+    inFilerl <- input$file_datarl
+    
+    if (is.null(inFilerl))
+      return(NULL)
+    read.table(inFilerl$datapath, header = input$headerrl,
+               sep = input$seprl, quote = input$quoterl)
+    
+  })
+  
+  data7 <- reactive({
+    if(input$datasetrl){
+      data <- datasetSelectrl()}
+    
+    else {
+      data <- datasetInputrl()
+    }
+  })
+  
+  output$datatablerl<-renderDataTable({
+    data7()
+  })
+  
+  
+  
+  
+  
+  
   calvar1 <- reactive({
     
     
@@ -1438,9 +1473,12 @@ shinyServer(function(input, output) {
         
       }
       
-      var <- qnorm(as.numeric(input$conf1)/100,mean = mean(M),sd = sd(M))
+      var <- mean(M)+(sd(M)*qnorm(as.numeric(input$conf1)/100))
       
-      return(list(var,mean(M),M))
+      tvar <- mean(M)+((sd(M)*dnorm(qnorm(as.numeric(input$conf1)/100)))/(1-(as.numeric(input$conf1)/100)))
+      
+      
+      return(list(var,mean(M),M,tvar))
     })
     
   })
@@ -1456,6 +1494,14 @@ shinyServer(function(input, output) {
   output$var122 <- renderText({
     
     calvar()[[1]]
+    
+    
+    
+  })  
+  
+  output$tvar122 <- renderText({
+    
+    calvar()[[4]]
     
     
     
