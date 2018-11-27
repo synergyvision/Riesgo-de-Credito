@@ -1,4 +1,4 @@
-shinyServer(function(input, output) {
+shinyServer(function(input, output, session) {
   
   
  
@@ -40,6 +40,16 @@ shinyServer(function(input, output) {
       data <- datasetInput()
     }
   })
+  
+  outVar = reactive({
+    mydata = data1org()
+    names(mydata)
+  })  
+  observe({
+    updateSelectInput(session, "columns",
+                      choices = outVar()
+    )}) 
+  
   
  data1. <- reactive({
    
@@ -114,6 +124,10 @@ shinyServer(function(input, output) {
    return(final)
  
    })
+ 
+ 
+ 
+ 
  
  pval <- reactive({
    
@@ -316,18 +330,27 @@ shinyServer(function(input, output) {
  
   mod <- reactive(  {s1 <- data1()
   
+  nombres <- colnames(data1org())
+  
+  nombre <- input$columns
+  
+  posi <- which(nombres == nombre)
+  
+  
   if (input$radio2==1) {
     
-    s1[,input$num] <- replace(s1[,input$num], s1[,input$num]==1,-1)
-    s1[,input$num] <- replace(s1[,input$num], s1[,input$num]==0,1)
-    s1[,input$num] <- replace(s1[,input$num], s1[,input$num]==-1,0)
+    
+    
+    s1[,posi] <- replace(s1[,posi], s1[,posi]==1,-1)
+    s1[,posi] <- replace(s1[,posi], s1[,posi]==0,1)
+    s1[,posi] <- replace(s1[,posi], s1[,posi]==-1,0)
     
   }
   
   
   
-  ceros <- subset(s1, s1[,input$num]==0)
-  unos <- subset(s1, s1[,input$num]==1)
+  ceros <- subset(s1, s1[,posi]==0)
+  unos <- subset(s1, s1[,posi]==1)
   
   
   indices0 <- sample( 1:nrow( ceros ), nrow(ceros)*0.7 )
@@ -341,8 +364,8 @@ shinyServer(function(input, output) {
   train <- rbind(ceros.muestreado,unos.muestreado)
   test <- rbind(ceros.test,unos.test)
   
-  colnames(train)[input$num] <- "dependiente"
-  colnames(test)[input$num] <- "dependiente"
+  colnames(train)[posi] <- "dependiente"
+  colnames(test)[posi] <- "dependiente"
   
   modelo <- glm(dependiente ~. , data = train, family = binomial(link = input$radio1))
   
@@ -356,26 +379,21 @@ shinyServer(function(input, output) {
   
   
   
-  output$variables <- renderText({
-    
-    s1 <- data1org()
-    
-    
-    tamano <- 1:length(names(s1))
-    
-    paste(tamano,names(s1),sep = "-") 
-  })
-  
   
   
   output$comparacion <- renderPlotly({
     
     s1 <- data1org()
+    nombres <- colnames(data1org())
     
-    s1[,input$num]<-  as.factor(s1[,input$num])
+    nombre <- input$columns
+    
+    posi <- which(nombres == nombre)
+    
+    s1[,posi]<-  as.factor(s1[,posi])
     
     
-    p10 <- ggplot(s1, aes(x = s1[,input$num], y = s1[,input$num1])) +
+    p10 <- ggplot(s1, aes(x = s1[,posi], y = s1[,input$num1])) +
       geom_boxplot(fill = "#56B4E9") +
       scale_y_continuous(name = "Escala de valores") +  scale_x_discrete(name = "Categorias") +
       ggtitle("Comparación entre las categorias de la variable seleccionada") 
@@ -449,18 +467,26 @@ shinyServer(function(input, output) {
     {
       s1 <- data1()
       # 
+      
+      nombres <- colnames(data1org())
+      
+      nombre <- input$columns
+      
+      posi <- which(nombres == nombre)
+      
+      
       if (input$radio2==1) {
         # 
-        s1[,input$num] <- replace(s1[,input$num], s1[,input$num]==1,-1)
-        s1[,input$num] <- replace(s1[,input$num], s1[,input$num]==0,1)
-        s1[,input$num] <- replace(s1[,input$num], s1[,input$num]==-1,0)
+        s1[,posi] <- replace(s1[,posi], s1[,posi]==1,-1)
+        s1[,posi] <- replace(s1[,posi], s1[,posi]==0,1)
+        s1[,posi] <- replace(s1[,posi], s1[,posi]==-1,0)
         
       }
       # 
       # 
       # 
-      ceros <- subset(s1, s1[,input$num]==0)
-      unos <- subset(s1, s1[,input$num]==1)
+      ceros <- subset(s1, s1[,posi]==0)
+      unos <- subset(s1, s1[,posi]==1)
       # 
       # 
       indices0 <- sample( 1:nrow( ceros ), nrow(ceros)*0.7 )
@@ -474,8 +500,8 @@ shinyServer(function(input, output) {
       train <- rbind(ceros.muestreado,unos.muestreado)
       test <- rbind(ceros.test,unos.test)
       
-      colnames(train)[input$num] <- "dependiente"
-      colnames(test)[input$num] <- "dependiente"
+      colnames(train)[posi] <- "dependiente"
+      colnames(test)[posi] <- "dependiente"
       
       pdata <- predict(mod(), newdata = test, type = "response")
       
@@ -501,19 +527,24 @@ shinyServer(function(input, output) {
   calroc <- reactive({
     
     s1 <- data1()
+    nombres <- colnames(data1org())
+    
+    nombre <- input$columns
+    
+    posi <- which(nombres == nombre)
     
     if (input$radio2==1) {
       
-      s1[,input$num] <- replace(s1[,input$num], s1[,input$num]==1,-1)
-      s1[,input$num] <- replace(s1[,input$num], s1[,input$num]==0,1)
-      s1[,input$num] <- replace(s1[,input$num], s1[,input$num]==-1,0)
+      s1[,posi] <- replace(s1[,posi], s1[,posi]==1,-1)
+      s1[,posi] <- replace(s1[,posi], s1[,posi]==0,1)
+      s1[,posi] <- replace(s1[,posi], s1[,posi]==-1,0)
       
     }
     
     
     
-    ceros <- subset(s1, s1[,input$num]==0)
-    unos <- subset(s1, s1[,input$num]==1)
+    ceros <- subset(s1, s1[,posi]==0)
+    unos <- subset(s1, s1[,posi]==1)
     
     
     indices0 <- sample( 1:nrow( ceros ), nrow(ceros)*0.7 )
@@ -527,8 +558,8 @@ shinyServer(function(input, output) {
     train <- rbind(ceros.muestreado,unos.muestreado)
     test <- rbind(ceros.test,unos.test)
     
-    colnames(train)[input$num] <- "dependiente"
-    colnames(test)[input$num] <- "dependiente"
+    colnames(train)[posi] <- "dependiente"
+    colnames(test)[posi] <- "dependiente"
     
     
     reduccion <- mod()
@@ -549,12 +580,17 @@ shinyServer(function(input, output) {
       
       
       s1 <- data1()
+      nombres <- colnames(data1org())
+      
+      nombre <- input$columns
+      
+      posi <- which(nombres == nombre)
       
       if (input$radio2==1) {
         
-        s1[,input$num] <- replace(s1[,input$num], s1[,input$num]==1,-1)
-        s1[,input$num] <- replace(s1[,input$num], s1[,input$num]==0,1)
-        s1[,input$num] <- replace(s1[,input$num], s1[,input$num]==-1,0)
+        s1[,posi] <- replace(s1[,posi], s1[,posi]==1,-1)
+        s1[,posi] <- replace(s1[,posi], s1[,posi]==0,1)
+        s1[,posi] <- replace(s1[,posi], s1[,posi]==-1,0)
         
       }
       
@@ -619,19 +655,24 @@ shinyServer(function(input, output) {
     
     
     s1 <- data1()
+    nombres <- colnames(data1org())
+    
+    nombre <- input$columns
+    
+    posi <- which(nombres == nombre)
     
     if (input$radio2==1) {
       
-      s1[,input$num] <- replace(s1[,input$num], s1[,input$num]==1,-1)
-      s1[,input$num] <- replace(s1[,input$num], s1[,input$num]==0,1)
-      s1[,input$num] <- replace(s1[,input$num], s1[,input$num]==-1,0)
+      s1[,posi] <- replace(s1[,posi], s1[,posi]==1,-1)
+      s1[,posi] <- replace(s1[,posi], s1[,posi]==0,1)
+      s1[,posi] <- replace(s1[,posi], s1[,posi]==-1,0)
       
     }
     
     
     
-    ceros <- subset(s1, s1[,input$num]==0)
-    unos <- subset(s1, s1[,input$num]==1)
+    ceros <- subset(s1, s1[,posi]==0)
+    unos <- subset(s1, s1[,posi]==1)
     
     
     indices0 <- sample( 1:nrow( ceros ), nrow(ceros)*0.7 )
@@ -645,8 +686,8 @@ shinyServer(function(input, output) {
     train <- rbind(ceros.muestreado,unos.muestreado)
     test <- rbind(ceros.test,unos.test)
     
-    colnames(train)[input$num] <- "dependiente"
-    colnames(test)[input$num] <- "dependiente"
+    colnames(train)[posi] <- "dependiente"
+    colnames(test)[posi] <- "dependiente"
     
     #modelo <- glm(dependiente ~. , data = train, family = binomial(link = input$radio1))
     
@@ -665,19 +706,24 @@ shinyServer(function(input, output) {
   
   score1 <- reactive({
     s1 <- data1()
+    nombres <- colnames(data1org())
+    
+    nombre <- input$columns
+    
+    posi <- which(nombres == nombre)
     
     if (input$radio2==1) {
       
-      s1[,input$num] <- replace(s1[,input$num], s1[,input$num]==1,-1)
-      s1[,input$num] <- replace(s1[,input$num], s1[,input$num]==0,1)
-      s1[,input$num] <- replace(s1[,input$num], s1[,input$num]==-1,0)
+      s1[,posi] <- replace(s1[,posi], s1[,posi]==1,-1)
+      s1[,posi] <- replace(s1[,posi], s1[,posi]==0,1)
+      s1[,posi] <- replace(s1[,posi], s1[,posi]==-1,0)
       
     }
     
     
     
-    ceros <- subset(s1, s1[,input$num]==0)
-    unos <- subset(s1, s1[,input$num]==1)
+    ceros <- subset(s1, s1[,posi]==0)
+    unos <- subset(s1, s1[,posi]==1)
     
     
     indices0 <- sample( 1:nrow( ceros ), nrow(ceros)*0.7 )
@@ -691,8 +737,8 @@ shinyServer(function(input, output) {
     train <- rbind(ceros.muestreado,unos.muestreado)
     test <- rbind(ceros.test,unos.test)
     
-    colnames(train)[input$num] <- "dependiente"
-    colnames(test)[input$num] <- "dependiente"
+    colnames(train)[posi] <- "dependiente"
+    colnames(test)[posi] <- "dependiente"
     
     
     
@@ -1666,7 +1712,7 @@ shinyServer(function(input, output) {
     content = function(file){
       tempReport <- file.path(tempdir(),"reporte1.Rmd")
       file.copy("reporte1.Rmd", tempReport, overwrite = TRUE)
-      params <- list(titulo =c(input$num),titulo2=c(calvar1()),titulo3=c(calpe()),titulo4=c(caltvar()),
+      params <- list(titulo =c(posi),titulo2=c(calvar1()),titulo3=c(calpe()),titulo4=c(caltvar()),
                      titulo5=c(mod()) ,titulo6=calroc(),titulo7=input$radio1, titulo8=input$uniper, titulo9=input$uni,
                      titulo10 = calaccur(), titulo11 = input$significancia)
       
