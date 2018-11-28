@@ -37,7 +37,7 @@ shinyUI(
                            menuSubItem("Datos", tabName = "subitem1", icon = icon("circle-o")),
                            menuSubItem("Estadísticos", tabName = "stat", icon = icon("circle-o")),
                            menuSubItem("Pérdida por incumplimiento", tabName = "lgd", icon = icon("circle-o")),
-                           menuSubItem("Modelo de probabiidad lineal", tabName = "glm", icon = icon("circle-o")),
+                           menuSubItem("Modelo de probabilidad lineal", tabName = "glm", icon = icon("circle-o")),
                            menuSubItem("Parámetros iniciales", tabName = "Param", icon = icon("circle-o")),
                            menuSubItem("Resultados del modelo", tabName = "Res", icon = icon("circle-o"))
                   ),
@@ -77,13 +77,14 @@ shinyUI(
                     tabItem(tabName = "subitem1",
                             
                             
-                            fluidRow(column(6,box(width = 112,background="yellow", checkboxInput("dataset", strong("Selecciona para inciar Datos de Ejemplo"), FALSE))),column(6,box(width = 112,background="yellow", checkboxInput('userFile', strong('Cargar Datos Propios'), FALSE)))),
+                           fluidRow(
+                             fluidRow(column(6,box(width = 115,background="yellow", checkboxInput("dataset", strong("Selecciona para inciar Datos de Ejemplo"), FALSE))),column(6,box(width = 115,background="yellow", checkboxInput('userFile', strong('Cargar Datos Propios'), FALSE)))),
                             fluidRow(
-                              box( background="yellow",width=120,status = "warning",
+                              box( background="yellow",width=13,status = "warning",
                                    selectInput('columns', 'Selecciona variable de estudio', "Seleccione primero los datos")
                               )
                               
-                            ),
+                            )),
                             conditionalPanel(condition = "input.userFile == true",
                                              fluidRow(
                                                box(width = 15, title = h3(UPLOADDATA_TEXT),
@@ -115,17 +116,15 @@ shinyUI(
                                        
                                        
                                        tabPanel( title = tagList(shiny::icon("gear"), strong('Relación de las variables independientes')),
-                                                 fluidRow(box( background="yellow",width=12,status = "warning",
-                                                               textOutput('variables1')
+                                                 fluidRow(
+                                                   box( background="yellow",width=120,status = "warning",
+                                                        selectInput('columns1', 'Selecciona variable de estudio', "Seleccione primero los datos")
+                                                   )
+                                                   
                                                  ),
                                                  
-                                                 box( background="yellow",width=12,status = "warning",
-                                                      numericInput("num1", 
-                                                                   h3("Seleccione la variable a comparar"), 
-                                                                   value = 2)
-                                                 ))
                                                  
-                                                 ,
+                                                 
                                                  fluidRow(plotlyOutput("comparacion"))
                                                  
                                                  
@@ -295,7 +294,7 @@ shinyUI(
                                       
                                        conditionalPanel(condition = "input.userFiler1 == true",
                                                          fluidRow(
-                                                           box(width = 15, title = h3("Cargar el archivo con las probabiidades de incumplimiento"),
+                                                           box(width = 15, title = h3("Cargar el archivo con las probabilidades de incumplimiento"),
                                                                box( width=12,background = "yellow",
                                                                     fileInput('file_datar1', 'Seleccione el archivo', accept = c('text/csv',
                                                                                                                                  'text/comma-separated-values',

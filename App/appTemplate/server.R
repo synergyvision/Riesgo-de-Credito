@@ -50,6 +50,29 @@ shinyServer(function(input, output, session) {
                       choices = outVar()
     )}) 
   
+  outVar1 = reactive({
+   
+    nombres <- colnames(data1org())
+    
+    nombre <- input$columns
+    
+    posi <- which(nombres == nombre)
+    
+    mydata = data1org()
+    
+    c <- names(mydata)
+    
+    c[-posi]
+    
+    
+  })  
+  
+  observe({
+    updateSelectInput(session, "columns1",
+                      choices = outVar1()
+    )}) 
+  
+  
   
  data1. <- reactive({
    
@@ -390,10 +413,16 @@ shinyServer(function(input, output, session) {
     
     posi <- which(nombres == nombre)
     
+    nombre1 <- input$columns1
+    
+    posi1 <- which(nombres == nombre1)
+    
     s1[,posi]<-  as.factor(s1[,posi])
     
     
-    p10 <- ggplot(s1, aes(x = s1[,posi], y = s1[,input$num1])) +
+    
+    
+    p10 <- ggplot(s1, aes(x = s1[[nombre]], y = s1[[nombre1]])) +
       geom_boxplot(fill = "#56B4E9") +
       scale_y_continuous(name = "Escala de valores") +  scale_x_discrete(name = "Categorias") +
       ggtitle("Comparación entre las categorias de la variable seleccionada") 
