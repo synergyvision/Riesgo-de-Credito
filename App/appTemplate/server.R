@@ -439,27 +439,12 @@ shinyServer(function(input, output, session) {
     
     s1 <- data1org()
     
-    numcol <- dim(s1)[2]
-    
-    Posicion <- c("")
-    for (i in 1:numcol) {
-      Posicion[i+1] <- i
-    }
-    
-    suma <- matrix(c("Minimo","Primer quartil","Mediana","Media","Tercer quartil","Maximo"),ncol = 6)
-    
-    for (i in 1:numcol) {
-      suma <- rbind(suma,summary(s1[,i]))
-    }
-    
-    suma <- cbind(Posicion,suma)
     
     
+   s1 <- rbind(summary(s1[[input$columns1]]))
+   colnames(s1) <- c("Mínimo","Primer Quartil", "Mediana","Media", "Tercer Quartil", "Máximo")
     
-    
-    as.data.frame(suma)
-    
-    
+    s1
   })
   
   
@@ -490,7 +475,7 @@ shinyServer(function(input, output, session) {
   
   output$datatable<-renderDataTable({
     data1org()
-  })
+  },options = list(scrollX=T,scrollY=300))
   
   calaccur <- reactive(
     {
@@ -599,7 +584,7 @@ shinyServer(function(input, output, session) {
   output$roc <- renderPlot({
     
     
-    plot(calroc(),legacy.axes=T)
+    ggroc(calroc(),legacy.axes=T)
     
     
   })

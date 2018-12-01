@@ -78,11 +78,11 @@ shinyUI(
                             
                             
                            fluidRow(
-                             fluidRow(column(6,box(width = 115,background="yellow", checkboxInput("dataset", strong("Selecciona para inciar Datos de Ejemplo"), FALSE))),column(6,box(width = 115,background="yellow", checkboxInput('userFile', strong('Cargar Datos Propios'), FALSE)))),
+                             fluidRow(column(6,box(width = 11,background="yellow", checkboxInput("dataset", strong("Selecciona para inciar Datos de Ejemplo"), FALSE))),column(6,box(width = 12,background="yellow", checkboxInput('userFile', strong('Cargar Datos Propios'), FALSE)))),
                             fluidRow(
-                              box( background="yellow",width=13,status = "warning",
+                              column(12,box( background="yellow",width=12,status = "warning",
                                    selectInput('columns', 'Selecciona variable de estudio', "Seleccione primero los datos")
-                              )
+                              ))
                               
                             )),
                             conditionalPanel(condition = "input.userFile == true",
@@ -117,7 +117,7 @@ shinyUI(
                                        
                                        tabPanel( title = tagList(shiny::icon("gear"), strong('Relación de las variables independientes')),
                                                  fluidRow(
-                                                   box( background="yellow",width=120,status = "warning",
+                                                   box( background="yellow",width=12,status = "warning",
                                                         selectInput('columns1', 'Selecciona variable de estudio', "Seleccione primero los datos")
                                                    )
                                                    
@@ -125,7 +125,13 @@ shinyUI(
                                                  
                                                  
                                                  
-                                                 fluidRow(plotlyOutput("comparacion"))
+                                                 fluidRow(column(width=11,plotlyOutput("comparacion")),
+                                                          box( width=12,title = "Resumen estadístico de la variable seleccionada",status = "warning",
+                                                                                           dataTableOutput('estad1')
+                                                 ))
+                                                 
+                                                 
+                                                 
                                                  
                                                  
                                                  
@@ -135,24 +141,20 @@ shinyUI(
                                        
                                        
                                        
-                                       tabPanel( title = tagList(shiny::icon("gear"), strong('Estadísticos Básicos')),
-                                                 
-                                                 box( background="yellow",width=12,status = "warning",
-                                                      textOutput('varia23')
-                                                 ),
-                                                 
-                                                 box( width=12,status = "warning",
-                                                      dataTableOutput('estad1')
-                                                 )
-                                                 
-                                       ),
-                                       tabPanel( title = tagList(shiny::icon("gear"), strong("Selección de variables cualitativas ")),    
-                                                  numericInput("significancia","Ingrese el nivel de significancia",value = 0.05,min = 0.001,max=1),
-                                                 box(style = "overflow-x:scroll",width=12,status = "warning", dataTableOutput('datatablecu'))),
                                        
-                                       tabPanel( title = tagList(shiny::icon("gear"), strong("Selección de variables cuantitativas ")),    
-                                                 numericInput("significancia1","Ingrese el nivel de significancia",value = 0.05,min = 0.001,max=1),
-                                                 box(style = "overflow-x:scroll",width=12,status = "warning", dataTableOutput('datatablecu1')))
+                                       tabPanel( title = tagList(shiny::icon("gear"), strong("Selección de variables")),
+                                                 fluidRow(
+                                                   
+                                                   box(width=12,status = "warning",checkboxGroupInput("selec", 
+                                                                                                      h3("Tipo de selección"), 
+                                                                                                      choices = list("Selección de variables cualitativas" = 1)),checkboxGroupInput("selec1" ,
+                                                                                                                                                                                     h3(""), 
+                                                                                                                                                                                     choices = list(
+                                                                                                                                                                                                    "Selección de variables cuantitativas" = 2))),
+                                                   conditionalPanel(condition = "(input.selec == 1)", box(style = "overflow-x:scroll",title = "Selección de variables cualitativas",width=12,status = "warning", numericInput("significancia","Ingrese el nivel de significancia",value = 0.05,min = 0.001,max=1),dataTableOutput('datatablecu'))),
+                                                          
+                                                   conditionalPanel(condition = "(input.selec1 == 2)",  box(style = "overflow-x:scroll",title = "Selección de variables cuantitativas",width=12,status = "warning", numericInput("significancia1","Ingrese el nivel de significancia",value = 0.05,min = 0.001,max=1),dataTableOutput('datatablecu1'))))
+                                                  )
                                )
                              )
                     ),
@@ -160,25 +162,22 @@ shinyUI(
                             
                             fluidRow(
                               tabBox( height = "1250px", width = 12,side = "left",
-                                      tabPanel( title = tagList(shiny::icon("gear"), strong('Selección del modelo')),
+                                      tabPanel( title = tagList(shiny::icon("gear"), strong('Selección y resultados del modelo')),
                                                 
-                                                h2("Modelos de probabilidad lineal"),
-                                                box(width=12, background="yellow",radioButtons("radio1", h3("Escoga el link del Modelo"),
+                                               fluidRow( 
+                                                box(width=12, title =h2("Modelos de probabilidad lineal"), background="yellow",radioButtons("radio1", h3("Escoga el link del Modelo"),
                                                                                             choices = list("Modelo Probit" = "probit", "Modelo Logit" = "logit",
                                                                                                            "Modelo Cauchit" = "cauchit"),selected = "probit")),
                                                 h3("Convertir perfiles negativos al valor 1 y perfiles positivos al valor 0")
                                                 ,box(width=12, background="yellow",radioButtons("radio2", h3("Escoga una opcion"),
-                                                                                             choices = list("Cambiar" = 1, "Mantener por defecto" = 2),selected = 2))
-                                      ),
-                                      tabPanel( title = tagList(shiny::icon("gear"), strong('Resultados del modelo')),
+                                                                                             choices = list("Cambiar" = 1, "Mantener por defecto" = 2),selected = 1)),
                                                 
                                                 
+                                                fluidRow(column(width=6,box(width=10, status="primary",tableOutput("accur"))),column(width = 6,plotOutput("roc")))
                                                 
                                                 
-                                                box(width=5, background="yellow",tableOutput("accur")
-                                                ),
-                                                box(width=12, background="yellow",plotOutput("roc")
-                                                )),
+                                      )),
+                                      
                                       
                                       tabPanel( title = tagList(shiny::icon("gear"), strong('Score de la cartera de crédito')),
                                                 
