@@ -1,0 +1,41 @@
+\mainmatter
+
+# CreditRisk+
+
+**CreditRisk+** es un modelo de impago de impago en el que se parte de la idea de que los eventos de incumplimiento de los diferentes deudores son eventos *Bernoulli independientes*. Sin embargo, es importante tener en cuenta que los eventos de incumplimiento de deudores ocurren de manera causística en el tiempo y es imposible pronosticar el momento preciso en el que ocurrirán dichos eventos y el numero de eventosque sucederan en un ciertointervalo de tiempo.
+
+El desarrollo de una teoría estadística que explique estos procesos,dentro del contexto de riesgo creditici, comienza considerando el caso simple de una caertera de créditos que incluye a $N$ deudores, a cada uno de los cuales se les puede asociar una *probabilidad fija de incumplimiento*; es decir, se conoce: $$p_i=\textrm{Probabilidad de incumplimiento del deudor } i$$
+
+La distribuciíon de pérdidad que puede resultar del incumplimiento de los deudores de todo el portafolio la obtiene **CreditRisk** de manera indirecta, a través de las funciones de probabilidad, y procede en dos pasos. Primero, obtenemos la funcion generadora de probabilidad (FGP) del numero de incumplimientos y después, haciendo un supuesto sobre el nivel de pérdidas asociadas al incumplimiento de cada deudor, obtiene la FGP las pérdidas que puede ceder la cartera. A continuación se obtiene la primera para el caso simple bajo consideración.
+
+## La distribución del número de incumplimientos con probabilidades de impago fijas.
+
+
+La FGP de numeros de incumplimientos se define como: $$F(s)=\sum_{n=0}^{\infty}Prob(n \textrm{ incumplimientos})\textrm{x}s^n$$
+
+Si la cartera tuviera un sólo deudor, lo único que puede suceder es que éste cumpla o incumpla. Por lo tanto, la FGP de incumplimientos para un sólo deudor es simplemente:$$F_i(s)=(1-p_i)s^0+p_i(s-1)=1+p_i(s-1)$$ 
+
+Como se considera que los eventos de incumplimiento son independientes, la FGP de toda la cartera es el producto de las FGP individuales, es decir:$$F(s)=\prod_{i=1}^NF_i(s)=\prod_{i=1}^N\big{[}1+p_i(s-1)\big{]}$$
+Aplicando logaritmo a ambos lados de la expresión, se obtiene:$$Ln(F(s))=\sum_{i=1}^NLn\big{[}1+p_i(s-1)\big{]}$$
+Generalmente, las probabilidades de incumplimiento de obligaciones crediticias a nivel individual son pequeñas y, por lo tanto, las potencias de estas son más pequeñas y pueden ser ignoradas.
+
+Esto implica que para los valores pequeños de $p_i$:$$Ln\big{[}1+p_i(s-1)\big{]}\approx p_i(s-1)$$
+Lo anterior es el gran supuesto de **CreditRisk+**, que inituitivamente dice que mientras la la probabilidad de incumoplimiento se $p_i$ sea "pequeña", se puede ignorar el hecho de que un deudor no puede incumplir más que una sola vez. Haciendo esta sustitución, se obtiene:$$Ln(F(s))=\sum_{i=1}^Np_i(s-1)$$
+Lo anterior conduce directamente a:$$F(s)=e^{\sum_{i=1}^Np_i(s-1)}=e^{\mu(s-1)};\textrm{ donde } \mu=\sum_{i=1}^Np_i$$
+
+
+La FGP corresponde a la FGP de la distribución de *Poisson* con parámetro $\mu$, a continuación se comprueba esto, usando el desarrollo de Taylor, es decir:$$F(s)=\sum_{n=}^\infty\mu^ne^{-\mu}s^n$$
+Por lo tanto, bajo el supuesto que las probabilidades de incumplimientos son bajas, obtenemos que:$$Prob(\textrm{ número incumplimientos }=n)=\frac{1}{n!}\mu^ne^{-\mu}$$
+
+En la expresión anterior,'$\mu$' es la *tasa promedio de incumplimiento* y es el único parámetro de la distribución. Como ha "$N$", la distribución es independiente del número de deudores y de las probabilidades individuales de impago, siempre y cuando éstas sean "uniformemente pequeñas". Sin embargo queda claro que los deudores tengan la misma probabilidad de incumplir. Es más, éstas pueden ser diferentes y el cálculo de la tasa esperado de incu mplimiento, sólo depende de la existencia de esta informacíon.
+
+Para concluir con este tema, es impotante hacer hicapié en que el supuesto clave que permite llegar a la distribución Poisson es cuando un número no-negativo "$y$" es muy pequeño ($y\approx 0$), se puede utilizar la aproximación "$Ln(1+y)\approx y$". Esta forma exponencial de la FGP de la distribución de Poisson, es la clave de la facilidad de cálculo que tiene **CreditRisk+**.
+
+Además, es necesario señalar que en todo el análisis anterior hay implícito un periodo de tiempon que está relacionado con el parámetro de la distribución. Así, al se\tribución obtenida debe interpretarse de la misma manera, es decir:$$\frac{1}{n!}\mu^ne^{-\mu}=\textrm{ Probabilidad de que ocurran } n \textrm{ incumplimientos }$$
+
+
+
+
+
+
+

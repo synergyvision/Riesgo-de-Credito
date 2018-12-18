@@ -62,7 +62,7 @@ kable(D)
 ```{r, include=FALSE}
 sim<- params$vari4
 ```
-\pagebreak
+
 Para la estimación de la métricas de riesgo de uso el método de **Simulación de Monte Carlo** con `r sim` simulaciones. El histograma de las pérdidas luego de la simulación es:
 
 ```{r, echo=FALSE, fig.width = 5,fig.height=4,fig.align = "center"}

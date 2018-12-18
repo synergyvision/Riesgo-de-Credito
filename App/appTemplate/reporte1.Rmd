@@ -51,8 +51,8 @@ Para realizar este modelo se uso un análisis de *Regresión Lineal Generalizada
 
 El grafico acontinuación conocido como ROC es un indicador del ajuste del modelo.
 
-```{r, echo=FALSE, fig.width = 5,fig.height=4,fig.align = "center"}
-plot(params$titulo6)
+```{r, echo=FALSE, fig.width = 4,fig.height=3,fig.align = "center"}
+ggroc(params$titulo6)
 ```
 
 El grafico acontinuación conocido como QQnorm es un indicador de la independencia de los residuos del modelo
@@ -112,8 +112,6 @@ w<-as.data.frame(params$titulo10)
 kable(w)
 
 ```
-
-
 
 
 

@@ -351,7 +351,13 @@ shinyServer(function(input, output, session) {
    pval.()
  })
  
-  mod <- reactive(  {s1 <- data1()
+ 
+ 
+ 
+ 
+  mod <- reactive(  {
+    
+  s1 <- data1()
   
   nombres <- colnames(data1org())
   
@@ -360,15 +366,8 @@ shinyServer(function(input, output, session) {
   posi <- which(nombres == nombre)
   
   
-  if (input$radio2==1) {
-    
-    
-    
-    s1[,posi] <- replace(s1[,posi], s1[,posi]==1,-1)
-    s1[,posi] <- replace(s1[,posi], s1[,posi]==0,1)
-    s1[,posi] <- replace(s1[,posi], s1[,posi]==-1,0)
-    
-  }
+  
+  
   
   
   
@@ -471,6 +470,19 @@ shinyServer(function(input, output, session) {
   
 
   
+  posicion <- reactive({
+    
+    s1 <- data1()
+    # 
+    
+    nombres <- colnames(data1org())
+    
+    nombre <- input$columns
+    
+   which(nombres == nombre)
+    
+  })
+  
   
   
   output$datatable<-renderDataTable({
@@ -489,16 +501,7 @@ shinyServer(function(input, output, session) {
       posi <- which(nombres == nombre)
       
       
-      if (input$radio2==1) {
-        # 
-        s1[,posi] <- replace(s1[,posi], s1[,posi]==1,-1)
-        s1[,posi] <- replace(s1[,posi], s1[,posi]==0,1)
-        s1[,posi] <- replace(s1[,posi], s1[,posi]==-1,0)
-        
-      }
-      # 
-      # 
-      # 
+     
       ceros <- subset(s1, s1[,posi]==0)
       unos <- subset(s1, s1[,posi]==1)
       # 
@@ -547,13 +550,7 @@ shinyServer(function(input, output, session) {
     
     posi <- which(nombres == nombre)
     
-    if (input$radio2==1) {
-      
-      s1[,posi] <- replace(s1[,posi], s1[,posi]==1,-1)
-      s1[,posi] <- replace(s1[,posi], s1[,posi]==0,1)
-      s1[,posi] <- replace(s1[,posi], s1[,posi]==-1,0)
-      
-    }
+
     
     
     
@@ -599,15 +596,7 @@ shinyServer(function(input, output, session) {
       nombre <- input$columns
       
       posi <- which(nombres == nombre)
-      
-      if (input$radio2==1) {
-        
-        s1[,posi] <- replace(s1[,posi], s1[,posi]==1,-1)
-        s1[,posi] <- replace(s1[,posi], s1[,posi]==0,1)
-        s1[,posi] <- replace(s1[,posi], s1[,posi]==-1,0)
-        
-      }
-      
+  
       
       reduccion = mod()
       
@@ -630,7 +619,7 @@ shinyServer(function(input, output, session) {
     scor()
     
     
-  })
+  },options = list(scrollX=T,scrollY=300))
   
   datasetSelectr <- reactive({
     datasetSelectr <- reg
@@ -664,58 +653,8 @@ shinyServer(function(input, output, session) {
     data2()
   })
   
-  output$dat <- renderTable({
-    
-    
-    
-    s1 <- data1()
-    nombres <- colnames(data1org())
-    
-    nombre <- input$columns
-    
-    posi <- which(nombres == nombre)
-    
-    if (input$radio2==1) {
-      
-      s1[,posi] <- replace(s1[,posi], s1[,posi]==1,-1)
-      s1[,posi] <- replace(s1[,posi], s1[,posi]==0,1)
-      s1[,posi] <- replace(s1[,posi], s1[,posi]==-1,0)
-      
-    }
-    
-    
-    
-    ceros <- subset(s1, s1[,posi]==0)
-    unos <- subset(s1, s1[,posi]==1)
-    
-    
-    indices0 <- sample( 1:nrow( ceros ), nrow(ceros)*0.7 )
-    ceros.muestreado <- ceros[ indices0, ]
-    ceros.test <- ceros[-indices0,]
-    
-    indices1 <- sample( 1:nrow( unos ), nrow(unos)*0.7 )
-    unos.muestreado <- unos[ indices1, ]
-    unos.test <- unos[-indices1,]
-    
-    train <- rbind(ceros.muestreado,unos.muestreado)
-    test <- rbind(ceros.test,unos.test)
-    
-    colnames(train)[posi] <- "dependiente"
-    colnames(test)[posi] <- "dependiente"
-    
-    #modelo <- glm(dependiente ~. , data = train, family = binomial(link = input$radio1))
-    
-    
-    reduccion = mod()
-    
-    s2 <- data2()
-    
-    Score <- predict(reduccion, newdata = s2, type = "link")
-    PD <- predict(reduccion, newdata = s2, type = "response")
-    d <- cbind(Score,PD)
-    d
-    
-  })
+
+
   
   
   score1 <- reactive({
@@ -726,13 +665,7 @@ shinyServer(function(input, output, session) {
     
     posi <- which(nombres == nombre)
     
-    if (input$radio2==1) {
-      
-      s1[,posi] <- replace(s1[,posi], s1[,posi]==1,-1)
-      s1[,posi] <- replace(s1[,posi], s1[,posi]==0,1)
-      s1[,posi] <- replace(s1[,posi], s1[,posi]==-1,0)
-      
-    }
+    
     
     
     
@@ -801,7 +734,7 @@ shinyServer(function(input, output, session) {
   
   output$datatabler1<-renderDataTable({
     data3()
-  })
+  },options = list(scrollX=T,scrollY=300))
   
   
   datasetSelectrl <- reactive({
@@ -831,7 +764,7 @@ shinyServer(function(input, output, session) {
   
   output$datatablerl<-renderDataTable({
     data7()
-  })
+  },options = list(scrollX=T,scrollY=300))
   
   
   
@@ -843,10 +776,10 @@ shinyServer(function(input, output, session) {
     
     # Primero necesitamos las espocisiones al default
     
-    s1 <- data1()
+    s1 <- data1org()
     
     
-    
+     
     
     ###supondremos que son activos sin lineas extra 
     ### en este caso la exposicion coincide con el saldo
@@ -1400,7 +1333,7 @@ shinyServer(function(input, output, session) {
     
     MTR()
     
-  })
+  },options = list(scrollX=T,scrollY=300))
   
   
   
@@ -1422,7 +1355,7 @@ shinyServer(function(input, output, session) {
   
   output$datatablecrm<-renderDataTable({
     data4()
-  })
+  },options = list(scrollX=T,scrollY=300))
   
   
   
@@ -1496,7 +1429,7 @@ shinyServer(function(input, output, session) {
   
   output$datatable0<-renderDataTable({
     data6()
-  })
+  },options = list(scrollX=T,scrollY=300))
   
   
   calvar <- reactive({
@@ -1599,7 +1532,7 @@ shinyServer(function(input, output, session) {
   })
   output$datatableMT<-renderDataTable({
     data10()
-  })
+  },options = list(scrollX=T,scrollY=300))
   
   
   
@@ -1638,7 +1571,7 @@ shinyServer(function(input, output, session) {
   })
   output$datatableC<-renderDataTable({
     data11()
-  })
+  },options = list(scrollX=T,scrollY=300))
   
   
   
@@ -1681,7 +1614,7 @@ shinyServer(function(input, output, session) {
     
     CR()
     
-  })
+  },options = list(scrollX=T,scrollY=300))
   
   
   calraroc <- reactive({
@@ -1720,13 +1653,55 @@ shinyServer(function(input, output, session) {
   
   
   
+  lgd1 <- reactive({
+    
+    lgd <-data7()
+    
+    nc <- dim(lgd)[2]
+    
+    
+    lgdp <- NULL
+    
+    
+    
+    
+    for (i in 1:nc) {
+      
+      lgdp[i] <- median(lgd[,i])
+      
+    }
+    
+    lgdp <- as.data.frame(lgdp)
+    
+    lgdp[2] <- 1:24
+    
+    
+    
+    colnames(lgdp) <- c("Porcentajes","Periodos")
+    
+    
+    p <- plot_ly(lgdp, x = ~Periodos, y = ~Porcentajes, name = 'trace 0', type = 'scatter', mode = 'lines') 
+    retornar <- list(p,lgdp)
+  
+    return(retornar)
+    
+  })
+  
+  output$curvalgd <- renderPlotly({
+  
+    lgd1()[[1]]
+    
+  })
+  
+  
+  
   output$reporte1 <- downloadHandler(
     
     filename = "reporte1.pdf",
     content = function(file){
       tempReport <- file.path(tempdir(),"reporte1.Rmd")
       file.copy("reporte1.Rmd", tempReport, overwrite = TRUE)
-      params <- list(titulo =c(posi),titulo2=c(calvar1()),titulo3=c(calpe()),titulo4=c(caltvar()),
+      params <- list(titulo =c(posicion()),titulo2=c(calvar1()),titulo3=c(calpe()),titulo4=c(caltvar()),
                      titulo5=c(mod()) ,titulo6=calroc(),titulo7=input$radio1, titulo8=input$uniper, titulo9=input$uni,
                      titulo10 = calaccur(), titulo11 = input$significancia)
       
