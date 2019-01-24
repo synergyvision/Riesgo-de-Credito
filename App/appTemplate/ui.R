@@ -38,7 +38,8 @@ shinyUI(
                            menuSubItem("Estadísticos", tabName = "stat", icon = icon("circle-o")),
                            menuSubItem("Pérdida por incumplimiento", tabName = "lgd", icon = icon("circle-o")),
                            menuSubItem("Modelo de probabilidad lineal", tabName = "glm", icon = icon("circle-o")),
-                           menuSubItem("Parámetros y resultados", tabName = "Param", icon = icon("circle-o"))
+                           menuSubItem("Parámetros y resultados", tabName = "Param", icon = icon("circle-o")),
+                           menuSubItem("Stress Testing", tabName = "ST1", icon = icon("circle-o"))
                   ),
                   
                   
@@ -46,14 +47,15 @@ shinyUI(
                            menuSubItem("Créditos", tabName = "CRED", icon = icon("circle-o")),
                            menuSubItem("Matriz de transición", tabName = "CMT", icon = icon("circle-o")),
                            menuSubItem("Pérdida por clase", tabName = "CPC", icon = icon("circle-o")),
-                           menuSubItem("Simulación y Resultados", tabName = "RES", icon = icon("circle-o"))
-                           
+                           menuSubItem("Simulación y Resultados", tabName = "RES", icon = icon("circle-o")),
+                           menuSubItem("Stress Testing", tabName = "ST2", icon = icon("circle-o"))
                            
                   ),
                   
-                  menuItem("Raroc", icon = icon("exclamation-circle"), tabName = "raroc",
+                  menuItem("Indicadores contables", icon = icon("exclamation-circle"), tabName = "raroc",
                   menuSubItem("Cálculo del RAROC", tabName = "RAROC", icon = icon("circle-o")),
-                  menuSubItem("Valor del RAROC", tabName = "VRAROC", icon = icon("circle-o"))
+                  menuSubItem("Morosidad", tabName = "Mor", icon = icon("circle-o"))
+                  
                   ),
                   
                   
@@ -567,18 +569,42 @@ shinyUI(
                              
                     ),
                     
-                    tabItem( tabName = "RAROC" , h1('Calculo del RAROC' ),hr(),withMathJax(), "La ecuacion estandar para el calculo del RAROC es: $$\\textrm{RAROC}=\\frac{RAR}{C}$$ Donde: $$RAR=\\textrm{Risk Adjusted Return}$$ $$C=\\textrm{Capital necesario para cumbrir el riesgo}$$"),
-                    tabItem(tabName = "VRAROC",
-                            box(width=12,title = h3("Metodología"),solidHeader = T,status ="warning" ,checkboxGroupInput("meto",h3(""), 
+                    tabItem( tabName = "RAROC" , 
+                             
+                             fluidRow(
+                               tabBox( height = "1250px", width = 12,side = "left",
+                                       
+                                       
+                                       
+                                       
+                                       
+                                       tabPanel( title = tagList(shiny::icon("gear"), strong('Cálculo del RAROC')),
+                             fluidRow(box(title =h1('Calculo del RAROC' ),solidHeader = T,status = "warning", width = 12,hr(),withMathJax(), "La ecuacion estandar para el calculo del RAROC es: $$\\textrm{RAROC}=\\frac{RAR}{C}$$ Donde: $$RAR=\\textrm{Risk Adjusted Return}$$ $$C=\\textrm{Capital necesario para cumbrir el riesgo}$$" )
+                            )),
+                    tabPanel(title = tagList(shiny::icon("gear"), strong('RAROC')),
+                          fluidRow(  
+                          box(width=12,title = h3("Metodología"),solidHeader = T,status ="warning" ,checkboxGroupInput("meto",h3(""), 
                                                                                                choices = list("CreditRisk+" = 1, 
                                                                                                               "Credimetrics" = 2))),
                             fluidRow(column(6,box(width=12,background="yellow",fileInput("file", h4("Ingrese Balance"),placeholder = 'Aun no seleccionas el archivo...', buttonLabel = 'Buscar'))),
-                            column(6,box(width=12,background="yellow",h3("RAROC"),h2(textOutput("Raroc1"))))
+                            column(6,box(width=12,background="yellow",h3("RAROC"),h2(textOutput("Raroc1"))))))
                             
-                            )),
+                            )
+                    )
+                    )),
                     
-                    
-                    
+                   tabItem( tabName = "Mor" ,
+                            fluidRow(column(4,box(width=12,background="yellow",h3("RAROC"))),column(4,box(width=12,background="yellow",h3("RORAC"))),column(4, box(width=12,background="yellow",h3("RARORAC")))),
+                            fluidRow(column(4,box(width=12,background="yellow",h3("Indice de Morósidad"))),column(4,box(width=12,background="yellow",h3("Indice de Cobertura"))),column(4, box(width=12,background="yellow",h3("RAR"))))
+                              
+                            
+                            
+                            
+                             
+                              
+                            
+                            ),
+                   
                     tabItem(tabName = "acerca",
                             box( width = 9, status="warning",
                                  h3(ACERTITLE_TEXT),

@@ -1,6 +1,6 @@
 ## Primero necesitamos las espocisiones al default
 
-mydata <- read.csv("App/appTemplate/data/datos_completos.csv")
+mydata <- read.csv("App/appTemplate/data//mydata1.csv")
 
 
 reg <- read.csv("App/appTemplate/data/reg.csv")
@@ -88,7 +88,7 @@ e <- EL/E
 ### correspondiente a la posibilidad de incumplimiento
 
 lambda <- - log(1-DP)
-
+lambda[10]
 
 ###creando las bandas
 
