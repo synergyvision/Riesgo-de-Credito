@@ -1248,6 +1248,165 @@ shinyServer(function(input, output, session) {
   
   
   
+  
+  
+  StressT <- reactive({
+    
+    
+    
+    # Primero necesitamos las espocisiones al default
+    
+    s1 <- data1org()
+    
+    
+    
+    
+    ###supondremos que son activos sin lineas extra 
+    ### en este caso la exposicion coincide con el saldo
+    
+    ##exposicion de la cartera
+    #View(mydata)
+    
+    
+    EAD <- s1[,"Credit.Amount"]
+    
+    ###supondremos que la perdida dado el default es la misma para toda  la cartera
+    ### la institucion puede ajustar a un cliente en particular una perdida diferente
+    
+    LGD <- (100-input$uni)/100
+    
+    
+    DP= data3()
+    
+    for (i in 1:length(DP[,"PD"])) {
+      
+      if (DP[i,"PD"]<0.4) {
+        DP[i,"PD"]<- DP[i,"PD"] + as.numeric(input$estres2)
+      }
+      
+    }
+    
+    ####Calculamos ahora la perdida esperada
+    
+    EL <- EAD*LGD*DP[,"PD"]
+    
+    
+    ### Se calcula la expocicion que se espera pérder en caso de default
+    
+    Ei <- EAD*LGD
+    
+    #### Se escoge una unidad de perdida
+    
+    E <- input$uniper
+    
+    
+    
+    
+    ###### se calculan las unidades de perdida
+    
+    v <- Ei/E
+    
+    e <- EL/E
+    
+    ###se calcula el paramtro de poisson
+    ### correspondiente a la posibilidad de incumplimiento
+    
+    lambda <- -log(1-DP[,"PD"])
+    
+    
+    ###creando las bandas
+    
+    L <- ceiling(v)
+    
+    
+    
+    bandas <- list()
+    
+    for (k in 1:range(L)[2]) {
+      
+      
+      bandas[[k]] <- which(L==k)
+      
+    }
+    
+    
+    ###se calculan los parametros de poisson por banda
+    
+    lambdaj <- numeric(range(L)[2])
+    
+    for (k in 1:range(L)[2]) {
+      lambdaj[k] <- sum(lambda[bandas[[k]]])
+    }
+    
+    
+    
+    #calculamos la perdida esperada por banda
+    
+    ei <- lambdaj*1:length(bandas)
+    
+    ###factor de ajuste
+    
+    gamm <- numeric(length(Ei)) 
+    
+    
+    for(i in 1:length(lambdaj)){
+      
+      
+      gamm[bandas[[i]]] <- Ei[bandas[[i]]]/(i*E)
+      
+    }
+    ####Numero de incumplimientos de toda la cartera
+    
+    
+    
+    
+    IncCar <- sum(lambdaj)
+    
+    
+    
+    ### Probabilides de unidades de perdida de toda la cartera
+    
+    p0 <- exp(-IncCar)
+    
+    
+    probandas <- numeric(10000)
+    
+    probandas[1] <- p0
+    
+    probandasc <- probandas
+    
+    length(ei)
+    eii <- numeric(10000)
+    
+    eii[1:length(bandas)] <- ei[1:length(bandas)]
+    #View(eii)
+    for (i in 2:10000) {
+      
+      probandas[i] <- sum(probandasc[1:i-1]*rev(eii[1:i-1]))/(i-1)
+      probandasc <- probandas
+    }
+    
+    #View(probandas)ç
+    
+    
+    sum(probandas[1:10000])
+    
+    
+    acum <- c()
+    
+    for (l in 1:10000) {
+      acum[l] <- sum(probandas[1:l]) 
+    }
+    
+    #####Var
+    var <-  min(which(acum > (as.numeric(input$conf)/100)))*E
+    return(var)
+    
+  })
+  
+  output$Stress <- renderText({StressT()})
+  
+  
   MatrizPropias <- reactive({
     
     inFiler <- input$file_datacrm

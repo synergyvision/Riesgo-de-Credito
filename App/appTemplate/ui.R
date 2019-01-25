@@ -338,7 +338,15 @@ shinyUI(
                                       
                                       
                                       
-                                                          ))))
+                                                          )))),
+                    tabItem(tabName = "ST1",
+                            
+                            fluidRow(column(6,box(width=12,title = h2("StressTesting"),solidHeader = T,status = "warning",radioButtons("estres2", h3("Nivel de estrés de la prueba"),
+                                                                                                                              choices = list("1 %" = 0.01, "5 %" = 0.05,
+                                                                                                                                             "10 %" = 0.1),selected = 0.01))),column(6,box(width=12,title = h2("Resultado"),solidHeader = T,status = "warning",h3("El valor de la prueba"),h1(textOutput("Stress")))))
+                            
+                            
+                    )
                     
                     
                     
@@ -568,6 +576,15 @@ shinyUI(
                              
                              
                     ),
+                   
+                   tabItem(tabName = "ST2",
+                           
+                           fluidRow(box(width=12,title = h2("StressTesting"),solidHeader = T,status = "warning",radioButtons("stress3", h3("Nivel de estrés de la prueba"),
+                                                                                  choices = list("1 %" = 0.1, "5 %" = 0.05,
+                                                                                                 "10 %" = 3),selected = 0.1)))
+                           
+                           
+                           ),
                     
                     tabItem( tabName = "RAROC" , 
                              
