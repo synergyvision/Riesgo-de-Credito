@@ -1629,8 +1629,9 @@ shinyServer(function(input, output, session) {
       
       tvar <- mean(M)+((sd(M)*dnorm(qnorm(as.numeric(input$conf1)/100)))/(1-(as.numeric(input$conf1)/100)))
       
+      strescr <- (mean(M)+(mean(M)*as.numeric(input$stress3)))+((sd(M)+sd(M)*as.numeric(input$stress3))*qnorm(as.numeric(input$conf1)/100))
       
-      return(list(var,mean(M),M,tvar))
+      return(list(var,mean(M),M,tvar, strescr))
     })
     
   })
@@ -1852,6 +1853,10 @@ shinyServer(function(input, output, session) {
     
   })
   
+  
+  
+  
+  output$Stres45 <- renderText({calvar()[[5]]})
   
   
   output$reporte1 <- downloadHandler(
