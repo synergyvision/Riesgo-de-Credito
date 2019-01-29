@@ -33,6 +33,55 @@ Para concluir con este tema, es impotante hacer hicapié en que el supuesto clav
 
 Además, es necesario señalar que en todo el análisis anterior hay implícito un periodo de tiempon que está relacionado con el parámetro de la distribución. Así, al se\tribución obtenida debe interpretarse de la misma manera, es decir:$$\frac{1}{n!}\mu^ne^{-\mu}=\textrm{ Probabilidad de que ocurran } n \textrm{ incumplimientos }$$
 
+## La agrupación por bandas de exposición por bandas de exposición a pérdidas
+
+Dado que pueden existir varios deudores que implican niveles de pérdidas semejantes, **CreditRisk+** empieza por agrupar a los deudores por bandas de exposiciónm oiguales. Aunque esta agrupación introduce errores de rodondeo en la estimación de la distribución, facilita mucho el desarrollo del modelo y reduce significativamente el número de datos requeridos para realizar los cálculos. Además, si el número de niveles de exposición es grande y el ancho de las bandas es pequeño, en relación con el tamaño de exposición promedio de la cartera, se puede demostrar que el error introducido es despreciable. De hecho, en la práctica es muy difícil determinar *a priori* el nivel de exposición y, por lo tanto, éste no debe representar un elemento crítico en la estimación del riesgo total de la cartera.
+
+Así, supóngase que la perdida esperada por deudor que cae en impago es una proporción fija "$\lambda_i$" del monto total "$D_i$" que debe el deudor "$i$". A su vez, para mantener la elegancia del modelo, supóngase que el nivel de exposición que representa el deudor para el acreedor "$L_i$" en un múltiplo entero de una únidad fija de pérdida "$L$". Estos múltiplos enteros de $L$ reciben el nombre de "*niveles de exposición estandar*". Aasí la pérdida que puede representar el incumplimiento del deudor "$i$" para el acreedor, se mide en términos de múltiplos de "v_i"m, de la únidad fija de pérdida $L$, y es simplemente la cantidad siguiente:$$v_i=\textrm{ Redondeo }\bigg{(}\frac{\lambda D_i}{L}\bigg{)}$$
+De esto se obtiene el  nivel estándar de exposición que representa cada deudor para el acreedor, mediante la identidad siguiente:$$L_i=L_{v_i}$$
+
+## La determinación de la *distribución de pérdidas* de la cartera.
+
+El último paso es encontrar la *la distribución de pérdidas de la cartera*, para lo cual se procede de la misma manera, es decir, encontar la FGP de dicha distribución. Nótese que la distribución de pérdidas es necesariamente diferente a la delmnumero de impagos, ya que puede resultar un cierto nivel de pérdidas con diferentes combinaciones de incumplimientos de deudores. Por ejemplo una pérdida de $100.000$ dolares puede ser la consecuencia del incumplimiento que debe esta cantidad o del incumplimiento de $10$ de deudores que deben $10.000$ dolares cada uno. Además, el conocimiento de la forma en que están distribuidos los diferentes niveles de exposición entre los  diferentes deudores que componen la cartera es indispensable para poder obtener la distribución de pérdidas. Contrasrio a lo que sucede con las diferencias entre probabilidades de incumplimiento individuales, que son pequeñas aun en términos relativos y por lo tanto no afectan la distribución del número de incumplimiento, las diferencias en los niveles de exposición a los deudores representados en la cartera si son significativos y, por lo tanto, la distribución de pérdidas resultante no tiene por que ser *Poisson*. Sin embargo, aunque no se va a poder obtener una formula explícita de la distribución de pérdidas, se verá que es poisible obtener una expresión cerrada sencilla de la FGP, que se presta fácilmente al cálculo de las probabilidades correspindientes.
+
+Así recordemos que la FGP de las pérdidas es: $$G(s)=\sum_nProb(\textrm{ Pérdida acumulada}=n\textrm{x}L)S^n$$
+
+Sea "$G_j$" la FGP de las pérdidas de la banda "$j$", la probabilidad de que se pierda $n\times v_j$ unidades en la banda "$j$" es igual a la probabilidad de que "$n$" deudores de esta banda incumplan, y ya se sabe que el incumplimiento de estos deudores sigue una distreibución de *Poisson*, es decir:$$\textrm{ Prob. de }n\textrm{ incumplimientos en la banda }j=\frac{1}{n!}\mu_j^ne^{-\mu_j}$$
+
+Por lo tanto:$$G_j(s)=\sum_{n=0}^\infty \frac{1}{n!}\mu_j^ne^{-\mu_j}s^{nv_j}=e^{-\mu_j}\sum_{n=0}^\infty \frac{1}{n!}(\mu_js^{v_j})^n=e^{-\mu_j}e^{\mu_js^{v_j}}=e^{\mu_j(s^{v_j}-1)}$$
+
+Suponiendo independencia de eventos de incumplimientos, las pérdidas asociadas a cada banda tambien serán independientes. En este caso, la FGP de las pérdidas de la cartera de crédito es la suma de las pérdidas ocurridas en cada banda, que por propiedades de las funciones generadoras de probabilidad es el producto de las FGP de las bandas:$$G(s)=\prod_jG_j(s)=\prod_{j=1}^me^{\mu_j(s^{v_j}-1)}=e^{\sum_{j=1}^m\mu_j(s^{v_j}-1)}$$es decir:$$G(s)=e^{\sum_{j=1}^m\mu_j(s^{v_j}-1)}$$
+
+## Obteniendo la distribución de las pérdidas
+
+Aunque a diferencia de la distribución del número de incumoplimientos, en el caso de las pérdidas no se sabe la forma de la distribución, la probabilidad de que se pierdan $n$ unidades de $L$ en la cartera total de créditos se puede obtener mediante la expansión de Taylor de la expresión anterior; es decir: la probabilidad de quen se pierdan $n$ unidades $L$ es el coeficiente de $s^n$ en la expansión de Taylor. El desarrollo se facilita definiendo el polinomio siguiente:$$P(s)=\frac{1}{\mu}\sum_{j=1}^m\mu_js^{v_j}=\frac{\sum_{j=1}^m\frac{\epsilon_j}{{v_j}}s^{v_j}}{\sum_{j=1}^m\frac{\epsilon_j}{{v_j}}}$$ donde $\epsilon_j$ es la pardida esperada de la banda $j$ y $v_j$ es la exposición común que comparten los deudores de la banda $j$.
+
+Con esto, la FGP de pérdidas se puede expresar de la forma siguiente:$$G(s)=e^{\sum_{j=1}^m\mu_j(s^{v_j}-1)}=e^{\mu[P(s)-1]}=F[P(s)]$$
+La función generadora de probabilidades de las pérdidas comprende dos fuentes de incertidumbre, a saber: el comportamiento *Poisson* del numero de incumplimiemntos y la aleatoriedad de las pérdidas dado incumplimiento, que esta asociado a los distintos niveles de exposición del acreedora los diferentes deudores. Notese que la única información requerida para obtener la distribución de pérdidases $\epsilon_j$ y $v_j$, estas parejas representan un número de datos significativamente menor, que si tuviera que manejar información semejante por cada deudor, aun para carteras con un número muy grandem de créditos.
+para encontrar la distribución de pérdidas, se parte de la expresión:$$G(s)=\sum_n\textrm{ Prob(pérdidas acumuladas}=n\times L)S^n $$.
+
+Tomando la expansión de Taylor para $G(s)$, la probabilidad de perdida de $nL$ unidades es$$P_n(L)=\frac{1}{n!}\frac{d^nG(s)}{ds^n}\bigg{|}_{s=0}$$. En el apéndice A 4.1 del manual de CreditRisk+ se deduce una fórmula recursiva sencilla para obtener estas probabilidades, las cuales es:$$P_n(L)=\sum_{j|v_j\le n}\frac{\epsilon_j}{n}P_{n-v_j}(L)=\frac{1}{n}\sum_{j|v_j\le n}\epsilon_jP_{n-v_j}(L)$$
+donde $P_0(L)=e^{-\mu}$ donde $\mu=\sum_{j=1}^m\mu_j$
+
+## Obtención del VaR
+
+Para obtener el VaR de una cartera de créditos bajo el esquema de CreditRisk+, simplemente se obtiene la distribución de distribución de probabilidad acumulada de las pérdidas y, una vez decidido el nivel de confianza $\alpha$ con el que se quiere trabajar se lee de la tabla el número de unidades estándar de pérdidas que corresponden a una probabilidad acumulada de de pérdida $1-\alpha$. El paso final es convertir las unidades estándar de pérdida a unidades manetarias, multiplicando las unidades de pérdidas correspondientes al nivel de confianza escogido, por la unidas de pérdida $L$.
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

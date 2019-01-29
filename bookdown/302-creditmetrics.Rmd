@@ -1,0 +1,27 @@
+\mainmatter
+
+# CreditMetrics
+
+Mientras que en el caso de **CredictRisk+** se usa un enfoque actuarial mediante el cual se llega ha obtener una forma explícita de la distribución de pérdidas a través de la función generadora de probabilidades, en el  caso de **CredictMetrics**, aunque en teoría existe una representación explícita de la distribución de pérdidas, su obtención supera ña capacidad de cálculo disponible en un computador convencional, y por lo tanto, está se estima a través de un proceso de simulación de *MonteCarlo*, otra caractéristica importante es que **CreditMetric** hace referencia, y utiliza extensamente, información que solo esta disponible en los mercados en desarrollo, aunque esto no impide que se aplique en los mercados emergentes si se hacen las edecuaciones correspondientes.
+
+Para la explicación de esta metodología usamos como guía el documento técnico de **CreditMetrics**. Iniciaremos con el caso más sencillo en el cual nuestrea cartera de créditos esta integrada por un único credito para luego generalizar el procedimiento a una cartera que puede incluir cualquier numero $N$ de créditos. Pero primero establescamos los elementos básicos que usaremos en esta metodología.
+
+## Elementos que usa **Credimetrics**
+
++ *Conceptos relevantes al riesgo de crédito*: probabilidades de incumplimiento, patrones de migración entre los distitas clasificaciones que posean los clientes, umbrales que separen las calificaciones, el valor de los créditos, la tasa de recuperación en caso de incumplimiento de las calificaciones crediticia.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
