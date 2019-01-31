@@ -118,12 +118,53 @@ PE = (0.25*0.04)+(7.5*0.05)& \\
 
 Así la pérdida esperada de una cartera de un solo crédito de calificación BB de una exposición de 250 es de 40.935. Ahora para calcular el VaR a un nivel de confianza en especifico por ejemplo al 5% simplemente sumamos las probabilidad de manera descendentes de las calificaciones hasta llegar 95 en el caso de que se pase se toma la calificacion en la cual ocurre el exceso, en nuestro ejemplo el VaR ocurre en la calificación B, así el $VaR_{5\%}=62.5$.
 
-En general, se suele pensar que una aproximación normal a la distribución de pérdidas puede ser idonea, pero esto es incorrecto pues suele ocurrir que las probabilidades de transición se concentren en los extremos de las calificaciones, esto se vera en el siguiente ejemplo.
+En general, se suele pensar que una aproximación normal a la distribución de pérdidas puede ser idonea, pero esto es incorrecto pues suele ocurrir que las probabilidades de transición se concentren en los extremos de las calificaciones, esto se verá en el siguiente ejemplo.
 
 ### Ejemplo 2
 
+Consideremos un bono con una calificación AA con un valor de 300 donde las probabilidades de tansición a las otras categorias esta representada en la siguiente tabla
+
+| Calificación | Probabilidad de transición (%) |
+|:------------:|:------------------------------:|
+|      AAA     |                15              |
+|      AA      |                48              |
+|       A      |                15              |
+|      BBB     |                12              |
+|      BB      |                5               |
+|       B      |                4               |
+|      CCC     |                1               |
+
+Además la tasas de perdida por calificación son las mismas que el ejemplo anterior
 
 
+Ya con esta información podemos establecer una tabla con la pérdida esperada del credito en las distintas calificaciones, la cual es: 
+
+| Calificación | Pérdida esperada del Crédito | Proababilidad |
+|:------------:|:----------------------------:|:-------------:|
+|      AAA     |             0.3              |       15      |
+|      AA      |             9                |       48      |
+|       A      |             15               |       15      |
+|      BBB     |             27               |       12      |
+|      BB      |             54               |       5       |
+|       B      |             75               |       4       |
+|      CCC     |             120              |       1       |
+
+Ahora de igual forma para obtener la paérdida esperada procedemos con el siguiente cálculo.
+
+
+\begin{align*} 
+PE = (0.3*0.15)+(9*0.48)& \\
+&+(15*0.15)+(27*0.12)+(54*0.05)&\\
+&+(75*0.04) +(120*0.01)=16.75
+\end{align*}
+
+Para cálcular el valor en riesgo al 95% es suficiente tomar la pérdida esperada de la calificación BB, así el $VaR_{95\%}=54$.
+
+Con este ejemplo podemos notsr que la distribución normal no se ajusta de manera adecuada a la distribución de pérdidas, pues esta concentrada en un extremo de las pérdidas por calificación.
+
+## Cartera de dos de créditos con probabilidades de treansición independientes.
+
+Como en realidad el caso de un solo instrumento no es de interes, pues una cartera de créditos de una institución financiera puede estar conformada por millones de créditos daremos un ejemplo ilustrativo con una cartera de dos créditos, con esto se pretende mostrar como aumenta el nivel de dificultad, mas adelante veremos que en general, no calcularemos la distribución de pérdidas explícitamente, sino realizaremos una aproximación por el método de simulación de Montecarlo.
 
 
 
