@@ -204,6 +204,7 @@ En el ejemplo anterior notamos como una cartera con 2 créditos con 7 posibles c
 
 ### Simulación de MonteCarlo
 
+Ahora veremos como aproximar la distribución de pérdidad con el método más común, conocido como método de aproximación por simulación de MonteCarlo, el cual co
 
 
 
