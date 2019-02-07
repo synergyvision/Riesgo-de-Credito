@@ -26,9 +26,9 @@ s1 <- mydata
 
 
 
-s1[,1] <- replace(s1[,1], s1[,1]==1,-1)
-s1[,1] <- replace(s1[,1], s1[,1]==0,1)
-s1[,1] <- replace(s1[,1], s1[,1]==-1,0)
+#s1[,1] <- replace(s1[,1], s1[,1]==1,-1)
+#s1[,1] <- replace(s1[,1], s1[,1]==0,1)
+#s1[,1] <- replace(s1[,1], s1[,1]==-1,0)
 
 
 
@@ -61,7 +61,7 @@ Score <- predict(reduccion, newdata = s1, type = "link")
 
 
 DP <- predict(reduccion, newdata = s1, type = "response")
-
+DP
 ####Calculamos ahora la perdida esperada
 
 EL <- EAD*LGD*DP

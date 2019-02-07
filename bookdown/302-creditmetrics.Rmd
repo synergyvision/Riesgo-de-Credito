@@ -204,7 +204,67 @@ En el ejemplo anterior notamos como una cartera con 2 créditos con 7 posibles c
 
 ### Simulación de MonteCarlo
 
-Ahora veremos como aproximar la distribución de pérdidad con el método más común, conocido como método de aproximación por simulación de MonteCarlo, el cual co
+Ahora veremos como aproximar la distribución de pérdidad con el método más común, conocido como método de aproximación por simulación de MonteCarlo. Antes de describir el método debemos acotar que en general los eventos de migración crediticia pueden ser supuestos independientes o no entre las migraciones de otros créditos. Sin embargo en mercados poco desarrollodos  o donde la información es limitada se tiende a suponer la independencia entre los créditos de una cartera.
+
+
+#### ¿Que es un Método de Montecarlo?
+
+El término Monte Carlo se aplica a un conjunto de métodos matemáticos que se empezaron a usar en los 1940s para el desarrollo de armas nucleares en Los Alamos, favorecidos por la aparición de los ordenadores digitales modernos. Consisten en resolver un problema mediante la invención de juegos de azar cuyo comportamiento simula algún fenómeno real gobernado por una distribución de probabilidad (e.g. un proceso físico) o sirve para realizar un cálculo (e.g. evaluar una integral).
+
+Más técnicamente, un método de MonteCarlo es un proceso estocástico numérico, es decir, una secuencia de estados cuya evolución viene determinada por sucesos aleatorios. Recordemos que un suceso aleatorio es un conjunto de resultados que se producen con cierta probabilidad. Veamos un ejemplo ahora:
+
+#### Ejemplo: Gotas de lluvia para estimar $\pi$
+
+Consideremos un círculo  de radio unidad circunscrito por un cuadrado. Suponiendo una lluvia uniforme sobre el cuadrado, podemos hallar el valor de $\pi$ a partir de la probabilidad de que las gotas caigan dentro del círculo (próxima figura)
+
+![\label{fig:"sd"}](~/Riesgo_de_Credito/circulo.png)
+
+Sea $P$ dicha probabilidad, por calculo:
+
+$$P=\frac{\textrm{área del círculo}}{\textrm{área del cuadrado}}=\frac{\int_{-1}^1dx\int_{-\sqrt{1-x^2}}^{\sqrt{1-x^2}}dy}{\int_{-1}^1dx\int_{-1}^1dy}=\frac{2\int_{-1}^1\sqrt{1-x^2}dx}{2.2}=\frac{\pi}{4}$$
+
+Es decir $\pi=4P$. Ahora notemos lo siguiente:
+
++ Gracias a los métodos de integración de cálculo podemos relacionar rapidamente la probabilidad con $\pi$
+
++ Con un ordenador podemos generar números o pares de números pseudo aleatorios $(x,y)$ entre 0 y 1.
+
++ Entre mayor número de simulaciones realicemos mayor sera nuestra aproximación a $\pi$
+
+Para finalizar el ejemplo debemos encontrar la frcuencia de puntos que caen dentro de la circunferencia para aproximar $P$ de una manera correcta, así despues de 1000 simulaciones $\pi\approx 3,158733$.
+
+#### Números pseudoaleatorios
+
+Hemos visto que el método de MonteCarlo es un proceso estocástico númerico que nos permite resolver problemas de aproximación. Para ello se requiere muestrar variables aleatorias según una ley de distribución de probabilidad, por lo tanto es vital que nuestro método de muestreo sea efectivo, por lo tanto presentamos el siguiente test de calidad de números pseudoaleatorios.
+
++ Equidistribución: los números pseudoaleatorios deben repartirse por igual, como correspondería a una verdadera distribución uniforme
+
++ Largo periodo: todos los métodos de generación de números pseudoaleatorios tienen un periodo en el cual la secuencia de números se vuelve a repetir, por lo tanto, el periodo debe ser largo para no agotar la sequencia en un cálculo concreto.
+
++ Repetibilidad: a veces se necesita repetir un cálculo con exactamente los mismos números pseudoaleatorios. Así que conviene que el generador permita almacenar su estado
+
++ Largas subsecuencias disjuntas: Si la simulación es muy extensa resulta conveniente subdividirla en otras más pequeñas, para lo que es importante que sean estadísticamente independientes y así se puedan recombinar sin introducir correlaciones.
+
+
+Portabilidad: La rutina debe generar exactamente la misma secuencia de números no solamente por distintos lenguajes de programación sino también en distintas máquinas.
+
+
+Eficiencia: La generación de cada número debe consumir muy poco tiempo.
+
+Ahora para comprobar la eficiencia del método de generación de números pseudo aleatorios existen test estadísticos para comprobar su bondad, los mas usados son:
+
++ Test de frecuencia: Sirve para comprobar la equidistribución de $N$ valores generados.Se divide el intervalo $[0,1]$ en $k$ sub intervalos. Uno esperaría encontrar $N/k$ valores en cada sub intervalo. Sea $N_j$ la cantidad de valores encontrados en el intervalo $j$-ésimo. Entonces la siguiente $\chi^2$ permite hallar la probabilidad de que la distribución generada sea compatible con una verdadera distribución aleatoria uniforme,$$\chi^2=\frac{k}{N}\sum_{j=1}^k\bigg{(}N_j-\frac{N}{k}\bigg{)}^2$$ que se comportara asintóticamente como una $\chi^2(k-1)$
+
++ Test de la serie: Sirve para comprobar la independencia entre sucesivos numeros en una secuencia. Es una generalización del test anterior. Dividinos el intervalo $[0,1]$ en $r$ sub intervalos y miramos ternas de $s\geq2$ puntos $x_n=(x_n,x_{n+1},...,x_{n+s-1})$ consecutivamente generados. Cada una de las $N$ ternas $x_n$ generadas caerá dentro de uno de los $r^s$ bines en los que se divide este espacio $s$ dimensional. Si llamamos $N_{j_1,j_2,...j_s}$ con $j_i\in\{1,2,3,...,r\}$, el número de valores que caen en el bin $(j_1,j_2,...,j_s)$, la siguiente $\chi^2$ nos permita hallar la probabilidad de que la distribución generada sea uniforme, $$\chi^2=\frac{r^s}{N}\sum_{\{j_1,j_2,...j_s\}}\bigg{(}N_{j_1,j_2,...j_s}-\frac{N}{r^s}\bigg{)}$$ Se comportara asintóticamente como una $\chi^2(r^2-1)$
+
+### Aplicando simulación de MonteCarlo para hallar la distribución de pérdidas de una carter
+
+
+
+
+
+
+
 
 
 
