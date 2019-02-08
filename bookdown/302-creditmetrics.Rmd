@@ -257,7 +257,19 @@ Ahora para comprobar la eficiencia del método de generación de números pseudo
 
 + Test de la serie: Sirve para comprobar la independencia entre sucesivos numeros en una secuencia. Es una generalización del test anterior. Dividinos el intervalo $[0,1]$ en $r$ sub intervalos y miramos ternas de $s\geq2$ puntos $x_n=(x_n,x_{n+1},...,x_{n+s-1})$ consecutivamente generados. Cada una de las $N$ ternas $x_n$ generadas caerá dentro de uno de los $r^s$ bines en los que se divide este espacio $s$ dimensional. Si llamamos $N_{j_1,j_2,...j_s}$ con $j_i\in\{1,2,3,...,r\}$, el número de valores que caen en el bin $(j_1,j_2,...,j_s)$, la siguiente $\chi^2$ nos permita hallar la probabilidad de que la distribución generada sea uniforme, $$\chi^2=\frac{r^s}{N}\sum_{\{j_1,j_2,...j_s\}}\bigg{(}N_{j_1,j_2,...j_s}-\frac{N}{r^s}\bigg{)}$$ Se comportara asintóticamente como una $\chi^2(r^2-1)$
 
-### Aplicando simulación de MonteCarlo para hallar la distribución de pérdidas de una carter
+#### Aplicando simulación de MonteCarlo para hallar la distribución de pérdidas de una cartera.
+
+Ahora una vez se pretenda usar un método algorítmico de generación de números aleatorios, se usa este metódo para generar eventos probabilísticos en los cuales se consideren todos los posibles eventos de transición entre las distintas calificaciones. Cada evento se considera como una simulación de un evento particular, por cada simulación los créditos se encuentran en una calificación determinada por la probabilidad de transición respectiva, este calificación trae con si un pérdida esperada por crédito, asi por cada simulación se obtiene una pérdida. 
+
+Ahora si nuestra cartera de crédito posee 1000 créditos, y existen 5 calificaciones, en la sección vimos que existen $5^{1000}$ posibles eventos, para imaginarnos esta cantidad basta saber que este número es mayor que un billón, por lo tanto debemos realizar un gran número de simulaciones para poder captar información verídica de la pérdida esperada. Una de las bondades de estimar la pérdida esperada de esta forma es que la distribución tendera asintóticamente a una normal donde su media tendera la pérdida esperada de la cartera.
+
+#### Obtención de las métricas de riesgo.
+
+Una ves realizadas las simulaciones y obtenida la aproximación de la distribución de pérdidas usando la aproximación normal es facil obtener las métricas de riesgo, pues estas ya estan definidas para la distribución normal. Si la distribucion de pérdidas es como una normal de media $\mu$ y desvianción estandasr $\sigma$ las métricas de riesgo son: $$\textrm{Pérdida esperada}=\mu$$,$$VaR_{p}=\mu+\sigma\Phi^{-1}(p)$$,$$TVaR_p=\mu+\sigma\frac{\phi[\Phi^{-1(p)}]}{1-p}$$
+Donde $\phi$ y $\Phi$ representan la función de densidad de probabilidad y la función de probabilidad acumulada de una normal estandar.
+
+
+
 
 
 

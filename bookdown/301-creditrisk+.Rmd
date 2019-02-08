@@ -66,7 +66,8 @@ donde $P_0(L)=e^{-\mu}$ donde $\mu=\sum_{j=1}^m\mu_j$
 ## Obtención del VaR
 
 Para obtener el VaR de una cartera de créditos bajo el esquema de CreditRisk+, simplemente se obtiene la distribución de distribución de probabilidad acumulada de las pérdidas y, una vez decidido el nivel de confianza $\alpha$ con el que se quiere trabajar se lee de la tabla el número de unidades estándar de pérdidas que corresponden a una probabilidad acumulada de de pérdida $1-\alpha$. El paso final es convertir las unidades estándar de pérdida a unidades manetarias, multiplicando las unidades de pérdidas correspondientes al nivel de confianza escogido, por la unidas de pérdida $L$.
-  
+
+
 
 
 
