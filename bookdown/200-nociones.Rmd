@@ -4,6 +4,17 @@
 
 A la hora de aplicar o construir cualquier modelo matemático debemos conocer los conceptos que están involucrados en la integración de este, la falta de dicho conocimiento casi seguramente nos conducirá a tesis erradas y modelos mal elaborados. El manejo del riesgo de crédito no se escapa a esto, en el presente capítulo definiremos las nociones y conceptos básicos que estarán presente prácticamente en todos los capítulos del libro.  
 
+
+
+## Pérdida esperada
+
+En general las instituciones financieras se encuentran bajo distintos escenarios en los cuales se ven comprometidas, esto se debe a que dependen de que sus clientes cumplan sus compromisos adquiridos. Debido a la necesidad de tener que controlada la incertidumbre e intentar cuantificar los posibles riesgos de la insolvencia de las contrapartes, las instituciones usan herramientas estadísticas para lograr lo anterior. La idea es que la institución asigne una probabilidad de incumplimiento (DP), una fracción de pérdida llamada pérdida en caso de incumplimiento (LGD), la cantodad que esta en riesgo, llamada exposición en caso de impago (EAD). Así, podemos definar la pérdida de un deudor, como la variable de pérdida:$$\tilde{L}=EAD*LGD*L$$
+donde $L$ una variable aleatoria Bernoulli, que es 1 si el deudor incumple 0 si no, el parametro de esta variable Bernoulli es $P(D)=DP$ donde $D$ denota el evento de incumplir.
+
+Ahora, estamos interados no tanto en la pérdida, si no en el valor medio que se espera perder, es decir, $\mathbb{E}(\tilde{L})$ que denotarmeos por $EL$ y es la pérdida esperada. Para calcular, veamos que:$$\mathbb{E}(\tilde{L})=\mathbb{E}(EAD*LGD*L)=EAD*LGD*\mathbb{E}(L)=EAD*LGD*DP$$
+
+Este modelo, tienes algunos detalles, por ejemplo, estamos suponiendo que las variables $EAD$ y $LGD$ son constantes, pero puede haber situaciones en que estas variables sean aleatorios, esto impide el cálculo anterior, pero en general, $EAD$ se considera constante, y si se toma $LGD$ como variable aleatoria, definimos por severidad su esperanza, es decir: $SEV=\mathbb{E}(LGD)$
+
 ## Probabilidad de incumplimiento (DP)
 
 La tarea de asignar una probabilidad de incumplimiento (default probability) a cada uno de los clientes de la cartera de crédito del banco dista mucho de ser fácil. Hay esencialmente dos enfoques para las probabilidades de incumplimiento:  
@@ -18,4 +29,11 @@ Otro método para calibrar las probabilidades de incumplimiento a partir de los 
 
 En esta aproximación, la probabilidad de incumplimiento esta asociada con ratings, y estos ratings son asociado a los clientes por agencias externas de ratings o por metodologías internas de la institución financiera.
 
+## Exposición $EAD$
+
+El $EAD$ es la cantidad que representa la exposición que tiene el deudor sobre la intitución. En general, la exposición consta de dos partes principales, los valores en circulación y los compromisos. Los valores en circulación se refieren a la parte de la exposición que ya ha sido tomada por el deudor. En caso de incumplimiento del prestatario, el banco está expuesto a la importe total de los valores en circulación. 
+Los compromisos se pueden dividir en dos porciones, retirados y no retirados, en el tiempo anterior al incumplimiento. El total el importe de los compromisos es la exposición que el banco ha prometido prestar al deudor a petición de éste. La experiencia histórica predeterminada muestra que los deudores tienden a recurrir a líneas de crédito comprometidas en épocas de crisis financiera. La angustia. Por lo tanto, el compromiso también está sujeto a pérdidas en en el caso de incumplimiento del deudor, pero sólo el importe retirado (anterior al incumplimiento). 
+
+La fracción que describe la descomposición de los compromisos en partes retiradas y no retiradas es una variable aleatoria debido al carácter opcional que tienen los compromisos (el deudor tiene el derecho, pero no la obligación, de utilizar líneas de crédito comprometidas). Entonces es natural definir la $EAD$ por : $$EAD=OUTST+(\gamma  COMM)$$ donde  $OUTST$ denota los valores en circulación y $COMM$ los compromisos y $\gamma$ es la proporción que se espera el deudor use, $\gamma$ toma valores entre 0 y 1, si asumimos que $EAD$ es deterministica, entoces $\gamma$ tambien, en caso contrario, $\gamma$ es una variable aleatoria.  
+ 
 
