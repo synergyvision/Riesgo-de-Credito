@@ -37,7 +37,7 @@ shinyUI(
                            menuSubItem("Datos", tabName = "subitem1", icon = icon("circle-o")),
                            menuSubItem("Estadísticos", tabName = "stat", icon = icon("circle-o")),
                            menuSubItem("Pérdida por incumplimiento", tabName = "lgd", icon = icon("circle-o")),
-                           menuSubItem("Modelo de probabilidad lineal", tabName = "glm", icon = icon("circle-o")),
+                           menuSubItem("Score de crédito", tabName = "glm", icon = icon("circle-o")),
                            menuSubItem("Parámetros y resultados", tabName = "Param", icon = icon("circle-o")),
                            menuSubItem("Stress Testing", tabName = "ST1", icon = icon("circle-o"))
                   ),

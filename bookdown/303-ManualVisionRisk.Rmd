@@ -1,0 +1,83 @@
+\mainmatter
+
+# Manual técnico de la aplicación Vision CreditRisk
+
+
+En el presente capítulo, presentaremos el manual técnico de la aplicación Vision CreditRisk, el cual utiliza las nociones teóricas vistas anteriormente para lograr de una forma agradable y de facil entendimiento permtir que el usuario encargado del área de crédito de su institución maneje de forma precisa y adecuada las metricas de riesgo.  
+
+## Presentación de la aplicación.
+
+
+La aplicación esta compuesta de tres secciones, la primera referente a la metodología CreditRisk+, la segunda correspondiente a la metodología Credimetrics y la tercera una sección referente a indicadores técnicos.
+
+![\label{fig:"sd"}](~/Riesgo_de_Credito/portada.png)
+
+
+
+## Primera sección: CreditRisk+
+
+En la primera sección que se observa en la columna izquierda, consta de las siguientes secciones: Datos, Estadísticos, Pérdida por incumplimiento, Score de crédito, parámetros y resultados, stressting.
+
+![\label{fig:"sd"}](~/Riesgo_de_Credito/datos.png)
+
+### Datos
+
+En esta sección se cargan los datos con los que se alimentara la costrucción del score de crédito y parte de la metología, al iniciar veremos la siguiente pantalla:
+
+![\label{fig:"sd"}](~/Riesgo_de_Credito/datos1.png)
+
+Tendremos dos opciones, una a manera de ejemplo para entender como debe ser el formato de los datos, al seleccionarla se nos desplegara la siguiente pantalla. 
+
+![\label{fig:"sd"}](~/Riesgo_de_Credito/datos2.png)
+
+Ahora del lado que debemos seleccionar, se nos desplagara:
+
+![\label{fig:"sd"}](~/Riesgo_de_Credito/datos3.png)
+
+Debemos hacer click en buscar los datos a seleccionar, estos datos deberan estar conformados por la lista de los clientes, similar a los datos de ejemplo, una de la columnas debe tener el nombre de "Creditability" (la cual indica si el cliente esta en mora, valor de $1$ o no valor de $0$)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
