@@ -36,37 +36,79 @@ Ahora del lado que debemos seleccionar, se nos desplagara:
 
 Debemos hacer click en buscar los datos a seleccionar, estos datos deberan estar conformados por la lista de los clientes, similar a los datos de ejemplo, una de la columnas debe tener el nombre de "Creditability" (la cual indica si el cliente esta en mora, valor de $1$ o no valor de $0$)
 
+### Estadísticos:
+
+En esta seccion tendremos dos pestañas:
+
+#### Relación de las variables independientes
+
+En esta pestaña, veremos el gráfico estadístico de boxplot para ver el comportamiento de la variable al segmentarla en deudores o no, ademas en la parte inferior tendremos un resumen estadístico de la variable seleccionada.
+
+
+![\label{fig:"sd"}](~/Riesgo_de_Credito/esta1.png)
+
+### Seleccion de variables
+
+En esta sección el usuario podrá colocar el significancia para escoger las variables cualitativas y cuantitativas que se usaran en el modelo, la pestaña se divide en 2, una para cada tipo de variable.
+
+![\label{fig:"sd"}](~/Riesgo_de_Credito/esta2.png)
 
 
 
+## Pérdida por incumplimiento
+
+En esta sección podra calcular el usuario la pérdida histórica por incumplimiento. El usuario podrá ver graficamente lo que espera recuprar en caso de incumplimiento  mientras transcurre el tiempo.
+
+![\label{fig:"sd"}](~/Riesgo_de_Credito/perdida.png)
+
+
+## Score de Crédito.
+
+En esta sección se calculara la probabilidad de incumplimiento, score o pontuja crediticio por cliente, y se haran proyecciones a nuevos clientes.
+
+### Selección y resultados del modelo
+
+En esta sección el usuario seleccionara el modelo que mejor se ajuste a los datos, una vez seleccionado se deplegara la matriz con los resultados del modelo y e grafico ROC para mostrar el nivel de acierto del modelo.
+
+![\label{fig:"sd"}](~/Riesgo_de_Credito/score1.png)
+
+### Score de la cartera de crédito.
+
+Una vez selecionado el modelo, en esta pestaña el usuario podra ver la probabilidad de incumplimiento y el score o puntaje crediticio de los clientes.
+
+![\label{fig:"sd"}](~/Riesgo_de_Credito/score2.png)
+
+
+### Proyección a nuevos clientes.
 
 
 
+## Parametros y resultados.
+
+En esta sección se pediran los valores de los parámetros básicos y se mostraran los resultados de las principales métricas de riesgo para la metodología CreditRisk+.
+
+![\label{fig:"sd"}](~/Riesgo_de_Credito/par1.png)
 
 
 
+### Parámetros iniciales
+
+En esta sección, deberemos la unidad de pérdida, que no es mas que la unidad de medida que inteta cuantificar la pérdida de una forma mas compacta. Deberemos ingresar el porcentaje de recuperación que se espera recuperar luego que un crédito esta en mora. Debemos cargar las probabilidades de incumplimiento de la cartera de clientes, podemos cargar una data propia genera por mecanismos internos o podemos cargar la proveniente de la sección de Score de crédito, en ambos casos la data debe tener la siguiente estructura:
+
+![\label{fig:"sd"}](~/Riesgo_de_Credito/par2.png)
+
+### Resultados
+
+En la sección resultados, podremos escoger el nivel de significancia deseado, para mostrar las metrícas usuales de riesgo, tendremos tambien la opción para descargar el roporte proveniente de esta metodología
+
+![\label{fig:"sd"}](~/Riesgo_de_Credito/par3.png)
 
 
+## Stress Testing
 
+En esta sección de una manera controlada porcentualmente simularemos resultados extremos de pérdida, para luego mostrar la pérdida esperada tras esto.  
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+![\label{fig:"sd"}](~/Riesgo_de_Credito/stre.png)
 
 
 
