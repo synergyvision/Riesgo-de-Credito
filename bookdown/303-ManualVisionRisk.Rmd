@@ -111,6 +111,70 @@ En esta sección de una manera controlada porcentualmente simularemos resultados
 ![\label{fig:"sd"}](~/Riesgo_de_Credito/stre.png)
 
 
+## Segunda sección: Credimetrics
+
+En la segunda sección que se observa en la columna izquierda, consta de las siguientes secciones: créditos, matriz de transición, Pérdida por clase, simulación y resultados, stressting.
+
+![\label{fig:"sd"}](~/Riesgo_de_Credito/sec2.png)
+
+## Créditos
+
+En esta sección, deberemos cargar las exposiciones de los créditos y sus respectivas calificaciones:
+
+![\label{fig:"sd"}](~/Riesgo_de_Credito/exp.png)
+
+
+## Matriz de trancición
+
+En esta sección cargaremos los datos para el cálculo de la matriz de transición crediticia
+
+### Cálculo de la matriz de transición
+
+En esta sección debemos cargar los datos históricos de migraciones crediticias en periodos de tiempo especificos, es decir, con que calificación inicio el crédito y con cual finalizo.
+
+![\label{fig:"sd"}](~/Riesgo_de_Credito/mtr.png)
+ Una vez cargados los datos en la parte inferior se mostrara la matriz de transición cálculada:
+ 
+![\label{fig:"sd"}](~/Riesgo_de_Credito/mtr2.png)
+
+### Selecección de la matriz de transición
+
+En esta sección se debera seleccionar la matriz de transición, se puede escoger la ya calculada o nn caso de que el banco no posea los datos historicos necesarios, podra cargar su matriz de transición propia, pero debe tener el siguiente formato.
+
+
+![\label{fig:"sd"}](~/Riesgo_de_Credito/mtr3.png)
+
+## Pérdida por clase.
+
+En esta sección se calcula o solicita las pérdidas esperadas por calificación crediticia.
+
+### Cálculo de pérdida esperada
+
+En esta pestaña el usuario debe cargar los datos históricos de las pérdidad ocacionadas por clientes dado su calificación.
+
+![\label{fig:"sd"}](~/Riesgo_de_Credito/perd1.png)
+
+### Pérdida esperada
+
+Al igual que en la sección de la matriz de transición, el usuario podra seleccionar la matriz calculada o introducir una propia:
+
+![\label{fig:"sd"}](~/Riesgo_de_Credito/perd2.png)
+
+##  Simulación y resultados.
+
+En esta sección el usuario indicara el número de simulaciones para la simulación de MonteCarlo, la aplicación realizara los cálculos y nos presentara las métricas de riesgo y la opción de descargar el reporte.
+
+![\label{fig:"sd"}](~/Riesgo_de_Credito/var2.png)
+
+
+
+## Stress Testing.
+
+Una vez llevado a cabo todos los pasos requeridos para la metodología, el usuario podrá realizar una prueba de estres sobre los parametros del modelo.
+
+![\label{fig:"sd"}](~/Riesgo_de_Credito/stress2.png)
+
+
 
 
 
