@@ -174,12 +174,23 @@ Una vez llevado a cabo todos los pasos requeridos para la metodología, el usuar
 
 ![\label{fig:"sd"}](~/Riesgo_de_Credito/stress2.png)
 
+## Tercera sección: Indicadores contables
+
+En esta sección se calculan indicadores contables, poniendo atención al RAROC de crédito, y otros que dependen exclusimamente del balence de la entidad financiera.
+
+## Cálculo del RAROC
+
+Dedicamos una subsección completa debido a su gran uso en las entidades financieras. Lo primero que veremos es una sección informativa:
+
+![\label{fig:"sd"}](~/Riesgo_de_Credito/cont1.png)
+
+### RAROC
+
+En esta pestaña, requerimos que el usuario cargue la información del balence necesaria para el cálculo del RAROC y la metodología de riesgo de crédito que uso
 
 
 
-
-
-
+![\label{fig:"sd"}](~/Riesgo_de_Credito/cont2.png)
 
 
 
