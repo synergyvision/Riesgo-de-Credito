@@ -344,11 +344,24 @@ shinyServer(function(input, output, session) {
  
  
  output$datatablecu <- renderDataTable({
-   pval()
+   
+   
+   ca10 <- try(pval())
+   if (class(ca10)=="try-error") {
+     
+     "Cargue datos y seleccione parametros"
+   }else{ca10}
+   
+   
  })
  
  output$datatablecu1 <- renderDataTable({
-   pval.()
+   ca11 <- try(pval.())
+   if (class(ca11)=="try-error") {
+     
+     "Cargue datos y seleccione parametros"
+   }else{ca11}
+   
  })
  
  
@@ -479,6 +492,7 @@ shinyServer(function(input, output, session) {
   
   
   
+  
   output$variables1 <- renderText({
     
     s1 <- data1org()
@@ -568,20 +582,30 @@ shinyServer(function(input, output, session) {
   
   output$accur <- renderTable({
     
-    calaccur()
+    ca14 <- try(calaccur())
+    
+    if (class(ca14)=="try-error") {
+      
+      "Cargue datos"
+      
+    }else{ca14}
+    
+    
+    
     
   })
   
-  calroc <- reactive({
+  
+  calroc <-function(dat,dat1,colum,modelos){
     
-    s1 <- data1()
-    nombres <- colnames(data1org())
+    s1 <- dat
+    nombres <- colnames(dat1)
     
-    nombre <- input$columns
+    nombre <- colum
     
     posi <- which(nombres == nombre)
     
-
+    
     
     
     
@@ -604,18 +628,35 @@ shinyServer(function(input, output, session) {
     colnames(test)[posi] <- "dependiente"
     
     
-    reduccion <- mod()
+    reduccion <- modelos
     
     l <- roc(train$dependiente  ~ reduccion$fitted.values)
     return(l)
-  })
+  }
+  
+ 
+  
+  
+  
   output$roc <- renderPlot({
     
+    ca15 <- try(ggroc(calroc(data1(),data1org(),input$columns,mod()),legacy.axes=T))
     
-    ggroc(calroc(),legacy.axes=T)
+    
+    if (class(ca15)=="try-error") {
+      
+      df <- data.frame()
+      ggplot(df) + geom_point() + xlim(0, 10) + ylim(0, 100)
+      
+    }else{ca15}
+    
+    
     
     
   })
+  
+  
+  
   
   scor <- function()
     {
@@ -645,9 +686,14 @@ shinyServer(function(input, output, session) {
   
   output$score <- renderDataTable({
     
+    ca16 <- try(scor())
+    if (class(ca16)=="try-error") {
+      
+      "Cargue datos"
+    }else{ca16}
     
     
-    scor()
+    
     
     
   },options = list(scrollX=T,scrollY=300))
@@ -1910,7 +1956,18 @@ shinyServer(function(input, output, session) {
   
   output$curvalgd <- renderPlotly({
   
-    lgd1()[[1]]
+    ca13 <- try(lgd1()[[1]])
+    
+    
+    if (class(ca13)=="try-error") {
+      
+      df <- data.frame()
+      ggplot(df) + geom_point() + xlim(0, 10) + ylim(0, 100)
+      
+    }else{ca13}
+    
+    
+    
     
   })
   
