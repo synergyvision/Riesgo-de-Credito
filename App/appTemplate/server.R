@@ -401,18 +401,16 @@ shinyServer(function(input, output, session) {
   
   
   
-  
-  
-  output$comparacion <- renderPlotly({
+  grafica <- function(datos,nom,nom2){
     
-    s1 <- data1org()
-    nombres <- colnames(data1org())
+    s1 <- datos
+    nombres <- colnames(datos)
     
-    nombre <- input$columns
+    nombre <- nom
     
     posi <- which(nombres == nombre)
     
-    nombre1 <- input$columns1
+    nombre1 <- nom2
     
     posi1 <- which(nombres == nombre1)
     
@@ -425,26 +423,59 @@ shinyServer(function(input, output, session) {
       geom_boxplot(fill = "#56B4E9") +
       scale_y_continuous(name = "Escala de valores") +  scale_x_discrete(name = "Categorias") +
       ggtitle("Comparación entre las categorias de la variable seleccionada") 
-    ggplotly(p10)
+    return(p10)
     
+    
+    
+  }
+  
+  output$comparacion <- renderPlotly({
+    
+    ca7 <- try(ggplotly(grafica(data1org(),input$columns,input$columns1)))
+    
+    
+    if (class(ca7)=="try-error") {
+      
+      df <- data.frame()
+      ggplot(df) + geom_point() + xlim(0, 10) + ylim(0, 100)
+      
+    }else{ca7}
     
     
     
   })
   
+  
+  estadf<-function(datos,nomb){
+    
+    s1 <- datos
+    
+    
+    
+    s2 <- rbind(summary(s1[[nomb]]))
+    colnames(s2) <- c("Mínimo","Primer Quartil", "Mediana","Media", "Tercer Quartil", "Máximo")
+    
+    return(s2)
+    
+  }
   
   output$estad1 <- renderDataTable({ 
     
+    ca8 <- try(estadf(data1org(),input$columns1))
     
-    s1 <- data1org()
+    if (class(ca8)=="try-error") {
+      
+      "Cargue datos"
+      
+    }else{ca8}
     
     
     
-   s1 <- rbind(summary(s1[[input$columns1]]))
-   colnames(s1) <- c("Mínimo","Primer Quartil", "Mediana","Media", "Tercer Quartil", "Máximo")
     
-    s1
+    
   })
+  
+  
   
   
   
@@ -918,9 +949,14 @@ shinyServer(function(input, output, session) {
   output$var <- renderText({
     
     
+    ca1 <- try(calvar1())
+    if (class(ca1)=="try-error") {
+      
+      "Cargue datos y seleccione parametros"
+    }else{ca1}
     
     
-    calvar1()
+    
     
     
   })
@@ -1073,12 +1109,17 @@ shinyServer(function(input, output, session) {
     return(sum(pe))
     
   })
+  
+  
   output$pe <- renderText({
     
     
+    ca <- try(calpe())
+    if (class(ca)=="try-error") {
+     
+    "Cargue datos y seleccione parametros"
+    }else{ca}
     
-    
-    calpe()
     
     
   })
@@ -1239,9 +1280,13 @@ shinyServer(function(input, output, session) {
   output$tvar <- renderText({
     
     
+    ca2 <- try(caltvar())
+    if (class(ca2)=="try-error") {
+      
+      "Cargue datos y seleccione parametros"
+    }else{ca2}
     
     
-    caltvar()
     
     
   })
@@ -1637,8 +1682,12 @@ shinyServer(function(input, output, session) {
   })
   
   output$pe122 <- renderText({
+    ca4 <- try(calvar()[[2]])
+    if (class(ca4)=="try-error") {
+      
+      "Cargue datos y seleccione parametros"
+    }else{ca4}
     
-    calvar()[[2]]
     
     
     
@@ -1646,7 +1695,13 @@ shinyServer(function(input, output, session) {
   
   output$var122 <- renderText({
     
-    calvar()[[1]]
+    ca5 <- try(calvar()[[1]])
+    if (class(ca5)=="try-error") {
+      
+      "Cargue datos y seleccione parametros"
+    }else{ca5}
+    
+    
     
     
     
@@ -1654,7 +1709,13 @@ shinyServer(function(input, output, session) {
   
   output$tvar122 <- renderText({
     
-    calvar()[[4]]
+    ca6 <- try(calvar()[[4]])
+    if (class(ca6)=="try-error") {
+      
+      "Cargue datos y seleccione parametros"
+    }else{ca6}
+    
+    
     
     
     
