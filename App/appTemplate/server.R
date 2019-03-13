@@ -810,7 +810,18 @@ shinyServer(function(input, output, session) {
   ###Datos
   
   output$datatabler1<-renderDataTable({
-    data3()
+    
+    ca17 <- try(data3())
+    
+    
+    if (class(ca17)=="try-error") {
+      
+      "Cargue datos"
+      
+    }else{ca17}
+    
+    
+    
   },options = list(scrollX=T,scrollY=300))
   
   
@@ -1495,7 +1506,21 @@ shinyServer(function(input, output, session) {
     
   })
   
-  output$Stress <- renderText({StressT()})
+  output$Stress <- renderText({
+    
+    ca18 <- try(StressT())
+    
+    
+    if (class(ca18)=="try-error") {
+      
+      "Cargue datos"
+      
+    }else{ca18}
+    
+    
+    
+    
+    })
   
   
   MatrizPropias <- reactive({
