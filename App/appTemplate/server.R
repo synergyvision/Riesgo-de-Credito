@@ -1670,8 +1670,21 @@ shinyServer(function(input, output, session) {
   ###Datos
   
   output$datatablecrm1<-renderDataTable({
-    data5()
-  })
+   
+    ca22 <- try(data5())
+    
+    
+    if (class(ca22)=="try-error") {
+      
+      "Cargue datos"
+      
+    }else{ca22}
+    
+    
+ 
+    
+    
+    })
   
   
   datasetSelect0 <- reactive({
@@ -1904,7 +1917,13 @@ shinyServer(function(input, output, session) {
   
   output$datatableCR<-renderDataTable({
     
-    CR()
+    ca20 <- try(CR())
+    if (class(ca20)=="try-error") {
+      
+      "Cargue datos"
+    }else{ca20}
+    
+    
     
   },options = list(scrollX=T,scrollY=300))
   
@@ -1999,7 +2018,21 @@ shinyServer(function(input, output, session) {
   
   
   
-  output$Stres45 <- renderText({calvar()[[5]]})
+  output$Stres45 <- renderText({
+  
+    
+    ca23 <- try(calvar()[[5]])
+    
+    
+    if (class(ca23)=="try-error") {
+      
+      "Cargue datos"
+      
+    }else{ca23}
+    
+      
+    
+    })
   
   
   output$reporte1 <- downloadHandler(
