@@ -367,52 +367,50 @@ shinyServer(function(input, output, session) {
  
  
  
+ modprueba <- function(datos,datos2,nom,linkm)  {
+   
+   s1 <- datos
+   
+   nombres <- colnames(datos2)
+   
+   nombre <- nom
+   
+   posi <- which(nombres == nombre)
+   
+   
+   
+   
+   
+   
+   
+   ceros <- subset(s1, s1[,posi]==0)
+   unos <- subset(s1, s1[,posi]==1)
+   
+   
+   indices0 <- sample( 1:nrow( ceros ), nrow(ceros)*0.7 )
+   ceros.muestreado <- ceros[ indices0, ]
+   ceros.test <- ceros[-indices0,]
+   
+   indices1 <- sample( 1:nrow( unos ), nrow(unos)*0.7 )
+   unos.muestreado <- unos[ indices1, ]
+   unos.test <- unos[-indices1,]
+   
+   train <- rbind(ceros.muestreado,unos.muestreado)
+   test <- rbind(ceros.test,unos.test)
+   
+   colnames(train)[posi] <- "dependiente"
+   colnames(test)[posi] <- "dependiente"
+   
+   modelo <- glm(dependiente ~. , data = train, family = binomial(link = linkm))
+   
+   
+   reduccion = step(modelo)
+   
+   return(reduccion)
+   
+ }
  
-  mod <- reactive(  {
-    
-  s1 <- data1()
-  
-  nombres <- colnames(data1org())
-  
-  nombre <- input$columns
-  
-  posi <- which(nombres == nombre)
-  
-  
-  
-  
-  
-  
-  
-  ceros <- subset(s1, s1[,posi]==0)
-  unos <- subset(s1, s1[,posi]==1)
-  
-  
-  indices0 <- sample( 1:nrow( ceros ), nrow(ceros)*0.7 )
-  ceros.muestreado <- ceros[ indices0, ]
-  ceros.test <- ceros[-indices0,]
-  
-  indices1 <- sample( 1:nrow( unos ), nrow(unos)*0.7 )
-  unos.muestreado <- unos[ indices1, ]
-  unos.test <- unos[-indices1,]
-  
-  train <- rbind(ceros.muestreado,unos.muestreado)
-  test <- rbind(ceros.test,unos.test)
-  
-  colnames(train)[posi] <- "dependiente"
-  colnames(test)[posi] <- "dependiente"
-  
-  modelo <- glm(dependiente ~. , data = train, family = binomial(link = input$radio1))
-  
-  
-  reduccion = step(modelo)
-  
-  return(reduccion)
-  
-  })
-  
-  
-  
+ 
   
   grafica <- function(datos,nom,nom2){
     
@@ -565,7 +563,7 @@ shinyServer(function(input, output, session) {
       colnames(train)[posi] <- "dependiente"
       colnames(test)[posi] <- "dependiente"
       
-      pdata <- predict(mod(), newdata = test, type = "response")
+      pdata <- predict(modprueba(data1(),data1org(),input$columns,input$radio1), newdata = test, type = "response")
       
       pred <- confusionMatrix(data = as.factor(as.numeric(pdata>0.5)), reference = as.factor(test$dependiente))
       
@@ -640,7 +638,7 @@ shinyServer(function(input, output, session) {
   
   output$roc <- renderPlot({
     
-    ca15 <- try(ggroc(calroc(data1(),data1org(),input$columns,mod()),legacy.axes=T))
+    ca15 <- try(ggroc(calroc(data1(),data1org(),input$columns,modprueba(data1(),data1org(),input$columns,input$radio1)),legacy.axes=T))
     
     
     if (class(ca15)=="try-error") {
@@ -670,7 +668,7 @@ shinyServer(function(input, output, session) {
       posi <- which(nombres == nombre)
   
       
-      reduccion = mod()
+      reduccion = modprueba(data1(),data1org(),input$columns,input$radio1)
       
       
       Score <- predict(reduccion, newdata = s1, type = "link")
@@ -767,7 +765,7 @@ shinyServer(function(input, output, session) {
     
     
     
-    reduccion = mod()
+    reduccion = modprueba(data1(),data1org(),input$columns,input$radio1)
     
     s2 <- data1()
     
@@ -2042,7 +2040,7 @@ shinyServer(function(input, output, session) {
       tempReport <- file.path(tempdir(),"reporte1.Rmd")
       file.copy("reporte1.Rmd", tempReport, overwrite = TRUE)
       params <- list(titulo =c(posicion()),titulo2=c(calvar1()),titulo3=c(calpe()),titulo4=c(caltvar()),
-                     titulo5=c(mod()) ,titulo6=calroc(),titulo7=input$radio1, titulo8=input$uniper, titulo9=input$uni,
+                     titulo5=c(modprueba(data1(),data1org(),input$columns,input$radio1)) ,titulo6=calroc(data1(),data1org(),input$columns,modprueba(data1(),data1org(),input$columns,input$radio1)),titulo7=input$radio1, titulo8=input$uniper, titulo9=input$uni,
                      titulo10 = calaccur(), titulo11 = input$significancia)
       
       
