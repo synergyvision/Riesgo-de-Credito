@@ -54,7 +54,7 @@ shinyUI(
                   
                   menuItem("Indicadores contables", icon = icon("exclamation-circle"), tabName = "raroc",
                   menuSubItem("Cálculo del RAROC", tabName = "RAROC", icon = icon("circle-o")),
-                  menuSubItem("Morosidad", tabName = "Mor", icon = icon("circle-o"))
+                  menuSubItem("Indicadores contables", tabName = "Mor", icon = icon("circle-o"))
                   
                   ),
                   
@@ -604,7 +604,30 @@ shinyUI(
                                                                                                choices = list("CreditRisk+" = 1, 
                                                                                                               "Credimetrics" = 2))),
                             fluidRow(column(6,box(width=12,background="yellow",fileInput("file", h4("Ingrese Balance"),placeholder = 'Aun no seleccionas el archivo...', buttonLabel = 'Buscar'))),
-                            column(6,box(width=12,background="yellow",h3("RAROC"),h2(textOutput("Raroc1"))))))
+                            column(6,box(width=12,background="yellow",h3("RAROC"),h2(textOutput("Raroc1"))))),
+                          
+                          fluidRow(
+                            box(width = 15, title = h3("Cargar el archivo con los datos contables"),
+                                box( width=15,background = "yellow",
+                                     fileInput('indices', SELECTFILE_TEXT, accept = UPLOADFILETYPE_CONF,
+                                               placeholder = FILESELEC_TEXT, buttonLabel = BUTTSELEC_TEXT )
+                                ),
+                                fluidRow(
+                                  box(width=4,background="yellow",strong(ENCABEZADO_TEXT),
+                                      checkboxInput( width="80%", 'headerind', WITHHEADER_TEXT, TRUE)),
+                                  box(width=4,background="yellow",
+                                      radioButtons( width="40%", 'sepind', SEPARATOR_TEXT, UPLOADFILESEP_CONF, ';')),
+                                  box(width=4,background="yellow",
+                                      radioButtons( width="40%", 'quoteind', COMILLAS_TEXT, UPLOADCOMILLAS_CONF, ''))
+                                ),
+                                
+                                fluidRow(
+                                  box( style = "overflow-x:scroll",width=12,status = "warning",dataTableOutput('datatableind'))
+                                )
+                            )
+                          )
+                          
+                          )
                             
                             )
                     )
