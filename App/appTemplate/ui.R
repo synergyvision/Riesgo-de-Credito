@@ -634,15 +634,12 @@ shinyUI(
                     )),
                     
                    tabItem( tabName = "Mor" ,
-                            fluidRow(column(4,box(width=12,background="yellow",h3("RAROC"))),column(4,box(width=12,background="yellow",h3("RORAC"))),column(4, box(width=12,background="yellow",h3("RARORAC")))),
-                            fluidRow(column(4,box(width=12,background="yellow",h3("Indice de Morósidad"))),column(4,box(width=12,background="yellow",h3("Indice de Cobertura"))),column(4, box(width=12,background="yellow",h3("RAR"))))
+                            fluidRow(column(4,box(width=12,background="yellow",h3("RAROC"),h3(textOutput("raro")))),column(4,box(width=12,background="yellow",h3("RORAC"),textOutput("roracc"))),column(4, box(width=12,background="yellow",h3("RARORAC"),textOutput("raroracc")))),
+                            fluidRow(column(4,box(width=12,background="yellow",h3("Indice de Morósidad"),textOutput("morosidad"))),column(4,box(width=12,background="yellow",h3("Indice de Cobertura"),textOutput("cobertura"))),column(4, box(width=12,background="yellow",h3("RAR"),textOutput("rar"))))
                               
                             
                             
-                            
-                             
-                              
-                            
+
                             ),
                    
                     tabItem(tabName = "acerca",

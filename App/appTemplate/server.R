@@ -1952,6 +1952,95 @@ shinyServer(function(input, output, session) {
     return(raroc)
   })
   
+  
+  rar1 <- reactive({
+    
+    per <- NULL
+    
+    
+    
+    if (input$meto==2) {
+      
+      per <- as.numeric(calvar()[2])
+      
+      
+      rar <- as.numeric(datasetInputindices()[4,2])-per
+    }else{
+      
+      
+      per <- calpe()
+      
+      rar <- as.numeric(datasetInputindices()[4,2])-per
+    }
+    
+    
+    
+    
+    return(rar)
+  })
+  
+  rorac1 <- reactive({
+    
+    
+    if (input$meto==2) {
+      
+      
+      a <- as.numeric(datasetInputindices()[4,2])
+      
+      rac <- calvar()[[4]]
+      
+      rorac<- a/rac
+      
+    }else{
+      
+      a <- as.numeric(datasetInputindices()[4,2])
+      
+      rac <- caltvar()
+      
+      rorac<- a/rac
+      
+    }    
+    
+    
+    
+    
+    return(rorac)
+  })
+  
+  
+  rarorac1 <- reactive({
+    
+    rar <- rar1()
+    
+    
+    if (input$meto==2) {
+      
+      
+      a <- as.numeric(datasetInputindices()[4,2])
+      
+      rac <- calvar()[[4]]
+      
+      
+      
+      rarora <- rar/rac
+      
+    }else{
+      
+      a <- as.numeric(datasetInputindices()[4,2])
+      
+      rac <- caltvar()
+      
+      
+      rarora <- rar/rac
+      
+    }    
+    
+    
+    
+    
+    return(rarora)
+  })
+  
   output$Raroc1 <- renderText ({
     
     
@@ -1960,6 +2049,29 @@ shinyServer(function(input, output, session) {
     
   })
   
+  output$rar <- renderText ({
+    
+    
+    
+    rar1()
+    
+  })
+  output$roracc <- renderText ({
+    
+    
+    
+    rorac1()
+    
+  })
+  
+  
+  output$raroracc <- renderText ({
+    
+    
+    
+    rarorac1()
+    
+  })
   
   
   lgd1 <- reactive({
@@ -2055,6 +2167,18 @@ shinyServer(function(input, output, session) {
     datasetInputindices()
   },options = list(scrollX=T,scrollY=300))
   
+  output$morosidad <- renderText({ 
+    a <- as.numeric(datasetInputindices()[1,2])
+    b <- as.numeric(datasetInputindices()[2,2])
+    a/b
+  })
+  
+  
+  output$cobertura <- renderText({ 
+    c <- as.numeric(datasetInputindices()[1,2])
+    d <- as.numeric(datasetInputindices()[3,2])
+    c/d
+  })
   
   
   
