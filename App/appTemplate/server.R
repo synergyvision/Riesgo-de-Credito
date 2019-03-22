@@ -2041,6 +2041,36 @@ shinyServer(function(input, output, session) {
     return(rarora)
   })
   
+  
+  
+  raroc1333 <- reactive({
+    
+    rar <- rar1()
+    
+    
+    if (input$meto==2) {
+      
+      a <- as.numeric(datasetInputindices()[4,2])
+      
+      var <- calvar()[[1]]
+      
+      raroc <- rar/var
+      
+    }else{
+      
+      
+      var <- calvar1()
+      
+      
+      raroc <- rar/var
+    }    
+    
+    
+    
+    
+    return(raroc)
+  })
+  
   output$Raroc1 <- renderText ({
     
     
@@ -2073,6 +2103,12 @@ shinyServer(function(input, output, session) {
     
   })
   
+  output$raro <- renderText ({
+ 
+    
+    raroc1333()
+    
+  })
   
   lgd1 <- reactive({
     

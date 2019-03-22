@@ -591,20 +591,13 @@ shinyUI(
                              fluidRow(
                                tabBox( height = "1250px", width = 12,side = "left",
                                        
-                                       
-                                       
-                                       
-                                       
-                                       tabPanel( title = tagList(shiny::icon("gear"), strong('Cálculo del RAROC')),
-                             fluidRow(box(title =h1('Calculo del RAROC' ),solidHeader = T,status = "warning", width = 12,hr(),withMathJax(), "La ecuacion estandar para el calculo del RAROC es: $$\\textrm{RAROC}=\\frac{RAR}{C}$$ Donde: $$RAR=\\textrm{Risk Adjusted Return}$$ $$C=\\textrm{Capital necesario para cumbrir el riesgo}$$" )
-                            )),
+                                   
                     tabPanel(title = tagList(shiny::icon("gear"), strong('RAROC')),
                           fluidRow(  
-                          box(width=12,title = h3("Metodología"),solidHeader = T,status ="warning" ,checkboxGroupInput("meto",h3(""), 
+                            fluidRow(box(width=12,title = h3("Metodología"),solidHeader = T,status ="warning" ,checkboxGroupInput("meto",h3(""), 
                                                                                                choices = list("CreditRisk+" = 1, 
-                                                                                                              "Credimetrics" = 2))),
-                            fluidRow(column(6,box(width=12,background="yellow",fileInput("file", h4("Ingrese Balance"),placeholder = 'Aun no seleccionas el archivo...', buttonLabel = 'Buscar'))),
-                            column(6,box(width=12,background="yellow",h3("RAROC"),h2(textOutput("Raroc1"))))),
+                                                                                                              "Credimetrics" = 2)))),
+                            
                           
                           fluidRow(
                             box(width = 15, title = h3("Cargar el archivo con los datos contables"),
@@ -634,8 +627,8 @@ shinyUI(
                     )),
                     
                    tabItem( tabName = "Mor" ,
-                            fluidRow(column(4,box(width=12,background="yellow",h3("RAROC"),h3(textOutput("raro")))),column(4,box(width=12,background="yellow",h3("RORAC"),textOutput("roracc"))),column(4, box(width=12,background="yellow",h3("RARORAC"),textOutput("raroracc")))),
-                            fluidRow(column(4,box(width=12,background="yellow",h3("Indice de Morósidad"),textOutput("morosidad"))),column(4,box(width=12,background="yellow",h3("Indice de Cobertura"),textOutput("cobertura"))),column(4, box(width=12,background="yellow",h3("RAR"),textOutput("rar"))))
+                            fluidRow(column(4,box(width=12,status = "warning",solidHeader = T,title = h3("RAROC"),h2(textOutput("raro")))),column(4,box(width=12,solidHeader = T,status = "warning",title = h3("RORAC"),h4(textOutput("roracc")))),column(4, box(width=12,solidHeader = T,status = "warning",title = h3("RARORAC"),h4(textOutput("raroracc"))))),
+                            fluidRow(column(4,box(width=12,solidHeader = T,status = "warning",title = h3("Indice de Morósidad"),h4(textOutput("morosidad")))),column(4,box(width=12,solidHeader = T,status = "warning",title = h3("Indice de Cobertura"),h4(textOutput("cobertura")))),column(4, box(width=12,solidHeader = T,status = "warning",title = h3("RAR"),h4(textOutput("rar")))))
                               
                             
                             
