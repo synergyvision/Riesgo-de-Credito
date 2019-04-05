@@ -81,7 +81,7 @@ Ejemplo:  Consideramos un experimento aleatorio de lanzar una moneda al aire tre
 
 Las variables aleatorias se clasifican en discretas y continuas: 
 
-* *Discreta*: La variable aleatoria $X$ se dice que es discreta si los números asignados a los sucesos elementales de $\Omega$ son puntos aislados. Sus posibles valores constituyen un conjunto finito o infinito numerable. Por ejemplo, supongamos el experimento consistente en lanzar tres veces una moneda no trucada; si consideramos la variable aleatoria $X$="número de caras obtenidas en los tres lanzamientos"", los valores que puede tomar esta variable aleatoria son finitos "(0,1,2,3)". 
+* *Discreta*: La variable aleatoria $X$ se dice que es discreta si los números asignados a los sucesos elementales de $\Omega$ son puntos aislados. Sus posibles valores constituyen un conjunto finito o infinito numerable. Por ejemplo, supongamos el experimento consistente en lanzar tres veces una moneda no truncada; si consideramos la variable aleatoria $X$="número de caras obtenidas en los tres lanzamientos"", los valores que puede tomar esta variable aleatoria son finitos "(0,1,2,3)". 
 
 * *Continua*: La variable aleatoria $X$ será continua si los valores asignados pueden ser cualesquiera, dentro de ciertos intervalos, es decir, puede tomar cualquier valor real. Por ejemplo, si consideramos el experimento aleatoria consistente en medir el nivel de agua en un embalse y tomamos la variable aleatoria $X$="nivel de agua", esta puede tomar cualquier valor positivo.
 
@@ -91,7 +91,7 @@ Es un modelo teórico que describe la forma en que varían los resultados de un 
 
 #### Distribución de probabilidad discreta
 
-Sea $X$ una variable aleatoria discreta que tomacomo posibles valores $x_1,x_2,.....x_n$, se define la distribución de probabilidad de X como el conjunto de pares (xi, pi) que a cada valor de la variable le asocia una probabilidad, donde $p_i= P(X=x_i)$, tal que la suma de todas las probabilidades es igual a uno.
+Sea $X$ una variable aleatoria discreta que toma como posibles valores $x_1,x_2,.....x_n$, se define la distribución de probabilidad de X como el conjunto de pares (xi, pi) que a cada valor de la variable le asocia una probabilidad, donde $p_i= P(X=x_i)$, tal que la suma de todas las probabilidades es igual a uno.
 
 Por ejemplo, en el experimento del dado la distribución de probabilidad biene dado por: (1;1/6),(2;1/6),(3;1/6),(4;1/6),(5;1/6),(6;1/6)
 
@@ -122,23 +122,23 @@ Sea $X$ una variable aleatoria continua con función de densidad $f(x)$, se defi
 
 #### Bernoulli
 
-Es un experimento en el cual solo existen dos eventos, en general exito(1) y fracaso(0), y ademas tiene asociada un parametro $p$ el cual es la probabilidad de exito, es decir, $$P(X=1)=p \quad \textrm{y} \quad P(X=0)=1-p$$
+Es un experimento en el cual solo existen dos eventos, en general éxito(1) y fracaso(0), y ádemas tiene asociada un parámetro $p$ el cual es la probabilidad de éxito, es decir, $$P(X=1)=p \quad \textrm{y} \quad P(X=0)=1-p$$
 
 #### Binomial
 
 La distribución de probabilidad discreta más usada es la distribución binomial  y consiste en :
 
-* Repetimos un experimento de Bernoulli $n$ veces de forma identica
+* Repetir un experimento de Bernoulli $n$ veces de forma idéntica
 
 * Cada experimento es independiente de los anteriores
 
-La variable aleatoria de Bernulli es la que expresa el número de éxitos, por lo tanto esta variable aleatoria tiene asociada dos parametros: un parametro $p$ que nos indica la probabilidad de éxito de cada evento, y un numero natural $n$ que nos indica la cantidad de veces que se realizó el experimento.
+La variable aleatoria de Bernulli es la que expresa el número de éxitos, por lo tanto esta variable aleatoria tiene asociada dos parametros: un parámetro $p$ que nos indica la probabilidad de éxito de cada evento, y un numero natural $n$ que nos indica la cantidad de veces que se realizó el experimento.
 
 #### Poisson
 
-Esta distribución es una de las más importantes distribuciones de variable discreta. Sus principales aplicaciones hacen referencia a la modelización de situaciones en las que nos interesa determinar el número de hechos de cierto tipo que se pueden producir en un intervalo de tiempo o de espacio, bajo presupuestos de aleatoriedad y ciertas circunstancias restrictivas. Otro de sus usos frecuentes es la consideración límite de procesos dicotómicos reiterados un gran número de veces si la probabilidad de obtener un éxito es muy pequeña .  
+Esta distribución es una de las más importantes distribuciones de variable discreta. Sus principales aplicaciones hacen referencia a la modelización de situaciones en las que nos interesa determinar el número de hechos de cierto tipo que se pueden producir en un intervalo de tiempo o de espacio, bajo supuestos de aleatoriedad y ciertas circunstancias restrictivas. Otro de sus usos frecuentes es la consideración límite de procesos dicotómicos reiterados un gran número de veces si la probabilidad de obtener un éxito es muy pequeña .  
 
-La distribución de Poisson tiene ajustado un parametros positivo $\lambda$ que representa el número de veces que se espera que ocurra el fenomeno durante un intervalo dado. La probabilidad de que un experimento de Poisson tenga $k$ ocurrencias es $$\frac{e^{-\lambda}\lambda^k}{k!}$$ 
+La distribución de Poisson tiene ajustado un parámetro positivo $\lambda$ que representa el número de veces que se espera que ocurra el fenomeno durante un intervalo dado. La probabilidad de que un experimento de Poisson tenga $k$ ocurrencias es $$\frac{e^{-\lambda}\lambda^k}{k!}$$ 
 
 
 #### Distribución uniforme
@@ -151,7 +151,7 @@ Es la distribución que sigue una variable aleatoria $X$ que toma valores en un 
 
 #### Distribución exponencial
 
-Es usada muchas veces para modelizar el comportamiento de variables aleatorias del tipo "tiempo transcurrido hasta el fallo de un componente industrial" o "el tiempo que se tarda en comletarse un proceso determinado". Depende de un parametro positivo $\lambda$, que esta relacionado con la media de ocurrecia de un evento. La función de densidad es:$$f(x)= \left\{ \begin{array}{lcc}
+Es usada muchas veces para modelizar el comportamiento de variables aleatorias del tipo "tiempo transcurrido hasta el fallo de un componente industrial" o "el tiempo que se tarda en completarse un proceso determinado". Depende de un parámetro positivo $\lambda$, que esta relacionado con la media de ocurrecia de un evento. La función de densidad es:$$f(x)= \left\{ \begin{array}{lcc}
              0 &   \textrm{si}  & x \leq 0 \\
              \\ \lambda e^{-\lambda x} &  \textrm{si} & x>0 \\
              \end{array}
@@ -160,9 +160,9 @@ Es usada muchas veces para modelizar el comportamiento de variables aleatorias d
 
 #### Distribución normal
 
-La distribución normal o gaussiana es muy importante puesto que se utiliza para modelar muchísimos fenómenos aleatorios; además incluso para aproximar otras distribuciones. La distribución normal aproxima lo observado en muchos procesos de medición sin errores sistemáticos, por ejemplo medida fisicas del cuerpo humano, medidas en la calidad de ciertos procesos industriales, entre otros. 
+La distribución normal o gaussiana es muy importante puesto que se utiliza para modelar muchísimos fenómenos aleatorios; además incluso para aproximar otras distribuciones. La distribución normal aproxima lo observado en muchos procesos de medición sin errores sistemáticos, por ejemplo medidas fisicas del cuerpo humano, medidas en la calidad de ciertos procesos industriales, entre otros. 
 
-Esta distribución depende de dos parámetros: un parametro $\mu$ que es un indicador de la promedio del experimento que se esta estudiando y un parametro positivo $\sigma$ que es un indicador de la volatilidad del mismo. Su función de densidad es $$f(x)=\frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{(x-\mu)^2}{2\sigma^2}}$$
+Esta distribución depende de dos parámetros: un parámetro $\mu$ que es un indicador de la promedio del experimento que se esta estudiando y un parámetro positivo $\sigma$ que es un indicador de la volatilidad del mismo. Su función de densidad es $$f(x)=\frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{(x-\mu)^2}{2\sigma^2}}$$
 
 
 ### Esperanza de una variable aleatoria.
