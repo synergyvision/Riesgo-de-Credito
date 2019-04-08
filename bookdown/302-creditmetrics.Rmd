@@ -4,18 +4,18 @@
 
 Mientras que en el caso de **CredictRisk+** se usa un enfoque actuarial mediante el cual se llega ha obtener una forma explícita de la distribución de pérdidas a través de la función generadora de probabilidades, en el  caso de **CredictMetrics**, aunque en teoría existe una representación explícita de la distribución de pérdidas, su obtención supera la capacidad de cálculo disponible en un computador convencional, y por lo tanto, está se estima a través de un proceso de simulación de *MonteCarlo*, otra caractéristica importante es que **CreditMetric** hace referencia, y utiliza extensamente, información que solo esta disponible en los mercados en desarrollo, aunque esto no impide que se aplique en los mercados emergentes si se hacen las edecuaciones correspondientes.
 
-Para la explicación de esta metodología usamos como guía el documento técnico de **CreditMetrics**. Iniciaremos con el caso más sencillo en el cual nuestrea cartera de créditos esta integrada por un único credito para luego generalizar el procedimiento a una cartera que puede incluir cualquier numero $N$ de créditos. Pero primero establescamos los elementos básicos que usaremos en esta metodología.
+Para la explicación de esta metodología usamos como guía el documento técnico de **CreditMetrics**. Iniciaremos con el caso más sencillo en el cual nuestrea cartera de créditos esta integrada por un único credito para luego generalizar el procedimiento a una cartera que puede incluir cualquier número $N$ de créditos. Pero primero establescamos los elementos básicos que usaremos en esta metodología.
 
 ## Elementos que usa **Credimetrics**
 
-+ *Conceptos relevantes al riesgo de crédito*: probabilidades de incumplimiento, patrones de migración entre los distitas clasificaciones que posean los clientes, umbrales que separen las calificaciones, el valor de los créditos, la tasa de recuperación en caso de incumplimiento de las calificaciones crediticia.
++ *Conceptos relevantes al riesgo de crédito*: probabilidades de incumplimiento, patrones de migración entre los distintas clasificaciones que posean los clientes, umbrales que separen las calificaciones, el valor de los créditos, la tasa de recuperación en caso de incumplimiento de las calificaciones crediticia.
 
 + Información del mercado en general: Tales como datos sobre las calificaciones e indicadores sobre su calidad.
 
 + Información generada internamente por las intituciones que se pueda mapear a los estandares del mercado.
 
 
-Historicamente Credimetrics fue desarrollado para abordar el problema de medir el riesgo de credito de que los emisores que colocan papel que se negocia en el mercado de los Estados Unidos incumplan sus compromisos. En general los elementos que son necesastios en esta metodologia estan disponibles en mercados desarrollados, pero las intituciones financieras pueden crear procedimientos y metologias internas para lograr suplir la falta de información. Los elementos clave del sistema son:
+Historicamente Credimetrics fue desarrollado para abordar el problema de medir el riesgo de credito de que los emisores que colocan papel que se negocia en el mercado de los Estados Unidos incumplan sus compromisos. En general, los elementos que son necesastios en esta metodología estan disponibles en mercados desarrollados, pero las intituciones financieras pueden crear procedimientos y metodologias internas para lograr suplir la falta de información. Los elementos clave del sistema son:
 
 + Las calificaciones que otorgan las instituciones financieras a los distintos elementos que conforman su portafolio.
 
@@ -27,13 +27,13 @@ Una característica importante de las calificaciones emitidas es que ellas aport
 
 + Probabilidades de incumplimiento históricas asociadas a cada calificación, así como las probabilidades de transición entre las categorias.
 
-+ Las distintas tasas de interes asociadas a cada categoria.
++ Las distintas tasas de interes asociadas a cada categoría.
 
-Otra parte fundamental del análisis es la cantidad que se espera recuperar en caso de que el crédito caiga en la cartera de vencidos. Aunque si el sistema de calificación es robusto raramente se espera que un credito que halla pasado a la cartera de vencido este en una calificación alta. Pero al final, la calificación no solo depende del sistema interno de la institución, sino tambien de la garantias que ofresca el crédito.
+Otra parte fundamental del análisis es la cantidad que se espera recuperar en caso de que el crédito caiga en la cartera de vencidos. Aunque si el sistema de calificación es robusto raramente se espera que un crédito que halla pasado a la cartera de vencido este en una calificación alta. Pero al final, la calificación no solo depende del sistema interno de la institución, sino tambien de la garantias que ofresca el crédito.
 
 En general, todos los requerimientos estan entrelazados, por ejemplo las calificaciones que se otorgan dependen de cosas como: historial de incumplimiento, garantias, utilidades de los créditos en los últimos años, el pais de origen, entre otros.
 
-A manera de ilustración se presenta una matriz de transición publicada por Standard & Poor's en abril de 1966. En ella se aprecian las probabilidades de transición de que un bono que se encuentra en una calificación dada migre a otra calificación, por ejemplo en la tabla se aprecia que la probabilidad de que un bono que esta en la calificación BB migre a una calificación C es de un 1%.
+A manera de ilustración se presenta una matriz de transición publicada por Standard & Poor's en Abril de 1966. En ella se aprecian las probabilidades de transición de que un bono que se encuentra en una calificación dada migre a otra calificación, por ejemplo en la tabla se aprecia que la probabilidad de que un bono que esta en la calificación BB migre a una calificación C es de un 1%.
 
 | Calificación inicial |  AAA  |   AA  |   A   | BBB   | BB    | B     | C     |
 |:--------------------:|:-----:|:-----:|:-----:|-------|-------|-------|-------|
@@ -47,7 +47,7 @@ A manera de ilustración se presenta una matriz de transición publicada por Sta
 
 
 
-Las tasas de recuperación de los creditos como ya se menciono son fundamentales, y no son únicamente proporcionadas por las indtituciones financieras, estas pueden recurrir a terceros por las calificaciones de los créditos. Acontinuación se presenta una table que muestra las tasas de recuperacion de créditos elaboradsas por Moody's y otros académicos.
+Las tasas de recuperación de los créditos como ya se menciono son fundamentales, y no son únicamente proporcionadas por las instituciones financieras, estas pueden recurrir a terceros por las calificaciones de los créditos. Acontinuación se presenta una tabla que muestra las tasas de recuperación de créditos elaboradsas por Moody's y otros académicos.
 
 |      Prelación      | Media (%) | Desv. Std (%) |
 |:-------------------:|:---------:|:-------------:|
@@ -57,11 +57,11 @@ Las tasas de recuperación de los creditos como ya se menciono son fundamentales
 | Subordinada         |   32.74   |     20.18     |
 | Junior Subordinada  |   17.09   |     10.90     |
 
-Una acotación interesante, es que originalmente credimetrics esta direccionada a medir el riesgo de crédito de una cartera de bonos. Sin embargo puede ser aplicado a distintos tipos de posiciones que i volucren riesgo de crédito, como por ejemplo: posiciones cortas en divisas, futuros, opciones o como es el caso de interes créditos tradicionales. Ahora, daremos el ejemplo de credimetrics usando un único crédito.
+Una acotación interesante, es que originalmente credimetrics esta direccionada a medir el riesgo de crédito de una cartera de bonos. Sin embargo puede ser aplicado a distintos tipos de posiciones que involucren riesgo de crédito, como por ejemplo: posiciones cortas en divisas, futuros, opciones o como es el caso de interes, créditos tradicionales. Ahora, daremos el ejemplo de credimetrics usando un único crédito.
 
 ## El caso de un solo crédito 
 
-Una vez descrito los elementos necesarios para esta metodología vamos a empezar por realizar los pasos que son necesarios para la medición del riesgo de crédito de una cartera de un solo activo. Utilizaremos un ejemplo parecido al que procede del dicumento de Credimetrics con la diferencia que ellos usan un bono y nosotros un credito personal. Los tres pasos a realizar son:
+Una vez descrito los elementos necesarios para esta metodología vamos a empezar por realizar los pasos que son necesarios para la medición del riesgo de crédito de una cartera de un solo activo. Utilizaremos un ejemplo parecido al que procede del documento de Credimetrics con la diferencia que ellos usan un bono y nosotros un credito personal. Los tres pasos a realizar son:
 
 + Dependiendo de la calificación del bono, se obtiene la probabilidad de que migre hacia un estado de migración diferente.
 
@@ -71,7 +71,7 @@ Una vez descrito los elementos necesarios para esta metodología vamos a empezar
 
 ### Ejemplo 1
 
-Supongamos que tenemos un credito con calificación BB con exposición de 250, la institución financiera posee la siguiente informacion sobre las probabilidades calificación de los créditos que estan en una calificación BB:
+Supongamos que tenemos un crédito con calificación BB con exposición de 250, la institución financiera posee la siguiente información sobre las probabilidades calificación de los créditos que estan en una calificación BB:
 
 | Calificación | Probabilidad de transición (%) |
 |:------------:|:------------------------------:|
@@ -95,7 +95,7 @@ Tambien la institución cuenta con las perdidad esperadas por calificación (las
 |       B      |          25          |
 |      CCC     |          40          |
 
-Ya con esta información podemos establecer una tabla con la pérdida esperada del credito en las distintas calificaciones, la cual es: 
+Ya con esta información podemos establecer una tabla con la pérdida esperada del crédito en las distintas calificaciones, la cual es: 
 
 | Calificación | Pérdida esperada del Crédito | Proababilidad |
 |:------------:|:----------------------------:|:-------------:|
@@ -116,7 +116,7 @@ PE = (0.25*0.04)+(7.5*0.05)& \\
 &+(62.5*0.18) +(100*0.05)=40.93
 \end{align*}
 
-Así la pérdida esperada de una cartera de un solo crédito de calificación BB de una exposición de 250 es de 40.935. Ahora para calcular el VaR a un nivel de confianza en especifico por ejemplo al 5% simplemente sumamos las probabilidad de manera descendentes de las calificaciones hasta llegar 95 en el caso de que se pase se toma la calificacion en la cual ocurre el exceso, en nuestro ejemplo el VaR ocurre en la calificación B, así el $VaR_{5\%}=62.5$.
+Así la pérdida esperada de una cartera de un solo crédito de calificación BB de una exposición de 250 es de 40.935. Ahora para calcular el VaR a un nivel de confianza en especifico por ejemplo al 5% simplemente sumamos las probabilidad de manera descendentes de las calificaciones hasta llegar 95 en el caso de que se pase se toma la calificación en la cual ocurre el exceso, en nuestro ejemplo el VaR ocurre en la calificación B, así el $VaR_{5\%}=62.5$.
 
 En general, se suele pensar que una aproximación normal a la distribución de pérdidas puede ser idonea, pero esto es incorrecto pues suele ocurrir que las probabilidades de transición se concentren en los extremos de las calificaciones, esto se verá en el siguiente ejemplo.
 
