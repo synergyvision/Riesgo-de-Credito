@@ -122,7 +122,7 @@ En general, se suele pensar que una aproximación normal a la distribución de p
 
 ### Ejemplo 2
 
-Consideremos un bono con una calificación AA con un valor de 300 donde las probabilidades de tansición a las otras categorias esta representada en la siguiente tabla
+Consideremos un bono con una calificación AA con un valor de 300 donde las probabilidades de tansición a las otras categorías esta representada en la siguiente tabla
 
 | Calificación | Probabilidad de transición (%) |
 |:------------:|:------------------------------:|
@@ -134,10 +134,10 @@ Consideremos un bono con una calificación AA con un valor de 300 donde las prob
 |       B      |                4               |
 |      CCC     |                1               |
 
-Además la tasas de perdida por calificación son las mismas que el ejemplo anterior
+Además la tasas de pérdida por calificación son las mismas que el ejemplo anterior
 
 
-Ya con esta información podemos establecer una tabla con la pérdida esperada del credito en las distintas calificaciones, la cual es: 
+Ya con esta información podemos establecer una tabla con la pérdida esperada del crédito en las distintas calificaciones, la cual es: 
 
 | Calificación | Pérdida esperada del Crédito | Proababilidad |
 |:------------:|:----------------------------:|:-------------:|
@@ -160,9 +160,9 @@ PE = (0.3*0.15)+(9*0.48)& \\
 
 Para cálcular el valor en riesgo al 95% es suficiente tomar la pérdida esperada de la calificación BB, así el $VaR_{95\%}=54$.
 
-Con este ejemplo podemos notsr que la distribución normal no se ajusta de manera adecuada a la distribución de pérdidas, pues esta concentrada en un extremo de las pérdidas por calificación.
+Con este ejemplo podemos notar que la distribución normal no se ajusta de manera adecuada a la distribución de pérdidas, pues esta concentrada en un extremo de las pérdidas por calificación.
 
-## Cartera de dos de créditos con probabilidades de treansición independientes.
+## Cartera de dos de créditos con probabilidades de transición independientes.
 
 Como en realidad el caso de un solo instrumento no es de interes, pues una cartera de créditos de una institución financiera puede estar conformada por millones de créditos daremos un ejemplo ilustrativo con una cartera de dos créditos, con esto se pretende mostrar como aumenta el nivel de dificultad, mas adelante veremos que en general, no calcularemos la distribución de pérdidas explícitamente, sino realizaremos una aproximación por el método de simulación de Montecarlo.
 
@@ -182,7 +182,7 @@ Para facilitar los cálculos supondremos que nuestra cartera esta conformada por
 |     CCC    | 100.3 | 109  | 115   | 127   | 154   | 175   | 220    |
 
 
-Esta tabla se puede enteder como sigue, la perdida esperada si el crédito BB migra a la calificación BBB y el crédito AA migra a la calificación CCC es 142.5, ahora para hallar la probabilidad debemos multiplicar las probabilidades correspondientes de que estas migraciones ocurran, es decir, $0.15*0.01=0.0015$. Ahora para hallar la pérdida esperada de esta cartera debemos encontrar todas las probabilidades de transición, lo cual se muestra en la siguiente tabla:
+Esta tabla se puede entender como sigue, la pérdida esperada si el crédito BB migra a la calificación BBB y el crédito AA migra a la calificación CCC es 142.5, ahora para hallar la probabilidad debemos multiplicar las probabilidades correspondientes de que estas migraciones ocurran, es decir, $0.15*0.01=0.0015$. Ahora para hallar la pérdida esperada de esta cartera debemos encontrar todas las probabilidades de transición, lo cual se muestra en la siguiente tabla:
 
 
 | Crédito AA | AAA    |   AA   | A      | BBB    | BB     | B      | CCC    |
@@ -259,7 +259,7 @@ Ahora para comprobar la eficiencia del método de generación de números pseudo
 
 #### Aplicando simulación de MonteCarlo para hallar la distribución de pérdidas de una cartera.
 
-Ahora una vez se pretenda usar un método algorítmico de generación de números aleatorios, se usa este metódo para generar eventos probabilísticos en los cuales se consideren todos los posibles eventos de transición entre las distintas calificaciones. Cada evento se considera como una simulación de un evento particular, por cada simulación los créditos se encuentran en una calificación determinada por la probabilidad de transición respectiva, este calificación trae con si un pérdida esperada por crédito, asi por cada simulación se obtiene una pérdida. 
+Ahora una vez se pretenda usar un método algorítmico de generación de números aleatorios, se usa este metódo para generar eventos probabilísticos en los cuales se consideren todos los posibles eventos de transición entre las distintas calificaciones. Cada evento se considera como una simulación de un evento particular, por cada simulación los créditos se encuentran en una calificación determinada por la probabilidad de transición respectiva, este calificación trae con si una pérdida esperada por crédito, asi por cada simulación se obtiene una pérdida. 
 
 Ahora si nuestra cartera de crédito posee 1000 créditos, y existen 5 calificaciones, en la sección vimos que existen $5^{1000}$ posibles eventos, para imaginarnos esta cantidad basta saber que este número es mayor que un billón, por lo tanto debemos realizar un gran número de simulaciones para poder captar información verídica de la pérdida esperada. Una de las bondades de estimar la pérdida esperada de esta forma es que la distribución tendera asintóticamente a una normal donde su media tendera la pérdida esperada de la cartera.
 
