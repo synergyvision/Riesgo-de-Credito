@@ -2,18 +2,12 @@ shinyServer(function(input, output, session) {
   
   
  
+  ####### CrediRisk+#######################
   
+        ############ Primera seccion (Datos )############
   
  
-  
-  
-  datasetSelect <- reactive({
-    datasetSelect <- mydata
-  })
-  
-  
-  
-  
+        ############# Parte que se encarga de leer los datos cargados por el usuario
   
   datasetInput <- reactive({
     # input$file1 will be NULL initially. After the user selects
@@ -30,8 +24,18 @@ shinyServer(function(input, output, session) {
                sep = input$sep, quote = input$quote)
     
   })
- 
   
+  
+  
+   ####### Datos de ejemplo de una institucion financiera alemana###
+  
+  datasetSelect <- reactive({
+    datasetSelect <- mydata
+  })
+  
+  
+              ###### Cargando datos con que se trabajara: entre los de ejemplo y los propios
+        
   data1org <- reactive({
     if(input$dataset){
       data <- datasetSelect()}
@@ -41,17 +45,33 @@ shinyServer(function(input, output, session) {
     }
   })
   
+  ##### OutVar Se encarga de obtener los nombres de la variables 
+  
   outVar = reactive({
     mydata = data1org()
     names(mydata)
   })  
+  
+  ### Se actuliza el input column1 con la variable anterior
+  
   observe({
     updateSelectInput(session, "columns",
                       choices = outVar()
     )}) 
   
+  
+  
+  
+  
+ ########### Segunda seccion (Estadisticos)
+  
+    ##### Relacion de las variables independientes
+                
+  
+        ##### OutVar1 Se encarga de obtener los nombres de la variables menos la variable de estudio
+        
   outVar1 = reactive({
-   
+    
     nombres <- colnames(data1org())
     
     nombre <- input$columns
@@ -67,164 +87,310 @@ shinyServer(function(input, output, session) {
     
   })  
   
+  
+      
+      ### Se actuliza el input column1 con la variable anterior
   observe({
     updateSelectInput(session, "columns1",
                       choices = outVar1()
-    )}) 
+    )})
+  
+        ################# grafica que compara las variables
+  
+      
+  
+                            ### funcion que se encarga de graficar
+  grafica <- function(datos,nom,nom2){
+    
+    s1 <- datos
+    nombres <- colnames(datos)
+    
+    nombre <- nom
+    
+    posi <- which(nombres == nombre)
+    
+    nombre1 <- nom2
+    
+    posi1 <- which(nombres == nombre1)
+    
+    s1[,posi]<-  as.factor(s1[,posi])
+    
+    
+    
+    
+    p10 <- ggplot(s1, aes(x = s1[[nombre]], y = s1[[nombre1]])) +
+      geom_boxplot(fill = "#56B4E9") +
+      scale_y_continuous(name = "Escala de valores") +  scale_x_discrete(name = "Categorias") +
+      ggtitle("Comparación entre las categorias de la variable seleccionada") 
+    return(p10)
+    
+    
+    
+  }
   
   
+                        # Aplicando la funcion anterior
+  output$comparacion <- renderPlotly({
+    
+    ca7 <- try(ggplotly(grafica(data1org(),input$columns,input$columns1)))
+    
+    
+    if (class(ca7)=="try-error") {
+      
+      df <- data.frame()
+      ggplot(df) + geom_point() + xlim(0, 10) + ylim(0, 100)
+      
+    }else{ca7}
+    
+    
+    
+  })
   
- data1. <- reactive({
+                ####### Funcion que recibe los datos y muestra la informacion etadistica
+  
+  estadf<-function(datos,nomb){
+    
+    s1 <- datos
+    
+    
+    
+    s2 <- rbind(summary(s1[[nomb]]))
+    colnames(s2) <- c("Mínimo","Primer Quartil", "Mediana","Media", "Tercer Quartil", "Máximo")
+    
+    return(s2)
+    
+  }
+  
+  #### Aplicando la funcion anterioe para mostrar la informacion de la variable seleccionada
+  
+  output$estad1 <- renderDataTable({ 
+    
+    ca8 <- try(estadf(data1org(),input$columns1))
+    
+    if (class(ca8)=="try-error") {
+      
+      "Cargue datos"
+      
+    }else{ca8}
+    
+    
+    
+    
+    
+  })
+    
+        ####  subseccion Seleccion de variables
+  
+      
+      ### Se calculan los p-valores de las variables cualitativas con la funcion pval
+ 
    
    
-   datos <- data1org()
-   
-   
-   D<- datos
-   M <- c()
-   
-   
-   for (i in 1:length(names(datos))) {
+   pval <- function(datos){
+ 
      
-     if(summary(as.factor(D[[i]]))<=10){
-       M[length(M)+1] <- i
+     D<- datos
+     M <- c()
+     
+     
+     for (i in 2:length(names(datos))) {
+       
+       if(length(summary(as.factor(D[[i]])))<=10){
+         M[length(M)+1] <- i
+         
+       }
        
      }
      
-   }
-   
-   
-   D1 <- D[,-M]
-   
-   
-   pval <- NULL
-   nomb <- colnames(D1)
-   
-   for (i in 2:length(colnames(D1))) {
      
-     df <- D1[,c(1,i)]
-     df1 <- dummy_cols(df,select_columns = nomb[i])
-     
-     d0 <- subset(df1,Creditability==0)
-     d1 <- subset(df1,Creditability==1)
-     
-     d0 <- apply(d0, 2, sum)
-     d1 <- apply(d1, 2, sum)
-     
-     d <- data.frame(t(data.frame(d0,d1)))
-     
-     d <-d[,-2]
+     D1 <- D[,c(1,M)]
      
      
-     d$Creditability[2] <- 1
+     pval <- NULL
+     nomb <- colnames(D1)
      
-     d$Creditability[2] <- "buenos"
-     d$Creditability[1] <- "malos"
-     
-     
-     nombre <- d$Creditability
-     rownames(d) <- nombre
-     d <- d[,-1]
-     
-     pr <- chisq.test(d)
-     pval[i]<-pr$p.value
-     
-     
-   }
-   
-  
-   pval <- t(pval)
-   
-   
-   vd <- nomb[which(pval > as.numeric(input$significancia))]
-   
-   
-   j <- colnames(datos)
-   
-   
-   
-   final <- datos[, !(j %in% vd)]
-   return(final)
- 
-   })
- 
- 
- 
- 
- 
- pval <- reactive({
-   
-   
-   datos <- data1org()
-   
-   
-   D<- datos
-   M <- c()
-   
-   
-   for (i in 1:length(names(datos))) {
-     
-     if(summary(as.factor(D[[i]]))<=10){
-       M[length(M)+1] <- i
+     for (i in 2:length(colnames(D1))) {
+       
+       df <- D1[,c(1,i)]
+       df1 <- dummy_cols(df,select_columns = nomb[i])
+       
+       d0 <- subset(df1,Creditability==0)
+       d1 <- subset(df1,Creditability==1)
+       
+       d0 <- apply(d0, 2, sum)
+       d1 <- apply(d1, 2, sum)
+       
+       d <- data.frame(t(data.frame(d0,d1)))
+       
+       d <-d[,-2]
+       
+       
+       d$Creditability[2] <- 1
+       
+       d$Creditability[2] <- "buenos"
+       d$Creditability[1] <- "malos"
+       
+       
+       nombre <- d$Creditability
+       rownames(d) <- nombre
+       d <- d[,-1]
+       
+       pr <- chisq.test(d)
+       pval[i]<-pr$p.value
+       
        
      }
      
+     
+     pval <- t(pval)
+     
+     
+     vd <- nomb[which(pval > 0.05)]
+     
+     
+     j <- colnames(datos)
+     
+     
+     
+     inf <- data.frame(pval)
+     colnames(inf) <- nomb
+     return(inf)
    }
+  ## se calculan los pvalores
+   
+  pvalor <- reactive({pval(data1org())})
    
    
-   D1 <- D[,-M]
+  ## seccion que muestra los p-valores de las variables cualitativas
    
    
-   pval <- NULL
-   nomb <- colnames(D1)
+  output$datatablecu <- renderDataTable({
+    
+    
+    ca10 <- try(pvalor())
+    if (class(ca10)=="try-error") {
+      
+      "Cargue datos y seleccione parametros"
+    }else{ca10}
+    
+    
+  })
+  
+  
+  ### Se calculan los p-valores de las variables cuantitativas con la funcion pval.
+  
+  pval. <- function(datos){
+    
+    
+    D<- datos
+    M <- c()
+    
+    
+    for (i in 2:length(names(datos))) {
+      
+      if(length(summary(as.factor(D[[i]])))<=10){
+        M[length(M)+1] <- i
+        
+      }
+      
+    }
+    
+    D1 <- as.data.frame(D[,-M])
+    pval <- NULL
+    
+    nomb <- colnames(D1)
+    
+    
+    for (i in 2:length(nomb)) {
+      
+      df1 <- D1[,c(1,i)]
+      
+      d0 <- subset(df1, Creditability==0)
+      d1 <- subset(df1, Creditability==1)
+      
+      p1 <- d0[[2]]
+      p2 <- d1[[2]]
+      
+      
+      w <-  ks.test(p1,p2)
+      
+      pval[i] <- w$p.value
+      
+    }
+    
+    pval <- t(pval)
+    
+    
+    inf <- data.frame(pval)
+    colnames(inf)<-nomb
+    
+    return(inf)
+    
+    
+  }
+  
+  
+  #### En la variable data1. se eliminan las variables cualitativas que tengan 
+  #### un nivel de significancia mayor al del deseado por el usuarios el nivel esta en la variable input$significancia
+  
+  data1. <- reactive({
+    
+    
+    datos <- data1org()
+    
+    pvalores <- pvalor()
+    
+    pvalores <- pvalores[-1]
+    
+    pvalores1 <- as.matrix(pvalores)
+    
+    pvalores1 <- as.vector(pvalores1)
+    
+    names(pvalores1) <- names(pvalores)
+    
+    filtro <- pvalores1[which(pvalores1 > 0.05)]
+    
+    vd <- names(filtro)
+    
+    j <- colnames(datos)
+    
+    
+    
+    final <- datos[, !(j %in% vd)]
+    return(final)
+    
+  })
+  
+  
+  ## seccion que muestra los p-valores de las variables cuantitativas
+  
+  
+  
+  output$datatablecu1 <- renderDataTable({
+    ca11 <- try(pval.(data1.()))
+    if (class(ca11)=="try-error") {
+      
+      "Cargue datos y seleccione parametros"
+    }else{ca11}
+    
+  })
+ 
    
-   for (i in 2:length(colnames(D1))) {
-     
-     df <- D1[,c(1,i)]
-     df1 <- dummy_cols(df,select_columns = nomb[i])
-     
-     d0 <- subset(df1,Creditability==0)
-     d1 <- subset(df1,Creditability==1)
-     
-     d0 <- apply(d0, 2, sum)
-     d1 <- apply(d1, 2, sum)
-     
-     d <- data.frame(t(data.frame(d0,d1)))
-     
-     d <-d[,-2]
-     
-     
-     d$Creditability[2] <- 1
-     
-     d$Creditability[2] <- "buenos"
-     d$Creditability[1] <- "malos"
-     
-     
-     nombre <- d$Creditability
-     rownames(d) <- nombre
-     d <- d[,-1]
-     
-     pr <- chisq.test(d)
-     pval[i]<-pr$p.value
-     
-     
-   }
-   
-   
-   pval <- t(pval)
-   
-   
-   vd <- nomb[which(pval > 0.05)]
-   
-   
-   j <- colnames(datos)
-   
-   
-   
-   inf <- data.frame(pval)
-   colnames(inf) <- nomb
-   return(inf)
- })
+  
+  
+  
+  
+  
+  
+  
+  
+ 
+ 
+ 
+ 
+ 
+ 
+
   
  data1 <- reactive({
    datos <- data1.()
@@ -280,89 +446,12 @@ shinyServer(function(input, output, session) {
 
     })
  
- pval. <- reactive({
-   
-   
-   datos <- data1.()
-   
-   D<- datos
-   M <- c()
-   
-   
-   for (i in 1:length(names(datos))) {
-     
-     if(summary(as.factor(D[[i]]))<=10){
-       M[length(M)+1] <- i
-       
-     }
-     
-   }
-   M
-   D1 <- D[,c(1,M)]
-   D1
-   pval <- NULL
-   
-   nomb <- colnames(D1)
-   
-   
-   for (i in 2:length(nomb)) {
-     
-     df1 <- D1[,c(1,i)]
-     
-     d0 <- subset(df1, Creditability==0)
-     d1 <- subset(df1, Creditability==1)
-     
-     p1 <- d0[[2]]
-     p2 <- d1[[2]]
-     
-     
-     w <-  ks.test(p1,p2)
-     
-     pval[i] <- w$p.value
-     
-   }
-   
-   pval <- t(pval)
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   inf <- data.frame(pval)
-   colnames(inf)<-nomb
-   
-   
-   
-   return(inf)
-   
-   
- })
  
  
- output$datatablecu <- renderDataTable({
-   
-   
-   ca10 <- try(pval())
-   if (class(ca10)=="try-error") {
-     
-     "Cargue datos y seleccione parametros"
-   }else{ca10}
-   
-   
- })
  
- output$datatablecu1 <- renderDataTable({
-   ca11 <- try(pval.())
-   if (class(ca11)=="try-error") {
-     
-     "Cargue datos y seleccione parametros"
-   }else{ca11}
-   
- })
+
+ 
+
  
  
  
@@ -412,79 +501,8 @@ shinyServer(function(input, output, session) {
  
  
   
-  grafica <- function(datos,nom,nom2){
-    
-    s1 <- datos
-    nombres <- colnames(datos)
-    
-    nombre <- nom
-    
-    posi <- which(nombres == nombre)
-    
-    nombre1 <- nom2
-    
-    posi1 <- which(nombres == nombre1)
-    
-    s1[,posi]<-  as.factor(s1[,posi])
-    
-    
-    
-    
-    p10 <- ggplot(s1, aes(x = s1[[nombre]], y = s1[[nombre1]])) +
-      geom_boxplot(fill = "#56B4E9") +
-      scale_y_continuous(name = "Escala de valores") +  scale_x_discrete(name = "Categorias") +
-      ggtitle("Comparación entre las categorias de la variable seleccionada") 
-    return(p10)
-    
-    
-    
-  }
-  
-  output$comparacion <- renderPlotly({
-    
-    ca7 <- try(ggplotly(grafica(data1org(),input$columns,input$columns1)))
-    
-    
-    if (class(ca7)=="try-error") {
-      
-      df <- data.frame()
-      ggplot(df) + geom_point() + xlim(0, 10) + ylim(0, 100)
-      
-    }else{ca7}
-    
-    
-    
-  })
   
   
-  estadf<-function(datos,nomb){
-    
-    s1 <- datos
-    
-    
-    
-    s2 <- rbind(summary(s1[[nomb]]))
-    colnames(s2) <- c("Mínimo","Primer Quartil", "Mediana","Media", "Tercer Quartil", "Máximo")
-    
-    return(s2)
-    
-  }
-  
-  output$estad1 <- renderDataTable({ 
-    
-    ca8 <- try(estadf(data1org(),input$columns1))
-    
-    if (class(ca8)=="try-error") {
-      
-      "Cargue datos"
-      
-    }else{ca8}
-    
-    
-    
-    
-    
-  })
   
   
   
@@ -729,7 +747,10 @@ shinyServer(function(input, output, session) {
   })
   
 
-
+  
+  
+  
+  
   
   
   score1 <- reactive({
@@ -777,6 +798,16 @@ shinyServer(function(input, output, session) {
     
     
   })
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   
   
   pdPropias <- reactive({

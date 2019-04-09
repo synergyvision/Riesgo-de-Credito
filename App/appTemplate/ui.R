@@ -221,7 +221,10 @@ shinyUI(
                                                                    )),
                                                 fluidRow(
                                                   box(width=12,style = "overflow-x:scroll",status = "warning",dataTableOutput('datatabler'))
-                                                )
+                                                ),
+                                               
+                                               fluidRow(box(background="yellow",width = 200, title = h2("Proyección"), textOutput("proy")))
+                                               
                                                 
                                                 
                                                 
