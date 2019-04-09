@@ -3,12 +3,12 @@
 # Manual técnico de la aplicación Vision CreditRisk
 
 
-En el presente capítulo, presentaremos el manual técnico de la aplicación Vision CreditRisk, el cual utiliza las nociones teóricas vistas anteriormente para lograr de una forma agradable y de facil entendimiento permtir que el usuario encargado del área de crédito de su institución maneje de forma precisa y adecuada las metricas de riesgo.  
+En el presente capítulo, presentaremos el manual técnico de la aplicación Vision CreditRisk, el cual utiliza las nociones teóricas vistas anteriormente para lograr de una forma agradable y de facil entendimiento permtir que el usuario encargado del área de crédito de su institución maneje de forma precisa y adecuada las métricas de riesgo.  
 
 ## Presentación de la aplicación.
 
 
-La aplicación esta compuesta de tres secciones, la primera referente a la metodología CreditRisk+, la segunda correspondiente a la metodología Credimetrics y la tercera una sección referente a indicadores técnicos.
+La aplicación esta compuesta de tres secciones, la primera referente a la metodología CreditRisk+, la segunda correspondiente a la metodología Credimetrics y la tercera sección referente a indicadores técnicos.
 
 ![\label{fig:"sd"}](~/Riesgo_de_Credito/portada.png)
 
@@ -47,7 +47,7 @@ En esta pestaña, veremos el gráfico estadístico de boxplot para ver el compor
 
 ![\label{fig:"sd"}](~/Riesgo_de_Credito/esta1.png)
 
-### Seleccion de variables
+### Selección de variables
 
 En esta sección el usuario podrá colocar el significancia para escoger las variables cualitativas y cuantitativas que se usaran en el modelo, la pestaña se divide en 2, una para cada tipo de variable.
 
@@ -57,7 +57,7 @@ En esta sección el usuario podrá colocar el significancia para escoger las var
 
 ## Pérdida por incumplimiento
 
-En esta sección podra calcular el usuario la pérdida histórica por incumplimiento. El usuario podrá ver graficamente lo que espera recuprar en caso de incumplimiento  mientras transcurre el tiempo.
+En esta sección podra calcular la pérdida histórica por incumplimiento. El usuario podrá ver graficamente lo que espera recuprar en caso de incumplimiento, mientras transcurre el tiempo.
 
 ![\label{fig:"sd"}](~/Riesgo_de_Credito/perdida.png)
 
@@ -68,7 +68,7 @@ En esta sección se calculara la probabilidad de incumplimiento, score o pontuja
 
 ### Selección y resultados del modelo
 
-En esta sección el usuario seleccionara el modelo que mejor se ajuste a los datos, una vez seleccionado se deplegara la matriz con los resultados del modelo y e grafico ROC para mostrar el nivel de acierto del modelo.
+En esta sección el usuario seleccionara el modelo que mejor se ajuste a los datos, una vez seleccionado se deplegara la matriz con los resultados del modelo y el grafico ROC para mostrar el nivel de acierto del modelo.
 
 ![\label{fig:"sd"}](~/Riesgo_de_Credito/score1.png)
 
@@ -93,7 +93,7 @@ En esta sección se pediran los valores de los parámetros básicos y se mostrar
 
 ### Parámetros iniciales
 
-En esta sección, deberemos la unidad de pérdida, que no es mas que la unidad de medida que inteta cuantificar la pérdida de una forma mas compacta. Deberemos ingresar el porcentaje de recuperación que se espera recuperar luego que un crédito esta en mora. Debemos cargar las probabilidades de incumplimiento de la cartera de clientes, podemos cargar una data propia genera por mecanismos internos o podemos cargar la proveniente de la sección de Score de crédito, en ambos casos la data debe tener la siguiente estructura:
+En esta sección, deberemos establecer la unidad de pérdida, que no es mas que la unidad de medida que inteta cuantificar la pérdida de una forma mas compacta. Deberemos ingresar el porcentaje de recuperación que se espera recuperar luego que un crédito esta en mora. Debemos cargar las probabilidades de incumplimiento de la cartera de clientes, podemos cargar una data propia generada por mecanismos internos o podemos cargar la proveniente de la sección de Score de crédito, en ambos casos la data debe tener la siguiente estructura:
 
 ![\label{fig:"sd"}](~/Riesgo_de_Credito/par2.png)
 
@@ -139,7 +139,7 @@ En esta sección debemos cargar los datos históricos de migraciones crediticias
 
 ### Selecección de la matriz de transición
 
-En esta sección se debera seleccionar la matriz de transición, se puede escoger la ya calculada o nn caso de que el banco no posea los datos historicos necesarios, podra cargar su matriz de transición propia, pero debe tener el siguiente formato.
+En esta sección se debera seleccionar la matriz de transición, se puede escoger la ya calculada o en caso de que el banco no posea los datos históricos necesarios, podra cargar su matriz de transición propia, pero debe tener el siguiente formato.
 
 
 ![\label{fig:"sd"}](~/Riesgo_de_Credito/mtr3.png)
@@ -170,7 +170,7 @@ En esta sección el usuario indicara el número de simulaciones para la simulaci
 
 ## Stress Testing.
 
-Una vez llevado a cabo todos los pasos requeridos para la metodología, el usuario podrá realizar una prueba de estres sobre los parametros del modelo.
+Una vez llevado a cabo todos los pasos requeridos para la metodología, el usuario podrá realizar una prueba de estres sobre los parámetros del modelo.
 
 ![\label{fig:"sd"}](~/Riesgo_de_Credito/stress2.png)
 
