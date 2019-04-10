@@ -348,7 +348,7 @@ shinyServer(function(input, output, session) {
     
     names(pvalores1) <- names(pvalores)
     
-    filtro <- pvalores1[which(pvalores1 > 0.05)]
+    filtro <- pvalores1[which(pvalores1 > as.numeric(input$significancia))]
     
     vd <- names(filtro)
     
@@ -362,12 +362,16 @@ shinyServer(function(input, output, session) {
   })
   
   
+  #####Calculo de pvalores de la variable cuantitativa
+  pvalor1 <- reactive({pval.(data1.())})
+  
+  
   ## seccion que muestra los p-valores de las variables cuantitativas
   
   
   
   output$datatablecu1 <- renderDataTable({
-    ca11 <- try(pval.(data1.()))
+    ca11 <- try(pvalor1())
     if (class(ca11)=="try-error") {
       
       "Cargue datos y seleccione parametros"
@@ -377,69 +381,32 @@ shinyServer(function(input, output, session) {
  
    
   
+  ### Se eliminan las variables cuantitativas con un nivel de significancia mayor al del requerido por el usuario
   
   
-  
-  
-  
-  
-  
- 
- 
- 
- 
- 
- 
 
   
  data1 <- reactive({
+   
    datos <- data1.()
    
-   D<- datos
-   M <- c()
+   pvalores <- pvalor1()
    
+   pvalores <- pvalores[-1]
    
-   for (i in 1:length(names(datos))) {
-     
-     if(summary(as.factor(D[[i]]))<=10){
-       M[length(M)+1] <- i
-       
-     }
-     
-   }
-   M
-   D1 <- D[,c(1,M)]
-   D1
-   pval <- NULL
+   pvalores1 <- as.matrix(pvalores)
    
-   nomb <- colnames(D1)
+   pvalores1 <- as.vector(pvalores1)
    
+   names(pvalores1) <- names(pvalores)
    
-   for (i in 2:length(nomb)) {
-     
-     df1 <- D1[,c(1,i)]
-     
-     d0 <- subset(df1, Creditability==0)
-     d1 <- subset(df1, Creditability==1)
-     
-     p1 <- d0[[2]]
-     p2 <- d1[[2]]
-     
-     
-     w <-  ks.test(p1,p2)
-     
-     pval[i] <- w$p.value
-     
-   }
+   filtro <- pvalores1[which(pvalores1 > as.numeric(input$significancia1))]
    
-   pval <- t(pval)
-   
-   
-   vd <- nomb[which(pval > 0.05)]
-   
-   
+   vd <- names(filtro)
    
    j <- colnames(datos)
+   
+   
    
    final <- datos[, !(j %in% vd)]
    return(final)
@@ -448,7 +415,99 @@ shinyServer(function(input, output, session) {
  
  
  
+ ########### Seccion perdida por incumplimiento.
  
+ 
+ ####Se cargan los datos de la manera usual
+ 
+ datasetSelectrl <- reactive({
+   datasetSelectrl <- lgd
+ })
+ 
+ 
+ datasetInputrl <- reactive({
+   
+   inFilerl <- input$file_datarl
+   
+   if (is.null(inFilerl))
+     return(NULL)
+   read.table(inFilerl$datapath, header = input$headerrl,
+              sep = input$seprl, quote = input$quoterl)
+   
+ })
+ 
+ data7 <- reactive({
+   if(input$datasetrl){
+     data <- datasetSelectrl()}
+   
+   else {
+     data <- datasetInputrl()
+   }
+ })
+ 
+ ### esta parte se encarga de mostrar los datos
+ 
+ output$datatablerl<-renderDataTable({
+   data7()
+ },options = list(scrollX=T,scrollY=300))
+ 
+ 
+ 
+ ######## lgdq se encarga de hacer la grafica
+ 
+ lgd1 <- reactive({
+   
+   lgd <-data7()
+   
+   nc <- dim(lgd)[2]
+   
+   
+   lgdp <- NULL
+   
+   
+   
+   
+   for (i in 1:nc) {
+     
+     lgdp[i] <- median(lgd[,i])
+     
+   }
+   
+   lgdp <- as.data.frame(lgdp)
+   
+   lgdp[2] <- 1:24
+   
+   
+   
+   colnames(lgdp) <- c("Porcentajes","Periodos")
+   
+   
+   p <- plot_ly(lgdp, x = ~Periodos, y = ~Porcentajes, name = 'trace 0', type = 'scatter', mode = 'lines') 
+   retornar <- list(p,lgdp)
+   
+   return(retornar)
+   
+ })
+ 
+ ### aqui se muestra la grafica.
+ 
+ output$curvalgd <- renderPlotly({
+   
+   ca13 <- try(lgd1()[[1]])
+   
+   
+   if (class(ca13)=="try-error") {
+     
+     df <- data.frame()
+     ggplot(df) + geom_point() + xlim(0, 10) + ylim(0, 100)
+     
+   }else{ca13}
+ 
+   
+ })
+ 
+ 
+############### 
 
  
 
@@ -854,34 +913,7 @@ shinyServer(function(input, output, session) {
   },options = list(scrollX=T,scrollY=300))
   
   
-  datasetSelectrl <- reactive({
-    datasetSelectrl <- lgd
-  })
   
-  
-  datasetInputrl <- reactive({
-    
-    inFilerl <- input$file_datarl
-    
-    if (is.null(inFilerl))
-      return(NULL)
-    read.table(inFilerl$datapath, header = input$headerrl,
-               sep = input$seprl, quote = input$quoterl)
-    
-  })
-  
-  data7 <- reactive({
-    if(input$datasetrl){
-      data <- datasetSelectrl()}
-    
-    else {
-      data <- datasetInputrl()
-    }
-  })
-  
-  output$datatablerl<-renderDataTable({
-    data7()
-  },options = list(scrollX=T,scrollY=300))
   
   
   
@@ -2141,56 +2173,7 @@ shinyServer(function(input, output, session) {
     
   })
   
-  lgd1 <- reactive({
-    
-    lgd <-data7()
-    
-    nc <- dim(lgd)[2]
-    
-    
-    lgdp <- NULL
-    
-    
-    
-    
-    for (i in 1:nc) {
-      
-      lgdp[i] <- median(lgd[,i])
-      
-    }
-    
-    lgdp <- as.data.frame(lgdp)
-    
-    lgdp[2] <- 1:24
-    
-    
-    
-    colnames(lgdp) <- c("Porcentajes","Periodos")
-    
-    
-    p <- plot_ly(lgdp, x = ~Periodos, y = ~Porcentajes, name = 'trace 0', type = 'scatter', mode = 'lines') 
-    retornar <- list(p,lgdp)
   
-    return(retornar)
-    
-  })
-  
-  output$curvalgd <- renderPlotly({
-  
-    ca13 <- try(lgd1()[[1]])
-    
-    
-    if (class(ca13)=="try-error") {
-      
-      df <- data.frame()
-      ggplot(df) + geom_point() + xlim(0, 10) + ylim(0, 100)
-      
-    }else{ca13}
-    
-    
-    
-    
-  })
   
   
   
