@@ -157,7 +157,55 @@ shinyUI(
                                )
                              )
                     ),
-                    tabItem(tabName = "glm",
+                    
+                    tabItem(tabName = "lgd",
+                            
+                            fluidRow(
+                              tabBox(
+                                height = "1250px", width = 12,side = "left", 
+                                
+                                
+                                tabPanel( title = tagList(shiny::icon("gear"), strong('Pérdidas por incumplimiento')),h3("Pérdidas por incumplimiento"),
+                                          fluidRow(column(6,box(background="yellow",width = 112, checkboxInput("datasetrl", strong("Selecciona para inciar Datos de Ejemplo"), FALSE))), column(6,box(background="yellow",width = 112, checkboxInput('userFilerl', strong('Cargar Datos Propios'), FALSE)))),
+                                          
+                                          conditionalPanel(condition = "input.userFilerl == true",
+                                                           fluidRow(
+                                                             box(width = 15, title = h3("Cargar el archivo con los datos"),
+                                                                 box( width=15,background = "yellow",
+                                                                      fileInput('file_datarl', 'Seleccione el archivo', accept = c('text/csv',
+                                                                                                                                   'text/comma-separated-values',
+                                                                                                                                   'text/tab-separated-values',
+                                                                                                                                   'text/plain',
+                                                                                                                                   '.csv',
+                                                                                                                                   '.tsv',
+                                                                                                                                   '.rda'),
+                                                                                placeholder = 'Aun no seleccionas el archivo...', buttonLabel = 'Buscar' )
+                                                                 ),
+                                                                 fluidRow(
+                                                                   box(width=4,background="yellow",strong("Encabezado de los datos"),
+                                                                       checkboxInput( width="80%", 'headerrl', "Con encabezado", TRUE)),
+                                                                   box(width=4,background="yellow",
+                                                                       radioButtons( width="40%", 'seprl', "Separador", c('Coma'=',',
+                                                                                                                          'Punto y coma'=';',
+                                                                                                                          'Tab'='\t'), ';')),
+                                                                   box(width=4,background="yellow",
+                                                                       radioButtons( width="40%", 'quoterl', "Comillas", c('Ninguna'='',
+                                                                                                                           'Comilla doble'='"',
+                                                                                                                           'Comilla simple'="'"), ''))
+                                                                 )
+                                                             )
+                                                           )),
+                                          
+                                          fluidRow(
+                                            box(style = "overflow-x:scroll",width=12,status = "warning",dataTableOutput('datatablerl'))
+                                          ), 
+                                          plotlyOutput("curvalgd")
+                                          
+                                          
+                                          
+                                ))))
+                    
+                    ,tabItem(tabName = "glm",
                             
                             fluidRow(
                               tabBox( height = "1250px", width = 12,side = "left",
@@ -232,55 +280,10 @@ shinyUI(
                                       
                                       
                                       
-                              ))),
+                              )))
                     
                     
-                    tabItem(tabName = "lgd",
-                            
-                            fluidRow(
-                              tabBox(
-                                height = "1250px", width = 12,side = "left", 
-                                
-                                
-                                tabPanel( title = tagList(shiny::icon("gear"), strong('Pérdidas por incumplimiento')),h3("Pérdidas por incumplimiento"),
-                            fluidRow(column(6,box(background="yellow",width = 112, checkboxInput("datasetrl", strong("Selecciona para inciar Datos de Ejemplo"), FALSE))), column(6,box(background="yellow",width = 112, checkboxInput('userFilerl', strong('Cargar Datos Propios'), FALSE)))),
-                           
-                            conditionalPanel(condition = "input.userFilerl == true",
-                                             fluidRow(
-                                               box(width = 15, title = h3("Cargar el archivo con los datos"),
-                                                   box( width=15,background = "yellow",
-                                                        fileInput('file_datarl', 'Seleccione el archivo', accept = c('text/csv',
-                                                                                                                    'text/comma-separated-values',
-                                                                                                                    'text/tab-separated-values',
-                                                                                                                    'text/plain',
-                                                                                                                    '.csv',
-                                                                                                                    '.tsv',
-                                                                                                                    '.rda'),
-                                                                  placeholder = 'Aun no seleccionas el archivo...', buttonLabel = 'Buscar' )
-                                                   ),
-                                                   fluidRow(
-                                                     box(width=4,background="yellow",strong("Encabezado de los datos"),
-                                                         checkboxInput( width="80%", 'headerrl', "Con encabezado", TRUE)),
-                                                     box(width=4,background="yellow",
-                                                         radioButtons( width="40%", 'seprl', "Separador", c('Coma'=',',
-                                                                                                           'Punto y coma'=';',
-                                                                                                           'Tab'='\t'), ';')),
-                                                     box(width=4,background="yellow",
-                                                         radioButtons( width="40%", 'quoterl', "Comillas", c('Ninguna'='',
-                                                                                                            'Comilla doble'='"',
-                                                                                                            'Comilla simple'="'"), ''))
-                                                   )
-                                               )
-                                             )),
-                            
-                            fluidRow(
-                              box(style = "overflow-x:scroll",width=12,status = "warning",dataTableOutput('datatablerl'))
-                            ), 
-                            plotlyOutput("curvalgd")
-                            
-                            
-                            
-                            )))),
+                    ,
                     
                     tabItem( tabName = "Param",
                              fluidRow(

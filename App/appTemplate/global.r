@@ -45,7 +45,7 @@ clases2 <- read.csv("data/clases.csv",sep = ";")
 lgd <- read.csv("data/loss_given.csv",sep = ";")
 transic <- read.csv("data/Historica_de_migraciones.csv",sep = ";")
 
-mydata <- read.csv("data/mydata.csv")
+mydata <- read.csv("data/mydata.csv",sep=";")
 
 reg <- read.csv("data/reg.csv")
 

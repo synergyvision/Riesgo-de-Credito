@@ -507,13 +507,14 @@ shinyServer(function(input, output, session) {
  })
  
  
-############### 
-
- 
-
+###### Seccion score de credito
  
  
+#############sub seccion seleccion y resultdos del modelo
  
+ 
+ 
+ ###############Funcion que crea el modelo para el score
  
  modprueba <- function(datos,datos2,nom,linkm)  {
    
@@ -525,12 +526,7 @@ shinyServer(function(input, output, session) {
    
    posi <- which(nombres == nombre)
    
-   
-   
-   
-   
-   
-   
+
    ceros <- subset(s1, s1[,posi]==0)
    unos <- subset(s1, s1[,posi]==1)
    
@@ -559,9 +555,538 @@ shinyServer(function(input, output, session) {
  }
  
  
+ #####Aque se calcula la matriz de confusion del modelo
+ 
+ calaccur <- reactive(
+   {
+     s1 <- data1()
+     
+     nombres <- colnames(data1org())
+     
+     nombre <- input$columns
+     
+     posi <- which(nombres == nombre)
+     
+  
+     
+     ceros <- subset(s1, s1[,posi]==0)
+     unos <- subset(s1, s1[,posi]==1)
+     
+     indices0 <- sample( 1:nrow( ceros ), nrow(ceros)*0.7 )
+     ceros.muestreado <- ceros[ indices0, ]
+     ceros.test <- ceros[-indices0,]
+     
+     indices1 <- sample( 1:nrow( unos ), nrow(unos)*0.7 )
+     unos.muestreado <- unos[ indices1, ]
+     unos.test <- unos[-indices1,]
+     
+     train <- rbind(ceros.muestreado,unos.muestreado)
+     test <- rbind(ceros.test,unos.test)
+     
+     colnames(train)[posi] <- "dependiente"
+     colnames(test)[posi] <- "dependiente"
+     
+     pdata <- predict(modprueba(data1(),data1org(),input$columns,input$radio1), newdata = test, type = "response")
+     
+     pred <- confusionMatrix(data = as.factor(as.numeric(pdata>0.5)), reference = as.factor(test$dependiente))
+     
+     conf <- pred$table
+     Valores <- c("Prediccion",0,1)
+     Positivos <- c(0,conf[1,1],conf[1,2])
+     Negativos  <- c(1,conf[2,1],conf[2,2])
+     
+     return(cbind(Valores,Positivos, Negativos))
+     
+   }
+ )
+ 
+ #######Se muestra la matriz de confusion.
+ 
+ 
+ output$accur <- renderTable({
+   
+   ca14 <- try(calaccur())
+   
+   if (class(ca14)=="try-error") {
+     
+     "Cargue datos"
+     
+   }else{ca14}
+   
+   
+   
+   
+ })
+ 
+ 
+ ############# Funcion que calcula la curva roc
+ 
+ calroc <-function(dat,dat1,colum,modelos){
+   
+   s1 <- dat
+   nombres <- colnames(dat1)
+   
+   nombre <- colum
+   
+   posi <- which(nombres == nombre)
+   
+   ceros <- subset(s1, s1[,posi]==0)
+   unos <- subset(s1, s1[,posi]==1)
+   
+   
+   indices0 <- sample( 1:nrow( ceros ), nrow(ceros)*0.7 )
+   ceros.muestreado <- ceros[ indices0, ]
+   ceros.test <- ceros[-indices0,]
+   
+   indices1 <- sample( 1:nrow( unos ), nrow(unos)*0.7 )
+   unos.muestreado <- unos[ indices1, ]
+   unos.test <- unos[-indices1,]
+   
+   train <- rbind(ceros.muestreado,unos.muestreado)
+   test <- rbind(ceros.test,unos.test)
+   
+   colnames(train)[posi] <- "dependiente"
+   colnames(test)[posi] <- "dependiente"
+   
+   
+   reduccion <- modelos
+   
+   l <- roc(train$dependiente  ~ reduccion$fitted.values)
+   return(l)
+ }
+ 
+ 
+ 
+ #### Donde se muetra la curva ROC
+ 
+ output$roc <- renderPlot({
+   
+   ca15 <- try(ggroc(calroc(data1(),data1org(),input$columns,modprueba(data1(),data1org(),input$columns,input$radio1)),legacy.axes=T))
+   
+   
+   if (class(ca15)=="try-error") {
+     
+     df <- data.frame()
+     ggplot(df) + geom_point() + xlim(0, 10) + ylim(0, 100)
+     
+   }else{ca15}
+   
+   
+   
+   
+ })
+ 
+ 
+ 
+
+ ############### Subseccion Score de la cartera de credito
+ 
+ ###########Funcion que calcula el score y pd de toda la cartera
+ 
+ scor <- function() {
+   
+   
+   s1 <- data1()
+   nombres <- colnames(data1org())
+   
+   nombre <- input$columns
+   
+   posi <- which(nombres == nombre)
+   
+   
+   reduccion = modprueba(data1(),data1org(),input$columns,input$radio1)
+   
+   
+   Score <- predict(reduccion, newdata = s1, type = "link")
+   PD <- predict(reduccion, newdata = s1, type = "response")
+   n <- length(PD)
+   ress <- cbind(1:n,Score,PD)
+   colnames(ress) <- c("Posición","Score","Probabilidad de incumplimiento") 
+   return(ress)
+   
+ }
+ 
+ ######Se muestra el score de toda la cartera
+ 
+ 
+ 
+ output$score <- renderDataTable({
+   
+   ca16 <- try(scor())
+   if (class(ca16)=="try-error") {
+     
+     "Cargue datos"
+   }else{ca16}
+
+   
+ },options = list(scrollX=T,scrollY=300))
+ 
+
+ 
+ ######## subcesion Proyeccion a nuevos clientes
+ 
+ 
+ 
+ #### Se cargan los datos de la manera usual
+ 
+ 
+ datasetSelectr <- reactive({
+   datasetSelectr <- reg
+ })
+ 
+ 
+ datasetInputr <- reactive({
+   
+   inFiler <- input$file_datar
+   
+   if (is.null(inFiler))
+     return(NULL)
+   read.table(inFiler$datapath, header = input$headerr,
+              sep = input$sepr, quote = input$quoter)
+   
+ })
+ 
+ 
+ data2 <- reactive({
+   if(input$datasetr){
+     data <- datasetSelectr()}
+   
+   else {
+     data <- datasetInputr()
+   }
+ })
+ 
+ 
+ ### Se muestran los datos
+ 
+ 
+ output$datatabler<-renderDataTable({
+   data2()
+ })
+ 
+ 
   
   
-  
+  ###### Seccion Parametros y resultados
+ 
+ 
+ ### Subseccion Parametros iniciales   
+ 
+ ### Se cargan los datos de la manera usual
+ 
+ 
+ pdPropias <- reactive({
+   
+   inFiler <- input$file_datar1
+   
+   if (is.null(inFiler))
+     return(NULL)
+   read.table(inFiler$datapath, header = input$headerr1,
+              sep = input$sepr1, quote = input$quoter1)
+   
+ })
+ 
+ 
+ data3 <- reactive({
+   if(input$datasetr1){
+     
+     
+     score1()
+     
+     
+   }
+   
+   else {
+     data <- pdPropias()
+   }
+ })
+ 
+ #####################Se muestran los datos correspondientes a las pd de la cartera
+ 
+ output$datatabler1<-renderDataTable({
+   
+   ca17 <- try(data3())
+   
+   
+   if (class(ca17)=="try-error") {
+     
+     "Cargue datos"
+     
+   }else{ca17}
+   
+   
+   
+ },options = list(scrollX=T,scrollY=300))
+ 
+ 
+ #### Sub seccion resultados
+ 
+ #################### La funcion calpe calcula la perdida esperada
+ 
+ CrediTR <- reactive({
+   
+   
+   # Primero necesitamos las espocisiones al default
+   
+   s1 <- data1()
+   
+   
+   
+   
+   ###supondremos que son activos sin lineas extra 
+   ### en este caso la exposicion coincide con el saldo
+   
+   ##exposicion de la cartera
+   #View(mydata)
+   
+   
+   EAD <- s1[,"Credit.Amount"]
+   
+   ###supondremos que la perdida dado el default es la misma para toda  la cartera
+   ### la institucion puede ajustar a un cliente en particular una perdida diferente
+   
+   LGD <- (100-input$uni)/100
+   
+   
+   DP= data3()
+   
+   ####Calculamos ahora la perdida esperada
+   
+   EL <- EAD*LGD*DP[,"PD"]
+   
+   
+   ### Se calcula la expocicion que se espera pérder en caso de default
+   
+   Ei <- EAD*LGD
+   
+   #### Se escoge una unidad de perdida
+   
+   E <- input$uniper
+   
+   
+   
+   
+   ###### se calculan las unidades de perdida
+   
+   v <- Ei/E
+   
+   e <- EL/E
+   
+   ###se calcula el paramtro de poisson
+   ### correspondiente a la posibilidad de incumplimiento
+   
+   lambda <- -log(1-DP[,"PD"])
+   
+   
+   ###creando las bandas
+   
+   L <- ceiling(v)
+   
+   
+   
+   bandas <- list()
+   
+   for (k in 1:range(L)[2]) {
+     
+     
+     bandas[[k]] <- which(L==k)
+     
+   }
+   
+   
+   ###se calculan los parametros de poisson por banda
+   
+   lambdaj <- numeric(range(L)[2])
+   
+   for (k in 1:range(L)[2]) {
+     lambdaj[k] <- sum(lambda[bandas[[k]]])
+   }
+   
+   
+   
+   #calculamos la perdida esperada por banda
+   
+   ei <- lambdaj*1:length(bandas)
+   
+   ###factor de ajuste
+   
+   gamm <- numeric(length(Ei)) 
+   
+   
+   for(i in 1:length(lambdaj)){
+     
+     
+     gamm[bandas[[i]]] <- Ei[bandas[[i]]]/(i*E)
+     
+   }
+   ####Numero de incumplimientos de toda la cartera
+   
+   
+   
+   
+   IncCar <- sum(lambdaj)
+   
+   
+   
+   ### Probabilides de unidades de perdida de toda la cartera
+   
+   p0 <- exp(-IncCar)
+   
+   
+   probandas <- numeric(10000)
+   
+   probandas[1] <- p0
+   
+   probandasc <- probandas
+   
+   length(ei)
+   eii <- numeric(10000)
+   
+   eii[1:length(bandas)] <- ei[1:length(bandas)]
+   #View(eii)
+   for (i in 2:10000) {
+     
+     probandas[i] <- sum(probandasc[1:i-1]*rev(eii[1:i-1]))/(i-1)
+     probandasc <- probandas
+   }
+   
+   #View(probandas)ç
+   
+   
+   sum(probandas[1:10000])
+   
+   
+   acum <- c()
+   
+   for (l in 1:10000) {
+     acum[l] <- sum(probandas[1:l]) 
+   }
+   
+   
+   saltos <- diff(acum)
+   pe <- (saltos*1:9999)*E
+   pe1 <- sum(pe)
+   
+   #####Var
+   var <-  min(which(acum > (as.numeric(input$conf)/100)))*E
+   
+   
+   
+   #### TVAR
+   
+   
+   
+   
+   
+   c <- min(which(acum > (as.numeric(input$conf)/100)))
+   
+   v <- sum((saltos[c:length(saltos)]*c:9999))
+   
+   pw <- 1-sum(saltos[1:c])
+   
+   tvar <- v/pw*E
+   
+   
+   
+   return(c(pe1,var,tvar))
+   
+ })
+ 
+ ################# Se muestra la perdida esperada
+ 
+ output$pe <- renderText({
+   
+   
+   ca <- try(CrediTR()[1])
+   if (class(ca)=="try-error") {
+     
+     "Cargue datos y seleccione parametros"
+   }else{ca}
+   
+   
+   
+ })
+ 
+#### La funcion calvar1 calcula el var
+ 
+ 
+ 
+ #################Se calcula el var
+ 
+ output$var <- renderText({
+   
+   
+   ca1 <- try(CrediTR()[2])
+   if (class(ca1)=="try-error") {
+     
+     "Cargue datos y seleccione parametros"
+   }else{ca1}
+   
+   
+   
+   
+   
+ })
+ 
+ 
+
+ 
+ ########## Se muestra el Tvar
+ 
+ output$tvar <- renderText({
+   
+   
+   ca2 <- try(CrediTR()[3])
+   if (class(ca2)=="try-error") {
+     
+     "Cargue datos y seleccione parametros"
+   }else{ca2}
+   
+   
+   
+   
+ })
+ 
+ 
+ ########## Aqui se realiza el reporte
+ 
+ output$reporte1 <- downloadHandler(
+   
+   filename = "reporte1.pdf",
+   content = function(file){
+     tempReport <- file.path(tempdir(),"reporte1.Rmd")
+     file.copy("reporte1.Rmd", tempReport, overwrite = TRUE)
+     params <- list(titulo =c(posicion()),titulo2=c(CrediTR()[2]),titulo3=c(CrediTR()[1]),titulo4=c(CrediTR()[3]),
+                    titulo5=c(modprueba(data1(),data1org(),input$columns,input$radio1)) ,titulo6=calroc(data1(),data1org(),input$columns,modprueba(data1(),data1org(),input$columns,input$radio1)),titulo7=input$radio1, titulo8=input$uniper, titulo9=input$uni,
+                    titulo10 = calaccur(), titulo11 = input$significancia)
+     
+     
+     
+     
+     rmarkdown::render(tempReport,output_file = file,params = params, envir = new.env(parent = globalenv()))
+   }
+ )
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
   
   
   
@@ -609,201 +1134,26 @@ shinyServer(function(input, output, session) {
     data1org()
   },options = list(scrollX=T,scrollY=300))
   
-  calaccur <- reactive(
-    {
-      s1 <- data1()
-      # 
-      
-      nombres <- colnames(data1org())
-      
-      nombre <- input$columns
-      
-      posi <- which(nombres == nombre)
-      
-      
-     
-      ceros <- subset(s1, s1[,posi]==0)
-      unos <- subset(s1, s1[,posi]==1)
-      # 
-      # 
-      indices0 <- sample( 1:nrow( ceros ), nrow(ceros)*0.7 )
-      ceros.muestreado <- ceros[ indices0, ]
-      ceros.test <- ceros[-indices0,]
-      
-      indices1 <- sample( 1:nrow( unos ), nrow(unos)*0.7 )
-      unos.muestreado <- unos[ indices1, ]
-      unos.test <- unos[-indices1,]
-      
-      train <- rbind(ceros.muestreado,unos.muestreado)
-      test <- rbind(ceros.test,unos.test)
-      
-      colnames(train)[posi] <- "dependiente"
-      colnames(test)[posi] <- "dependiente"
-      
-      pdata <- predict(modprueba(data1(),data1org(),input$columns,input$radio1), newdata = test, type = "response")
-      
-      pred <- confusionMatrix(data = as.factor(as.numeric(pdata>0.5)), reference = as.factor(test$dependiente))
-      
-      conf <- pred$table
-      Valores <- c("Prediccion",0,1)
-      Positivos <- c(0,conf[1,1],conf[1,2])
-      Negativos  <- c(1,conf[2,1],conf[2,2])
-      
-      return(cbind(Valores,Positivos, Negativos))
-      
-    }
-  )
+ 
   
-  
-  output$accur <- renderTable({
-    
-    ca14 <- try(calaccur())
-    
-    if (class(ca14)=="try-error") {
-      
-      "Cargue datos"
-      
-    }else{ca14}
-    
-    
-    
-    
-  })
-  
-  
-  calroc <-function(dat,dat1,colum,modelos){
-    
-    s1 <- dat
-    nombres <- colnames(dat1)
-    
-    nombre <- colum
-    
-    posi <- which(nombres == nombre)
-    
-    
-    
-    
-    
-    ceros <- subset(s1, s1[,posi]==0)
-    unos <- subset(s1, s1[,posi]==1)
-    
-    
-    indices0 <- sample( 1:nrow( ceros ), nrow(ceros)*0.7 )
-    ceros.muestreado <- ceros[ indices0, ]
-    ceros.test <- ceros[-indices0,]
-    
-    indices1 <- sample( 1:nrow( unos ), nrow(unos)*0.7 )
-    unos.muestreado <- unos[ indices1, ]
-    unos.test <- unos[-indices1,]
-    
-    train <- rbind(ceros.muestreado,unos.muestreado)
-    test <- rbind(ceros.test,unos.test)
-    
-    colnames(train)[posi] <- "dependiente"
-    colnames(test)[posi] <- "dependiente"
-    
-    
-    reduccion <- modelos
-    
-    l <- roc(train$dependiente  ~ reduccion$fitted.values)
-    return(l)
-  }
   
  
   
   
   
-  output$roc <- renderPlot({
-    
-    ca15 <- try(ggroc(calroc(data1(),data1org(),input$columns,modprueba(data1(),data1org(),input$columns,input$radio1)),legacy.axes=T))
-    
-    
-    if (class(ca15)=="try-error") {
-      
-      df <- data.frame()
-      ggplot(df) + geom_point() + xlim(0, 10) + ylim(0, 100)
-      
-    }else{ca15}
-    
-    
-    
-    
-  })
   
   
   
   
-  scor <- function()
-    {
-      
-      
-      s1 <- data1()
-      nombres <- colnames(data1org())
-      
-      nombre <- input$columns
-      
-      posi <- which(nombres == nombre)
-  
-      
-      reduccion = modprueba(data1(),data1org(),input$columns,input$radio1)
-      
-      
-      Score <- predict(reduccion, newdata = s1, type = "link")
-      PD <- predict(reduccion, newdata = s1, type = "response")
-      n <- length(PD)
-      ress <- cbind(1:n,Score,PD)
-      colnames(ress) <- c("Posición","Score","Probabilidad de incumplimiento") 
-      return(ress)
-      
-    }
   
   
   
-  output$score <- renderDataTable({
-    
-    ca16 <- try(scor())
-    if (class(ca16)=="try-error") {
-      
-      "Cargue datos"
-    }else{ca16}
-    
-    
-    
-    
-    
-  },options = list(scrollX=T,scrollY=300))
   
-  datasetSelectr <- reactive({
-    datasetSelectr <- reg
-  })
-  
-  
-  datasetInputr <- reactive({
-    
-    inFiler <- input$file_datar
-    
-    if (is.null(inFiler))
-      return(NULL)
-    read.table(inFiler$datapath, header = input$headerr,
-               sep = input$sepr, quote = input$quoter)
-    
-  })
-  
-  
-  data2 <- reactive({
-    if(input$datasetr){
-      data <- datasetSelectr()}
-    
-    else {
-      data <- datasetInputr()
-    }
-  })
+ 
   
   ###Datos
   
-  output$datatabler<-renderDataTable({
-    data2()
-  })
+ 
   
 
   
@@ -869,545 +1219,12 @@ shinyServer(function(input, output, session) {
   
   
   
-  pdPropias <- reactive({
-    
-    inFiler <- input$file_datar1
-    
-    if (is.null(inFiler))
-      return(NULL)
-    read.table(inFiler$datapath, header = input$headerr1,
-               sep = input$sepr1, quote = input$quoter1)
-    
-  })
-  
-  
-  data3 <- reactive({
-    if(input$datasetr1){
-      
-      
-      score1()
-      
-      
-    }
-    
-    else {
-      data <- pdPropias()
-    }
-  })
-  
-  ###Datos
-  
-  output$datatabler1<-renderDataTable({
-    
-    ca17 <- try(data3())
-    
-    
-    if (class(ca17)=="try-error") {
-      
-      "Cargue datos"
-      
-    }else{ca17}
-    
-    
-    
-  },options = list(scrollX=T,scrollY=300))
   
   
   
   
+ 
   
-  
-  
-  
-  
-  calvar1 <- reactive({
-    
-    
-    # Primero necesitamos las espocisiones al default
-    
-    s1 <- data1org()
-    
-    
-     
-    
-    ###supondremos que son activos sin lineas extra 
-    ### en este caso la exposicion coincide con el saldo
-    
-    ##exposicion de la cartera
-    #View(mydata)
-    
-    
-    EAD <- s1[,"Credit.Amount"]
-    
-    ###supondremos que la perdida dado el default es la misma para toda  la cartera
-    ### la institucion puede ajustar a un cliente en particular una perdida diferente
-    
-    LGD <- (100-input$uni)/100
-    
-    
-    DP= data3()
-    
-    ####Calculamos ahora la perdida esperada
-    
-    EL <- EAD*LGD*DP[,"PD"]
-    
-    
-    ### Se calcula la expocicion que se espera pérder en caso de default
-    
-    Ei <- EAD*LGD
-    
-    #### Se escoge una unidad de perdida
-    
-    E <- input$uniper
-    
-    
-    
-    
-    ###### se calculan las unidades de perdida
-    
-    v <- Ei/E
-    
-    e <- EL/E
-    
-    ###se calcula el paramtro de poisson
-    ### correspondiente a la posibilidad de incumplimiento
-    
-    lambda <- -log(1-DP[,"PD"])
-    
-    
-    ###creando las bandas
-    
-    L <- ceiling(v)
-    
-    
-    
-    bandas <- list()
-    
-    for (k in 1:range(L)[2]) {
-      
-      
-      bandas[[k]] <- which(L==k)
-      
-    }
-    
-    
-    ###se calculan los parametros de poisson por banda
-    
-    lambdaj <- numeric(range(L)[2])
-    
-    for (k in 1:range(L)[2]) {
-      lambdaj[k] <- sum(lambda[bandas[[k]]])
-    }
-    
-    
-    
-    #calculamos la perdida esperada por banda
-    
-    ei <- lambdaj*1:length(bandas)
-    
-    ###factor de ajuste
-    
-    gamm <- numeric(length(Ei)) 
-    
-    
-    for(i in 1:length(lambdaj)){
-      
-      
-      gamm[bandas[[i]]] <- Ei[bandas[[i]]]/(i*E)
-      
-    }
-    ####Numero de incumplimientos de toda la cartera
-    
-    
-    
-    
-    IncCar <- sum(lambdaj)
-    
-    
-    
-    ### Probabilides de unidades de perdida de toda la cartera
-    
-    p0 <- exp(-IncCar)
-    
-    
-    probandas <- numeric(10000)
-    
-    probandas[1] <- p0
-    
-    probandasc <- probandas
-    
-    length(ei)
-    eii <- numeric(10000)
-    
-    eii[1:length(bandas)] <- ei[1:length(bandas)]
-    #View(eii)
-    for (i in 2:10000) {
-      
-      probandas[i] <- sum(probandasc[1:i-1]*rev(eii[1:i-1]))/(i-1)
-      probandasc <- probandas
-    }
-    
-    #View(probandas)ç
-    
-    
-    sum(probandas[1:10000])
-    
-    
-    acum <- c()
-    
-    for (l in 1:10000) {
-      acum[l] <- sum(probandas[1:l]) 
-    }
-    
-    #####Var
-    var <-  min(which(acum > (as.numeric(input$conf)/100)))*E
-    return(var)
-    
-  })
-  output$var <- renderText({
-    
-    
-    ca1 <- try(calvar1())
-    if (class(ca1)=="try-error") {
-      
-      "Cargue datos y seleccione parametros"
-    }else{ca1}
-    
-    
-    
-    
-    
-  })
-  
-  
-  
-  calpe <- reactive({
-    
-    
-    # Primero necesitamos las espocisiones al default
-    
-    s1 <- data1()
-    
-    
-    
-    
-    ###supondremos que son activos sin lineas extra 
-    ### en este caso la exposicion coincide con el saldo
-    
-    ##exposicion de la cartera
-    #View(mydata)
-    
-    
-    EAD <- s1[,"Credit.Amount"]
-    
-    ###supondremos que la perdida dado el default es la misma para toda  la cartera
-    ### la institucion puede ajustar a un cliente en particular una perdida diferente
-    
-    LGD <- (100-input$uni)/100
-    
-    
-    DP= data3()
-    
-    ####Calculamos ahora la perdida esperada
-    
-    EL <- EAD*LGD*DP[,"PD"]
-    
-    
-    ### Se calcula la expocicion que se espera pérder en caso de default
-    
-    Ei <- EAD*LGD
-    
-    #### Se escoge una unidad de perdida
-    
-    E <- input$uniper
-    
-    
-    
-    
-    ###### se calculan las unidades de perdida
-    
-    v <- Ei/E
-    
-    e <- EL/E
-    
-    ###se calcula el paramtro de poisson
-    ### correspondiente a la posibilidad de incumplimiento
-    
-    lambda <- -log(1-DP[,"PD"])
-    
-    
-    ###creando las bandas
-    
-    L <- ceiling(v)
-    
-    
-    
-    bandas <- list()
-    
-    for (k in 1:range(L)[2]) {
-      
-      
-      bandas[[k]] <- which(L==k)
-      
-    }
-    
-    
-    ###se calculan los parametros de poisson por banda
-    
-    lambdaj <- numeric(range(L)[2])
-    
-    for (k in 1:range(L)[2]) {
-      lambdaj[k] <- sum(lambda[bandas[[k]]])
-    }
-    
-    
-    
-    #calculamos la perdida esperada por banda
-    
-    ei <- lambdaj*1:length(bandas)
-    
-    ###factor de ajuste
-    
-    gamm <- numeric(length(Ei)) 
-    
-    
-    for(i in 1:length(lambdaj)){
-      
-      
-      gamm[bandas[[i]]] <- Ei[bandas[[i]]]/(i*E)
-      
-    }
-    ####Numero de incumplimientos de toda la cartera
-    
-    
-    
-    
-    IncCar <- sum(lambdaj)
-    
-    
-    
-    ### Probabilides de unidades de perdida de toda la cartera
-    
-    p0 <- exp(-IncCar)
-    
-    
-    probandas <- numeric(10000)
-    
-    probandas[1] <- p0
-    
-    probandasc <- probandas
-    
-    length(ei)
-    eii <- numeric(10000)
-    
-    eii[1:length(bandas)] <- ei[1:length(bandas)]
-    #View(eii)
-    for (i in 2:10000) {
-      
-      probandas[i] <- sum(probandasc[1:i-1]*rev(eii[1:i-1]))/(i-1)
-      probandasc <- probandas
-    }
-    
-    #View(probandas)ç
-    
-    
-    sum(probandas[1:10000])
-    
-    
-    acum <- c()
-    
-    for (l in 1:10000) {
-      acum[l] <- sum(probandas[1:l]) 
-    }
-    
-    
-    saltos <- diff(acum)
-    pe <- (saltos*1:9999)*E
-    
-    return(sum(pe))
-    
-  })
-  
-  
-  output$pe <- renderText({
-    
-    
-    ca <- try(calpe())
-    if (class(ca)=="try-error") {
-     
-    "Cargue datos y seleccione parametros"
-    }else{ca}
-    
-    
-    
-  })
-  
-  
-  caltvar <- reactive({
-    
-    
-    # Primero necesitamos las espocisiones al default
-    
-    s1 <- data1()
-    
-    
-    
-    
-    ###supondremos que son activos sin lineas extra 
-    ### en este caso la exposicion coincide con el saldo
-    
-    ##exposicion de la cartera
-    #View(mydata)
-    
-    
-    EAD <- s1[,"Credit.Amount"]
-    
-    ###supondremos que la perdida dado el default es la misma para toda  la cartera
-    ### la institucion puede ajustar a un cliente en particular una perdida diferente
-    
-    LGD <- (100-input$uni)/100
-    
-    
-    DP= data3()
-    
-    ####Calculamos ahora la perdida esperada
-    
-    EL <- EAD*LGD*DP[,"PD"]
-    
-    
-    ### Se calcula la expocicion que se espera pérder en caso de default
-    
-    Ei <- EAD*LGD
-    
-    #### Se escoge una unidad de perdida
-    
-    E <- input$uniper
-    
-    
-    
-    
-    ###### se calculan las unidades de perdida
-    
-    v <- Ei/E
-    
-    e <- EL/E
-    
-    ###se calcula el paramtro de poisson
-    ### correspondiente a la posibilidad de incumplimiento
-    
-    lambda <- -log(1-DP[,"PD"])
-    
-    
-    ###creando las bandas
-    
-    L <- ceiling(v)
-    
-    
-    
-    bandas <- list()
-    
-    for (k in 1:range(L)[2]) {
-      
-      
-      bandas[[k]] <- which(L==k)
-      
-    }
-    
-    
-    ###se calculan los parametros de poisson por banda
-    
-    lambdaj <- numeric(range(L)[2])
-    
-    for (k in 1:range(L)[2]) {
-      lambdaj[k] <- sum(lambda[bandas[[k]]])
-    }
-    
-    
-    
-    #calculamos la perdida esperada por banda
-    
-    ei <- lambdaj*1:length(bandas)
-    
-    ###factor de ajuste
-    
-    gamm <- numeric(length(Ei)) 
-    
-    
-    for(i in 1:length(lambdaj)){
-      
-      
-      gamm[bandas[[i]]] <- Ei[bandas[[i]]]/(i*E)
-      
-    }
-    ####Numero de incumplimientos de toda la cartera
-    
-    
-    
-    
-    IncCar <- sum(lambdaj)
-    
-    
-    
-    ### Probabilides de unidades de perdida de toda la cartera
-    
-    p0 <- exp(-IncCar)
-    
-    
-    probandas <- numeric(10000)
-    
-    probandas[1] <- p0
-    
-    probandasc <- probandas
-    
-    length(ei)
-    eii <- numeric(10000)
-    
-    eii[1:length(bandas)] <- ei[1:length(bandas)]
-    #View(eii)
-    for (i in 2:10000) {
-      
-      probandas[i] <- sum(probandasc[1:i-1]*rev(eii[1:i-1]))/(i-1)
-      probandasc <- probandas
-    }
-    
-    #View(probandas)ç
-    
-    
-    sum(probandas[1:10000])
-    
-    
-    acum <- c()
-    
-    for (l in 1:10000) {
-      acum[l] <- sum(probandas[1:l]) 
-    }
-    
-    saltos <- diff(acum)
-    c <- min(which(acum > (as.numeric(input$conf)/100)))
-    
-    v <- sum((saltos[c:length(saltos)]*c:9999))
-    
-    pw <- 1-sum(saltos[1:c])
-    
-    
-    
-    
-    return(v/pw*E)
-    
-  })
-  output$tvar <- renderText({
-    
-    
-    ca2 <- try(caltvar())
-    if (class(ca2)=="try-error") {
-      
-      "Cargue datos y seleccione parametros"
-    }else{ca2}
-    
-    
-    
-    
-  })
   
   
   
@@ -2232,22 +2049,7 @@ shinyServer(function(input, output, session) {
   
   
   
-  output$reporte1 <- downloadHandler(
-    
-    filename = "reporte1.pdf",
-    content = function(file){
-      tempReport <- file.path(tempdir(),"reporte1.Rmd")
-      file.copy("reporte1.Rmd", tempReport, overwrite = TRUE)
-      params <- list(titulo =c(posicion()),titulo2=c(calvar1()),titulo3=c(calpe()),titulo4=c(caltvar()),
-                     titulo5=c(modprueba(data1(),data1org(),input$columns,input$radio1)) ,titulo6=calroc(data1(),data1org(),input$columns,modprueba(data1(),data1org(),input$columns,input$radio1)),titulo7=input$radio1, titulo8=input$uniper, titulo9=input$uni,
-                     titulo10 = calaccur(), titulo11 = input$significancia)
-      
-      
-      
-      
-      rmarkdown::render(tempReport,output_file = file,params = params, envir = new.env(parent = globalenv()))
-    }
-  )
+  
   
   output$reporte2 <- downloadHandler(
     

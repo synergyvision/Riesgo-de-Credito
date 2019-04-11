@@ -27,7 +27,7 @@ Este docuemento es un reporte de riesgo de credito, basado en la metodología Cr
 signi <- params$titulo11
 ```
 
-Para la selección de variables categoricas se realizo un análisis de independencia el cual consiste en analizar las tablas de contigencia de las variables categoricas relacionada con la variable mora para luego realizar una prueba chicuadrado con `r signi`, un ejemplo de las tablas de contigencia es:
+Para la selección de variables categóricas se realizó un análisis de independencia el cual consiste en analizar las tablas de contigencia de las variables categoricas relacionada con la variable mora para luego realizar una prueba chicuadrado con `r signi`, un ejemplo de las tablas de contigencia es:
 
 
 
@@ -36,7 +36,7 @@ Para la selección de variables categoricas se realizo un análisis de independe
 knitr::include_graphics("~/Riesgo_de_Credito/App/appTemplate/www/img/conti.png")
 ```
 
-Para la seleccoón de variables cualitativas se uso la prueba chicuadrado con un nivel de significancia `r signi` para comparar si las variables segmentadas por la variable mora provenian de distintas distribuciones.
+Para la selección de variables cualitativas se uso la prueba chicuadrado con un nivel de significancia `r signi` para comparar si las variables segmentadas por la variable mora provenian de distintas distribuciones.
 
 ```{r, echo=FALSE,  out.width = '50%',fig.align = "center"}
 knitr::include_graphics("~/Riesgo_de_Credito/App/appTemplate/www/img/dist.png")
@@ -60,11 +60,7 @@ juni <- params$titulo9
 
 
 
-Para realizar este modelo se uso un análisis de *Regresión Lineal Generalizada* donde el enlace que se escogio fue *`r parame`*. Una lista de los enlaces se mostrara acontinuacion:
-
-```{r, echo=FALSE,  out.width = '50%',fig.align = "center"}
-knitr::include_graphics("~/Riesgo_de_Credito/App/appTemplate/www/img/LINK.png")
-```
+Para realizar este modelo se uso un análisis de *Regresión Lineal Generalizada* donde el enlace que se escogio fue *`r parame`*.
 
 El grafico acontinuación conocido como ROC, el cual es una representación gráfica de la sensibilidad frente a la especificidad para un sistema clasificador binario según se varía el umbral de discriminación, proporciona herramientas para seleccionar los modelos posiblemente óptimos y descartar modelos subóptimos independientemente de (y antes de especificar) el coste de la distribución de las dos clases sobre las que se decide.
 
