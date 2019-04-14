@@ -45,6 +45,16 @@ shinyServer(function(input, output, session) {
     }
   })
   
+  
+  ####Se muestran los datos
+  
+  
+  output$datatable<-renderDataTable({
+    data1org()
+  },options = list(scrollX=T,scrollY=300))
+  
+  
+  
   ##### OutVar Se encarga de obtener los nombres de la variables 
   
   outVar = reactive({
@@ -787,6 +797,57 @@ shinyServer(function(input, output, session) {
  })
  
  
+ ###### En caso de que el usuario decida usar el modelo
+ ###### se calculas las probabilidades de incumplimiento con score1()
+ 
+ score1 <- reactive({
+   s1 <- data1()
+   nombres <- colnames(data1org())
+   
+   nombre <- input$columns
+   
+   posi <- which(nombres == nombre)
+   
+   
+   
+   
+   
+   ceros <- subset(s1, s1[,posi]==0)
+   unos <- subset(s1, s1[,posi]==1)
+   
+   
+   indices0 <- sample( 1:nrow( ceros ), nrow(ceros)*0.7 )
+   ceros.muestreado <- ceros[ indices0, ]
+   ceros.test <- ceros[-indices0,]
+   
+   indices1 <- sample( 1:nrow( unos ), nrow(unos)*0.7 )
+   unos.muestreado <- unos[ indices1, ]
+   unos.test <- unos[-indices1,]
+   
+   train <- rbind(ceros.muestreado,unos.muestreado)
+   test <- rbind(ceros.test,unos.test)
+   
+   colnames(train)[posi] <- "dependiente"
+   colnames(test)[posi] <- "dependiente"
+   
+   
+   
+   
+   reduccion = modprueba(data1(),data1org(),input$columns,input$radio1)
+   
+   s2 <- data1()
+   
+   
+   PD <- predict(reduccion, newdata = s2, type = "response")
+   return(cbind(PD))
+   
+   
+   
+   
+ })
+ 
+ 
+ 
  data3 <- reactive({
    if(input$datasetr1){
      
@@ -1053,7 +1114,7 @@ shinyServer(function(input, output, session) {
    content = function(file){
      tempReport <- file.path(tempdir(),"reporte1.Rmd")
      file.copy("reporte1.Rmd", tempReport, overwrite = TRUE)
-     params <- list(titulo =c(posicion()),titulo2=c(CrediTR()[2]),titulo3=c(CrediTR()[1]),titulo4=c(CrediTR()[3]),
+     params <- list(titulo2=c(CrediTR()[2]),titulo3=c(CrediTR()[1]),titulo4=c(CrediTR()[3]),
                     titulo5=c(modprueba(data1(),data1org(),input$columns,input$radio1)) ,titulo6=calroc(data1(),data1org(),input$columns,modprueba(data1(),data1org(),input$columns,input$radio1)),titulo7=input$radio1, titulo8=input$uniper, titulo9=input$uni,
                     titulo10 = calaccur(), titulo11 = input$significancia)
      
@@ -1279,46 +1340,8 @@ shinyServer(function(input, output, session) {
   
   
   
-  output$variables1 <- renderText({
-    
-    s1 <- data1org()
-    
-    
-    tamano <- 1:length(names(s1))
-    
-    paste(tamano,names(s1),sep = "-") 
-  })
-  
-  output$varia23 <- renderText({
-    
-    s1 <- data1org()
-    
-    
-    tamano <- 1:length(names(s1))
-    
-    paste(tamano,names(s1),sep = "-") 
-  })
   
 
-  
-  posicion <- reactive({
-    
-    s1 <- data1()
-    # 
-    
-    nombres <- colnames(data1org())
-    
-    nombre <- input$columns
-    
-   which(nombres == nombre)
-    
-  })
-  
-  
-  
-  output$datatable<-renderDataTable({
-    data1org()
-  },options = list(scrollX=T,scrollY=300))
   
  
   
@@ -1348,51 +1371,6 @@ shinyServer(function(input, output, session) {
   
   
   
-  score1 <- reactive({
-    s1 <- data1()
-    nombres <- colnames(data1org())
-    
-    nombre <- input$columns
-    
-    posi <- which(nombres == nombre)
-    
-    
-    
-    
-    
-    ceros <- subset(s1, s1[,posi]==0)
-    unos <- subset(s1, s1[,posi]==1)
-    
-    
-    indices0 <- sample( 1:nrow( ceros ), nrow(ceros)*0.7 )
-    ceros.muestreado <- ceros[ indices0, ]
-    ceros.test <- ceros[-indices0,]
-    
-    indices1 <- sample( 1:nrow( unos ), nrow(unos)*0.7 )
-    unos.muestreado <- unos[ indices1, ]
-    unos.test <- unos[-indices1,]
-    
-    train <- rbind(ceros.muestreado,unos.muestreado)
-    test <- rbind(ceros.test,unos.test)
-    
-    colnames(train)[posi] <- "dependiente"
-    colnames(test)[posi] <- "dependiente"
-    
-    
-    
-    
-    reduccion = modprueba(data1(),data1org(),input$columns,input$radio1)
-    
-    s2 <- data1()
-    
-    
-    PD <- predict(reduccion, newdata = s2, type = "response")
-    return(cbind(PD))
-    
-    
-    
-    
-  })
   
   
   

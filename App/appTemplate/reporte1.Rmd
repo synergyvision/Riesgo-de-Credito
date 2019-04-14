@@ -2,7 +2,6 @@
 title: "Reporte CreditRisk+"
 output: pdf_document
 params:
-  titulo: NA
   titulo2: NA
   titulo3: NA
   titulo4: NA
