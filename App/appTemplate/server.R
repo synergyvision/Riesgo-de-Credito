@@ -1080,13 +1080,8 @@ shinyServer(function(input, output, session) {
      "Cargue datos y seleccione parametros"
    }else{ca1}
    
-   
-   
-   
-   
+ 
  })
- 
- 
 
  
  ########## Se muestra el Tvar
@@ -1305,415 +1300,509 @@ shinyServer(function(input, output, session) {
  
  
  
- ################
+ ####### CreditMetrics#######################
  
  
+ ### Seccion Creditos  
+ 
+ ### Se cargan y se muestran los datos de la manera usual
+ 
+ datasetSelect0 <- reactive({
+   datasetSelect0 <- creditos
+ })
  
  
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
-  
-  
-  
-  
-  
-  
-  
-
-  
- 
-  
-  
- 
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
- 
-  
-  ###Datos
-  
- 
-  
-
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
- 
-  
-  
-  
-  
-  
-  
-
-  
-  
-  
-  
-  MatrizPropias <- reactive({
-    
-    inFiler <- input$file_datacrm
-    
-    if (is.null(inFiler))
-      return(NULL)
-    read.table(inFiler$datapath, header = input$headecrm,
-               sep = input$sepcrm, quote = input$quotecrm)
-    
-  })
-  
-  MTR <- reactive({
-    
-    migra <- data10()
-    clases <- levels(migra[,1])
-    
-    
-    periodos <- length(migra)/2
-    
-    n <- NULL
-    
-    
-    
-    for (k in 1:periodos) {
-      
-      
-      
-      for (j in 1:length(clases)) {
-        
-        
-        orig <- length(which(migra[,(2*k)-1]==clases[j]))
-        s <- migra[,2*k]
-        s1<- s[which(migra[,(2*k)-1]==clases[j])]
-        
-        
-        for (i in 1:length(clases)) {
-          
-          
-          final <-length(which(s1==clases[i]))
-          
-          
-          n[i+(5*(j-1))+(25*(k-1))] <- 100*final/orig
-          
-          
-        }
-        
-        
-      }
-      
-      
-      
-    }
-    
-    
-    
-    
-    
-    o <- matrix(numeric(25),nrow = 5)
-    
-    
-    
-    for (b in 0:9) {
-      
-      h <- matrix(n[(1+(25*b)):(25+(25*b))],5, byrow = T)
-      o <- o + h
-      
-    }
-    
-    Matrix <- o / 10
-    colnames(Matrix) <- clases
-    MT <- round(Matrix)
-    
-    
-    return(as.data.frame(MT))
-    
-    
-    
-  })
-  
-  
-  
-  output$datatableMTR<-renderDataTable({
-    
-    MTR()
-    
-  },options = list(scrollX=T,scrollY=300))
-  
-  
-  
-  data4 <- reactive({
-    if(input$datasetcrm){
-      
-      
-      MTR()
-      
-      
-    }
-    
-    else {
-      data <- MatrizPropias()
-    }
-  })
-  
-  ###Datos
-  
-  output$datatablecrm<-renderDataTable({
-    data4()
-  },options = list(scrollX=T,scrollY=300))
-  
-  
-  
-  
-  clasesPropias <- reactive({
-    
-    inFiler <- input$file_datacrm1
-    
-    if (is.null(inFiler))
-      return(NULL)
-    read.table(inFiler$datapath, header = input$headecrm1,
-               sep = input$sepcrm1, quote = input$quotecrm1)
-    
-  })
-  
-  
-  datasetInputcrm1 <- reactive({
-    datasetInputcrm1 <-CR()
-  })
-  
-  
-  data5 <- reactive({
-    if(input$datasetcrm1){
-      data <-datasetInputcrm1() }
-    
-    else {
-      data <- clasesPropias()
-    }
-  })
-  
-  
-  
-  
-  
-  
-  
-  ###Datos
-  
-  output$datatablecrm1<-renderDataTable({
+ datasetInput0 <- reactive({
    
-    ca22 <- try(data5())
-    
-    
-    if (class(ca22)=="try-error") {
-      
-      "Cargue datos"
-      
-    }else{ca22}
-    
-    
+   inFiler <- input$file_datacrm0
+   
+   if (is.null(inFiler))
+     return(NULL)
+   read.table(inFiler$datapath, header = input$headecrm0,
+              sep = input$sepcrm0, quote = input$quotecrm0)
+   
+ })
  
-    
-    
-    })
+ 
+ data6 <- reactive({
+   if(input$dataset0){
+     data <- datasetSelect0()}
+   
+   else {
+     data <- datasetInput0()
+   }
+ })
+ 
+
+ output$datatable0<-renderDataTable({
+   data6()
+ },options = list(scrollX=T,scrollY=300))
+ 
+ 
+ 
+ 
+ 
+## Seccion matriz de transicion
+ 
+ 
+ ##### Subseccion calculo de la matriz de transicion+
+ 
+ ##### Se cargan y se muestran los datos relacionados para el calculo de la matriz de transicion
+ 
+ 
+ 
+ 
+ datasetSelectMT <- reactive({
+   datasetSelect <- transic
+ })
+ 
+ 
+ 
+ 
+ 
+ datasetInputMT <- reactive({
+   
+   inFile <- input$file_dataMT
+   
+   if (is.null(inFile))
+     return(NULL)
+   read.table(inFile$datapath, header = input$headerMT,
+              sep = input$sepMT, quote = input$quoteMT)
+   
+ })
+ 
+ 
+ 
+ data10 <- reactive({
+   if(input$datasetMT){
+     data <- datasetSelectMT()}
+   
+   else {
+     data <- datasetInputMT()
+   }
+ })
+ output$datatableMT<-renderDataTable({
+   data10()
+ },options = list(scrollX=T,scrollY=300))
+ 
+ 
+ 
+ ##### Funcion que calcula la matriz de transicion
+ 
+ MTR <- function(migra){
+   
+   
+   clases <- levels(migra[,1])
+   
+   
+   periodos <- length(migra)/2
+   
+   n <- NULL
+   
+   
+   
+   for (k in 1:periodos) {
+     
+     
+     
+     for (j in 1:length(clases)) {
+       
+       
+       orig <- length(which(migra[,(2*k)-1]==clases[j]))
+       s <- migra[,2*k]
+       s1<- s[which(migra[,(2*k)-1]==clases[j])]
+       
+       
+       for (i in 1:length(clases)) {
+         
+         
+         final <-length(which(s1==clases[i]))
+         
+         
+         n[i+(5*(j-1))+(25*(k-1))] <- 100*final/orig
+         
+         
+       }
+       
+       
+     }
+     
+     
+     
+   }
+   
+   
+   
+   
+   
+   o <- matrix(numeric(25),nrow = 5)
+   
+   
+   
+   for (b in 0:9) {
+     
+     h <- matrix(n[(1+(25*b)):(25+(25*b))],5, byrow = T)
+     o <- o + h
+     
+   }
+   
+   Matrix <- o / 10
+   colnames(Matrix) <- clases
+   MT <- round(Matrix)
+   
+   
+   return(as.data.frame(MT))
+  
+ }
+ 
+ 
+### Se muestra la matris de transicion calculada
+ 
+ output$datatableMTR<-renderDataTable({
+   
+   MTR(data10())
+   
+ },options = list(scrollX=T,scrollY=300))
+ 
+ 
+ 
+ #### subseccion seleccion de la matriz de transicion
+ 
+ 
+ MatrizPropias <- reactive({
+   
+   inFiler <- input$file_datacrm
+   
+   if (is.null(inFiler))
+     return(NULL)
+   read.table(inFiler$datapath, header = input$headecrm,
+              sep = input$sepcrm, quote = input$quotecrm)
+   
+ })
+ 
+ 
+ #### data4 contiene ka matriz de seleccion calculada
+ 
+ data4 <- reactive({
+   if(input$datasetcrm){
+     
+     
+     MTR(data10())
+     
+     
+   }
+   
+   else {
+     data <- MatrizPropias()
+   }
+ })
+ 
+ ###SE muestra a matriz de transicion
+ 
+ output$datatablecrm<-renderDataTable({
+   data4()
+ },options = list(scrollX=T,scrollY=300))
+ 
+ 
+ 
+ 
+ ### Seccion perdida por clase
+ 
+ ##### Subseccion calculo de las pérdidas esperadas
+ 
+ ### Se cargan los datos
+ 
+ datasetSelectC <- reactive({
+   datasetSelect <- clases1
+ })
+ 
+ 
+ 
+ 
+ 
+ datasetInputC <- reactive({
+   
+   inFile <- input$file_dataC
+   
+   if (is.null(inFile))
+     return(NULL)
+   read.table(inFile$datapath, header = input$headerMT,
+              sep = input$sepMT, quote = input$quoteMT)
+   
+ })
+ 
+ 
+ 
+ data11 <- reactive({
+   if(input$datasetC){
+     data <- datasetSelectC()}
+   
+   else {
+     data <- datasetInputC()
+   }
+ })
+ 
+ ### Se muestran los datos
+ 
+ output$datatableC<-renderDataTable({
+   data11()
+ },options = list(scrollX=T,scrollY=300))
+ 
+ #####
+ 
+ 
+ 
+ CR <- function(histo){
+   
+
+   
+   N <- NULL
+   
+   
+   clases <- levels(histo[,1])
+   
+   for (i in 1:length(clases)) {
+     
+     s <- which(histo[,1]==clases[i])
+     
+     s1 <- histo[,2]
+     
+     N[i] <- mean(s1[s])
+     
+   }
+   
+   N <- N /100
+   
+   
+   result <- data.frame(N,clases)
+   
+   colnames(result) <- c("Perdida" , "Calif")
+   
+   return(result)
+   
+   
+   
+ }
+ 
+ 
+ 
+ 
+ output$datatableCR<-renderDataTable({
+   
+   ca20 <- try(CR( data11()))
+   if (class(ca20)=="try-error") {
+     
+     "Cargue datos"
+   }else{ca20}
+   
+   
+   
+ },options = list(scrollX=T,scrollY=300))
+ 
+ 
+ 
+ #### Subseccion perdida esperada
+ 
+  
+  ### Se cargan los datos
+  
+ clasesPropias <- reactive({
+   
+   inFiler <- input$file_datacrm1
+   
+   if (is.null(inFiler))
+     return(NULL)
+   read.table(inFiler$datapath, header = input$headecrm1,
+              sep = input$sepcrm1, quote = input$quotecrm1)
+   
+ })
+ 
+ 
+ datasetInputcrm1 <- reactive({
+   datasetInputcrm1 <-CR(data11())
+ })
+ 
+ 
+ data5 <- reactive({
+   if(input$datasetcrm1){
+     data <-datasetInputcrm1() }
+   
+   else {
+     data <- clasesPropias()
+   }
+ })
+ 
+ 
+### Se muestra la perdida por clases a usar para la metodologuia
+ 
+ output$datatablecrm1<-renderDataTable({
+   
+   ca22 <- try(data5())
+   
+   
+   if (class(ca22)=="try-error") {
+     
+     "Cargue datos"
+     
+   }else{ca22}
+   
+   
+   
+   
+   
+ })
+  
+  ############# Seccion simulacion y resultados
+ 
+ 
+ #### calvar calcula las metricas de riesgo
+ 
+ 
+ calvar <- reactive({
+   
+   withProgress(message="simulando", value = 0,{
+     MT <- data4()
+     
+     
+     clasi <- colnames(MT)
+     
+     
+     RP <- data5()
+     RP <- RP[,"Perdida"]
+     
+     creditos1 <- data6()
+     
+     
+     
+     NSim <- as.numeric(input$simcrm)
+     
+     M <- NULL
+     for (j in 1:NSim) {
+       
+       
+       N <- NULL 
+       for (i in 1:length(clasi)) {
+         l <- subset(creditos1,calif==clasi[i]) 
+         g <- dice.roll(faces=length(clasi), dice=length(l[,"creditos"]), rolls=1, weights=as.numeric(MT[i,]/100))
+         
+         N[i] <- sum((l[,"creditos"])*RP[as.numeric(g$results[,1:length(l[,"creditos"])])])
+       }
+       
+       M[j] <- sum(N)
+       
+     }
+     
+     var <- mean(M)+(sd(M)*qnorm(as.numeric(input$conf1)/100))
+     
+     tvar <- mean(M)+((sd(M)*dnorm(qnorm(as.numeric(input$conf1)/100)))/(1-(as.numeric(input$conf1)/100)))
+     
+     strescr <- (mean(M)+(mean(M)*as.numeric(input$stress3)))+((sd(M)+sd(M)*as.numeric(input$stress3))*qnorm(as.numeric(input$conf1)/100))
+     
+     return(list(var,mean(M),M,tvar, strescr))
+   })
+   
+ })
+ 
+ 
+  ##### Se muestra la perdida esperada
+ 
+ 
+ output$pe122 <- renderText({
+   ca4 <- try(calvar()[[2]])
+   if (class(ca4)=="try-error") {
+     
+     "Cargue datos y seleccione parametros"
+   }else{ca4}
+   
+   
+   
+   
+ })
+ 
+ #### Se muestra el var
+ 
+ output$var122 <- renderText({
+   
+   ca5 <- try(calvar()[[1]])
+   if (class(ca5)=="try-error") {
+     
+     "Cargue datos y seleccione parametros"
+   }else{ca5}
+   
+   
+   
+   
+   
+ }) 
+ 
+ #### Se muestra el Tvar
+
+  
+ output$tvar122 <- renderText({
+   
+   ca6 <- try(calvar()[[4]])
+   if (class(ca6)=="try-error") {
+     
+     "Cargue datos y seleccione parametros"
+   }else{ca6}
+   
+   
+   
+   
+   
+ })  
+  
+######## El reporte de credimetrics
+ 
+ output$reporte2 <- downloadHandler(
+   
+   filename = "reporte2.pdf",
+   content = function(file){
+     tempReport <- file.path(tempdir(),"reporte2.Rmd")
+     file.copy("reporte2.Rmd", tempReport, overwrite = TRUE)
+     params <- list(vari1 =data4(),vari2=data5(),vari3=calvar(),vari4 = input$simcrm)
+     
+     
+     
+     
+     rmarkdown::render(tempReport,output_file = file,params = params, envir = new.env(parent = globalenv()))
+   }
+ )
+ 
   
   
-  datasetSelect0 <- reactive({
-    datasetSelect0 <- creditos
-  })
+### Seccion Stresting
+ 
+ ##### Simplemente se llama a clavar
+ output$Stres45 <- renderText({
+   
+   
+   ca23 <- try(calvar()[[5]])
+   
+   
+   if (class(ca23)=="try-error") {
+     
+     "Cargue datos"
+     
+   }else{ca23}
+   
+   
+   
+ })
   
   
-  datasetInput0 <- reactive({
-    
-    inFiler <- input$file_datacrm0
-    
-    if (is.null(inFiler))
-      return(NULL)
-    read.table(inFiler$datapath, header = input$headecrm0,
-               sep = input$sepcrm0, quote = input$quotecrm0)
-    
-  })
   
   
-  data6 <- reactive({
-    if(input$dataset0){
-      data <- datasetSelect0()}
-    
-    else {
-      data <- datasetInput0()
-    }
-  })
+  
+  
+  
+ 
   
   ###Datos
   
-  output$datatable0<-renderDataTable({
-    data6()
-  },options = list(scrollX=T,scrollY=300))
+ 
   
-  
-  calvar <- reactive({
-    
-    withProgress(message="simulando", value = 0,{
-      MT <- data4()
-      
-      
-      clasi <- colnames(MT)
-      
-      
-      RP <- data5()
-      RP <- RP[,"Perdida"]
-      
-      creditos1 <- data6()
-      
-      
-      
-      NSim <- as.numeric(input$simcrm)
-      
-      M <- NULL
-      for (j in 1:NSim) {
-        
-        
-        N <- NULL 
-        for (i in 1:length(clasi)) {
-          l <- subset(creditos1,calif==clasi[i]) 
-          g <- dice.roll(faces=length(clasi), dice=length(l[,"creditos"]), rolls=1, weights=as.numeric(MT[i,]/100))
-          
-          N[i] <- sum((l[,"creditos"])*RP[as.numeric(g$results[,1:length(l[,"creditos"])])])
-        }
-        
-        M[j] <- sum(N)
-        
-      }
-      
-      var <- mean(M)+(sd(M)*qnorm(as.numeric(input$conf1)/100))
-      
-      tvar <- mean(M)+((sd(M)*dnorm(qnorm(as.numeric(input$conf1)/100)))/(1-(as.numeric(input$conf1)/100)))
-      
-      strescr <- (mean(M)+(mean(M)*as.numeric(input$stress3)))+((sd(M)+sd(M)*as.numeric(input$stress3))*qnorm(as.numeric(input$conf1)/100))
-      
-      return(list(var,mean(M),M,tvar, strescr))
-    })
-    
-  })
-  
-  output$pe122 <- renderText({
-    ca4 <- try(calvar()[[2]])
-    if (class(ca4)=="try-error") {
-      
-      "Cargue datos y seleccione parametros"
-    }else{ca4}
-    
-    
-    
-    
-  })  
-  
-  output$var122 <- renderText({
-    
-    ca5 <- try(calvar()[[1]])
-    if (class(ca5)=="try-error") {
-      
-      "Cargue datos y seleccione parametros"
-    }else{ca5}
-    
-    
-    
-    
-    
-  })  
-  
-  output$tvar122 <- renderText({
-    
-    ca6 <- try(calvar()[[4]])
-    if (class(ca6)=="try-error") {
-      
-      "Cargue datos y seleccione parametros"
-    }else{ca6}
-    
-    
-    
-    
-    
-  })  
-  
-  
-  datasetSelectMT <- reactive({
-    datasetSelect <- transic
-  })
-  
-  
-  
-  
-  
-  datasetInputMT <- reactive({
-    
-    inFile <- input$file_dataMT
-    
-    if (is.null(inFile))
-      return(NULL)
-    read.table(inFile$datapath, header = input$headerMT,
-               sep = input$sepMT, quote = input$quoteMT)
-    
-  })
-  
-  
-  
-  data10 <- reactive({
-    if(input$datasetMT){
-      data <- datasetSelectMT()}
-    
-    else {
-      data <- datasetInputMT()
-    }
-  })
-  output$datatableMT<-renderDataTable({
-    data10()
-  },options = list(scrollX=T,scrollY=300))
+
   
   
   
@@ -1721,87 +1810,63 @@ shinyServer(function(input, output, session) {
   
   
   
-  datasetSelectC <- reactive({
-    datasetSelect <- clases1
-  })
   
   
   
   
   
-  datasetInputC <- reactive({
-    
-    inFile <- input$file_dataC
-    
-    if (is.null(inFile))
-      return(NULL)
-    read.table(inFile$datapath, header = input$headerMT,
-               sep = input$sepMT, quote = input$quoteMT)
-    
-  })
-  
-  
-  
-  data11 <- reactive({
-    if(input$datasetC){
-      data <- datasetSelectC()}
-    
-    else {
-      data <- datasetInputC()
-    }
-  })
-  output$datatableC<-renderDataTable({
-    data11()
-  },options = list(scrollX=T,scrollY=300))
   
   
   
   
-  CR <- reactive({
-    
-    histo <- data11()
-    
-    N <- NULL
-    
-    
-    clases <- levels(histo[,1])
-    
-    for (i in 1:length(clases)) {
-      
-      s <- which(histo[,1]==clases[i])
-      
-      s1 <- histo[,2]
-      
-      N[i] <- mean(s1[s])
-      
-    }
-    
-    N <- N /100
-    
-    
-    result <- data.frame(N,clases)
-    
-    colnames(result) <- c("Perdida" , "Calif")
-    
-    return(result)
-    
-    
-    
-  })
   
   
   
-  output$datatableCR<-renderDataTable({
-    
-    ca20 <- try(CR())
-    if (class(ca20)=="try-error") {
-      
-      "Cargue datos"
-    }else{ca20}
-    
-    
-    
-  },options = list(scrollX=T,scrollY=300))
+  
+  
+  
+ 
+  
+  
+  
+  
+  
+  
+
+  
+  
+  
+  
+ 
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+   
+  
+  
+  
+  
+  
+  
+  
+  
+  
+ 
+  
+ 
   
   
   calraroc <- reactive({
@@ -1993,21 +2058,7 @@ shinyServer(function(input, output, session) {
   
   
   
-  output$Stres45 <- renderText({
-  
-    
-    ca23 <- try(calvar()[[5]])
-    
-    
-    if (class(ca23)=="try-error") {
-      
-      "Cargue datos"
-      
-    }else{ca23}
-    
-      
-    
-    })
+ 
   
   
   
@@ -2049,19 +2100,6 @@ shinyServer(function(input, output, session) {
   
   
   
-  output$reporte2 <- downloadHandler(
-    
-    filename = "reporte2.pdf",
-    content = function(file){
-      tempReport <- file.path(tempdir(),"reporte2.Rmd")
-      file.copy("reporte2.Rmd", tempReport, overwrite = TRUE)
-      params <- list(vari1 =data4(),vari2=data5(),vari3=calvar(),vari4 = input$simcrm)
-      
-      
-      
-      
-      rmarkdown::render(tempReport,output_file = file,params = params, envir = new.env(parent = globalenv()))
-    }
-  )
+  
   
 })
