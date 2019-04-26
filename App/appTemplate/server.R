@@ -1792,80 +1792,7 @@ shinyServer(function(input, output, session) {
   
   
   
-  
-  
-  
-  
- 
-  
-  ###Datos
-  
- 
-  
-
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
- 
-  
-  
-  
-  
-  
-  
-
-  
-  
-  
-  
- 
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-   
-  
-  
-  
-  
-  
-  
-  
-  
-  
- 
-  
+################### Indicadores contables#################
  
   
   
@@ -1876,15 +1803,15 @@ shinyServer(function(input, output, session) {
     
       
     if (input$meto==2) {
-        varr = as.numeric(calvar()[1])
-        per <- as.numeric(calvar()[2])
+        varr = as.numeric(calvar()[[1]])
+        per <- as.numeric(calvar()[[2]])
         ing <- 138519.4
         
         raroc <- (ing-per)/varr
     }else{
       
-      varr <-  calvar1()
-      per <- calpe()
+      varr <-  CrediTR()[2]
+      per <- CrediTR()[1]
       ing <- 1385190.4
       raroc <- (ing-per)/varr
       }
@@ -1896,6 +1823,8 @@ shinyServer(function(input, output, session) {
   })
   
   
+ 
+ 
   rar1 <- reactive({
     
     per <- NULL
@@ -1904,14 +1833,14 @@ shinyServer(function(input, output, session) {
     
     if (input$meto==2) {
       
-      per <- as.numeric(calvar()[2])
+      per <- as.numeric(calvar()[[2]])
       
       
       rar <- as.numeric(datasetInputindices()[4,2])-per
     }else{
       
       
-      per <- calpe()
+      per <- CrediTR()[1]
       
       rar <- as.numeric(datasetInputindices()[4,2])-per
     }
@@ -1921,6 +1850,7 @@ shinyServer(function(input, output, session) {
     
     return(rar)
   })
+  
   
   rorac1 <- reactive({
     
@@ -1938,7 +1868,7 @@ shinyServer(function(input, output, session) {
       
       a <- as.numeric(datasetInputindices()[4,2])
       
-      rac <- caltvar()
+      rac <- CrediTR()[3]
       
       rorac<- a/rac
       
@@ -1971,7 +1901,7 @@ shinyServer(function(input, output, session) {
       
       a <- as.numeric(datasetInputindices()[4,2])
       
-      rac <- caltvar()
+      rac <-  CrediTR()[3]
       
       
       rarora <- rar/rac
@@ -2002,7 +1932,7 @@ shinyServer(function(input, output, session) {
     }else{
       
       
-      var <- calvar1()
+      var <-  CrediTR()[2]
       
       
       raroc <- rar/var
