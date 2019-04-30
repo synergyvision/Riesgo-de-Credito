@@ -25,21 +25,21 @@
 <meta name="author" content="Synergy Vision">
 
 
-<meta name="date" content="2019-04-05">
+<meta name="date" content="2019-02-12">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="software-tools.html">
-
-<script src="libs/jquery/jquery.min.js"></script>
-<link href="libs/gitbook/css/style.css" rel="stylesheet" />
-<link href="libs/gitbook/css/plugin-bookdown.css" rel="stylesheet" />
-<link href="libs/gitbook/css/plugin-highlight.css" rel="stylesheet" />
-<link href="libs/gitbook/css/plugin-search.css" rel="stylesheet" />
-<link href="libs/gitbook/css/plugin-fontsettings.css" rel="stylesheet" />
+<link rel="prev" href="creditmetrics.html">
+<link rel="next" href="software-tools.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
 
 
 
@@ -50,43 +50,6 @@
 <script src="https://cdn.datacamp.com/datacamp-light-latest.min.js"></script>
 
 
-<style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-</style>
 
 <link rel="stylesheet" href="css/style.css" type="text/css" />
 </head>
@@ -112,7 +75,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#agradecimientos"><i class="fa fa-check"></i>Agradecimientos</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="acerca-del-autor.html"><a href="acerca-del-autor.html"><i class="fa fa-check"></i>Acerca del Autor</a></li>
-<li class="chapter" data-level="1" data-path="introduccion.html"><a href="introduccion.html"><i class="fa fa-check"></i><b>1</b> Introducción</a></li>
+<li class="chapter" data-level="1" data-path="introduccion.html"><a href="introduccion.html"><i class="fa fa-check"></i><b>1</b> Introducción</a><ul>
+<li class="chapter" data-level="1.1" data-path="introduccion.html"><a href="introduccion.html#motivation"><i class="fa fa-check"></i><b>1.1</b> Motivation</a></li>
+</ul></li>
 <li class="chapter" data-level="2" data-path="introduccion-a-la-teoria-de-probabilidad.html"><a href="introduccion-a-la-teoria-de-probabilidad.html"><i class="fa fa-check"></i><b>2</b> Introducción a la teoría de probabilidad</a><ul>
 <li class="chapter" data-level="2.1" data-path="introduccion-a-la-teoria-de-probabilidad.html"><a href="introduccion-a-la-teoria-de-probabilidad.html#espacio-de-probabilidad"><i class="fa fa-check"></i><b>2.1</b> Espacio de probabilidad</a></li>
 <li class="chapter" data-level="2.2" data-path="introduccion-a-la-teoria-de-probabilidad.html"><a href="introduccion-a-la-teoria-de-probabilidad.html#variables-aleatorias-y-funcion-de-distribucion."><i class="fa fa-check"></i><b>2.2</b> Variables aleatorias y función de distribución.</a><ul>
@@ -136,13 +101,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="3.7" data-path="conceptos-de-la-gestion-del-riesgo-de-credito.html"><a href="conceptos-de-la-gestion-del-riesgo-de-credito.html#matriz-de-transicion"><i class="fa fa-check"></i><b>3.7</b> Matriz de transición</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="scoring-de-credito.html"><a href="scoring-de-credito.html"><i class="fa fa-check"></i><b>4</b> Scoring de credito</a><ul>
-<li class="chapter" data-level="4.1" data-path="scoring-de-credito.html"><a href="scoring-de-credito.html#estructura-del-scoring-de-credito"><i class="fa fa-check"></i><b>4.1</b> Estructura del Scoring de Crédito</a></li>
-<li class="chapter" data-level="4.2" data-path="scoring-de-credito.html"><a href="scoring-de-credito.html#el-modelo-de-probabilidad-lineal"><i class="fa fa-check"></i><b>4.2</b> El modelo de probabilidad lineal</a><ul>
-<li class="chapter" data-level="4.2.1" data-path="scoring-de-credito.html"><a href="scoring-de-credito.html#los-modelos-probit-y-logit."><i class="fa fa-check"></i><b>4.2.1</b> Los modelos probit y logit.</a></li>
-<li class="chapter" data-level="4.2.2" data-path="scoring-de-credito.html"><a href="scoring-de-credito.html#estimacion-de-los-modelos-logit-y-probit"><i class="fa fa-check"></i><b>4.2.2</b> Estimación de los modelos logit y probit</a></li>
-<li class="chapter" data-level="4.2.3" data-path="scoring-de-credito.html"><a href="scoring-de-credito.html#interpretacion-del-modelo"><i class="fa fa-check"></i><b>4.2.3</b> Interpretación del modelo</a></li>
-<li class="chapter" data-level="4.2.4" data-path="scoring-de-credito.html"><a href="scoring-de-credito.html#relacion-entre-el-score-y-el-riesgo"><i class="fa fa-check"></i><b>4.2.4</b> Relación entre el score y el riesgo</a></li>
-<li class="chapter" data-level="4.2.5" data-path="scoring-de-credito.html"><a href="scoring-de-credito.html#uso-de-modelos-lineales-para-la-seleccion-de-variables-metodos-de-busqueda-secuencial."><i class="fa fa-check"></i><b>4.2.5</b> Uso de modelos lineales para la selección de variables (Métodos de búsqueda secuencial).</a></li>
+<li class="chapter" data-level="4.1" data-path="scoring-de-credito.html"><a href="scoring-de-credito.html#estructura-del-scoring-de-credito"><i class="fa fa-check"></i><b>4.1</b> Estructura del Scoring de Crédito</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="scoring-de-credito.html"><a href="scoring-de-credito.html#los-modelos-probit-y-logit."><i class="fa fa-check"></i><b>4.1.1</b> Los modelos probit y logit.</a></li>
+<li class="chapter" data-level="4.1.2" data-path="scoring-de-credito.html"><a href="scoring-de-credito.html#interpretacion-del-modelo"><i class="fa fa-check"></i><b>4.1.2</b> Interpretación del modelo</a></li>
+<li class="chapter" data-level="4.1.3" data-path="scoring-de-credito.html"><a href="scoring-de-credito.html#relacion-entre-el-score-y-el-riesgo"><i class="fa fa-check"></i><b>4.1.3</b> Relación entre el score y el riesgo</a></li>
+<li class="chapter" data-level="4.1.4" data-path="scoring-de-credito.html"><a href="scoring-de-credito.html#uso-de-modelos-lineales-para-la-seleccion-de-variables-metodos-de-busqueda-secuencial."><i class="fa fa-check"></i><b>4.1.4</b> Uso de modelos lineales para la selección de variables (Métodos de búsqueda secuencial).</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="creditrisk.html"><a href="creditrisk.html"><i class="fa fa-check"></i><b>5</b> CreditRisk+</a><ul>
@@ -165,41 +128,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="6.4.1" data-path="creditmetrics.html"><a href="creditmetrics.html#simulacion-de-montecarlo"><i class="fa fa-check"></i><b>6.4.1</b> Simulación de MonteCarlo</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="manual-tecnico-de-la-aplicacion-vision-creditrisk.html"><a href="manual-tecnico-de-la-aplicacion-vision-creditrisk.html"><i class="fa fa-check"></i><b>7</b> Manual técnico de la aplicación Vision CreditRisk</a><ul>
-<li class="chapter" data-level="7.1" data-path="manual-tecnico-de-la-aplicacion-vision-creditrisk.html"><a href="manual-tecnico-de-la-aplicacion-vision-creditrisk.html#presentacion-de-la-aplicacion."><i class="fa fa-check"></i><b>7.1</b> Presentación de la aplicación.</a></li>
-<li class="chapter" data-level="7.2" data-path="manual-tecnico-de-la-aplicacion-vision-creditrisk.html"><a href="manual-tecnico-de-la-aplicacion-vision-creditrisk.html#primera-seccion-creditrisk"><i class="fa fa-check"></i><b>7.2</b> Primera sección: CreditRisk+</a><ul>
-<li class="chapter" data-level="7.2.1" data-path="manual-tecnico-de-la-aplicacion-vision-creditrisk.html"><a href="manual-tecnico-de-la-aplicacion-vision-creditrisk.html#datos"><i class="fa fa-check"></i><b>7.2.1</b> Datos</a></li>
-<li class="chapter" data-level="7.2.2" data-path="manual-tecnico-de-la-aplicacion-vision-creditrisk.html"><a href="manual-tecnico-de-la-aplicacion-vision-creditrisk.html#estadisticos"><i class="fa fa-check"></i><b>7.2.2</b> Estadísticos:</a></li>
-<li class="chapter" data-level="7.2.3" data-path="manual-tecnico-de-la-aplicacion-vision-creditrisk.html"><a href="manual-tecnico-de-la-aplicacion-vision-creditrisk.html#seleccion-de-variables"><i class="fa fa-check"></i><b>7.2.3</b> Seleccion de variables</a></li>
-</ul></li>
-<li class="chapter" data-level="7.3" data-path="manual-tecnico-de-la-aplicacion-vision-creditrisk.html"><a href="manual-tecnico-de-la-aplicacion-vision-creditrisk.html#perdida-por-incumplimiento"><i class="fa fa-check"></i><b>7.3</b> Pérdida por incumplimiento</a></li>
-<li class="chapter" data-level="7.4" data-path="manual-tecnico-de-la-aplicacion-vision-creditrisk.html"><a href="manual-tecnico-de-la-aplicacion-vision-creditrisk.html#score-de-credito."><i class="fa fa-check"></i><b>7.4</b> Score de Crédito.</a><ul>
-<li class="chapter" data-level="7.4.1" data-path="manual-tecnico-de-la-aplicacion-vision-creditrisk.html"><a href="manual-tecnico-de-la-aplicacion-vision-creditrisk.html#seleccion-y-resultados-del-modelo"><i class="fa fa-check"></i><b>7.4.1</b> Selección y resultados del modelo</a></li>
-<li class="chapter" data-level="7.4.2" data-path="manual-tecnico-de-la-aplicacion-vision-creditrisk.html"><a href="manual-tecnico-de-la-aplicacion-vision-creditrisk.html#score-de-la-cartera-de-credito."><i class="fa fa-check"></i><b>7.4.2</b> Score de la cartera de crédito.</a></li>
-<li class="chapter" data-level="7.4.3" data-path="manual-tecnico-de-la-aplicacion-vision-creditrisk.html"><a href="manual-tecnico-de-la-aplicacion-vision-creditrisk.html#proyeccion-a-nuevos-clientes."><i class="fa fa-check"></i><b>7.4.3</b> Proyección a nuevos clientes.</a></li>
-</ul></li>
-<li class="chapter" data-level="7.5" data-path="manual-tecnico-de-la-aplicacion-vision-creditrisk.html"><a href="manual-tecnico-de-la-aplicacion-vision-creditrisk.html#parametros-y-resultados."><i class="fa fa-check"></i><b>7.5</b> Parametros y resultados.</a><ul>
-<li class="chapter" data-level="7.5.1" data-path="manual-tecnico-de-la-aplicacion-vision-creditrisk.html"><a href="manual-tecnico-de-la-aplicacion-vision-creditrisk.html#parametros-iniciales"><i class="fa fa-check"></i><b>7.5.1</b> Parámetros iniciales</a></li>
-<li class="chapter" data-level="7.5.2" data-path="manual-tecnico-de-la-aplicacion-vision-creditrisk.html"><a href="manual-tecnico-de-la-aplicacion-vision-creditrisk.html#resultados"><i class="fa fa-check"></i><b>7.5.2</b> Resultados</a></li>
-</ul></li>
-<li class="chapter" data-level="7.6" data-path="manual-tecnico-de-la-aplicacion-vision-creditrisk.html"><a href="manual-tecnico-de-la-aplicacion-vision-creditrisk.html#stress-testing"><i class="fa fa-check"></i><b>7.6</b> Stress Testing</a></li>
-<li class="chapter" data-level="7.7" data-path="manual-tecnico-de-la-aplicacion-vision-creditrisk.html"><a href="manual-tecnico-de-la-aplicacion-vision-creditrisk.html#segunda-seccion-credimetrics"><i class="fa fa-check"></i><b>7.7</b> Segunda sección: Credimetrics</a></li>
-<li class="chapter" data-level="7.8" data-path="manual-tecnico-de-la-aplicacion-vision-creditrisk.html"><a href="manual-tecnico-de-la-aplicacion-vision-creditrisk.html#creditos"><i class="fa fa-check"></i><b>7.8</b> Créditos</a></li>
-<li class="chapter" data-level="7.9" data-path="manual-tecnico-de-la-aplicacion-vision-creditrisk.html"><a href="manual-tecnico-de-la-aplicacion-vision-creditrisk.html#matriz-de-trancicion"><i class="fa fa-check"></i><b>7.9</b> Matriz de trancición</a><ul>
-<li class="chapter" data-level="7.9.1" data-path="manual-tecnico-de-la-aplicacion-vision-creditrisk.html"><a href="manual-tecnico-de-la-aplicacion-vision-creditrisk.html#calculo-de-la-matriz-de-transicion"><i class="fa fa-check"></i><b>7.9.1</b> Cálculo de la matriz de transición</a></li>
-<li class="chapter" data-level="7.9.2" data-path="manual-tecnico-de-la-aplicacion-vision-creditrisk.html"><a href="manual-tecnico-de-la-aplicacion-vision-creditrisk.html#selececcion-de-la-matriz-de-transicion"><i class="fa fa-check"></i><b>7.9.2</b> Selecección de la matriz de transición</a></li>
-</ul></li>
-<li class="chapter" data-level="7.10" data-path="manual-tecnico-de-la-aplicacion-vision-creditrisk.html"><a href="manual-tecnico-de-la-aplicacion-vision-creditrisk.html#perdida-por-clase."><i class="fa fa-check"></i><b>7.10</b> Pérdida por clase.</a><ul>
-<li class="chapter" data-level="7.10.1" data-path="manual-tecnico-de-la-aplicacion-vision-creditrisk.html"><a href="manual-tecnico-de-la-aplicacion-vision-creditrisk.html#calculo-de-perdida-esperada"><i class="fa fa-check"></i><b>7.10.1</b> Cálculo de pérdida esperada</a></li>
-<li class="chapter" data-level="7.10.2" data-path="manual-tecnico-de-la-aplicacion-vision-creditrisk.html"><a href="manual-tecnico-de-la-aplicacion-vision-creditrisk.html#perdida-esperada-1"><i class="fa fa-check"></i><b>7.10.2</b> Pérdida esperada</a></li>
-</ul></li>
-<li class="chapter" data-level="7.11" data-path="manual-tecnico-de-la-aplicacion-vision-creditrisk.html"><a href="manual-tecnico-de-la-aplicacion-vision-creditrisk.html#simulacion-y-resultados."><i class="fa fa-check"></i><b>7.11</b> Simulación y resultados.</a></li>
-<li class="chapter" data-level="7.12" data-path="manual-tecnico-de-la-aplicacion-vision-creditrisk.html"><a href="manual-tecnico-de-la-aplicacion-vision-creditrisk.html#stress-testing."><i class="fa fa-check"></i><b>7.12</b> Stress Testing.</a></li>
-<li class="chapter" data-level="7.13" data-path="manual-tecnico-de-la-aplicacion-vision-creditrisk.html"><a href="manual-tecnico-de-la-aplicacion-vision-creditrisk.html#tercera-seccion-indicadores-contables"><i class="fa fa-check"></i><b>7.13</b> Tercera sección: Indicadores contables</a></li>
-<li class="chapter" data-level="7.14" data-path="manual-tecnico-de-la-aplicacion-vision-creditrisk.html"><a href="manual-tecnico-de-la-aplicacion-vision-creditrisk.html#calculo-del-raroc"><i class="fa fa-check"></i><b>7.14</b> Cálculo del RAROC</a><ul>
-<li class="chapter" data-level="7.14.1" data-path="manual-tecnico-de-la-aplicacion-vision-creditrisk.html"><a href="manual-tecnico-de-la-aplicacion-vision-creditrisk.html#raroc"><i class="fa fa-check"></i><b>7.14.1</b> RAROC</a></li>
-</ul></li>
-</ul></li>
+<li class="chapter" data-level="7" data-path="manual-tecnico-de-la-aplicacion-vision-credit-risk.html"><a href="manual-tecnico-de-la-aplicacion-vision-credit-risk.html"><i class="fa fa-check"></i><b>7</b> Manual técnico de la aplicación Vision Credit Risk</a></li>
 <li class="appendix"><span><b>Apéndice</b></span></li>
 <li class="chapter" data-level="A" data-path="software-tools.html"><a href="software-tools.html"><i class="fa fa-check"></i><b>A</b> Software Tools</a><ul>
 <li class="chapter" data-level="A.1" data-path="software-tools.html"><a href="software-tools.html#r-and-r-packages"><i class="fa fa-check"></i><b>A.1</b> R and R packages</a></li>
@@ -227,8 +156,12 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="referencias" class="section level1 unnumbered">
-<h1>Referencias</h1>
+<div id="manual-tecnico-de-la-aplicacion-vision-credit-risk" class="section level1">
+<h1><span class="header-section-number">Capítulo 7</span> Manual técnico de la aplicación Vision Credit Risk</h1>
+
+</div>
+
+
 
 </div>
 <script>
@@ -242,17 +175,17 @@ ga('send', 'pageview');
           </div>
         </div>
       </div>
-<a href="software-tools.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="creditmetrics.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="software-tools.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
-<script src="libs/gitbook/js/app.min.js"></script>
-<script src="libs/gitbook/js/lunr.js"></script>
-<script src="libs/gitbook/js/plugin-search.js"></script>
-<script src="libs/gitbook/js/plugin-sharing.js"></script>
-<script src="libs/gitbook/js/plugin-fontsettings.js"></script>
-<script src="libs/gitbook/js/plugin-bookdown.js"></script>
-<script src="libs/gitbook/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
@@ -273,7 +206,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/synergyvision/Teoria-de-Portafolio/edit/master/bookdown/500-references.Rmd",
+"link": "https://github.com/synergyvision/Teoria-de-Portafolio/edit/master/bookdown/303-ManuelVisionRisk.Rmd",
 "text": "Edit"
 },
 "download": ["Riesgo-de-Credito.pdf"],

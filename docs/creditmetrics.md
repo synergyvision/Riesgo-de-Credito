@@ -1,0 +1,500 @@
+--- 
+title: "Riesgo de Crédito"
+subtitle: "Ciencia de los Datos Financieros"
+author: "Synergy Vision"
+date: "2019-04-08"
+knit: "bookdown::render_book"
+documentclass: krantz
+bibliography: [book.bib, packages.bib]
+biblio-style: apalike
+link-citations: yes
+colorlinks: yes
+lot: yes
+lof: yes
+fontsize: 12pt
+monofontoptions: "Scale=0.8"
+keep_md: yes
+site: bookdown::bookdown_site
+description: ""
+url: 'http\://synergy.vision/Riesgo-de-Credito/'
+github-repo: synergyvision/Riesgo-de-Credito/
+cover-image: images/cover.png
+---
+
+# Prefacio {-}
+
+Placeholder
+
+
+## ¿Por qué  leer este libro? {-}
+## Estructura del libro {-}
+## Información sobre los programas y convenciones {-}
+## Prácticas interactivas con R {-}
+## Agradecimientos {-}
+
+<!--chapter:end:index.Rmd-->
+
+
+# Acerca del Autor {-}
+
+Este material es un esfuerzo de equipo en Synergy Vision, (<http://synergy.vision/nosotros/>).		 
+
+El propósito de este material es ofrecer una experiencia de aprendizaje distinta y enfocada en el estudiante. El propósito es que realmente aprenda y practique con mucha intensidad. La idea es cambiar el modelo de clases magistrales y ofrecer una experiencia más centrada en el estudiante y menos centrado en el profesor. Para los temas más técnicos y avanzados es necesario trabajar de la mano con el estudiante y asistirlo en el proceso de aprendizaje con prácticas guiadas, material en línea e interactivo, videos, evaluación contínua de brechas y entendimiento, entre otros, para procurar el dominio de la materia.
+  		  
+Nuestro foco es la Ciencia de los Datos Financieros y para ello se desarrollará material sobre: **Probabilidad y Estadística Matemática en R**, **Programación Científica en R**, **Mercados**, **Inversiones y Trading**, **Datos y Modelos Financieros en R**, **Renta Fija**, **Inmunización de Carteras de Renta Fija**, **Teoría de Riesgo en R**, **Finanzas Cuantitativas**, **Ingeniería Financiera**, **Procesos Estocásticos en R**, **Series de Tiempo en R**, **Ciencia de los Datos**, **Ciencia de los Datos Financieros**, **Simulación en R**, **Desarrollo de Aplicaciones Interactivas en R**, **Minería de Datos**, **Aprendizaje Estadístico**, **Estadística Multivariante**, **Riesgo de Crédito**, **Riesgo de Liquidez**, **Riesgo de Mercado**, **Riesgo Operacional**, **Riesgo de Cambio**, **Análisis Técnico**, **Inversión Visual**, **Finanzas**, **Finanzas Corporativas**, **Valoración**, **Teoría de Portafolio**, entre otros.
+
+Nuestra cuenta de Twitter es (https://twitter.com/bysynergyvision) y nuestros repositorios están en GitHub (https://github.com/synergyvision).
+  		  
+ **Somos Científicos de Datos Financieros**
+
+<!--chapter:end:000-author.Rmd-->
+
+
+# Introducción 
+
+Placeholder
+
+
+
+<!--chapter:end:010-introduction.Rmd-->
+
+
+# Introducción a la teoría de probabilidad
+
+Placeholder
+
+
+## Espacio de probabilidad
+## Variables aleatorias y función de distribución.
+###  Variable aleatoria
+### Tipos de variables aleatorias
+### Distribución de probabilidad:
+#### Distribución de probabilidad discreta
+#### Distribución de probabilidad continua
+### Función de distribución: 
+#### Caso discreto
+#### Caso continuo
+### Algunos tipos de variables aleatorias
+#### Bernoulli
+#### Binomial
+#### Poisson
+#### Distribución uniforme
+#### Distribución exponencial
+#### Distribución normal
+### Esperanza de una variable aleatoria.
+#### Esperanza de una variable aleatoria discreta.
+#### Esperanza de una variable aleatoria continua.
+### Varianza de una variable aleatoria.
+### Covarianza de variables aleatorias.
+
+<!--chapter:end:100-ConceptosMate.Rmd-->
+
+
+# Conceptos de la gestión del riesgo de crédito
+
+Placeholder
+
+
+## Pérdida esperada
+## Probabilidad de incumplimiento (DP)
+## Exposición ($EAD$)
+## Pérdida dado el incumplimiento ($LGD$)
+## Pérdida inesperada ($UL$)
+## Capital económico o valor en riesgo
+##  Matriz de transición
+
+<!--chapter:end:200-nociones.Rmd-->
+
+
+# Scoring de credito
+
+Placeholder
+
+
+## Estructura del Scoring de Crédito
+### Los modelos probit y logit.
+### Interpretación del modelo
+### Relación entre el score y el riesgo
+### Uso de modelos lineales para la selección de variables (Métodos de búsqueda secuencial).
+#### Estimación por etapas (paso a paso o stepwise)
+#### La adición progresiva (forward) y la eliminación regresiva (backward)
+#### Advertencias sobre los métodos de búsqueda secuenciales
+
+<!--chapter:end:300-Scoring.Rmd-->
+
+
+# CreditRisk+
+
+Placeholder
+
+
+## La distribución del número de incumplimientos con probabilidades de impago fijas.
+## La agrupación por bandas de exposición las pérdidas
+## La determinación de la *distribución de pérdidas* de la cartera.
+## Obteniendo la distribución de las pérdidas
+## Obtención del VaR
+
+<!--chapter:end:301-creditrisk+.Rmd-->
+
+\mainmatter
+
+# CreditMetrics
+
+Mientras que en el caso de **CredictRisk+** se usa un enfoque actuarial mediante el cual se llega ha obtener una forma explícita de la distribución de pérdidas a través de la función generadora de probabilidades, en el  caso de **CredictMetrics**, aunque en teoría existe una representación explícita de la distribución de pérdidas, su obtención supera la capacidad de cálculo disponible en un computador convencional, y por lo tanto, está se estima a través de un proceso de simulación de *MonteCarlo*, otra caractéristica importante es que **CreditMetric** hace referencia, y utiliza extensamente, información que solo esta disponible en los mercados en desarrollo, aunque esto no impide que se aplique en los mercados emergentes si se hacen las edecuaciones correspondientes.
+
+Para la explicación de esta metodología usamos como guía el documento técnico de **CreditMetrics**. Iniciaremos con el caso más sencillo en el cual nuestrea cartera de créditos esta integrada por un único credito para luego generalizar el procedimiento a una cartera que puede incluir cualquier número $N$ de créditos. Pero primero establescamos los elementos básicos que usaremos en esta metodología.
+
+## Elementos que usa **Credimetrics**
+
++ *Conceptos relevantes al riesgo de crédito*: probabilidades de incumplimiento, patrones de migración entre los distintas clasificaciones que posean los clientes, umbrales que separen las calificaciones, el valor de los créditos, la tasa de recuperación en caso de incumplimiento de las calificaciones crediticia.
+
++ Información del mercado en general: Tales como datos sobre las calificaciones e indicadores sobre su calidad.
+
++ Información generada internamente por las intituciones que se pueda mapear a los estandares del mercado.
+
+
+Historicamente Credimetrics fue desarrollado para abordar el problema de medir el riesgo de credito de que los emisores que colocan papel que se negocia en el mercado de los Estados Unidos incumplan sus compromisos. En general, los elementos que son necesastios en esta metodología estan disponibles en mercados desarrollados, pero las intituciones financieras pueden crear procedimientos y metodologias internas para lograr suplir la falta de información. Los elementos clave del sistema son:
+
++ Las calificaciones que otorgan las instituciones financieras a los distintos elementos que conforman su portafolio.
+
++ Las diferencias de riesgo que expresan las distintas calificaciones.
+
++ Información sobre la tasa de recuperación sobre créditos que caen en la cartera vencida.
+
+Una característica importante de las calificaciones emitidas es que ellas aportan de manera implícita piezas clave para la evaluación del riesgo de crédito, como por ejemplo:
+
++ Probabilidades de incumplimiento históricas asociadas a cada calificación, así como las probabilidades de transición entre las categorias.
+
++ Las distintas tasas de interes asociadas a cada categoría.
+
+Otra parte fundamental del análisis es la cantidad que se espera recuperar en caso de que el crédito caiga en la cartera de vencidos. Aunque si el sistema de calificación es robusto raramente se espera que un crédito que halla pasado a la cartera de vencido este en una calificación alta. Pero al final, la calificación no solo depende del sistema interno de la institución, sino tambien de la garantias que ofresca el crédito.
+
+En general, todos los requerimientos estan entrelazados, por ejemplo las calificaciones que se otorgan dependen de cosas como: historial de incumplimiento, garantias, utilidades de los créditos en los últimos años, el pais de origen, entre otros.
+
+A manera de ilustración se presenta una matriz de transición publicada por Standard & Poor's en Abril de 1966. En ella se aprecian las probabilidades de transición de que un bono que se encuentra en una calificación dada migre a otra calificación, por ejemplo en la tabla se aprecia que la probabilidad de que un bono que esta en la calificación BB migre a una calificación C es de un 1%.
+
+| Calificación inicial |  AAA  |   AA  |   A   | BBB   | BB    | B     | C     |
+|:--------------------:|:-----:|:-----:|:-----:|-------|-------|-------|-------|
+| AAA                  | 90.81 |  8.33 |  0.68 | 0.06  | 0.12  | 0.00  | 0.00  |
+| AA                   |  0.70 | 90.65 |  7.79 | 0.64  | 0.06  | 0.14  | 0.02  |
+| A                    |  0.09 |  2.27 | 91.05 | 5.52  | 0.74  | 0.26  | 0.01  |
+| BBB                  |  0.02 |  0.33 |  5.95 | 86.93 | 5.30  | 1.17  | 0.12  |
+| BB                   |  0.03 |  0.14 |  0.67 | 7.73  | 80.53 | 8.84  | 1.00  |
+| B                    | 0.00  | 0.11  | 0.24  | 0.43  | 6.48  | 83.46 | 4.07  |
+| C                    |  0.22 |  0.00 |  0.22 | 1.30  | 2.38  | 11.24 | 64.86 |
+
+
+
+Las tasas de recuperación de los créditos como ya se menciono son fundamentales, y no son únicamente proporcionadas por las instituciones financieras, estas pueden recurrir a terceros por las calificaciones de los créditos. Acontinuación se presenta una tabla que muestra las tasas de recuperación de créditos elaboradsas por Moody's y otros académicos.
+
+|      Prelación      | Media (%) | Desv. Std (%) |
+|:-------------------:|:---------:|:-------------:|
+| Senior Garantizada  |   53.80   |     26.86     |
+| Senior sin Garantía |   51.13   |     25.45     |
+| Senior Subordinado  |   38.52   |     23.81     |
+| Subordinada         |   32.74   |     20.18     |
+| Junior Subordinada  |   17.09   |     10.90     |
+
+Una acotación interesante, es que originalmente credimetrics esta direccionada a medir el riesgo de crédito de una cartera de bonos. Sin embargo puede ser aplicado a distintos tipos de posiciones que involucren riesgo de crédito, como por ejemplo: posiciones cortas en divisas, futuros, opciones o como es el caso de interes, créditos tradicionales. Ahora, daremos el ejemplo de credimetrics usando un único crédito.
+
+## El caso de un solo crédito 
+
+Una vez descrito los elementos necesarios para esta metodología vamos a empezar por realizar los pasos que son necesarios para la medición del riesgo de crédito de una cartera de un solo activo. Utilizaremos un ejemplo parecido al que procede del documento de Credimetrics con la diferencia que ellos usan un bono y nosotros un credito personal. Los tres pasos a realizar son:
+
++ Dependiendo de la calificación del bono, se obtiene la probabilidad de que migre hacia un estado de migración diferente.
+
++ Se calcula el saldo o la exposición de los créditos.
+
++ Se aplican las probabilidades de migración a la expoción que posee el crédito para obtener la distribución de probabilidad de pérdida o perfil de riesgo del instrumento y las estadísticas que corresponden, es decir, la pérdida esperada, su varianza o desviación estandar, su VaR con un nivel de confianza deseado, entre otros.
+
+### Ejemplo 1
+
+Supongamos que tenemos un crédito con calificación BB con exposición de 250, la institución financiera posee la siguiente información sobre las probabilidades calificación de los créditos que estan en una calificación BB:
+
+| Calificación | Probabilidad de transición (%) |
+|:------------:|:------------------------------:|
+|      AAA     |                4               |
+|      AA      |                5               |
+|       A      |                9               |
+|      BBB     |               15               |
+|      BB      |               44               |
+|       B      |               18               |
+|      CCC     |                5               |
+
+Tambien la institución cuenta con las perdidad esperadas por calificación (las cuales representan la inversa aritmética de las tasas de recuperación  en caso de que el crédito caiga en default o mora)
+
+| Calificación | Pérdida esperada (%) |
+|:------------:|:--------------------:|
+|      AAA     |          0.1         |
+|      AA      |           3          |
+|       A      |           5          |
+|      BBB     |           9          |
+|      BB      |          18          |
+|       B      |          25          |
+|      CCC     |          40          |
+
+Ya con esta información podemos establecer una tabla con la pérdida esperada del crédito en las distintas calificaciones, la cual es: 
+
+| Calificación | Pérdida esperada del Crédito | Proababilidad |
+|:------------:|:----------------------------:|:-------------:|
+|      AAA     |             0.25             |       4       |
+|      AA      |              7.5             |       5       |
+|       A      |             12.5             |       9       |
+|      BBB     |             22.5             |       15      |
+|      BB      |              45              |       44      |
+|       B      |             62.5             |       18      |
+|      CCC     |              100             |       5       |
+
+De esta forma para obtener la pérdida esperada se procede a multiplicar la pérdida esperada de una calificación por la probabilidad de que el crédito caiga en la respectiva calificación y luego se realiza la suma global, de la siguiente  forma:
+
+
+\begin{align*} 
+PE = (0.25*0.04)+(7.5*0.05)& \\
+&+(12.5*0.09)+(22.5*0.15)+(45*0.44)&\\
+&+(62.5*0.18) +(100*0.05)=40.93
+\end{align*}
+
+Así la pérdida esperada de una cartera de un solo crédito de calificación BB de una exposición de 250 es de 40.935. Ahora para calcular el VaR a un nivel de confianza en especifico por ejemplo al 5% simplemente sumamos las probabilidad de manera descendentes de las calificaciones hasta llegar 95 en el caso de que se pase se toma la calificación en la cual ocurre el exceso, en nuestro ejemplo el VaR ocurre en la calificación B, así el $VaR_{5\%}=62.5$.
+
+En general, se suele pensar que una aproximación normal a la distribución de pérdidas puede ser idonea, pero esto es incorrecto pues suele ocurrir que las probabilidades de transición se concentren en los extremos de las calificaciones, esto se verá en el siguiente ejemplo.
+
+### Ejemplo 2
+
+Consideremos un bono con una calificación AA con un valor de 300 donde las probabilidades de tansición a las otras categorias esta representada en la siguiente tabla
+
+| Calificación | Probabilidad de transición (%) |
+|:------------:|:------------------------------:|
+|      AAA     |                15              |
+|      AA      |                48              |
+|       A      |                15              |
+|      BBB     |                12              |
+|      BB      |                5               |
+|       B      |                4               |
+|      CCC     |                1               |
+
+Además la tasas de perdida por calificación son las mismas que el ejemplo anterior
+
+
+Ya con esta información podemos establecer una tabla con la pérdida esperada del credito en las distintas calificaciones, la cual es: 
+
+| Calificación | Pérdida esperada del Crédito | Proababilidad |
+|:------------:|:----------------------------:|:-------------:|
+|      AAA     |             0.3              |       15      |
+|      AA      |             9                |       48      |
+|       A      |             15               |       15      |
+|      BBB     |             27               |       12      |
+|      BB      |             54               |       5       |
+|       B      |             75               |       4       |
+|      CCC     |             120              |       1       |
+
+Ahora de igual forma para obtener la paérdida esperada procedemos con el siguiente cálculo.
+
+
+\begin{align*} 
+PE = (0.3*0.15)+(9*0.48)& \\
+&+(15*0.15)+(27*0.12)+(54*0.05)&\\
+&+(75*0.04) +(120*0.01)=16.75
+\end{align*}
+
+Para cálcular el valor en riesgo al 95% es suficiente tomar la pérdida esperada de la calificación BB, así el $VaR_{95\%}=54$.
+
+Con este ejemplo podemos notsr que la distribución normal no se ajusta de manera adecuada a la distribución de pérdidas, pues esta concentrada en un extremo de las pérdidas por calificación.
+
+## Cartera de dos de créditos con probabilidades de treansición independientes.
+
+Como en realidad el caso de un solo instrumento no es de interes, pues una cartera de créditos de una institución financiera puede estar conformada por millones de créditos daremos un ejemplo ilustrativo con una cartera de dos créditos, con esto se pretende mostrar como aumenta el nivel de dificultad, mas adelante veremos que en general, no calcularemos la distribución de pérdidas explícitamente, sino realizaremos una aproximación por el método de simulación de Montecarlo.
+
+### Ejemplo 3
+
+Para facilitar los cálculos supondremos que nuestra cartera esta conformada por los créditos de los primeros dos ejemplos, la idea es crear una tabla con todas las combinaciones posibles de las sumas de pérdidas posibles entre los créditos, la cual es:
+
+| Crédito AA | AAA   |  AA  | A     | BBB   | BB    | B     | CCC    |
+|:----------:|-------|:----:|-------|-------|-------|-------|--------|
+| Crédito BB |       |      |       |       |       |       |        |
+|     AAA    | 0.55  | 9.25 | 15.25 | 27.25 | 54.25 | 75.25 | 120.25 |
+|     AA     | 7.8   | 16.5 | 22.5  | 34.5  | 61.5  | 82.5  | 127.5  |
+|      A     | 12.8  | 21.5 | 27.5  | 39.5  | 66.5  | 87.5  | 132.5  |
+|     BBB    | 22.8  | 31.5 | 37.5  | 49.5  | 76.5  | 97.5  | 142.5  |
+|     BB     | 45.3  |  54  | 60    | 72    | 99    | 120   | 165    |
+|      B     | 62.8  | 71.5 | 77.5  | 99.5  | 106.5 | 137.5 | 182.5  |
+|     CCC    | 100.3 | 109  | 115   | 127   | 154   | 175   | 220    |
+
+
+Esta tabla se puede enteder como sigue, la perdida esperada si el crédito BB migra a la calificación BBB y el crédito AA migra a la calificación CCC es 142.5, ahora para hallar la probabilidad debemos multiplicar las probabilidades correspondientes de que estas migraciones ocurran, es decir, $0.15*0.01=0.0015$. Ahora para hallar la pérdida esperada de esta cartera debemos encontrar todas las probabilidades de transición, lo cual se muestra en la siguiente tabla:
+
+
+| Crédito AA | AAA    |   AA   | A      | BBB    | BB     | B      | CCC    |
+|:----------:|--------|:------:|--------|--------|--------|--------|--------|
+| Crédito BB |        |        |        |        |        |        |        |
+|     AAA    | 0.006  | 0.0192 | 0.0060 | 0.0048 | 0.0020 | 0.0016 | 0.0004 |
+|     AA     | 0.0075 | 0.0240 | 0.0075 | 0.0060 | 0.0025 | 0.0020 | 0.0005 |
+|      A     | 0.0135 | 0.0432 | 0.0135 | 0.0108 | 0.0045 | 0.0036 | 0.0009 |
+|     BBB    | 0.0225 | 0.0720 | 0.0225 | 0.0180 | 0.0075 | 0.0060 | 0.0015 |
+|     BB     | 0.0660 | 0.2112 | 0.0660 | 0.0528 | 0.0220 | 0.0176 | 0.0044 |
+|      B     | 0.0270 | 0.0864 | 0.0270 | 0.0216 | 0.0090 | 0.0072 | 0.0018 |
+|     CCC    | 0.0075 | 0.0240 | 0.0075 | 0.0060 | 0.0025 | 0.0020 | 0.0005 |
+
+Ahora realizando todas las correspondientes multiplicaciones de las pérdidas por sus probabilidades y sumandolas, obtenemos que la pérdida esperada de una cartera con estos dos créditos en particular es de $57,86$. Ahora para obtener el VaR, ordenamos de menor a mayor las pérdidas y sumamos las respectivas probabilidades hasta llegar al nivel de confianza requerido, por ejemplo el VaR al 95% de esta cartera es de 115.
+
+## Aproximación de la distribución de pérdidas de una cartera con $n$ créditos.
+
+En el ejemplo anterior notamos como una cartera con 2 créditos con 7 posibles calificaciones existen $7^2$ combinaciones, si tuvieramos 50 créditos  en nuestra cartera hubiera $7^{50}$ combinaciones posibles, es decir, el coste computacional aumenta exponencialmente, por lo tanto, una cartera realista com miles e incluso millones de créditos se vuelve inviable si queremos realizar el cálculo de la misma forma que el ejemplo anterior, por lo tanto nos vemos obligados a realizar una aproximación a la distribución de pérdidas.
+
+### Simulación de MonteCarlo
+
+Ahora veremos como aproximar la distribución de pérdidad con el método más común, conocido como método de aproximación por simulación de MonteCarlo. Antes de describir el método debemos acotar que en general los eventos de migración crediticia pueden ser supuestos independientes o no entre las migraciones de otros créditos. Sin embargo en mercados poco desarrollodos  o donde la información es limitada se tiende a suponer la independencia entre los créditos de una cartera.
+
+
+#### ¿Que es un Método de Montecarlo?
+
+El término Monte Carlo se aplica a un conjunto de métodos matemáticos que se empezaron a usar en los 1940s para el desarrollo de armas nucleares en Los Alamos, favorecidos por la aparición de los ordenadores digitales modernos. Consisten en resolver un problema mediante la invención de juegos de azar cuyo comportamiento simula algún fenómeno real gobernado por una distribución de probabilidad (e.g. un proceso físico) o sirve para realizar un cálculo (e.g. evaluar una integral).
+
+Más técnicamente, un método de MonteCarlo es un proceso estocástico numérico, es decir, una secuencia de estados cuya evolución viene determinada por sucesos aleatorios. Recordemos que un suceso aleatorio es un conjunto de resultados que se producen con cierta probabilidad. Veamos un ejemplo ahora:
+
+#### Ejemplo: Gotas de lluvia para estimar $\pi$
+
+Consideremos un círculo  de radio unidad circunscrito por un cuadrado. Suponiendo una lluvia uniforme sobre el cuadrado, podemos hallar el valor de $\pi$ a partir de la probabilidad de que las gotas caigan dentro del círculo (próxima figura)
+
+![\label{fig:"sd"}](~/Riesgo_de_Credito/circulo.png)
+
+Sea $P$ dicha probabilidad, por calculo:
+
+$$P=\frac{\textrm{área del círculo}}{\textrm{área del cuadrado}}=\frac{\int_{-1}^1dx\int_{-\sqrt{1-x^2}}^{\sqrt{1-x^2}}dy}{\int_{-1}^1dx\int_{-1}^1dy}=\frac{2\int_{-1}^1\sqrt{1-x^2}dx}{2.2}=\frac{\pi}{4}$$
+
+Es decir $\pi=4P$. Ahora notemos lo siguiente:
+
++ Gracias a los métodos de integración de cálculo podemos relacionar rapidamente la probabilidad con $\pi$
+
++ Con un ordenador podemos generar números o pares de números pseudo aleatorios $(x,y)$ entre 0 y 1.
+
++ Entre mayor número de simulaciones realicemos mayor sera nuestra aproximación a $\pi$
+
+Para finalizar el ejemplo debemos encontrar la frcuencia de puntos que caen dentro de la circunferencia para aproximar $P$ de una manera correcta, así despues de 1000 simulaciones $\pi\approx 3,158733$.
+
+#### Números pseudoaleatorios
+
+Hemos visto que el método de MonteCarlo es un proceso estocástico númerico que nos permite resolver problemas de aproximación. Para ello se requiere muestrar variables aleatorias según una ley de distribución de probabilidad, por lo tanto es vital que nuestro método de muestreo sea efectivo, por lo tanto presentamos el siguiente test de calidad de números pseudoaleatorios.
+
++ Equidistribución: los números pseudoaleatorios deben repartirse por igual, como correspondería a una verdadera distribución uniforme
+
++ Largo periodo: todos los métodos de generación de números pseudoaleatorios tienen un periodo en el cual la secuencia de números se vuelve a repetir, por lo tanto, el periodo debe ser largo para no agotar la sequencia en un cálculo concreto.
+
++ Repetibilidad: a veces se necesita repetir un cálculo con exactamente los mismos números pseudoaleatorios. Así que conviene que el generador permita almacenar su estado
+
++ Largas subsecuencias disjuntas: Si la simulación es muy extensa resulta conveniente subdividirla en otras más pequeñas, para lo que es importante que sean estadísticamente independientes y así se puedan recombinar sin introducir correlaciones.
+
+
+Portabilidad: La rutina debe generar exactamente la misma secuencia de números no solamente por distintos lenguajes de programación sino también en distintas máquinas.
+
+
+Eficiencia: La generación de cada número debe consumir muy poco tiempo.
+
+Ahora para comprobar la eficiencia del método de generación de números pseudo aleatorios existen test estadísticos para comprobar su bondad, los mas usados son:
+
++ Test de frecuencia: Sirve para comprobar la equidistribución de $N$ valores generados.Se divide el intervalo $[0,1]$ en $k$ sub intervalos. Uno esperaría encontrar $N/k$ valores en cada sub intervalo. Sea $N_j$ la cantidad de valores encontrados en el intervalo $j$-ésimo. Entonces la siguiente $\chi^2$ permite hallar la probabilidad de que la distribución generada sea compatible con una verdadera distribución aleatoria uniforme,$$\chi^2=\frac{k}{N}\sum_{j=1}^k\bigg{(}N_j-\frac{N}{k}\bigg{)}^2$$ que se comportara asintóticamente como una $\chi^2(k-1)$
+
++ Test de la serie: Sirve para comprobar la independencia entre sucesivos numeros en una secuencia. Es una generalización del test anterior. Dividinos el intervalo $[0,1]$ en $r$ sub intervalos y miramos ternas de $s\geq2$ puntos $x_n=(x_n,x_{n+1},...,x_{n+s-1})$ consecutivamente generados. Cada una de las $N$ ternas $x_n$ generadas caerá dentro de uno de los $r^s$ bines en los que se divide este espacio $s$ dimensional. Si llamamos $N_{j_1,j_2,...j_s}$ con $j_i\in\{1,2,3,...,r\}$, el número de valores que caen en el bin $(j_1,j_2,...,j_s)$, la siguiente $\chi^2$ nos permita hallar la probabilidad de que la distribución generada sea uniforme, $$\chi^2=\frac{r^s}{N}\sum_{\{j_1,j_2,...j_s\}}\bigg{(}N_{j_1,j_2,...j_s}-\frac{N}{r^s}\bigg{)}$$ Se comportara asintóticamente como una $\chi^2(r^2-1)$
+
+#### Aplicando simulación de MonteCarlo para hallar la distribución de pérdidas de una cartera.
+
+Ahora una vez se pretenda usar un método algorítmico de generación de números aleatorios, se usa este metódo para generar eventos probabilísticos en los cuales se consideren todos los posibles eventos de transición entre las distintas calificaciones. Cada evento se considera como una simulación de un evento particular, por cada simulación los créditos se encuentran en una calificación determinada por la probabilidad de transición respectiva, este calificación trae con si un pérdida esperada por crédito, asi por cada simulación se obtiene una pérdida. 
+
+Ahora si nuestra cartera de crédito posee 1000 créditos, y existen 5 calificaciones, en la sección vimos que existen $5^{1000}$ posibles eventos, para imaginarnos esta cantidad basta saber que este número es mayor que un billón, por lo tanto debemos realizar un gran número de simulaciones para poder captar información verídica de la pérdida esperada. Una de las bondades de estimar la pérdida esperada de esta forma es que la distribución tendera asintóticamente a una normal donde su media tendera la pérdida esperada de la cartera.
+
+#### Obtención de las métricas de riesgo.
+
+Una ves realizadas las simulaciones y obtenida la aproximación de la distribución de pérdidas usando la aproximación normal es facil obtener las métricas de riesgo, pues estas ya estan definidas para la distribución normal. Si la distribucion de pérdidas es como una normal de media $\mu$ y desvianción estandasr $\sigma$ las métricas de riesgo son: $$\textrm{Pérdida esperada}=\mu$$,$$VaR_{p}=\mu+\sigma\Phi^{-1}(p)$$,$$TVaR_p=\mu+\sigma\frac{\phi[\Phi^{-1(p)}]}{1-p}$$
+Donde $\phi$ y $\Phi$ representan la función de densidad de probabilidad y la función de probabilidad acumulada de una normal estandar.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--chapter:end:302-creditmetrics.Rmd-->
+
+
+# Manual técnico de la aplicación Vision CreditRisk
+
+Placeholder
+
+
+## Presentación de la aplicación.
+## Primera sección: CreditRisk+
+### Datos
+### Estadísticos:
+#### Relación de las variables independientes
+### Seleccion de variables
+## Pérdida por incumplimiento
+## Score de Crédito.
+### Selección y resultados del modelo
+### Score de la cartera de crédito.
+### Proyección a nuevos clientes.
+## Parametros y resultados.
+### Parámetros iniciales
+### Resultados
+## Stress Testing
+## Segunda sección: Credimetrics
+## Créditos
+## Matriz de trancición
+### Cálculo de la matriz de transición
+### Selecección de la matriz de transición
+## Pérdida por clase.
+### Cálculo de pérdida esperada
+### Pérdida esperada
+##  Simulación y resultados.
+## Stress Testing.
+## Tercera sección: Indicadores contables
+## Cálculo del RAROC
+### RAROC
+
+<!--chapter:end:303-ManualVisionRisk.Rmd-->
+
+
+# (APPENDIX) Apéndice {-}
+
+Placeholder
+
+# Software Tools
+
+Placeholder
+
+
+## R and R packages
+## Pandoc
+## LaTeX
+
+<!--chapter:end:400-apendice.Rmd-->
+
+# Referencias {-}
+
+
+
+
+<!--chapter:end:500-references.Rmd-->
+

@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="introduccion.html">
-<link rel="next" href="conceptos-de-la-gestion-del-riesgo-de-credito.html">
+<link rel="prev" href="creditmetrics.html">
+<link rel="next" href="software-tools.html">
 <script src="libs/jquery/jquery.min.js"></script>
 <link href="libs/gitbook/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook/css/plugin-bookdown.css" rel="stylesheet" />
@@ -227,170 +227,226 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="introduccion-a-la-teoria-de-probabilidad" class="section level1">
-<h1><span class="header-section-number">Capítulo 2</span> Introducción a la teoría de probabilidad</h1>
-<p>El mundo actual esta regido por metodologías que en su mayoría están estructuradas por hipótesis matemáticas, estas en la mayoría de los casos son fundamentales y de no cumplirse, los modelos pueden dejar de ser prácticos, por ejemplo, imaginese que usted quiera introducir un motor de un automóvil de la década de los sesenta en su automóvil moderno, con esto no queremos decir que no pueda funcionar, solo que estaría ignorando los principios mecánicos de su carro y con mucha seguridad provocaría fallas futuras. Igual pasa con los modelos de riesgo de crédito, por esto, dedicaremos este capítulo a dar un breve repaso, a la teoría de probabilidad y algún otro concepto matemático que sea necesario conocer.</p>
-<div id="espacio-de-probabilidad" class="section level2">
-<h2><span class="header-section-number">2.1</span> Espacio de probabilidad</h2>
-<p>Los espacios de probabilidad son las estructuras que se utilizan en matemáticas para estudiar los fenómenos aleatorios, es decir, aquellos fenómenos que tienen un alto grado de incertidumbre en sus resultados.</p>
-<p>Los modelos de probabilidad trabajan con las “probabilidades” de los diferentes resultados o sucesos que nos puedan interesar en un fenómeno aleatorio, y nos dan respuestas más que satisfactorias en el estudio de dichos fenómenos.</p>
-<p>El enorme interés de la Teoría de la Probabilidad reside en que, aparte de tener unos preciosos desarrollos matemáticos, permite estudiar, a través de la <em>Inferencia Estadística</em>, los problemas que surgen en los estudios científicos que intentan obtener conclusiones a partir de datos reales.</p>
+<div id="manual-tecnico-de-la-aplicacion-vision-creditrisk" class="section level1">
+<h1><span class="header-section-number">Capítulo 7</span> Manual técnico de la aplicación Vision CreditRisk</h1>
+<p>En el presente capítulo, presentaremos el manual técnico de la aplicación Vision CreditRisk, el cual utiliza las nociones teóricas vistas anteriormente para lograr de una forma agradable y de facil entendimiento permtir que el usuario encargado del área de crédito de su institución maneje de forma precisa y adecuada las metricas de riesgo.</p>
+<div id="presentacion-de-la-aplicacion." class="section level2">
+<h2><span class="header-section-number">7.1</span> Presentación de la aplicación.</h2>
+<p>La aplicación esta compuesta de tres secciones, la primera referente a la metodología CreditRisk+, la segunda correspondiente a la metodología Credimetrics y la tercera una sección referente a indicadores técnicos.</p>
+<div class="figure">
+<img src="/Users/arturocarreno/Riesgo_de_Credito/portada.png" alt="" />
+<p class="caption"></p>
+</div>
+</div>
+<div id="primera-seccion-creditrisk" class="section level2">
+<h2><span class="header-section-number">7.2</span> Primera sección: CreditRisk+</h2>
+<p>En la primera sección que se observa en la columna izquierda, consta de las siguientes secciones: Datos, Estadísticos, Pérdida por incumplimiento, Score de crédito, parámetros y resultados, stressting.</p>
+<div class="figure">
+<img src="/Users/arturocarreno/Riesgo_de_Credito/datos.png" alt="" />
+<p class="caption"></p>
+</div>
+<div id="datos" class="section level3">
+<h3><span class="header-section-number">7.2.1</span> Datos</h3>
+<p>En esta sección se cargan los datos con los que se alimentara la costrucción del score de crédito y parte de la metología, al iniciar veremos la siguiente pantalla:</p>
+<div class="figure">
+<img src="/Users/arturocarreno/Riesgo_de_Credito/datos1.png" alt="" />
+<p class="caption"></p>
+</div>
+<p>Tendremos dos opciones, una a manera de ejemplo para entender como debe ser el formato de los datos, al seleccionarla se nos desplegara la siguiente pantalla.</p>
+<div class="figure">
+<img src="/Users/arturocarreno/Riesgo_de_Credito/datos2.png" alt="" />
+<p class="caption"></p>
+</div>
+<p>Ahora del lado que debemos seleccionar, se nos desplagara:</p>
+<div class="figure">
+<img src="/Users/arturocarreno/Riesgo_de_Credito/datos3.png" alt="" />
+<p class="caption"></p>
+</div>
+<p>Debemos hacer click en buscar los datos a seleccionar, estos datos deberan estar conformados por la lista de los clientes, similar a los datos de ejemplo, una de la columnas debe tener el nombre de “Creditability” (la cual indica si el cliente esta en mora, valor de <span class="math inline">\(1\)</span> o no valor de <span class="math inline">\(0\)</span>)</p>
+</div>
+<div id="estadisticos" class="section level3">
+<h3><span class="header-section-number">7.2.2</span> Estadísticos:</h3>
+<p>En esta seccion tendremos dos pestañas:</p>
+<div id="relacion-de-las-variables-independientes" class="section level4">
+<h4><span class="header-section-number">7.2.2.1</span> Relación de las variables independientes</h4>
+<p>En esta pestaña, veremos el gráfico estadístico de boxplot para ver el comportamiento de la variable al segmentarla en deudores o no, ademas en la parte inferior tendremos un resumen estadístico de la variable seleccionada.</p>
+<div class="figure">
+<img src="/Users/arturocarreno/Riesgo_de_Credito/esta1.png" alt="" />
+<p class="caption"></p>
+</div>
+</div>
+</div>
+<div id="seleccion-de-variables" class="section level3">
+<h3><span class="header-section-number">7.2.3</span> Seleccion de variables</h3>
+<p>En esta sección el usuario podrá colocar el significancia para escoger las variables cualitativas y cuantitativas que se usaran en el modelo, la pestaña se divide en 2, una para cada tipo de variable.</p>
+<div class="figure">
+<img src="/Users/arturocarreno/Riesgo_de_Credito/esta2.png" alt="" />
+<p class="caption"></p>
+</div>
+</div>
+</div>
+<div id="perdida-por-incumplimiento" class="section level2">
+<h2><span class="header-section-number">7.3</span> Pérdida por incumplimiento</h2>
+<p>En esta sección podra calcular el usuario la pérdida histórica por incumplimiento. El usuario podrá ver graficamente lo que espera recuprar en caso de incumplimiento mientras transcurre el tiempo.</p>
+<div class="figure">
+<img src="/Users/arturocarreno/Riesgo_de_Credito/perdida.png" alt="" />
+<p class="caption"></p>
+</div>
+</div>
+<div id="score-de-credito." class="section level2">
+<h2><span class="header-section-number">7.4</span> Score de Crédito.</h2>
+<p>En esta sección se calculara la probabilidad de incumplimiento, score o pontuja crediticio por cliente, y se haran proyecciones a nuevos clientes.</p>
+<div id="seleccion-y-resultados-del-modelo" class="section level3">
+<h3><span class="header-section-number">7.4.1</span> Selección y resultados del modelo</h3>
+<p>En esta sección el usuario seleccionara el modelo que mejor se ajuste a los datos, una vez seleccionado se deplegara la matriz con los resultados del modelo y e grafico ROC para mostrar el nivel de acierto del modelo.</p>
+<div class="figure">
+<img src="/Users/arturocarreno/Riesgo_de_Credito/score1.png" alt="" />
+<p class="caption"></p>
+</div>
+</div>
+<div id="score-de-la-cartera-de-credito." class="section level3">
+<h3><span class="header-section-number">7.4.2</span> Score de la cartera de crédito.</h3>
+<p>Una vez selecionado el modelo, en esta pestaña el usuario podra ver la probabilidad de incumplimiento y el score o puntaje crediticio de los clientes.</p>
+<div class="figure">
+<img src="/Users/arturocarreno/Riesgo_de_Credito/score2.png" alt="" />
+<p class="caption"></p>
+</div>
+</div>
+<div id="proyeccion-a-nuevos-clientes." class="section level3">
+<h3><span class="header-section-number">7.4.3</span> Proyección a nuevos clientes.</h3>
+</div>
+</div>
+<div id="parametros-y-resultados." class="section level2">
+<h2><span class="header-section-number">7.5</span> Parametros y resultados.</h2>
+<p>En esta sección se pediran los valores de los parámetros básicos y se mostraran los resultados de las principales métricas de riesgo para la metodología CreditRisk+.</p>
+<div class="figure">
+<img src="/Users/arturocarreno/Riesgo_de_Credito/par1.png" alt="" />
+<p class="caption"></p>
+</div>
+<div id="parametros-iniciales" class="section level3">
+<h3><span class="header-section-number">7.5.1</span> Parámetros iniciales</h3>
+<p>En esta sección, deberemos la unidad de pérdida, que no es mas que la unidad de medida que inteta cuantificar la pérdida de una forma mas compacta. Deberemos ingresar el porcentaje de recuperación que se espera recuperar luego que un crédito esta en mora. Debemos cargar las probabilidades de incumplimiento de la cartera de clientes, podemos cargar una data propia genera por mecanismos internos o podemos cargar la proveniente de la sección de Score de crédito, en ambos casos la data debe tener la siguiente estructura:</p>
+<div class="figure">
+<img src="/Users/arturocarreno/Riesgo_de_Credito/par2.png" alt="" />
+<p class="caption"></p>
+</div>
+</div>
+<div id="resultados" class="section level3">
+<h3><span class="header-section-number">7.5.2</span> Resultados</h3>
+<p>En la sección resultados, podremos escoger el nivel de significancia deseado, para mostrar las metrícas usuales de riesgo, tendremos tambien la opción para descargar el roporte proveniente de esta metodología</p>
+<div class="figure">
+<img src="/Users/arturocarreno/Riesgo_de_Credito/par3.png" alt="" />
+<p class="caption"></p>
+</div>
+</div>
+</div>
+<div id="stress-testing" class="section level2">
+<h2><span class="header-section-number">7.6</span> Stress Testing</h2>
+<p>En esta sección de una manera controlada porcentualmente simularemos resultados extremos de pérdida, para luego mostrar la pérdida esperada tras esto.</p>
+<div class="figure">
+<img src="/Users/arturocarreno/Riesgo_de_Credito/stre.png" alt="" />
+<p class="caption"></p>
+</div>
+</div>
+<div id="segunda-seccion-credimetrics" class="section level2">
+<h2><span class="header-section-number">7.7</span> Segunda sección: Credimetrics</h2>
+<p>En la segunda sección que se observa en la columna izquierda, consta de las siguientes secciones: créditos, matriz de transición, Pérdida por clase, simulación y resultados, stressting.</p>
+<div class="figure">
+<img src="/Users/arturocarreno/Riesgo_de_Credito/sec2.png" alt="" />
+<p class="caption"></p>
+</div>
+</div>
+<div id="creditos" class="section level2">
+<h2><span class="header-section-number">7.8</span> Créditos</h2>
+<p>En esta sección, deberemos cargar las exposiciones de los créditos y sus respectivas calificaciones:</p>
+<div class="figure">
+<img src="/Users/arturocarreno/Riesgo_de_Credito/exp.png" alt="" />
+<p class="caption"></p>
+</div>
+</div>
+<div id="matriz-de-trancicion" class="section level2">
+<h2><span class="header-section-number">7.9</span> Matriz de trancición</h2>
+<p>En esta sección cargaremos los datos para el cálculo de la matriz de transición crediticia</p>
+<div id="calculo-de-la-matriz-de-transicion" class="section level3">
+<h3><span class="header-section-number">7.9.1</span> Cálculo de la matriz de transición</h3>
+<p>En esta sección debemos cargar los datos históricos de migraciones crediticias en periodos de tiempo especificos, es decir, con que calificación inicio el crédito y con cual finalizo.</p>
+<p><img src="/Users/arturocarreno/Riesgo_de_Credito/mtr.png" alt="" /> Una vez cargados los datos en la parte inferior se mostrara la matriz de transición cálculada:</p>
+<div class="figure">
+<img src="/Users/arturocarreno/Riesgo_de_Credito/mtr2.png" alt="" />
+<p class="caption"></p>
+</div>
+</div>
+<div id="selececcion-de-la-matriz-de-transicion" class="section level3">
+<h3><span class="header-section-number">7.9.2</span> Selecección de la matriz de transición</h3>
+<p>En esta sección se debera seleccionar la matriz de transición, se puede escoger la ya calculada o nn caso de que el banco no posea los datos historicos necesarios, podra cargar su matriz de transición propia, pero debe tener el siguiente formato.</p>
+<div class="figure">
+<img src="/Users/arturocarreno/Riesgo_de_Credito/mtr3.png" alt="" />
+<p class="caption"></p>
+</div>
+</div>
+</div>
+<div id="perdida-por-clase." class="section level2">
+<h2><span class="header-section-number">7.10</span> Pérdida por clase.</h2>
+<p>En esta sección se calcula o solicita las pérdidas esperadas por calificación crediticia.</p>
+<div id="calculo-de-perdida-esperada" class="section level3">
+<h3><span class="header-section-number">7.10.1</span> Cálculo de pérdida esperada</h3>
+<p>En esta pestaña el usuario debe cargar los datos históricos de las pérdidad ocacionadas por clientes dado su calificación.</p>
+<div class="figure">
+<img src="/Users/arturocarreno/Riesgo_de_Credito/perd1.png" alt="" />
+<p class="caption"></p>
+</div>
+</div>
+<div id="perdida-esperada-1" class="section level3">
+<h3><span class="header-section-number">7.10.2</span> Pérdida esperada</h3>
+<p>Al igual que en la sección de la matriz de transición, el usuario podra seleccionar la matriz calculada o introducir una propia:</p>
+<div class="figure">
+<img src="/Users/arturocarreno/Riesgo_de_Credito/perd2.png" alt="" />
+<p class="caption"></p>
+</div>
+</div>
+</div>
+<div id="simulacion-y-resultados." class="section level2">
+<h2><span class="header-section-number">7.11</span> Simulación y resultados.</h2>
+<p>En esta sección el usuario indicara el número de simulaciones para la simulación de MonteCarlo, la aplicación realizara los cálculos y nos presentara las métricas de riesgo y la opción de descargar el reporte.</p>
+<div class="figure">
+<img src="/Users/arturocarreno/Riesgo_de_Credito/var2.png" alt="" />
+<p class="caption"></p>
+</div>
+</div>
+<div id="stress-testing." class="section level2">
+<h2><span class="header-section-number">7.12</span> Stress Testing.</h2>
+<p>Una vez llevado a cabo todos los pasos requeridos para la metodología, el usuario podrá realizar una prueba de estres sobre los parametros del modelo.</p>
+<div class="figure">
+<img src="/Users/arturocarreno/Riesgo_de_Credito/stress2.png" alt="" />
+<p class="caption"></p>
+</div>
+</div>
+<div id="tercera-seccion-indicadores-contables" class="section level2">
+<h2><span class="header-section-number">7.13</span> Tercera sección: Indicadores contables</h2>
+<p>En esta sección se calculan indicadores contables, poniendo atención al RAROC de crédito, y otros que dependen exclusimamente del balence de la entidad financiera.</p>
+</div>
+<div id="calculo-del-raroc" class="section level2">
+<h2><span class="header-section-number">7.14</span> Cálculo del RAROC</h2>
+<p>Dedicamos una subsección completa debido a su gran uso en las entidades financieras. Lo primero que veremos es una sección informativa:</p>
+<div class="figure">
+<img src="/Users/arturocarreno/Riesgo_de_Credito/cont1.png" alt="" />
+<p class="caption"></p>
+</div>
+<div id="raroc" class="section level3">
+<h3><span class="header-section-number">7.14.1</span> RAROC</h3>
+<p>En esta pestaña, requerimos que el usuario cargue la información del balence necesaria para el cálculo del RAROC y la metodología de riesgo de crédito que uso</p>
+<div class="figure">
+<img src="/Users/arturocarreno/Riesgo_de_Credito/cont2.png" alt="" />
+<p class="caption"></p>
+</div>
 
-<div class="definition">
-<span id="def:defi-espacio-muestral" class="definition"><strong>Definición 2.1  </strong></span>El <em>espacio muestral</em>, <span class="math inline">\(\Omega\)</span>, es el conjunto de todos los posibles resultados del fenómeno aleatorio que deseamos estudiar.
-</div>
-<p><br />
-</p>
-
-<div class="definition">
-<p><span id="def:defi-sigma-algebra" class="definition"><strong>Definición 2.2  </strong></span>Una <span class="math inline">\(\sigma\)</span>-<em>algebra</em> de sucesos, <span class="math inline">\(S\)</span>, es un subconjunto de partes de <span class="math inline">\(\Omega\)</span> que verifíca:</p>
-<ul>
-<li><p>Si <span class="math inline">\(A \in S\)</span> , entonces <span class="math inline">\(A^c \in S\)</span> (<span class="math inline">\(c\)</span> denota el coplemento de un conjunto).</p></li>
-<li>Si <span class="math inline">\(A_1,A_2,...,A_n,...\in S\)</span>, entonces <span class="math inline">\(\cup _n A_n \in S\)</span>
-</div>
-</li>
-</ul>
-<p>La idea de una <span class="math inline">\(\sigma\)</span>-algebra es que contenga todos los sucesos en los que podemos estar interesados en un fenómenos aleatorio.</p>
-<p>Ejemplo: Cuando el espacio muestral,<span class="math inline">\(\Omega\)</span>, es fínito o numerable, la <span class="math inline">\(\sigma\)</span>-algebra habitualmente utilizada es partes de <span class="math inline">\(\Omega\)</span>. Es decir, consideramos que cualquier subconjunto de <span class="math inline">\(\Omega\)</span> puede ser un suceso de interés. Esta elección es la más sencilla y no ofrece ningún problema.</p>
-<p>Con este par de definiciones podemos definir lo que es una medida de probabilidad.</p>
-
-<div class="definition">
-<p><span id="def:defi-probabilidad" class="definition"><strong>Definición 2.3  </strong></span>Consideramos un espacio muestral <span class="math inline">\(\Omega\)</span> y una <span class="math inline">\(\sigma\)</span>-algebra <span class="math inline">\(S\)</span>. Una <em>función de probabilidad</em> o <em>medida de probabilidad</em> es una función <span class="math inline">\(P : S \rightarrow [0, 1]\)</span>, que verifíca:</p>
-<ul>
-<li><p><span class="math inline">\(P(\Omega)=1\)</span></p></li>
-<li>Si <span class="math inline">\(A_1,A_2,...,A_n,...\in S\)</span> son disjuntos, entonces: <span class="math display">\[ P\big{(}\cup _n A_n\big{)}=\sum_n P(A_n)\]</span>
-</div>
-</li>
-</ul>
-<p>La manera más sencilla de entender el motivo de esta definición es pensar que el concepto de probabilidad trata de formalizar lo que ocurre con las frecuencias relativas de los distintos sucesos que podemos encontrarnos al lanzar un dado con 6 caras numeradas del 1 al 6:</p>
-<ul>
-<li><p>La frecuencia relativa de cualquier suceso siempre es un número entre 0 y 1.</p></li>
-<li><p>La frecuencia relativa de que salga algún número de los posibles (es decir, entre 1 y 6) es, evidentemente, 1.</p></li>
-<li><p>La frecuencia relativa de la unión de sucesos disjuntos es la suma de sus frecuencias relativas.</p></li>
-</ul>
-<p>Esta forma de interpretar las medida de probabilidad no significa que esta sea la única posible, solo que a manera de ejemplo es la más fácil de explicar y visualizar.</p>
-
-<div class="definition">
-<span id="def:defi-esp-prob" class="definition"><strong>Definición 2.4  </strong></span>Definimos como <em>espacio de probabilidad</em> a la terna <span class="math inline">\(( \Omega, S, P)\)</span>.
-</div>
-
-</div>
-<div id="variables-aleatorias-y-funcion-de-distribucion." class="section level2">
-<h2><span class="header-section-number">2.2</span> Variables aleatorias y función de distribución.</h2>
-<p>En este tema se tratará de formalizar numéricamente los resultados de un fenómeno aleatorio. Por tanto, una variable aleatoria es un valor numérico que corresponde a un resultado de un experimento aleatorio. Algunos ejemplos son: número de caras obtenidas al lanzar seis veces una moneda, número de llamadas que recibe un teléfono durante una hora, tiempo de fallo de una componente eléctrica, etc.</p>
-<div id="variable-aleatoria" class="section level3">
-<h3><span class="header-section-number">2.2.1</span> Variable aleatoria</h3>
-
-<div class="definition">
-<span id="def:defi-var-alea" class="definition"><strong>Definición 2.5  </strong></span>Dado un experimento aleatorio y asociado al mismo, un espacio de probabilidad <span class="math inline">\(( \Omega, S, P)\)</span>, una variable aleatoria es una aplicación <span class="math inline">\(Χ : \Omega → R\)</span> , que a cada valor de <span class="math inline">\(X\)</span>, del espacio muestral, le hace corresponder un número real.
-</div>
-
-<p>Ejemplo: Consideramos un experimento aleatorio de lanzar una moneda al aire tres veces y anotamos el resultado. Se define la variable aleatoria X como número de caras aparecidas en los tres lanzamientos.</p>
-</div>
-<div id="tipos-de-variables-aleatorias" class="section level3">
-<h3><span class="header-section-number">2.2.2</span> Tipos de variables aleatorias</h3>
-<p>Las variables aleatorias se clasifican en discretas y continuas:</p>
-<ul>
-<li><p><em>Discreta</em>: La variable aleatoria <span class="math inline">\(X\)</span> se dice que es discreta si los números asignados a los sucesos elementales de <span class="math inline">\(\Omega\)</span> son puntos aislados. Sus posibles valores constituyen un conjunto finito o infinito numerable. Por ejemplo, supongamos el experimento consistente en lanzar tres veces una moneda no truncada; si consideramos la variable aleatoria <span class="math inline">\(X\)</span>=“número de caras obtenidas en los tres lanzamientos”“, los valores que puede tomar esta variable aleatoria son finitos”(0,1,2,3)“.</p></li>
-<li><p><em>Continua</em>: La variable aleatoria <span class="math inline">\(X\)</span> será continua si los valores asignados pueden ser cualesquiera, dentro de ciertos intervalos, es decir, puede tomar cualquier valor real. Por ejemplo, si consideramos el experimento aleatoria consistente en medir el nivel de agua en un embalse y tomamos la variable aleatoria <span class="math inline">\(X\)</span>=“nivel de agua”, esta puede tomar cualquier valor positivo.</p></li>
-</ul>
-</div>
-<div id="distribucion-de-probabilidad" class="section level3">
-<h3><span class="header-section-number">2.2.3</span> Distribución de probabilidad:</h3>
-<p>Es un modelo teórico que describe la forma en que varían los resultados de un experimento aleatorio, es decir, nos da todas las probabilidades de todos los posibles resultados que podrían obtenerse cuando se realiza un experimento aleatorio. Se clasifican como discretas o continuas. En la distribución de probabilidad discreta está permitido tomar sólo un número limitado de valores. En la continua, llamada función de densidad, la variable que se está considerando puede tomar cualquier valor dentro de un intervalo dado.</p>
-<div id="distribucion-de-probabilidad-discreta" class="section level4">
-<h4><span class="header-section-number">2.2.3.1</span> Distribución de probabilidad discreta</h4>
-<p>Sea <span class="math inline">\(X\)</span> una variable aleatoria discreta que toma como posibles valores <span class="math inline">\(x_1,x_2,.....x_n\)</span>, se define la distribución de probabilidad de X como el conjunto de pares (xi, pi) que a cada valor de la variable le asocia una probabilidad, donde <span class="math inline">\(p_i= P(X=x_i)\)</span>, tal que la suma de todas las probabilidades es igual a uno.</p>
-<p>Por ejemplo, en el experimento del dado la distribución de probabilidad biene dado por: (1;1/6),(2;1/6),(3;1/6),(4;1/6),(5;1/6),(6;1/6)</p>
-</div>
-<div id="distribucion-de-probabilidad-continua" class="section level4">
-<h4><span class="header-section-number">2.2.3.2</span> Distribución de probabilidad continua</h4>
-<p>Si la variable aleatoria es continua, hay infinitos valores posibles de la variable y entra cada dos de ellos se podrían definir infinitos valores. En estas condiciones no es posible deducir la probabilidad de un valor puntual de la variable como se puede hacer en el caso de las variables discretas. Pero sí es posible calcular la probabilidad acumulada hasta un cierto valor (función de distribución) y cómo cambia esa probabilidad acumulada en cada punto (densidad de probabilidad). Por tanto, cuando la variable aleatoria sea continua hablaremos de función de densidad.</p>
-
-<div class="definition">
-<span id="def:defi-func-dens" class="definition"><strong>Definición 2.6  </strong></span>Sea <span class="math inline">\(X\)</span> una variable aleatoria continua, se llama función de densidad y se representa como <span class="math inline">\(f(x)\)</span> a una función no negativa definida sobre la recta real, tal que para cualquier intervalo <span class="math inline">\((a,b)\)</span> que estudiemos se verifica: <span class="math display">\[P(a\leq X \leq b) = \int_{a}^{b}  \! f(x) \, dx\]</span>
-</div>
-
-</div>
-</div>
-<div id="funcion-de-distribucion" class="section level3">
-<h3><span class="header-section-number">2.2.4</span> Función de distribución:</h3>
-<p>La función de distribución describe el comportamiento probabilístico de una variable aleatoria X asociada a un experimento aleatorio y se representa como <span class="math inline">\(F_x\)</span>. De igual forma estudiaremos el caso discreto y continuo.</p>
-<div id="caso-discreto" class="section level4">
-<h4><span class="header-section-number">2.2.4.1</span> Caso discreto</h4>
-<p>Sea <span class="math inline">\(X\)</span> una variable aleatoria discreta asociada a un espacio de probabilidad, se define la función de distribución: <span class="math display">\[F_x:R\rightarrow [0,1] \quad \textrm{que verifica} \quad F_x(x)=P[X\leq x]=\sum_{x_i&lt;x} P_i\]</span></p>
-</div>
-<div id="caso-continuo" class="section level4">
-<h4><span class="header-section-number">2.2.4.2</span> Caso continuo</h4>
-<p>Sea <span class="math inline">\(X\)</span> una variable aleatoria continua con función de densidad <span class="math inline">\(f(x)\)</span>, se define la función de distribución, <span class="math inline">\(F_x\)</span>, como:<span class="math display">\[F_x(x)=P[X \leq b ] = \int_{-\infty}^{b}  \! f(x) \, dx\]</span></p>
-</div>
-</div>
-<div id="algunos-tipos-de-variables-aleatorias" class="section level3">
-<h3><span class="header-section-number">2.2.5</span> Algunos tipos de variables aleatorias</h3>
-<div id="bernoulli" class="section level4">
-<h4><span class="header-section-number">2.2.5.1</span> Bernoulli</h4>
-<p>Es un experimento en el cual solo existen dos eventos, en general éxito(1) y fracaso(0), y ádemas tiene asociada un parámetro <span class="math inline">\(p\)</span> el cual es la probabilidad de éxito, es decir, <span class="math display">\[P(X=1)=p \quad \textrm{y} \quad P(X=0)=1-p\]</span></p>
-</div>
-<div id="binomial" class="section level4">
-<h4><span class="header-section-number">2.2.5.2</span> Binomial</h4>
-<p>La distribución de probabilidad discreta más usada es la distribución binomial y consiste en :</p>
-<ul>
-<li><p>Repetir un experimento de Bernoulli <span class="math inline">\(n\)</span> veces de forma idéntica</p></li>
-<li><p>Cada experimento es independiente de los anteriores</p></li>
-</ul>
-<p>La variable aleatoria de Bernulli es la que expresa el número de éxitos, por lo tanto esta variable aleatoria tiene asociada dos parametros: un parámetro <span class="math inline">\(p\)</span> que nos indica la probabilidad de éxito de cada evento, y un numero natural <span class="math inline">\(n\)</span> que nos indica la cantidad de veces que se realizó el experimento.</p>
-</div>
-<div id="poisson" class="section level4">
-<h4><span class="header-section-number">2.2.5.3</span> Poisson</h4>
-<p>Esta distribución es una de las más importantes distribuciones de variable discreta. Sus principales aplicaciones hacen referencia a la modelización de situaciones en las que nos interesa determinar el número de hechos de cierto tipo que se pueden producir en un intervalo de tiempo o de espacio, bajo supuestos de aleatoriedad y ciertas circunstancias restrictivas. Otro de sus usos frecuentes es la consideración límite de procesos dicotómicos reiterados un gran número de veces si la probabilidad de obtener un éxito es muy pequeña .</p>
-<p>La distribución de Poisson tiene ajustado un parámetro positivo <span class="math inline">\(\lambda\)</span> que representa el número de veces que se espera que ocurra el fenomeno durante un intervalo dado. La probabilidad de que un experimento de Poisson tenga <span class="math inline">\(k\)</span> ocurrencias es <span class="math display">\[\frac{e^{-\lambda}\lambda^k}{k!}\]</span></p>
-</div>
-<div id="distribucion-uniforme" class="section level4">
-<h4><span class="header-section-number">2.2.5.4</span> Distribución uniforme</h4>
-<p>Es la distribución que sigue una variable aleatoria <span class="math inline">\(X\)</span> que toma valores en un intervalo <span class="math inline">\([a,b]\)</span> con la misma probabilidad, su función de densidad es: <span class="math display">\[f(x)= \left\{ \begin{array}{lcc}
-             \frac{1}{b-a} &amp;   \textrm{si}  &amp; a \leq x \leq b \\
-             \\ 0 &amp;  \textrm{en otro caso} \\
-             \end{array}
-   \right.\]</span></p>
-</div>
-<div id="distribucion-exponencial" class="section level4">
-<h4><span class="header-section-number">2.2.5.5</span> Distribución exponencial</h4>
-<p>Es usada muchas veces para modelizar el comportamiento de variables aleatorias del tipo “tiempo transcurrido hasta el fallo de un componente industrial” o “el tiempo que se tarda en completarse un proceso determinado”. Depende de un parámetro positivo <span class="math inline">\(\lambda\)</span>, que esta relacionado con la media de ocurrecia de un evento. La función de densidad es:<span class="math display">\[f(x)= \left\{ \begin{array}{lcc}
-             0 &amp;   \textrm{si}  &amp; x \leq 0 \\
-             \\ \lambda e^{-\lambda x} &amp;  \textrm{si} &amp; x&gt;0 \\
-             \end{array}
-   \right.\]</span></p>
-</div>
-<div id="distribucion-normal" class="section level4">
-<h4><span class="header-section-number">2.2.5.6</span> Distribución normal</h4>
-<p>La distribución normal o gaussiana es muy importante puesto que se utiliza para modelar muchísimos fenómenos aleatorios; además incluso para aproximar otras distribuciones. La distribución normal aproxima lo observado en muchos procesos de medición sin errores sistemáticos, por ejemplo medidas fisicas del cuerpo humano, medidas en la calidad de ciertos procesos industriales, entre otros.</p>
-<p>Esta distribución depende de dos parámetros: un parámetro <span class="math inline">\(\mu\)</span> que es un indicador de la promedio del experimento que se esta estudiando y un parámetro positivo <span class="math inline">\(\sigma\)</span> que es un indicador de la volatilidad del mismo. Su función de densidad es <span class="math display">\[f(x)=\frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{(x-\mu)^2}{2\sigma^2}}\]</span></p>
-</div>
-</div>
-<div id="esperanza-de-una-variable-aleatoria." class="section level3">
-<h3><span class="header-section-number">2.2.6</span> Esperanza de una variable aleatoria.</h3>
-<p>La esperanza matemática de una variable aleatoria <span class="math inline">\(X\)</span> es el número que expresa el valor medio del fenómeno que representa dicha variable.</p>
-<div id="esperanza-de-una-variable-aleatoria-discreta." class="section level4">
-<h4><span class="header-section-number">2.2.6.1</span> Esperanza de una variable aleatoria discreta.</h4>
-<p>Dada una variable aleatoria <span class="math inline">\(X\)</span> que toma valores <span class="math inline">\(x_1,x_2,x_3....x_n\)</span> con distribución de probabilidad <span class="math inline">\(P(X=x_i)=P_i\)</span>, se define la esperanza matemática de una variable aleatoria como: <span class="math display">\[E[X]=\sum_{i=1}^{n}x_iP(X=x_i)=\sum_{i=1}^{n}x_iP_i\]</span></p>
-</div>
-<div id="esperanza-de-una-variable-aleatoria-continua." class="section level4">
-<h4><span class="header-section-number">2.2.6.2</span> Esperanza de una variable aleatoria continua.</h4>
-<p>Sea <span class="math inline">\(X\)</span> una variable aleatoria continua con función de densidad <span class="math inline">\(f(x)\)</span>, se define la esperanza matemática de esa variable aleatoria como:<span class="math display">\[E[X]=\int_{-\infty}^{\infty}xf(x)dx\]</span></p>
-</div>
-</div>
-<div id="varianza-de-una-variable-aleatoria." class="section level3">
-<h3><span class="header-section-number">2.2.7</span> Varianza de una variable aleatoria.</h3>
-<p>La varianza de una variable aleatoria es una característica numérica que proporciona una idea de la dispersión de la variable aleatoria respecto de su esperanza. Decimos que es un parámetro de dispersión y se define por:<span class="math display">\[Var(X)=E((X-E(X))^2)=E(X^2)-(E(X))^2\]</span></p>
-</div>
-<div id="covarianza-de-variables-aleatorias." class="section level3">
-<h3><span class="header-section-number">2.2.8</span> Covarianza de variables aleatorias.</h3>
-<p>La covarianza es un valor que indica el grado de variación conjunta de dos variables aleatorias. Es el dato básico para determinar si existe una dependencia entre ambas variables y además es el dato necesario para estimar otros parámetros básicos y se define como: Sean <span class="math inline">\(X\)</span>, <span class="math inline">\(Y\)</span> variables aleatorias se define la covarianza entre <span class="math inline">\(X\)</span> y <span class="math inline">\(Y\)</span> como: <span class="math display">\[Cov(X,Y)=E((X-E(X))(Y-E(Y)))\]</span></p>
-
 
 </div>
 </div>
 </div>
+
+
+
 <script>
 (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
@@ -402,8 +458,8 @@ ga('send', 'pageview');
           </div>
         </div>
       </div>
-<a href="introduccion.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="conceptos-de-la-gestion-del-riesgo-de-credito.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="creditmetrics.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="software-tools.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook/js/app.min.js"></script>
@@ -433,7 +489,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/synergyvision/Teoria-de-Portafolio/edit/master/bookdown/100-ConceptosMate.Rmd",
+"link": "https://github.com/synergyvision/Teoria-de-Portafolio/edit/master/bookdown/303-ManualVisionRisk.Rmd",
 "text": "Edit"
 },
 "download": ["Riesgo-de-Credito.pdf"],

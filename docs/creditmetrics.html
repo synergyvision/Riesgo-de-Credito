@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Riesgo de Crédito</title>
+  <meta name="description" content="Riesgo de Crédito">
+  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Riesgo de Crédito" />
+  <meta property="og:type" content="book" />
+  <meta property="og:url" content="http://synergy.vision/Riesgo-de-Credito/" />
+  <meta property="og:image" content="http://synergy.vision/Riesgo-de-Credito/images/cover.png" />
+  
+  <meta name="github-repo" content="synergyvision/Riesgo-de-Credito/" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Riesgo de Crédito" />
+  
+  
+  <meta name="twitter:image" content="http://synergy.vision/Riesgo-de-Credito/images/cover.png" />
+
+<meta name="author" content="Synergy Vision">
+
+
+<meta name="date" content="2019-04-08">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="creditrisk.html">
+<link rel="next" href="manual-tecnico-de-la-aplicacion-vision-creditrisk.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+<script src="https://cdn.datacamp.com/datacamp-light-latest.min.js"></script>
+
+
+
+<link rel="stylesheet" href="css/style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./"><img src="images/logovision-black.png" width="160"></img></a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Prefacio</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#por-que-leer-este-libro"><i class="fa fa-check"></i>¿Por qué leer este libro?</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#estructura-del-libro"><i class="fa fa-check"></i>Estructura del libro</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#informacion-sobre-los-programas-y-convenciones"><i class="fa fa-check"></i>Información sobre los programas y convenciones</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#practicas-interactivas-con-r"><i class="fa fa-check"></i>Prácticas interactivas con R</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#agradecimientos"><i class="fa fa-check"></i>Agradecimientos</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="acerca-del-autor.html"><a href="acerca-del-autor.html"><i class="fa fa-check"></i>Acerca del Autor</a></li>
+<li class="chapter" data-level="1" data-path="introduccion.html"><a href="introduccion.html"><i class="fa fa-check"></i><b>1</b> Introducción</a></li>
+<li class="chapter" data-level="2" data-path="introduccion-a-la-teoria-de-probabilidad.html"><a href="introduccion-a-la-teoria-de-probabilidad.html"><i class="fa fa-check"></i><b>2</b> Introducción a la teoría de probabilidad</a><ul>
+<li class="chapter" data-level="2.1" data-path="introduccion-a-la-teoria-de-probabilidad.html"><a href="introduccion-a-la-teoria-de-probabilidad.html#espacio-de-probabilidad"><i class="fa fa-check"></i><b>2.1</b> Espacio de probabilidad</a></li>
+<li class="chapter" data-level="2.2" data-path="introduccion-a-la-teoria-de-probabilidad.html"><a href="introduccion-a-la-teoria-de-probabilidad.html#variables-aleatorias-y-funcion-de-distribucion."><i class="fa fa-check"></i><b>2.2</b> Variables aleatorias y función de distribución.</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="introduccion-a-la-teoria-de-probabilidad.html"><a href="introduccion-a-la-teoria-de-probabilidad.html#variable-aleatoria"><i class="fa fa-check"></i><b>2.2.1</b> Variable aleatoria</a></li>
+<li class="chapter" data-level="2.2.2" data-path="introduccion-a-la-teoria-de-probabilidad.html"><a href="introduccion-a-la-teoria-de-probabilidad.html#tipos-de-variables-aleatorias"><i class="fa fa-check"></i><b>2.2.2</b> Tipos de variables aleatorias</a></li>
+<li class="chapter" data-level="2.2.3" data-path="introduccion-a-la-teoria-de-probabilidad.html"><a href="introduccion-a-la-teoria-de-probabilidad.html#distribucion-de-probabilidad"><i class="fa fa-check"></i><b>2.2.3</b> Distribución de probabilidad:</a></li>
+<li class="chapter" data-level="2.2.4" data-path="introduccion-a-la-teoria-de-probabilidad.html"><a href="introduccion-a-la-teoria-de-probabilidad.html#funcion-de-distribucion"><i class="fa fa-check"></i><b>2.2.4</b> Función de distribución:</a></li>
+<li class="chapter" data-level="2.2.5" data-path="introduccion-a-la-teoria-de-probabilidad.html"><a href="introduccion-a-la-teoria-de-probabilidad.html#algunos-tipos-de-variables-aleatorias"><i class="fa fa-check"></i><b>2.2.5</b> Algunos tipos de variables aleatorias</a></li>
+<li class="chapter" data-level="2.2.6" data-path="introduccion-a-la-teoria-de-probabilidad.html"><a href="introduccion-a-la-teoria-de-probabilidad.html#esperanza-de-una-variable-aleatoria."><i class="fa fa-check"></i><b>2.2.6</b> Esperanza de una variable aleatoria.</a></li>
+<li class="chapter" data-level="2.2.7" data-path="introduccion-a-la-teoria-de-probabilidad.html"><a href="introduccion-a-la-teoria-de-probabilidad.html#varianza-de-una-variable-aleatoria."><i class="fa fa-check"></i><b>2.2.7</b> Varianza de una variable aleatoria.</a></li>
+<li class="chapter" data-level="2.2.8" data-path="introduccion-a-la-teoria-de-probabilidad.html"><a href="introduccion-a-la-teoria-de-probabilidad.html#covarianza-de-variables-aleatorias."><i class="fa fa-check"></i><b>2.2.8</b> Covarianza de variables aleatorias.</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="conceptos-de-la-gestion-del-riesgo-de-credito.html"><a href="conceptos-de-la-gestion-del-riesgo-de-credito.html"><i class="fa fa-check"></i><b>3</b> Conceptos de la gestión del riesgo de crédito</a><ul>
+<li class="chapter" data-level="3.1" data-path="conceptos-de-la-gestion-del-riesgo-de-credito.html"><a href="conceptos-de-la-gestion-del-riesgo-de-credito.html#perdida-esperada"><i class="fa fa-check"></i><b>3.1</b> Pérdida esperada</a></li>
+<li class="chapter" data-level="3.2" data-path="conceptos-de-la-gestion-del-riesgo-de-credito.html"><a href="conceptos-de-la-gestion-del-riesgo-de-credito.html#probabilidad-de-incumplimiento-dp"><i class="fa fa-check"></i><b>3.2</b> Probabilidad de incumplimiento (DP)</a></li>
+<li class="chapter" data-level="3.3" data-path="conceptos-de-la-gestion-del-riesgo-de-credito.html"><a href="conceptos-de-la-gestion-del-riesgo-de-credito.html#exposicion-ead"><i class="fa fa-check"></i><b>3.3</b> Exposición (<span class="math inline">\(EAD\)</span>)</a></li>
+<li class="chapter" data-level="3.4" data-path="conceptos-de-la-gestion-del-riesgo-de-credito.html"><a href="conceptos-de-la-gestion-del-riesgo-de-credito.html#perdida-dado-el-incumplimiento-lgd"><i class="fa fa-check"></i><b>3.4</b> Pérdida dado el incumplimiento (<span class="math inline">\(LGD\)</span>)</a></li>
+<li class="chapter" data-level="3.5" data-path="conceptos-de-la-gestion-del-riesgo-de-credito.html"><a href="conceptos-de-la-gestion-del-riesgo-de-credito.html#perdida-inesperada-ul"><i class="fa fa-check"></i><b>3.5</b> Pérdida inesperada (<span class="math inline">\(UL\)</span>)</a></li>
+<li class="chapter" data-level="3.6" data-path="conceptos-de-la-gestion-del-riesgo-de-credito.html"><a href="conceptos-de-la-gestion-del-riesgo-de-credito.html#capital-economico-o-valor-en-riesgo"><i class="fa fa-check"></i><b>3.6</b> Capital económico o valor en riesgo</a></li>
+<li class="chapter" data-level="3.7" data-path="conceptos-de-la-gestion-del-riesgo-de-credito.html"><a href="conceptos-de-la-gestion-del-riesgo-de-credito.html#matriz-de-transicion"><i class="fa fa-check"></i><b>3.7</b> Matriz de transición</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="scoring-de-credito.html"><a href="scoring-de-credito.html"><i class="fa fa-check"></i><b>4</b> Scoring de credito</a><ul>
+<li class="chapter" data-level="4.1" data-path="scoring-de-credito.html"><a href="scoring-de-credito.html#estructura-del-scoring-de-credito"><i class="fa fa-check"></i><b>4.1</b> Estructura del Scoring de Crédito</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="scoring-de-credito.html"><a href="scoring-de-credito.html#los-modelos-probit-y-logit."><i class="fa fa-check"></i><b>4.1.1</b> Los modelos probit y logit.</a></li>
+<li class="chapter" data-level="4.1.2" data-path="scoring-de-credito.html"><a href="scoring-de-credito.html#interpretacion-del-modelo"><i class="fa fa-check"></i><b>4.1.2</b> Interpretación del modelo</a></li>
+<li class="chapter" data-level="4.1.3" data-path="scoring-de-credito.html"><a href="scoring-de-credito.html#relacion-entre-el-score-y-el-riesgo"><i class="fa fa-check"></i><b>4.1.3</b> Relación entre el score y el riesgo</a></li>
+<li class="chapter" data-level="4.1.4" data-path="scoring-de-credito.html"><a href="scoring-de-credito.html#uso-de-modelos-lineales-para-la-seleccion-de-variables-metodos-de-busqueda-secuencial."><i class="fa fa-check"></i><b>4.1.4</b> Uso de modelos lineales para la selección de variables (Métodos de búsqueda secuencial).</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="creditrisk.html"><a href="creditrisk.html"><i class="fa fa-check"></i><b>5</b> CreditRisk+</a><ul>
+<li class="chapter" data-level="5.1" data-path="creditrisk.html"><a href="creditrisk.html#la-distribucion-del-numero-de-incumplimientos-con-probabilidades-de-impago-fijas."><i class="fa fa-check"></i><b>5.1</b> La distribución del número de incumplimientos con probabilidades de impago fijas.</a></li>
+<li class="chapter" data-level="5.2" data-path="creditrisk.html"><a href="creditrisk.html#la-agrupacion-por-bandas-de-exposicion-las-perdidas"><i class="fa fa-check"></i><b>5.2</b> La agrupación por bandas de exposición las pérdidas</a></li>
+<li class="chapter" data-level="5.3" data-path="creditrisk.html"><a href="creditrisk.html#la-determinacion-de-la-distribucion-de-perdidas-de-la-cartera."><i class="fa fa-check"></i><b>5.3</b> La determinación de la <em>distribución de pérdidas</em> de la cartera.</a></li>
+<li class="chapter" data-level="5.4" data-path="creditrisk.html"><a href="creditrisk.html#obteniendo-la-distribucion-de-las-perdidas"><i class="fa fa-check"></i><b>5.4</b> Obteniendo la distribución de las pérdidas</a></li>
+<li class="chapter" data-level="5.5" data-path="creditrisk.html"><a href="creditrisk.html#obtencion-del-var"><i class="fa fa-check"></i><b>5.5</b> Obtención del VaR</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="creditmetrics.html"><a href="creditmetrics.html"><i class="fa fa-check"></i><b>6</b> CreditMetrics</a><ul>
+<li class="chapter" data-level="6.1" data-path="creditmetrics.html"><a href="creditmetrics.html#elementos-que-usa-credimetrics"><i class="fa fa-check"></i><b>6.1</b> Elementos que usa <strong>Credimetrics</strong></a></li>
+<li class="chapter" data-level="6.2" data-path="creditmetrics.html"><a href="creditmetrics.html#el-caso-de-un-solo-credito"><i class="fa fa-check"></i><b>6.2</b> El caso de un solo crédito</a><ul>
+<li class="chapter" data-level="6.2.1" data-path="creditmetrics.html"><a href="creditmetrics.html#ejemplo-1"><i class="fa fa-check"></i><b>6.2.1</b> Ejemplo 1</a></li>
+<li class="chapter" data-level="6.2.2" data-path="creditmetrics.html"><a href="creditmetrics.html#ejemplo-2"><i class="fa fa-check"></i><b>6.2.2</b> Ejemplo 2</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="creditmetrics.html"><a href="creditmetrics.html#cartera-de-dos-de-creditos-con-probabilidades-de-treansicion-independientes."><i class="fa fa-check"></i><b>6.3</b> Cartera de dos de créditos con probabilidades de treansición independientes.</a><ul>
+<li class="chapter" data-level="6.3.1" data-path="creditmetrics.html"><a href="creditmetrics.html#ejemplo-3"><i class="fa fa-check"></i><b>6.3.1</b> Ejemplo 3</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="creditmetrics.html"><a href="creditmetrics.html#aproximacion-de-la-distribucion-de-perdidas-de-una-cartera-con-n-creditos."><i class="fa fa-check"></i><b>6.4</b> Aproximación de la distribución de pérdidas de una cartera con <span class="math inline">\(n\)</span> créditos.</a><ul>
+<li class="chapter" data-level="6.4.1" data-path="creditmetrics.html"><a href="creditmetrics.html#simulacion-de-montecarlo"><i class="fa fa-check"></i><b>6.4.1</b> Simulación de MonteCarlo</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="manual-tecnico-de-la-aplicacion-vision-creditrisk.html"><a href="manual-tecnico-de-la-aplicacion-vision-creditrisk.html"><i class="fa fa-check"></i><b>7</b> Manual técnico de la aplicación Vision CreditRisk</a><ul>
+<li class="chapter" data-level="7.1" data-path="manual-tecnico-de-la-aplicacion-vision-creditrisk.html"><a href="manual-tecnico-de-la-aplicacion-vision-creditrisk.html#presentacion-de-la-aplicacion."><i class="fa fa-check"></i><b>7.1</b> Presentación de la aplicación.</a></li>
+<li class="chapter" data-level="7.2" data-path="manual-tecnico-de-la-aplicacion-vision-creditrisk.html"><a href="manual-tecnico-de-la-aplicacion-vision-creditrisk.html#primera-seccion-creditrisk"><i class="fa fa-check"></i><b>7.2</b> Primera sección: CreditRisk+</a><ul>
+<li class="chapter" data-level="7.2.1" data-path="manual-tecnico-de-la-aplicacion-vision-creditrisk.html"><a href="manual-tecnico-de-la-aplicacion-vision-creditrisk.html#datos"><i class="fa fa-check"></i><b>7.2.1</b> Datos</a></li>
+<li class="chapter" data-level="7.2.2" data-path="manual-tecnico-de-la-aplicacion-vision-creditrisk.html"><a href="manual-tecnico-de-la-aplicacion-vision-creditrisk.html#estadisticos"><i class="fa fa-check"></i><b>7.2.2</b> Estadísticos:</a></li>
+<li class="chapter" data-level="7.2.3" data-path="manual-tecnico-de-la-aplicacion-vision-creditrisk.html"><a href="manual-tecnico-de-la-aplicacion-vision-creditrisk.html#seleccion-de-variables"><i class="fa fa-check"></i><b>7.2.3</b> Seleccion de variables</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="manual-tecnico-de-la-aplicacion-vision-creditrisk.html"><a href="manual-tecnico-de-la-aplicacion-vision-creditrisk.html#perdida-por-incumplimiento"><i class="fa fa-check"></i><b>7.3</b> Pérdida por incumplimiento</a></li>
+<li class="chapter" data-level="7.4" data-path="manual-tecnico-de-la-aplicacion-vision-creditrisk.html"><a href="manual-tecnico-de-la-aplicacion-vision-creditrisk.html#score-de-credito."><i class="fa fa-check"></i><b>7.4</b> Score de Crédito.</a><ul>
+<li class="chapter" data-level="7.4.1" data-path="manual-tecnico-de-la-aplicacion-vision-creditrisk.html"><a href="manual-tecnico-de-la-aplicacion-vision-creditrisk.html#seleccion-y-resultados-del-modelo"><i class="fa fa-check"></i><b>7.4.1</b> Selección y resultados del modelo</a></li>
+<li class="chapter" data-level="7.4.2" data-path="manual-tecnico-de-la-aplicacion-vision-creditrisk.html"><a href="manual-tecnico-de-la-aplicacion-vision-creditrisk.html#score-de-la-cartera-de-credito."><i class="fa fa-check"></i><b>7.4.2</b> Score de la cartera de crédito.</a></li>
+<li class="chapter" data-level="7.4.3" data-path="manual-tecnico-de-la-aplicacion-vision-creditrisk.html"><a href="manual-tecnico-de-la-aplicacion-vision-creditrisk.html#proyeccion-a-nuevos-clientes."><i class="fa fa-check"></i><b>7.4.3</b> Proyección a nuevos clientes.</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="manual-tecnico-de-la-aplicacion-vision-creditrisk.html"><a href="manual-tecnico-de-la-aplicacion-vision-creditrisk.html#parametros-y-resultados."><i class="fa fa-check"></i><b>7.5</b> Parametros y resultados.</a><ul>
+<li class="chapter" data-level="7.5.1" data-path="manual-tecnico-de-la-aplicacion-vision-creditrisk.html"><a href="manual-tecnico-de-la-aplicacion-vision-creditrisk.html#parametros-iniciales"><i class="fa fa-check"></i><b>7.5.1</b> Parámetros iniciales</a></li>
+<li class="chapter" data-level="7.5.2" data-path="manual-tecnico-de-la-aplicacion-vision-creditrisk.html"><a href="manual-tecnico-de-la-aplicacion-vision-creditrisk.html#resultados"><i class="fa fa-check"></i><b>7.5.2</b> Resultados</a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="manual-tecnico-de-la-aplicacion-vision-creditrisk.html"><a href="manual-tecnico-de-la-aplicacion-vision-creditrisk.html#stress-testing"><i class="fa fa-check"></i><b>7.6</b> Stress Testing</a></li>
+<li class="chapter" data-level="7.7" data-path="manual-tecnico-de-la-aplicacion-vision-creditrisk.html"><a href="manual-tecnico-de-la-aplicacion-vision-creditrisk.html#segunda-seccion-credimetrics"><i class="fa fa-check"></i><b>7.7</b> Segunda sección: Credimetrics</a></li>
+<li class="chapter" data-level="7.8" data-path="manual-tecnico-de-la-aplicacion-vision-creditrisk.html"><a href="manual-tecnico-de-la-aplicacion-vision-creditrisk.html#creditos"><i class="fa fa-check"></i><b>7.8</b> Créditos</a></li>
+<li class="chapter" data-level="7.9" data-path="manual-tecnico-de-la-aplicacion-vision-creditrisk.html"><a href="manual-tecnico-de-la-aplicacion-vision-creditrisk.html#matriz-de-trancicion"><i class="fa fa-check"></i><b>7.9</b> Matriz de trancición</a><ul>
+<li class="chapter" data-level="7.9.1" data-path="manual-tecnico-de-la-aplicacion-vision-creditrisk.html"><a href="manual-tecnico-de-la-aplicacion-vision-creditrisk.html#calculo-de-la-matriz-de-transicion"><i class="fa fa-check"></i><b>7.9.1</b> Cálculo de la matriz de transición</a></li>
+<li class="chapter" data-level="7.9.2" data-path="manual-tecnico-de-la-aplicacion-vision-creditrisk.html"><a href="manual-tecnico-de-la-aplicacion-vision-creditrisk.html#selececcion-de-la-matriz-de-transicion"><i class="fa fa-check"></i><b>7.9.2</b> Selecección de la matriz de transición</a></li>
+</ul></li>
+<li class="chapter" data-level="7.10" data-path="manual-tecnico-de-la-aplicacion-vision-creditrisk.html"><a href="manual-tecnico-de-la-aplicacion-vision-creditrisk.html#perdida-por-clase."><i class="fa fa-check"></i><b>7.10</b> Pérdida por clase.</a><ul>
+<li class="chapter" data-level="7.10.1" data-path="manual-tecnico-de-la-aplicacion-vision-creditrisk.html"><a href="manual-tecnico-de-la-aplicacion-vision-creditrisk.html#calculo-de-perdida-esperada"><i class="fa fa-check"></i><b>7.10.1</b> Cálculo de pérdida esperada</a></li>
+<li class="chapter" data-level="7.10.2" data-path="manual-tecnico-de-la-aplicacion-vision-creditrisk.html"><a href="manual-tecnico-de-la-aplicacion-vision-creditrisk.html#perdida-esperada-1"><i class="fa fa-check"></i><b>7.10.2</b> Pérdida esperada</a></li>
+</ul></li>
+<li class="chapter" data-level="7.11" data-path="manual-tecnico-de-la-aplicacion-vision-creditrisk.html"><a href="manual-tecnico-de-la-aplicacion-vision-creditrisk.html#simulacion-y-resultados."><i class="fa fa-check"></i><b>7.11</b> Simulación y resultados.</a></li>
+<li class="chapter" data-level="7.12" data-path="manual-tecnico-de-la-aplicacion-vision-creditrisk.html"><a href="manual-tecnico-de-la-aplicacion-vision-creditrisk.html#stress-testing."><i class="fa fa-check"></i><b>7.12</b> Stress Testing.</a></li>
+<li class="chapter" data-level="7.13" data-path="manual-tecnico-de-la-aplicacion-vision-creditrisk.html"><a href="manual-tecnico-de-la-aplicacion-vision-creditrisk.html#tercera-seccion-indicadores-contables"><i class="fa fa-check"></i><b>7.13</b> Tercera sección: Indicadores contables</a></li>
+<li class="chapter" data-level="7.14" data-path="manual-tecnico-de-la-aplicacion-vision-creditrisk.html"><a href="manual-tecnico-de-la-aplicacion-vision-creditrisk.html#calculo-del-raroc"><i class="fa fa-check"></i><b>7.14</b> Cálculo del RAROC</a><ul>
+<li class="chapter" data-level="7.14.1" data-path="manual-tecnico-de-la-aplicacion-vision-creditrisk.html"><a href="manual-tecnico-de-la-aplicacion-vision-creditrisk.html#raroc"><i class="fa fa-check"></i><b>7.14.1</b> RAROC</a></li>
+</ul></li>
+</ul></li>
+<li class="appendix"><span><b>Apéndice</b></span></li>
+<li class="chapter" data-level="A" data-path="software-tools.html"><a href="software-tools.html"><i class="fa fa-check"></i><b>A</b> Software Tools</a><ul>
+<li class="chapter" data-level="A.1" data-path="software-tools.html"><a href="software-tools.html#r-and-r-packages"><i class="fa fa-check"></i><b>A.1</b> R and R packages</a></li>
+<li class="chapter" data-level="A.2" data-path="software-tools.html"><a href="software-tools.html#pandoc"><i class="fa fa-check"></i><b>A.2</b> Pandoc</a></li>
+<li class="chapter" data-level="A.3" data-path="software-tools.html"><a href="software-tools.html#latex"><i class="fa fa-check"></i><b>A.3</b> LaTeX</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="referencias.html"><a href="referencias.html"><i class="fa fa-check"></i>Referencias</a></li>
+<li class="divider"></li>
+<li><a href="https://bookdown.org" target="blank">Publicado con bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Riesgo de Crédito</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="creditmetrics" class="section level1">
+<h1><span class="header-section-number">Capítulo 6</span> CreditMetrics</h1>
+<p>Mientras que en el caso de <strong>CredictRisk+</strong> se usa un enfoque actuarial mediante el cual se llega ha obtener una forma explícita de la distribución de pérdidas a través de la función generadora de probabilidades, en el caso de <strong>CredictMetrics</strong>, aunque en teoría existe una representación explícita de la distribución de pérdidas, su obtención supera la capacidad de cálculo disponible en un computador convencional, y por lo tanto, está se estima a través de un proceso de simulación de <em>MonteCarlo</em>, otra caractéristica importante es que <strong>CreditMetric</strong> hace referencia, y utiliza extensamente, información que solo esta disponible en los mercados en desarrollo, aunque esto no impide que se aplique en los mercados emergentes si se hacen las edecuaciones correspondientes.</p>
+<p>Para la explicación de esta metodología usamos como guía el documento técnico de <strong>CreditMetrics</strong>. Iniciaremos con el caso más sencillo en el cual nuestrea cartera de créditos esta integrada por un único credito para luego generalizar el procedimiento a una cartera que puede incluir cualquier número <span class="math inline">\(N\)</span> de créditos. Pero primero establescamos los elementos básicos que usaremos en esta metodología.</p>
+<div id="elementos-que-usa-credimetrics" class="section level2">
+<h2><span class="header-section-number">6.1</span> Elementos que usa <strong>Credimetrics</strong></h2>
+<ul>
+<li><p><em>Conceptos relevantes al riesgo de crédito</em>: probabilidades de incumplimiento, patrones de migración entre los distintas clasificaciones que posean los clientes, umbrales que separen las calificaciones, el valor de los créditos, la tasa de recuperación en caso de incumplimiento de las calificaciones crediticia.</p></li>
+<li><p>Información del mercado en general: Tales como datos sobre las calificaciones e indicadores sobre su calidad.</p></li>
+<li><p>Información generada internamente por las intituciones que se pueda mapear a los estandares del mercado.</p></li>
+</ul>
+<p>Historicamente Credimetrics fue desarrollado para abordar el problema de medir el riesgo de credito de que los emisores que colocan papel que se negocia en el mercado de los Estados Unidos incumplan sus compromisos. En general, los elementos que son necesastios en esta metodología estan disponibles en mercados desarrollados, pero las intituciones financieras pueden crear procedimientos y metodologias internas para lograr suplir la falta de información. Los elementos clave del sistema son:</p>
+<ul>
+<li><p>Las calificaciones que otorgan las instituciones financieras a los distintos elementos que conforman su portafolio.</p></li>
+<li><p>Las diferencias de riesgo que expresan las distintas calificaciones.</p></li>
+<li><p>Información sobre la tasa de recuperación sobre créditos que caen en la cartera vencida.</p></li>
+</ul>
+<p>Una característica importante de las calificaciones emitidas es que ellas aportan de manera implícita piezas clave para la evaluación del riesgo de crédito, como por ejemplo:</p>
+<ul>
+<li><p>Probabilidades de incumplimiento históricas asociadas a cada calificación, así como las probabilidades de transición entre las categorias.</p></li>
+<li><p>Las distintas tasas de interes asociadas a cada categoría.</p></li>
+</ul>
+<p>Otra parte fundamental del análisis es la cantidad que se espera recuperar en caso de que el crédito caiga en la cartera de vencidos. Aunque si el sistema de calificación es robusto raramente se espera que un crédito que halla pasado a la cartera de vencido este en una calificación alta. Pero al final, la calificación no solo depende del sistema interno de la institución, sino tambien de la garantias que ofresca el crédito.</p>
+<p>En general, todos los requerimientos estan entrelazados, por ejemplo las calificaciones que se otorgan dependen de cosas como: historial de incumplimiento, garantias, utilidades de los créditos en los últimos años, el pais de origen, entre otros.</p>
+<p>A manera de ilustración se presenta una matriz de transición publicada por Standard &amp; Poor’s en Abril de 1966. En ella se aprecian las probabilidades de transición de que un bono que se encuentra en una calificación dada migre a otra calificación, por ejemplo en la tabla se aprecia que la probabilidad de que un bono que esta en la calificación BB migre a una calificación C es de un 1%.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">Calificación inicial</th>
+<th align="center">AAA</th>
+<th align="center">AA</th>
+<th align="center">A</th>
+<th>BBB</th>
+<th>BB</th>
+<th>B</th>
+<th>C</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">AAA</td>
+<td align="center">90.81</td>
+<td align="center">8.33</td>
+<td align="center">0.68</td>
+<td>0.06</td>
+<td>0.12</td>
+<td>0.00</td>
+<td>0.00</td>
+</tr>
+<tr class="even">
+<td align="center">AA</td>
+<td align="center">0.70</td>
+<td align="center">90.65</td>
+<td align="center">7.79</td>
+<td>0.64</td>
+<td>0.06</td>
+<td>0.14</td>
+<td>0.02</td>
+</tr>
+<tr class="odd">
+<td align="center">A</td>
+<td align="center">0.09</td>
+<td align="center">2.27</td>
+<td align="center">91.05</td>
+<td>5.52</td>
+<td>0.74</td>
+<td>0.26</td>
+<td>0.01</td>
+</tr>
+<tr class="even">
+<td align="center">BBB</td>
+<td align="center">0.02</td>
+<td align="center">0.33</td>
+<td align="center">5.95</td>
+<td>86.93</td>
+<td>5.30</td>
+<td>1.17</td>
+<td>0.12</td>
+</tr>
+<tr class="odd">
+<td align="center">BB</td>
+<td align="center">0.03</td>
+<td align="center">0.14</td>
+<td align="center">0.67</td>
+<td>7.73</td>
+<td>80.53</td>
+<td>8.84</td>
+<td>1.00</td>
+</tr>
+<tr class="even">
+<td align="center">B</td>
+<td align="center">0.00</td>
+<td align="center">0.11</td>
+<td align="center">0.24</td>
+<td>0.43</td>
+<td>6.48</td>
+<td>83.46</td>
+<td>4.07</td>
+</tr>
+<tr class="odd">
+<td align="center">C</td>
+<td align="center">0.22</td>
+<td align="center">0.00</td>
+<td align="center">0.22</td>
+<td>1.30</td>
+<td>2.38</td>
+<td>11.24</td>
+<td>64.86</td>
+</tr>
+</tbody>
+</table>
+<p>Las tasas de recuperación de los créditos como ya se menciono son fundamentales, y no son únicamente proporcionadas por las instituciones financieras, estas pueden recurrir a terceros por las calificaciones de los créditos. Acontinuación se presenta una tabla que muestra las tasas de recuperación de créditos elaboradsas por Moody’s y otros académicos.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">Prelación</th>
+<th align="center">Media (%)</th>
+<th align="center">Desv. Std (%)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">Senior Garantizada</td>
+<td align="center">53.80</td>
+<td align="center">26.86</td>
+</tr>
+<tr class="even">
+<td align="center">Senior sin Garantía</td>
+<td align="center">51.13</td>
+<td align="center">25.45</td>
+</tr>
+<tr class="odd">
+<td align="center">Senior Subordinado</td>
+<td align="center">38.52</td>
+<td align="center">23.81</td>
+</tr>
+<tr class="even">
+<td align="center">Subordinada</td>
+<td align="center">32.74</td>
+<td align="center">20.18</td>
+</tr>
+<tr class="odd">
+<td align="center">Junior Subordinada</td>
+<td align="center">17.09</td>
+<td align="center">10.90</td>
+</tr>
+</tbody>
+</table>
+<p>Una acotación interesante, es que originalmente credimetrics esta direccionada a medir el riesgo de crédito de una cartera de bonos. Sin embargo puede ser aplicado a distintos tipos de posiciones que involucren riesgo de crédito, como por ejemplo: posiciones cortas en divisas, futuros, opciones o como es el caso de interes, créditos tradicionales. Ahora, daremos el ejemplo de credimetrics usando un único crédito.</p>
+</div>
+<div id="el-caso-de-un-solo-credito" class="section level2">
+<h2><span class="header-section-number">6.2</span> El caso de un solo crédito</h2>
+<p>Una vez descrito los elementos necesarios para esta metodología vamos a empezar por realizar los pasos que son necesarios para la medición del riesgo de crédito de una cartera de un solo activo. Utilizaremos un ejemplo parecido al que procede del documento de Credimetrics con la diferencia que ellos usan un bono y nosotros un credito personal. Los tres pasos a realizar son:</p>
+<ul>
+<li><p>Dependiendo de la calificación del bono, se obtiene la probabilidad de que migre hacia un estado de migración diferente.</p></li>
+<li><p>Se calcula el saldo o la exposición de los créditos.</p></li>
+<li><p>Se aplican las probabilidades de migración a la expoción que posee el crédito para obtener la distribución de probabilidad de pérdida o perfil de riesgo del instrumento y las estadísticas que corresponden, es decir, la pérdida esperada, su varianza o desviación estandar, su VaR con un nivel de confianza deseado, entre otros.</p></li>
+</ul>
+<div id="ejemplo-1" class="section level3">
+<h3><span class="header-section-number">6.2.1</span> Ejemplo 1</h3>
+<p>Supongamos que tenemos un crédito con calificación BB con exposición de 250, la institución financiera posee la siguiente información sobre las probabilidades calificación de los créditos que estan en una calificación BB:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">Calificación</th>
+<th align="center">Probabilidad de transición (%)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">AAA</td>
+<td align="center">4</td>
+</tr>
+<tr class="even">
+<td align="center">AA</td>
+<td align="center">5</td>
+</tr>
+<tr class="odd">
+<td align="center">A</td>
+<td align="center">9</td>
+</tr>
+<tr class="even">
+<td align="center">BBB</td>
+<td align="center">15</td>
+</tr>
+<tr class="odd">
+<td align="center">BB</td>
+<td align="center">44</td>
+</tr>
+<tr class="even">
+<td align="center">B</td>
+<td align="center">18</td>
+</tr>
+<tr class="odd">
+<td align="center">CCC</td>
+<td align="center">5</td>
+</tr>
+</tbody>
+</table>
+<p>Tambien la institución cuenta con las perdidad esperadas por calificación (las cuales representan la inversa aritmética de las tasas de recuperación en caso de que el crédito caiga en default o mora)</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">Calificación</th>
+<th align="center">Pérdida esperada (%)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">AAA</td>
+<td align="center">0.1</td>
+</tr>
+<tr class="even">
+<td align="center">AA</td>
+<td align="center">3</td>
+</tr>
+<tr class="odd">
+<td align="center">A</td>
+<td align="center">5</td>
+</tr>
+<tr class="even">
+<td align="center">BBB</td>
+<td align="center">9</td>
+</tr>
+<tr class="odd">
+<td align="center">BB</td>
+<td align="center">18</td>
+</tr>
+<tr class="even">
+<td align="center">B</td>
+<td align="center">25</td>
+</tr>
+<tr class="odd">
+<td align="center">CCC</td>
+<td align="center">40</td>
+</tr>
+</tbody>
+</table>
+<p>Ya con esta información podemos establecer una tabla con la pérdida esperada del crédito en las distintas calificaciones, la cual es:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">Calificación</th>
+<th align="center">Pérdida esperada del Crédito</th>
+<th align="center">Proababilidad</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">AAA</td>
+<td align="center">0.25</td>
+<td align="center">4</td>
+</tr>
+<tr class="even">
+<td align="center">AA</td>
+<td align="center">7.5</td>
+<td align="center">5</td>
+</tr>
+<tr class="odd">
+<td align="center">A</td>
+<td align="center">12.5</td>
+<td align="center">9</td>
+</tr>
+<tr class="even">
+<td align="center">BBB</td>
+<td align="center">22.5</td>
+<td align="center">15</td>
+</tr>
+<tr class="odd">
+<td align="center">BB</td>
+<td align="center">45</td>
+<td align="center">44</td>
+</tr>
+<tr class="even">
+<td align="center">B</td>
+<td align="center">62.5</td>
+<td align="center">18</td>
+</tr>
+<tr class="odd">
+<td align="center">CCC</td>
+<td align="center">100</td>
+<td align="center">5</td>
+</tr>
+</tbody>
+</table>
+<p>De esta forma para obtener la pérdida esperada se procede a multiplicar la pérdida esperada de una calificación por la probabilidad de que el crédito caiga en la respectiva calificación y luego se realiza la suma global, de la siguiente forma:</p>
+<span class="math display">\[\begin{align*} 
+PE = (0.25*0.04)+(7.5*0.05)&amp; \\
+&amp;+(12.5*0.09)+(22.5*0.15)+(45*0.44)&amp;\\
+&amp;+(62.5*0.18) +(100*0.05)=40.93
+\end{align*}\]</span>
+<p>Así la pérdida esperada de una cartera de un solo crédito de calificación BB de una exposición de 250 es de 40.935. Ahora para calcular el VaR a un nivel de confianza en especifico por ejemplo al 5% simplemente sumamos las probabilidad de manera descendentes de las calificaciones hasta llegar 95 en el caso de que se pase se toma la calificación en la cual ocurre el exceso, en nuestro ejemplo el VaR ocurre en la calificación B, así el <span class="math inline">\(VaR_{5\%}=62.5\)</span>.</p>
+<p>En general, se suele pensar que una aproximación normal a la distribución de pérdidas puede ser idonea, pero esto es incorrecto pues suele ocurrir que las probabilidades de transición se concentren en los extremos de las calificaciones, esto se verá en el siguiente ejemplo.</p>
+</div>
+<div id="ejemplo-2" class="section level3">
+<h3><span class="header-section-number">6.2.2</span> Ejemplo 2</h3>
+<p>Consideremos un bono con una calificación AA con un valor de 300 donde las probabilidades de tansición a las otras categorias esta representada en la siguiente tabla</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">Calificación</th>
+<th align="center">Probabilidad de transición (%)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">AAA</td>
+<td align="center">15</td>
+</tr>
+<tr class="even">
+<td align="center">AA</td>
+<td align="center">48</td>
+</tr>
+<tr class="odd">
+<td align="center">A</td>
+<td align="center">15</td>
+</tr>
+<tr class="even">
+<td align="center">BBB</td>
+<td align="center">12</td>
+</tr>
+<tr class="odd">
+<td align="center">BB</td>
+<td align="center">5</td>
+</tr>
+<tr class="even">
+<td align="center">B</td>
+<td align="center">4</td>
+</tr>
+<tr class="odd">
+<td align="center">CCC</td>
+<td align="center">1</td>
+</tr>
+</tbody>
+</table>
+<p>Además la tasas de perdida por calificación son las mismas que el ejemplo anterior</p>
+<p>Ya con esta información podemos establecer una tabla con la pérdida esperada del credito en las distintas calificaciones, la cual es:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">Calificación</th>
+<th align="center">Pérdida esperada del Crédito</th>
+<th align="center">Proababilidad</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">AAA</td>
+<td align="center">0.3</td>
+<td align="center">15</td>
+</tr>
+<tr class="even">
+<td align="center">AA</td>
+<td align="center">9</td>
+<td align="center">48</td>
+</tr>
+<tr class="odd">
+<td align="center">A</td>
+<td align="center">15</td>
+<td align="center">15</td>
+</tr>
+<tr class="even">
+<td align="center">BBB</td>
+<td align="center">27</td>
+<td align="center">12</td>
+</tr>
+<tr class="odd">
+<td align="center">BB</td>
+<td align="center">54</td>
+<td align="center">5</td>
+</tr>
+<tr class="even">
+<td align="center">B</td>
+<td align="center">75</td>
+<td align="center">4</td>
+</tr>
+<tr class="odd">
+<td align="center">CCC</td>
+<td align="center">120</td>
+<td align="center">1</td>
+</tr>
+</tbody>
+</table>
+<p>Ahora de igual forma para obtener la paérdida esperada procedemos con el siguiente cálculo.</p>
+<span class="math display">\[\begin{align*} 
+PE = (0.3*0.15)+(9*0.48)&amp; \\
+&amp;+(15*0.15)+(27*0.12)+(54*0.05)&amp;\\
+&amp;+(75*0.04) +(120*0.01)=16.75
+\end{align*}\]</span>
+<p>Para cálcular el valor en riesgo al 95% es suficiente tomar la pérdida esperada de la calificación BB, así el <span class="math inline">\(VaR_{95\%}=54\)</span>.</p>
+<p>Con este ejemplo podemos notsr que la distribución normal no se ajusta de manera adecuada a la distribución de pérdidas, pues esta concentrada en un extremo de las pérdidas por calificación.</p>
+</div>
+</div>
+<div id="cartera-de-dos-de-creditos-con-probabilidades-de-treansicion-independientes." class="section level2">
+<h2><span class="header-section-number">6.3</span> Cartera de dos de créditos con probabilidades de treansición independientes.</h2>
+<p>Como en realidad el caso de un solo instrumento no es de interes, pues una cartera de créditos de una institución financiera puede estar conformada por millones de créditos daremos un ejemplo ilustrativo con una cartera de dos créditos, con esto se pretende mostrar como aumenta el nivel de dificultad, mas adelante veremos que en general, no calcularemos la distribución de pérdidas explícitamente, sino realizaremos una aproximación por el método de simulación de Montecarlo.</p>
+<div id="ejemplo-3" class="section level3">
+<h3><span class="header-section-number">6.3.1</span> Ejemplo 3</h3>
+<p>Para facilitar los cálculos supondremos que nuestra cartera esta conformada por los créditos de los primeros dos ejemplos, la idea es crear una tabla con todas las combinaciones posibles de las sumas de pérdidas posibles entre los créditos, la cual es:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">Crédito AA</th>
+<th>AAA</th>
+<th align="center">AA</th>
+<th>A</th>
+<th>BBB</th>
+<th>BB</th>
+<th>B</th>
+<th>CCC</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">Crédito BB</td>
+<td></td>
+<td align="center"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td align="center">AAA</td>
+<td>0.55</td>
+<td align="center">9.25</td>
+<td>15.25</td>
+<td>27.25</td>
+<td>54.25</td>
+<td>75.25</td>
+<td>120.25</td>
+</tr>
+<tr class="odd">
+<td align="center">AA</td>
+<td>7.8</td>
+<td align="center">16.5</td>
+<td>22.5</td>
+<td>34.5</td>
+<td>61.5</td>
+<td>82.5</td>
+<td>127.5</td>
+</tr>
+<tr class="even">
+<td align="center">A</td>
+<td>12.8</td>
+<td align="center">21.5</td>
+<td>27.5</td>
+<td>39.5</td>
+<td>66.5</td>
+<td>87.5</td>
+<td>132.5</td>
+</tr>
+<tr class="odd">
+<td align="center">BBB</td>
+<td>22.8</td>
+<td align="center">31.5</td>
+<td>37.5</td>
+<td>49.5</td>
+<td>76.5</td>
+<td>97.5</td>
+<td>142.5</td>
+</tr>
+<tr class="even">
+<td align="center">BB</td>
+<td>45.3</td>
+<td align="center">54</td>
+<td>60</td>
+<td>72</td>
+<td>99</td>
+<td>120</td>
+<td>165</td>
+</tr>
+<tr class="odd">
+<td align="center">B</td>
+<td>62.8</td>
+<td align="center">71.5</td>
+<td>77.5</td>
+<td>99.5</td>
+<td>106.5</td>
+<td>137.5</td>
+<td>182.5</td>
+</tr>
+<tr class="even">
+<td align="center">CCC</td>
+<td>100.3</td>
+<td align="center">109</td>
+<td>115</td>
+<td>127</td>
+<td>154</td>
+<td>175</td>
+<td>220</td>
+</tr>
+</tbody>
+</table>
+<p>Esta tabla se puede enteder como sigue, la perdida esperada si el crédito BB migra a la calificación BBB y el crédito AA migra a la calificación CCC es 142.5, ahora para hallar la probabilidad debemos multiplicar las probabilidades correspondientes de que estas migraciones ocurran, es decir, <span class="math inline">\(0.15*0.01=0.0015\)</span>. Ahora para hallar la pérdida esperada de esta cartera debemos encontrar todas las probabilidades de transición, lo cual se muestra en la siguiente tabla:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">Crédito AA</th>
+<th>AAA</th>
+<th align="center">AA</th>
+<th>A</th>
+<th>BBB</th>
+<th>BB</th>
+<th>B</th>
+<th>CCC</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">Crédito BB</td>
+<td></td>
+<td align="center"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td align="center">AAA</td>
+<td>0.006</td>
+<td align="center">0.0192</td>
+<td>0.0060</td>
+<td>0.0048</td>
+<td>0.0020</td>
+<td>0.0016</td>
+<td>0.0004</td>
+</tr>
+<tr class="odd">
+<td align="center">AA</td>
+<td>0.0075</td>
+<td align="center">0.0240</td>
+<td>0.0075</td>
+<td>0.0060</td>
+<td>0.0025</td>
+<td>0.0020</td>
+<td>0.0005</td>
+</tr>
+<tr class="even">
+<td align="center">A</td>
+<td>0.0135</td>
+<td align="center">0.0432</td>
+<td>0.0135</td>
+<td>0.0108</td>
+<td>0.0045</td>
+<td>0.0036</td>
+<td>0.0009</td>
+</tr>
+<tr class="odd">
+<td align="center">BBB</td>
+<td>0.0225</td>
+<td align="center">0.0720</td>
+<td>0.0225</td>
+<td>0.0180</td>
+<td>0.0075</td>
+<td>0.0060</td>
+<td>0.0015</td>
+</tr>
+<tr class="even">
+<td align="center">BB</td>
+<td>0.0660</td>
+<td align="center">0.2112</td>
+<td>0.0660</td>
+<td>0.0528</td>
+<td>0.0220</td>
+<td>0.0176</td>
+<td>0.0044</td>
+</tr>
+<tr class="odd">
+<td align="center">B</td>
+<td>0.0270</td>
+<td align="center">0.0864</td>
+<td>0.0270</td>
+<td>0.0216</td>
+<td>0.0090</td>
+<td>0.0072</td>
+<td>0.0018</td>
+</tr>
+<tr class="even">
+<td align="center">CCC</td>
+<td>0.0075</td>
+<td align="center">0.0240</td>
+<td>0.0075</td>
+<td>0.0060</td>
+<td>0.0025</td>
+<td>0.0020</td>
+<td>0.0005</td>
+</tr>
+</tbody>
+</table>
+<p>Ahora realizando todas las correspondientes multiplicaciones de las pérdidas por sus probabilidades y sumandolas, obtenemos que la pérdida esperada de una cartera con estos dos créditos en particular es de <span class="math inline">\(57,86\)</span>. Ahora para obtener el VaR, ordenamos de menor a mayor las pérdidas y sumamos las respectivas probabilidades hasta llegar al nivel de confianza requerido, por ejemplo el VaR al 95% de esta cartera es de 115.</p>
+</div>
+</div>
+<div id="aproximacion-de-la-distribucion-de-perdidas-de-una-cartera-con-n-creditos." class="section level2">
+<h2><span class="header-section-number">6.4</span> Aproximación de la distribución de pérdidas de una cartera con <span class="math inline">\(n\)</span> créditos.</h2>
+<p>En el ejemplo anterior notamos como una cartera con 2 créditos con 7 posibles calificaciones existen <span class="math inline">\(7^2\)</span> combinaciones, si tuvieramos 50 créditos en nuestra cartera hubiera <span class="math inline">\(7^{50}\)</span> combinaciones posibles, es decir, el coste computacional aumenta exponencialmente, por lo tanto, una cartera realista com miles e incluso millones de créditos se vuelve inviable si queremos realizar el cálculo de la misma forma que el ejemplo anterior, por lo tanto nos vemos obligados a realizar una aproximación a la distribución de pérdidas.</p>
+<div id="simulacion-de-montecarlo" class="section level3">
+<h3><span class="header-section-number">6.4.1</span> Simulación de MonteCarlo</h3>
+<p>Ahora veremos como aproximar la distribución de pérdidad con el método más común, conocido como método de aproximación por simulación de MonteCarlo. Antes de describir el método debemos acotar que en general los eventos de migración crediticia pueden ser supuestos independientes o no entre las migraciones de otros créditos. Sin embargo en mercados poco desarrollodos o donde la información es limitada se tiende a suponer la independencia entre los créditos de una cartera.</p>
+<div id="que-es-un-metodo-de-montecarlo" class="section level4">
+<h4><span class="header-section-number">6.4.1.1</span> ¿Que es un Método de Montecarlo?</h4>
+<p>El término Monte Carlo se aplica a un conjunto de métodos matemáticos que se empezaron a usar en los 1940s para el desarrollo de armas nucleares en Los Alamos, favorecidos por la aparición de los ordenadores digitales modernos. Consisten en resolver un problema mediante la invención de juegos de azar cuyo comportamiento simula algún fenómeno real gobernado por una distribución de probabilidad (e.g. un proceso físico) o sirve para realizar un cálculo (e.g. evaluar una integral).</p>
+<p>Más técnicamente, un método de MonteCarlo es un proceso estocástico numérico, es decir, una secuencia de estados cuya evolución viene determinada por sucesos aleatorios. Recordemos que un suceso aleatorio es un conjunto de resultados que se producen con cierta probabilidad. Veamos un ejemplo ahora:</p>
+</div>
+<div id="ejemplo-gotas-de-lluvia-para-estimar-pi" class="section level4">
+<h4><span class="header-section-number">6.4.1.2</span> Ejemplo: Gotas de lluvia para estimar <span class="math inline">\(\pi\)</span></h4>
+<p>Consideremos un círculo de radio unidad circunscrito por un cuadrado. Suponiendo una lluvia uniforme sobre el cuadrado, podemos hallar el valor de <span class="math inline">\(\pi\)</span> a partir de la probabilidad de que las gotas caigan dentro del círculo (próxima figura)</p>
+<div class="figure">
+<img src="/Users/arturocarreno/Riesgo_de_Credito/circulo.png" alt="" />
+<p class="caption"></p>
+</div>
+<p>Sea <span class="math inline">\(P\)</span> dicha probabilidad, por calculo:</p>
+<p><span class="math display">\[P=\frac{\textrm{área del círculo}}{\textrm{área del cuadrado}}=\frac{\int_{-1}^1dx\int_{-\sqrt{1-x^2}}^{\sqrt{1-x^2}}dy}{\int_{-1}^1dx\int_{-1}^1dy}=\frac{2\int_{-1}^1\sqrt{1-x^2}dx}{2.2}=\frac{\pi}{4}\]</span></p>
+<p>Es decir <span class="math inline">\(\pi=4P\)</span>. Ahora notemos lo siguiente:</p>
+<ul>
+<li><p>Gracias a los métodos de integración de cálculo podemos relacionar rapidamente la probabilidad con <span class="math inline">\(\pi\)</span></p></li>
+<li><p>Con un ordenador podemos generar números o pares de números pseudo aleatorios <span class="math inline">\((x,y)\)</span> entre 0 y 1.</p></li>
+<li><p>Entre mayor número de simulaciones realicemos mayor sera nuestra aproximación a <span class="math inline">\(\pi\)</span></p></li>
+</ul>
+<p>Para finalizar el ejemplo debemos encontrar la frcuencia de puntos que caen dentro de la circunferencia para aproximar <span class="math inline">\(P\)</span> de una manera correcta, así despues de 1000 simulaciones <span class="math inline">\(\pi\approx 3,158733\)</span>.</p>
+</div>
+<div id="numeros-pseudoaleatorios" class="section level4">
+<h4><span class="header-section-number">6.4.1.3</span> Números pseudoaleatorios</h4>
+<p>Hemos visto que el método de MonteCarlo es un proceso estocástico númerico que nos permite resolver problemas de aproximación. Para ello se requiere muestrar variables aleatorias según una ley de distribución de probabilidad, por lo tanto es vital que nuestro método de muestreo sea efectivo, por lo tanto presentamos el siguiente test de calidad de números pseudoaleatorios.</p>
+<ul>
+<li><p>Equidistribución: los números pseudoaleatorios deben repartirse por igual, como correspondería a una verdadera distribución uniforme</p></li>
+<li><p>Largo periodo: todos los métodos de generación de números pseudoaleatorios tienen un periodo en el cual la secuencia de números se vuelve a repetir, por lo tanto, el periodo debe ser largo para no agotar la sequencia en un cálculo concreto.</p></li>
+<li><p>Repetibilidad: a veces se necesita repetir un cálculo con exactamente los mismos números pseudoaleatorios. Así que conviene que el generador permita almacenar su estado</p></li>
+<li><p>Largas subsecuencias disjuntas: Si la simulación es muy extensa resulta conveniente subdividirla en otras más pequeñas, para lo que es importante que sean estadísticamente independientes y así se puedan recombinar sin introducir correlaciones.</p></li>
+</ul>
+<p>Portabilidad: La rutina debe generar exactamente la misma secuencia de números no solamente por distintos lenguajes de programación sino también en distintas máquinas.</p>
+<p>Eficiencia: La generación de cada número debe consumir muy poco tiempo.</p>
+<p>Ahora para comprobar la eficiencia del método de generación de números pseudo aleatorios existen test estadísticos para comprobar su bondad, los mas usados son:</p>
+<ul>
+<li><p>Test de frecuencia: Sirve para comprobar la equidistribución de <span class="math inline">\(N\)</span> valores generados.Se divide el intervalo <span class="math inline">\([0,1]\)</span> en <span class="math inline">\(k\)</span> sub intervalos. Uno esperaría encontrar <span class="math inline">\(N/k\)</span> valores en cada sub intervalo. Sea <span class="math inline">\(N_j\)</span> la cantidad de valores encontrados en el intervalo <span class="math inline">\(j\)</span>-ésimo. Entonces la siguiente <span class="math inline">\(\chi^2\)</span> permite hallar la probabilidad de que la distribución generada sea compatible con una verdadera distribución aleatoria uniforme,<span class="math display">\[\chi^2=\frac{k}{N}\sum_{j=1}^k\bigg{(}N_j-\frac{N}{k}\bigg{)}^2\]</span> que se comportara asintóticamente como una <span class="math inline">\(\chi^2(k-1)\)</span></p></li>
+<li><p>Test de la serie: Sirve para comprobar la independencia entre sucesivos numeros en una secuencia. Es una generalización del test anterior. Dividinos el intervalo <span class="math inline">\([0,1]\)</span> en <span class="math inline">\(r\)</span> sub intervalos y miramos ternas de <span class="math inline">\(s\geq2\)</span> puntos <span class="math inline">\(x_n=(x_n,x_{n+1},...,x_{n+s-1})\)</span> consecutivamente generados. Cada una de las <span class="math inline">\(N\)</span> ternas <span class="math inline">\(x_n\)</span> generadas caerá dentro de uno de los <span class="math inline">\(r^s\)</span> bines en los que se divide este espacio <span class="math inline">\(s\)</span> dimensional. Si llamamos <span class="math inline">\(N_{j_1,j_2,...j_s}\)</span> con <span class="math inline">\(j_i\in\{1,2,3,...,r\}\)</span>, el número de valores que caen en el bin <span class="math inline">\((j_1,j_2,...,j_s)\)</span>, la siguiente <span class="math inline">\(\chi^2\)</span> nos permita hallar la probabilidad de que la distribución generada sea uniforme, <span class="math display">\[\chi^2=\frac{r^s}{N}\sum_{\{j_1,j_2,...j_s\}}\bigg{(}N_{j_1,j_2,...j_s}-\frac{N}{r^s}\bigg{)}\]</span> Se comportara asintóticamente como una <span class="math inline">\(\chi^2(r^2-1)\)</span></p></li>
+</ul>
+</div>
+<div id="aplicando-simulacion-de-montecarlo-para-hallar-la-distribucion-de-perdidas-de-una-cartera." class="section level4">
+<h4><span class="header-section-number">6.4.1.4</span> Aplicando simulación de MonteCarlo para hallar la distribución de pérdidas de una cartera.</h4>
+<p>Ahora una vez se pretenda usar un método algorítmico de generación de números aleatorios, se usa este metódo para generar eventos probabilísticos en los cuales se consideren todos los posibles eventos de transición entre las distintas calificaciones. Cada evento se considera como una simulación de un evento particular, por cada simulación los créditos se encuentran en una calificación determinada por la probabilidad de transición respectiva, este calificación trae con si un pérdida esperada por crédito, asi por cada simulación se obtiene una pérdida.</p>
+<p>Ahora si nuestra cartera de crédito posee 1000 créditos, y existen 5 calificaciones, en la sección vimos que existen <span class="math inline">\(5^{1000}\)</span> posibles eventos, para imaginarnos esta cantidad basta saber que este número es mayor que un billón, por lo tanto debemos realizar un gran número de simulaciones para poder captar información verídica de la pérdida esperada. Una de las bondades de estimar la pérdida esperada de esta forma es que la distribución tendera asintóticamente a una normal donde su media tendera la pérdida esperada de la cartera.</p>
+</div>
+<div id="obtencion-de-las-metricas-de-riesgo." class="section level4">
+<h4><span class="header-section-number">6.4.1.5</span> Obtención de las métricas de riesgo.</h4>
+<p>Una ves realizadas las simulaciones y obtenida la aproximación de la distribución de pérdidas usando la aproximación normal es facil obtener las métricas de riesgo, pues estas ya estan definidas para la distribución normal. Si la distribucion de pérdidas es como una normal de media <span class="math inline">\(\mu\)</span> y desvianción estandasr <span class="math inline">\(\sigma\)</span> las métricas de riesgo son: <span class="math display">\[\textrm{Pérdida esperada}=\mu\]</span>,<span class="math display">\[VaR_{p}=\mu+\sigma\Phi^{-1}(p)\]</span>,<span class="math display">\[TVaR_p=\mu+\sigma\frac{\phi[\Phi^{-1(p)}]}{1-p}\]</span> Donde <span class="math inline">\(\phi\)</span> y <span class="math inline">\(\Phi\)</span> representan la función de densidad de probabilidad y la función de probabilidad acumulada de una normal estandar.</p>
+
+</div>
+</div>
+</div>
+</div>
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-78759535-1', 'auto');
+ga('send', 'pageview');  
+</script>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="creditrisk.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="manual-tecnico-de-la-aplicacion-vision-creditrisk.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": true,
+"facebook": false,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/synergyvision/Teoria-de-Portafolio/edit/master/bookdown/302-creditmetrics.Rmd",
+"text": "Edit"
+},
+"download": ["Riesgo-de-Credito.pdf"],
+"toc": {
+"collapse": "none"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "";
+    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
