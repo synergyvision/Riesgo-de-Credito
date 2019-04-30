@@ -29,11 +29,11 @@ VisionHeader <- function(){tags$head(
 
 ACERTITLE_TEXT<-"Acerca de VisionRisk™"
 ACERSUBSV_TEXT<-"Tecnología para Especulación, Inversión, Economía, Finanzas y Riesgo"
-ACERVER_TEXT<-"Versión: 0.0.0"
+ACERVER_TEXT<-"Versión: 1.0.0"
 ACERRIF_TEXT<-"Rif: "
 ACERRS_TEXT<-"Copyright © 2014-2018 Synergy Vision"
 ACERRS_TEXT2 <- "All Rights Reserved"
-ACERDIR_TEXT<-"Centro Gerencial Mohedano, La Castellana"
+ACERDIR_TEXT<-"Centro San Ignacio, La Castellana"
 ACERTLF_TEXT<-"0212-2630808 / 0414-2769752"
 ACERCORR_TEXT<-"contacto@synergy.vision"
 
