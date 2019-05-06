@@ -2,7 +2,7 @@
 title: "Riesgo de Crédito"
 subtitle: "Ciencia de los Datos Financieros"
 author: "Synergy Vision"
-date: "2019-02-25"
+date: "2019-05-06"
 knit: "bookdown::render_book"
 documentclass: krantz
 bibliography: [book.bib, packages.bib]
@@ -29,7 +29,6 @@ Placeholder
 ## ¿Por qué  leer este libro? {-}
 ## Estructura del libro {-}
 ## Información sobre los programas y convenciones {-}
-## Prácticas interactivas con R {-}
 ## Agradecimientos {-}
 
 <!--chapter:end:index.Rmd-->
@@ -37,11 +36,11 @@ Placeholder
 
 # Acerca del Autor {-}
 
-Este material es un esfuerzo de equipo en Synergy Vision, (<http://synergy.vision/nosotros/>).		 
+Este material es un esfuerzo de equipo en Synergy Vision, (<http://synergy.vision/nosotros/>). En especial al equipo conformado por Danny Morales y Arturo Carreño. Los cuales en conjunto y con su experiencia en el sector financiero crearon este sistema para la facilitar a las instituciones cumplir con las regulaciones obligatorias exigidas por el ente regulatorio.
 
-El propósito de este material es ofrecer una experiencia de aprendizaje distinta y enfocada en el estudiante. El propósito es que realmente aprenda y practique con mucha intensidad. La idea es cambiar el modelo de clases magistrales y ofrecer una experiencia más centrada en el estudiante y menos centrado en el profesor. Para los temas más técnicos y avanzados es necesario trabajar de la mano con el estudiante y asistirlo en el proceso de aprendizaje con prácticas guiadas, material en línea e interactivo, videos, evaluación contínua de brechas y entendimiento, entre otros, para procurar el dominio de la materia.
-  		  
-Nuestro foco es la Ciencia de los Datos Financieros y para ello se desarrollará material sobre: **Probabilidad y Estadística Matemática en R**, **Programación Científica en R**, **Mercados**, **Inversiones y Trading**, **Datos y Modelos Financieros en R**, **Renta Fija**, **Inmunización de Carteras de Renta Fija**, **Teoría de Riesgo en R**, **Finanzas Cuantitativas**, **Ingeniería Financiera**, **Procesos Estocásticos en R**, **Series de Tiempo en R**, **Ciencia de los Datos**, **Ciencia de los Datos Financieros**, **Simulación en R**, **Desarrollo de Aplicaciones Interactivas en R**, **Minería de Datos**, **Aprendizaje Estadístico**, **Estadística Multivariante**, **Riesgo de Crédito**, **Riesgo de Liquidez**, **Riesgo de Mercado**, **Riesgo Operacional**, **Riesgo de Cambio**, **Análisis Técnico**, **Inversión Visual**, **Finanzas**, **Finanzas Corporativas**, **Valoración**, **Teoría de Portafolio**, entre otros.
+Danny Morales: Licenciado en ciencian actuariales, cuenta con varios años de experiencia en el sector financiero y en la actualidad es gerente general de synergy vision y profesor universitario (UCV) 
+
+Arturo Carreño: Liceciado en matemáticas, cuenta con experiencia en el sector financiero y en la actualidad es cientifico de datos financieros de synergy vision y profesor universitario (UCV)
 
 Nuestra cuenta de Twitter es (https://twitter.com/bysynergyvision) y nuestros repositorios están en GitHub (https://github.com/synergyvision).
   		  
@@ -129,7 +128,7 @@ Placeholder
 
 
 ## La distribución del número de incumplimientos con probabilidades de impago fijas.
-## La agrupación por bandas de exposición por bandas de exposición a pérdidas
+## La agrupación por bandas de exposición las pérdidas
 ## La determinación de la *distribución de pérdidas* de la cartera.
 ## Obteniendo la distribución de las pérdidas
 ## Obtención del VaR
@@ -146,7 +145,7 @@ Placeholder
 ## El caso de un solo crédito 
 ### Ejemplo 1
 ### Ejemplo 2
-## Cartera de dos de créditos con probabilidades de treansición independientes.
+## Cartera de dos de créditos con probabilidades de transición independientes.
 ### Ejemplo 3
 ## Aproximación de la distribución de pérdidas de una cartera con $n$ créditos.
 ### Simulación de MonteCarlo
@@ -163,12 +162,12 @@ Placeholder
 # Manual técnico de la aplicación Vision CreditRisk
 
 
-En el presente capítulo, presentaremos el manual técnico de la aplicación Vision CreditRisk, el cual utiliza las nociones teóricas vistas anteriormente para lograr de una forma agradable y de facil entendimiento permtir que el usuario encargado del área de crédito de su institución maneje de forma precisa y adecuada las metricas de riesgo.  
+En el presente capítulo, presentaremos el manual técnico de la aplicación Vision CreditRisk, el cual utiliza las nociones teóricas vistas anteriormente para lograr de una forma agradable y de facil entendimiento permtir que el usuario encargado del área de crédito de su institución maneje de forma precisa y adecuada las métricas de riesgo.  
 
 ## Presentación de la aplicación.
 
 
-La aplicación esta compuesta de tres secciones, la primera referente a la metodología CreditRisk+, la segunda correspondiente a la metodología Credimetrics y la tercera una sección referente a indicadores técnicos.
+La aplicación esta compuesta de tres secciones, la primera referente a la metodología CreditRisk+, la segunda correspondiente a la metodología Credimetrics y la tercera sección referente a indicadores técnicos.
 
 ![\label{fig:"sd"}](~/Riesgo_de_Credito/portada.png)
 
@@ -207,7 +206,7 @@ En esta pestaña, veremos el gráfico estadístico de boxplot para ver el compor
 
 ![\label{fig:"sd"}](~/Riesgo_de_Credito/esta1.png)
 
-### Seleccion de variables
+### Selección de variables
 
 En esta sección el usuario podrá colocar el significancia para escoger las variables cualitativas y cuantitativas que se usaran en el modelo, la pestaña se divide en 2, una para cada tipo de variable.
 
@@ -217,7 +216,7 @@ En esta sección el usuario podrá colocar el significancia para escoger las var
 
 ## Pérdida por incumplimiento
 
-En esta sección podra calcular el usuario la pérdida histórica por incumplimiento. El usuario podrá ver graficamente lo que espera recuprar en caso de incumplimiento  mientras transcurre el tiempo.
+En esta sección podra calcular la pérdida histórica por incumplimiento. El usuario podrá ver graficamente lo que espera recuprar en caso de incumplimiento, mientras transcurre el tiempo.
 
 ![\label{fig:"sd"}](~/Riesgo_de_Credito/perdida.png)
 
@@ -228,7 +227,7 @@ En esta sección se calculara la probabilidad de incumplimiento, score o pontuja
 
 ### Selección y resultados del modelo
 
-En esta sección el usuario seleccionara el modelo que mejor se ajuste a los datos, una vez seleccionado se deplegara la matriz con los resultados del modelo y e grafico ROC para mostrar el nivel de acierto del modelo.
+En esta sección el usuario seleccionara el modelo que mejor se ajuste a los datos, una vez seleccionado se deplegara la matriz con los resultados del modelo y el grafico ROC para mostrar el nivel de acierto del modelo.
 
 ![\label{fig:"sd"}](~/Riesgo_de_Credito/score1.png)
 
@@ -253,7 +252,7 @@ En esta sección se pediran los valores de los parámetros básicos y se mostrar
 
 ### Parámetros iniciales
 
-En esta sección, deberemos la unidad de pérdida, que no es mas que la unidad de medida que inteta cuantificar la pérdida de una forma mas compacta. Deberemos ingresar el porcentaje de recuperación que se espera recuperar luego que un crédito esta en mora. Debemos cargar las probabilidades de incumplimiento de la cartera de clientes, podemos cargar una data propia genera por mecanismos internos o podemos cargar la proveniente de la sección de Score de crédito, en ambos casos la data debe tener la siguiente estructura:
+En esta sección, deberemos establecer la unidad de pérdida, que no es mas que la unidad de medida que inteta cuantificar la pérdida de una forma mas compacta. Deberemos ingresar el porcentaje de recuperación que se espera recuperar luego que un crédito esta en mora. Debemos cargar las probabilidades de incumplimiento de la cartera de clientes, podemos cargar una data propia generada por mecanismos internos o podemos cargar la proveniente de la sección de Score de crédito, en ambos casos la data debe tener la siguiente estructura:
 
 ![\label{fig:"sd"}](~/Riesgo_de_Credito/par2.png)
 
@@ -299,7 +298,7 @@ En esta sección debemos cargar los datos históricos de migraciones crediticias
 
 ### Selecección de la matriz de transición
 
-En esta sección se debera seleccionar la matriz de transición, se puede escoger la ya calculada o nn caso de que el banco no posea los datos historicos necesarios, podra cargar su matriz de transición propia, pero debe tener el siguiente formato.
+En esta sección se debera seleccionar la matriz de transición, se puede escoger la ya calculada o en caso de que el banco no posea los datos históricos necesarios, podra cargar su matriz de transición propia, pero debe tener el siguiente formato.
 
 
 ![\label{fig:"sd"}](~/Riesgo_de_Credito/mtr3.png)
@@ -330,7 +329,7 @@ En esta sección el usuario indicara el número de simulaciones para la simulaci
 
 ## Stress Testing.
 
-Una vez llevado a cabo todos los pasos requeridos para la metodología, el usuario podrá realizar una prueba de estres sobre los parametros del modelo.
+Una vez llevado a cabo todos los pasos requeridos para la metodología, el usuario podrá realizar una prueba de estres sobre los parámetros del modelo.
 
 ![\label{fig:"sd"}](~/Riesgo_de_Credito/stress2.png)
 

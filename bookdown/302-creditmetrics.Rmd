@@ -217,7 +217,7 @@ Más técnicamente, un método de MonteCarlo es un proceso estocástico numéric
 
 Consideremos un círculo  de radio unidad circunscrito por un cuadrado. Suponiendo una lluvia uniforme sobre el cuadrado, podemos hallar el valor de $\pi$ a partir de la probabilidad de que las gotas caigan dentro del círculo (próxima figura)
 
-![\label{fig:"sd"}](~/Riesgo_de_Credito/circulo.png)
+![\label{fig:"sd"}](~/Riesgo_de_Credito/bookdown/circulo.png)
 
 Sea $P$ dicha probabilidad, por calculo:
 

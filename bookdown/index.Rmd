@@ -54,58 +54,34 @@ La versión en línea de este libro se comparte bajo la licencia [Creative Commo
 
 ## ¿Por qué  leer este libro? {-}
 
-Este libro es el resultado de enfocarnos en proveer la mayor cantidad de material sobre Probabilidad y Estadística Matemática con un desarrollo teórico lo más explícito posible, con el valor agregado de incorporar ejemplos de las finanzas y la programación en `R`. Finalmente tenemos un libro interactivo que ofrece una experiencia de aprendizaje distinta e innovadora.
 
-El un mundo abierto, ya no es tanto el acceso a la información, sino el acceso al conocimiento. Este libro es la base teórica para nuestro Diplomado en Probabilidades y Estadística Matemática aplicado a las Finanzas. Aunque es un material de corte general, hay ejemplos específicos traido de las finanzas. En el Diplomado nos enfocamos en el participante, el propósito es que el instructor ocupa a lo sumo el 20% del tiempo y el resto del tiempo los participantes se dedican a practicar y resolver ejercicios, tanto teóricos como de programación y modelaje en `R` al nivel de un curso de Postgrado. Ésta es la base de un programa en Ciencia de los Datos Financieros.
+En este libro presentamos dos metodologias para la cuantificación del riesgo de crédito: *CreditRisk+* y *CreditMetrics*, las cuales tienen cono principal objetivo crear previsiones objetivas que las instituciones financieras logren tener para afrontar momentos de dificultad que sean consecuencia de eventos de impagos de sus clientes.
 
-Es mucha la literatura, pero son pocas las opciones donde se pueda navegar el libro de forma amigable y además contar con ejemplos en `R` y ejercicios interactivos, además del contenido multimedia. Esperamos que ésta sea un contribución sobre nuevas prácticas para publicar el contenido y darle vida, crear una experiencia distinta, una experiencia interactiva y visual. El reto es darle vida al contenido asistidos con las herramientas de Internet.
+Ademas, este libro nos ofrece herramientas adicionales tales como el *Scoring* la cual es una herramienta que nos permite dar una calificación crediticia a las carteras de clientes de las instituciones, lo cual es fundamental en metodologias como la de *CreditRisk+*.
 
-Finalmente este es un intento de ofrecer otra visión sobre la enseñanza y la generación de material más accesible. Estamos en un mundo multidisciplinado, es por ello que ahora hay que generar contenido que conjugue en un mismo lugar las matemáticas, estadística, finanzas y la computación.
+Este libro tiene la virtud de que el lector no debe poseer un *Backgrown* e conicimientos matematicos tan profundos para abordarlo, pero se incluye una sección dedicada a los conceptos provenientes de las probabilidades que es de gran valor si se pretende profundizar en el área.
 
-Lo dejamos público ya que las herramientas que usamos para ensamblarlo son abiertas y públicas.
+La finalidad final de ese libro es orientar a los especialistas a usar la aplicación web *Vision CreditRisk*, la cual nos proporciona un ambiento facil y comodo para poder implementar todos los conceptos que veremos en este libro, es por esto que se inclue un capítulo final dedicado a esto.
 
 ## Estructura del libro {-}
 
-TODO: Describir la estructura
+Este libro esta estructurado en dos capitulos teóricas, tres capítulos que contemplan las metodologias a usar y un capítulo orientado al uso de la aplicación *Vision CreditRisk*.
+
+Los capitulos teóricos estan dispuesto para que el lector tengo los conmocimientos mínimos para que pueda obtener el mayor provecho de la informacion que en este texto encontrara, el primer capítulo posee los conceptos teóricos de la teória de probabilidad los cuales son las bases de la mayoría de los métodos existentes para la cuantificación de riesgo de crédito y un segundo capítulo que contiene los conceptos relacionados con el riesgo de crédito los cuales son fundamentales para cualquier analista o especialista que se encuentre dentro de un departamento de riesgo en una institución financiera.
+
+Los capítulos metodologicos nos orientan a las herramientas que usaremos para los propositos practicos que nos interesan, el primero hace referencia a medicion de las probabilidades de que un cliente incumpla sus compromisos de deuda, este tipo de herramientas es conocida como *Scoring*, el segundo capítulo nos presente la metodología *CreditRisk+* la cual tiene una visión mas actuarial y el tercer capítulo nos presenta la metodología credimetrics la cual tiene una visión mas estadística y posee un mayor nivel de dificultad con respecto al computo necesario para su aplicación.
+
+El último capítulo como ya se ha mencionado esta orientado al uso correcto de la aplicación *Vision CreditRisk* la cual aplica las metodologias que se explican en este libro, este capítulo tiene una descripción detallada la cual estra acompañada de imagenes del paso por paso para la obtención de nuestros resultados.
 
 ## Información sobre los programas y convenciones {-}
 
 Este libro es posible gracias a una gran cantidad de desarrolladores que contribuyen en la construcción de herramientas para generar documentos enriquecidos e interactivos. En particular al autor de los paquetes Yihui Xie xie2015.
 
-## Prácticas interactivas con R {-}
-
-Vamos a utilizar el paquete [Datacamp Tutorial](https://github.com/datacamp/tutorial) que utiliza la librería en JavaScript [Datacamp Light](https://github.com/datacamp/datacamp-light) para crear ejercicios y prácticas con `R`. De esta forma el libro es completamente interactivo y con prácticas incluidas. De esta forma estamos creando una experiencia única de aprendizaje en línea.
-
-```{r tut=TRUE,ex="create_a", type="pre-exercise-code"}
-b <- 5
-```
-
-```{r tut=TRUE,ex="create_a", type="sample-code"}
-# Crea una variable a, igual a 5
-
-
-# Muestra el valor de a
-
-
-```
-
-```{r tut=TRUE,ex="create_a", type="solution"}
-# Crea una variable a, igual a 5
-a <- 5
-
-# Muestra el valor de a
-a
-```
-
-```{r tut=TRUE,ex="create_a", type="sct"}
-test_object("a")
-test_output_contains("a", incorrect_msg = "Aseg&uacute;rate de mostrar el valor de `a`.")
-success_msg("Excelente!")
-```
 
 ## Agradecimientos {-}
 
 A todo el equipo de Synergy Vision que no deja de soñar. Hay que hacer lo que pocos hacen, insistir, insistir hasta alcanzar. Lo más importante es concretar las ideas. La idea es sólo el inicio y solo vale cuando se concreta.
+
 
 
 ```{block2, type='flushright', html.tag='p'}

@@ -1,10 +1,8 @@
-<script src="https://cdn.datacamp.com/datacamp-light-latest.min.js"></script>
-
 --- 
 title: "Riesgo de Crédito"
 subtitle: "Ciencia de los Datos Financieros"
 author: "Synergy Vision"
-date: "2019-04-05"
+date: "2019-05-06"
 knit: "bookdown::render_book"
 documentclass: krantz
 bibliography: [book.bib, packages.bib]
@@ -37,39 +35,34 @@ La versión en línea de este libro se comparte bajo la licencia [Creative Commo
 
 ## ¿Por qué  leer este libro? {-}
 
-Este libro es el resultado de enfocarnos en proveer la mayor cantidad de material sobre Probabilidad y Estadística Matemática con un desarrollo teórico lo más explícito posible, con el valor agregado de incorporar ejemplos de las finanzas y la programación en `R`. Finalmente tenemos un libro interactivo que ofrece una experiencia de aprendizaje distinta e innovadora.
 
-El un mundo abierto, ya no es tanto el acceso a la información, sino el acceso al conocimiento. Este libro es la base teórica para nuestro Diplomado en Probabilidades y Estadística Matemática aplicado a las Finanzas. Aunque es un material de corte general, hay ejemplos específicos traido de las finanzas. En el Diplomado nos enfocamos en el participante, el propósito es que el instructor ocupa a lo sumo el 20% del tiempo y el resto del tiempo los participantes se dedican a practicar y resolver ejercicios, tanto teóricos como de programación y modelaje en `R` al nivel de un curso de Postgrado. Ésta es la base de un programa en Ciencia de los Datos Financieros.
+En este libro presentamos dos metodologias para la cuantificación del riesgo de crédito: *CreditRisk+* y *CreditMetrics*, las cuales tienen cono principal objetivo crear previsiones objetivas que las instituciones financieras logren tener para afrontar momentos de dificultad que sean consecuencia de eventos de impagos de sus clientes.
 
-Es mucha la literatura, pero son pocas las opciones donde se pueda navegar el libro de forma amigable y además contar con ejemplos en `R` y ejercicios interactivos, además del contenido multimedia. Esperamos que ésta sea un contribución sobre nuevas prácticas para publicar el contenido y darle vida, crear una experiencia distinta, una experiencia interactiva y visual. El reto es darle vida al contenido asistidos con las herramientas de Internet.
+Ademas, este libro nos ofrece herramientas adicionales tales como el *Scoring* la cual es una herramienta que nos permite dar una calificación crediticia a las carteras de clientes de las instituciones, lo cual es fundamental en metodologias como la de *CreditRisk+*.
 
-Finalmente este es un intento de ofrecer otra visión sobre la enseñanza y la generación de material más accesible. Estamos en un mundo multidisciplinado, es por ello que ahora hay que generar contenido que conjugue en un mismo lugar las matemáticas, estadística, finanzas y la computación.
+Este libro tiene la virtud de que el lector no debe poseer un *Backgrown* e conicimientos matematicos tan profundos para abordarlo, pero se incluye una sección dedicada a los conceptos provenientes de las probabilidades que es de gran valor si se pretende profundizar en el área.
 
-Lo dejamos público ya que las herramientas que usamos para ensamblarlo son abiertas y públicas.
+La finalidad final de ese libro es orientar a los especialistas a usar la aplicación web *Vision CreditRisk*, la cual nos proporciona un ambiento facil y comodo para poder implementar todos los conceptos que veremos en este libro, es por esto que se inclue un capítulo final dedicado a esto.
 
 ## Estructura del libro {-}
 
-TODO: Describir la estructura
+Este libro esta estructurado en dos capitulos teóricas, tres capítulos que contemplan las metodologias a usar y un capítulo orientado al uso de la aplicación *Vision CreditRisk*.
+
+Los capitulos teóricos estan dispuesto para que el lector tengo los conmocimientos mínimos para que pueda obtener el mayor provecho de la informacion que en este texto encontrara, el primer capítulo posee los conceptos teóricos de la teória de probabilidad los cuales son las bases de la mayoría de los métodos existentes para la cuantificación de riesgo de crédito y un segundo capítulo que contiene los conceptos relacionados con el riesgo de crédito los cuales son fundamentales para cualquier analista o especialista que se encuentre dentro de un departamento de riesgo en una institución financiera.
+
+Los capítulos metodologicos nos orientan a las herramientas que usaremos para los propositos practicos que nos interesan, el primero hace referencia a medicion de las probabilidades de que un cliente incumpla sus compromisos de deuda, este tipo de herramientas es conocida como *Scoring*, el segundo capítulo nos presente la metodología *CreditRisk+* la cual tiene una visión mas actuarial y el tercer capítulo nos presenta la metodología credimetrics la cual tiene una visión mas estadística y posee un mayor nivel de dificultad con respecto al computo necesario para su aplicación.
+
+El último capítulo como ya se ha mencionado esta orientado al uso correcto de la aplicación *Vision CreditRisk* la cual aplica las metodologias que se explican en este libro, este capítulo tiene una descripción detallada la cual estra acompañada de imagenes del paso por paso para la obtención de nuestros resultados.
 
 ## Información sobre los programas y convenciones {-}
 
 Este libro es posible gracias a una gran cantidad de desarrolladores que contribuyen en la construcción de herramientas para generar documentos enriquecidos e interactivos. En particular al autor de los paquetes Yihui Xie xie2015.
 
-## Prácticas interactivas con R {-}
-
-Vamos a utilizar el paquete [Datacamp Tutorial](https://github.com/datacamp/tutorial) que utiliza la librería en JavaScript [Datacamp Light](https://github.com/datacamp/datacamp-light) para crear ejercicios y prácticas con `R`. De esta forma el libro es completamente interactivo y con prácticas incluidas. De esta forma estamos creando una experiencia única de aprendizaje en línea.
-
-<div data-datacamp-exercise data-height="300" data-encoded="true">eyJsYW5ndWFnZSI6InIiLCJwcmVfZXhlcmNpc2VfY29kZSI6ImIgPC0gNSIsInNhbXBsZSI6IiMgQ3JlYSB1bmEgdmFyaWFibGUgYSwgaWd1YWwgYSA1XG5cblxuIyBNdWVzdHJhIGVsIHZhbG9yIGRlIGEiLCJzb2x1dGlvbiI6IiMgQ3JlYSB1bmEgdmFyaWFibGUgYSwgaWd1YWwgYSA1XG5hIDwtIDVcblxuIyBNdWVzdHJhIGVsIHZhbG9yIGRlIGFcbmEiLCJzY3QiOiJ0ZXN0X29iamVjdChcImFcIilcbnRlc3Rfb3V0cHV0X2NvbnRhaW5zKFwiYVwiLCBpbmNvcnJlY3RfbXNnID0gXCJBc2VnJnVhY3V0ZTtyYXRlIGRlIG1vc3RyYXIgZWwgdmFsb3IgZGUgYGFgLlwiKVxuc3VjY2Vzc19tc2coXCJFeGNlbGVudGUhXCIpIn0=</div>
-
-
-
-
-
-
 
 ## Agradecimientos {-}
 
 A todo el equipo de Synergy Vision que no deja de soñar. Hay que hacer lo que pocos hacen, insistir, insistir hasta alcanzar. Lo más importante es concretar las ideas. La idea es sólo el inicio y solo vale cuando se concreta.
+
 
 
 \BeginKnitrBlock{flushright}<p class="flushright">Synergy Vision, Caracas, Venezuela</p>\EndKnitrBlock{flushright}
@@ -611,16 +604,16 @@ Por esta razón, se deben evaluar los efectos de la multicolinealidad en la inte
 
 # CreditRisk+
 
-**CreditRisk+** es un modelo de impago de impago en el que se parte de la idea de que los eventos de incumplimiento de los diferentes deudores son eventos *Bernoulli independientes*. Sin embargo, es importante tener en cuenta que los eventos de incumplimiento de deudores ocurren de manera causística en el tiempo y es imposible pronosticar el momento preciso en el que ocurrirán dichos eventos y el numero de eventosque sucederan en un ciertointervalo de tiempo.
+**CreditRisk+** es un modelo de impago en el que se parte de la idea de que los eventos de incumplimiento de los diferentes deudores son eventos *Bernoulli independientes*. Sin embargo, es importante tener en cuenta que los eventos de incumplimiento de deudores ocurren de manera causística en el tiempo y es imposible pronosticar el momento preciso en el que ocurrirán dichos eventos y el numero de eventos que sucederan en un cierto intervalo de tiempo.
 
-El desarrollo de una teoría estadística que explique estos procesos,dentro del contexto de riesgo creditici, comienza considerando el caso simple de una caertera de créditos que incluye a $N$ deudores, a cada uno de los cuales se les puede asociar una *probabilidad fija de incumplimiento*; es decir, se conoce: $$p_i=\textrm{Probabilidad de incumplimiento del deudor } i$$
+El desarrollo de una teoría estadística que explique estos procesos,dentro del contexto de riesgo crediticio, comienza considerando el caso simple de una caertera de créditos que incluye a $N$ deudores, a cada uno de los cuales se les puede asociar una *probabilidad fija de incumplimiento*; es decir, se conoce: $$p_i=\textrm{Probabilidad de incumplimiento del deudor } i$$
 
-La distribuciíon de pérdidad que puede resultar del incumplimiento de los deudores de todo el portafolio la obtiene **CreditRisk** de manera indirecta, a través de las funciones de probabilidad, y procede en dos pasos. Primero, obtenemos la funcion generadora de probabilidad (FGP) del numero de incumplimientos y después, haciendo un supuesto sobre el nivel de pérdidas asociadas al incumplimiento de cada deudor, obtiene la FGP las pérdidas que puede ceder la cartera. A continuación se obtiene la primera para el caso simple bajo consideración.
+La distribuciíon de pérdidad que puede resultar del incumplimiento de los deudores de todo el portafolio la obtiene **CreditRisk** de manera indirecta, a través de las funciones de probabilidad, y procede en dos pasos. Primero, obtenemos la función generadora de probabilidad (FGP) del numero de incumplimientos y después, haciendo un supuesto sobre el nivel de pérdidas asociadas al incumplimiento de cada deudor, obtiene la FGP las pérdidas que puede ceder la cartera. A continuación se obtiene la primera para el caso simple bajo consideración.
 
 ## La distribución del número de incumplimientos con probabilidades de impago fijas.
 
 
-La FGP de numeros de incumplimientos se define como: $$F(s)=\sum_{n=0}^{\infty}Prob(n \textrm{ incumplimientos})\textrm{x}s^n$$
+La FGP de números de incumplimientos se define como: $$F(s)=\sum_{n=0}^{\infty}Prob(n \textrm{ incumplimientos})\textrm{x}s^n$$
 
 Si la cartera tuviera un sólo deudor, lo único que puede suceder es que éste cumpla o incumpla. Por lo tanto, la FGP de incumplimientos para un sólo deudor es simplemente:$$F_i(s)=(1-p_i)s^0+p_i(s-1)=1+p_i(s-1)$$ 
 
@@ -629,33 +622,33 @@ Aplicando logaritmo a ambos lados de la expresión, se obtiene:$$Ln(F(s))=\sum_{
 Generalmente, las probabilidades de incumplimiento de obligaciones crediticias a nivel individual son pequeñas y, por lo tanto, las potencias de estas son más pequeñas y pueden ser ignoradas.
 
 Esto implica que para los valores pequeños de $p_i$:$$Ln\big{[}1+p_i(s-1)\big{]}\approx p_i(s-1)$$
-Lo anterior es el gran supuesto de **CreditRisk+**, que inituitivamente dice que mientras la la probabilidad de incumoplimiento se $p_i$ sea "pequeña", se puede ignorar el hecho de que un deudor no puede incumplir más que una sola vez. Haciendo esta sustitución, se obtiene:$$Ln(F(s))=\sum_{i=1}^Np_i(s-1)$$
-Lo anterior conduce directamente a:$$F(s)=e^{\sum_{i=1}^Np_i(s-1)}=e^{\mu(s-1)};\textrm{ donde } \mu=\sum_{i=1}^Np_i$$
+Lo anterior es el gran supuesto de **CreditRisk+**, que inituitivamente dice que mientras la probabilidad de incumoplimiento se $p_i$ sea "pequeña", se puede ignorar el hecho de que un deudor no puede incumplir más que una sola vez. Haciendo esta sustitución, se obtiene:$$Ln(F(s))=\sum_{i=1}^Np_i(s-1)$$
+Lo anterior conduce directamente a: $$F(s)=e^{\sum_{i=1}^Np_i(s-1)}=e^{\mu(s-1)};\textrm{ donde } \mu=\sum_{i=1}^Np_i$$
 
 
 La FGP corresponde a la FGP de la distribución de *Poisson* con parámetro $\mu$, a continuación se comprueba esto, usando el desarrollo de Taylor, es decir:$$F(s)=\sum_{n=}^\infty\mu^ne^{-\mu}s^n$$
 Por lo tanto, bajo el supuesto que las probabilidades de incumplimientos son bajas, obtenemos que:$$Prob(\textrm{ número incumplimientos }=n)=\frac{1}{n!}\mu^ne^{-\mu}$$
 
-En la expresión anterior,'$\mu$' es la *tasa promedio de incumplimiento* y es el único parámetro de la distribución. Como ha "$N$", la distribución es independiente del número de deudores y de las probabilidades individuales de impago, siempre y cuando éstas sean "uniformemente pequeñas". Sin embargo queda claro que los deudores tengan la misma probabilidad de incumplir. Es más, éstas pueden ser diferentes y el cálculo de la tasa esperado de incu mplimiento, sólo depende de la existencia de esta informacíon.
+En la expresión anterior,'$\mu$' es la *tasa promedio de incumplimiento* y es el único parámetro de la distribución. Como "$N$", la distribución es independiente del número de deudores y de las probabilidades individuales de impago, siempre y cuando éstas sean "uniformemente pequeñas". Sin embargo queda claro que los deudores tengan la misma probabilidad de incumplir. Es más, éstas pueden ser diferentes y el cálculo de la tasa esperado de incumplimiento, sólo depende de la existencia de esta informacíon.
 
 Para concluir con este tema, es impotante hacer hicapié en que el supuesto clave que permite llegar a la distribución Poisson es cuando un número no-negativo "$y$" es muy pequeño ($y\approx 0$), se puede utilizar la aproximación "$Ln(1+y)\approx y$". Esta forma exponencial de la FGP de la distribución de Poisson, es la clave de la facilidad de cálculo que tiene **CreditRisk+**.
 
-Además, es necesario señalar que en todo el análisis anterior hay implícito un periodo de tiempon que está relacionado con el parámetro de la distribución. Así, al se\tribución obtenida debe interpretarse de la misma manera, es decir:$$\frac{1}{n!}\mu^ne^{-\mu}=\textrm{ Probabilidad de que ocurran } n \textrm{ incumplimientos }$$
+Además, es necesario señalar que en todo el análisis anterior hay implícito un período de tiempon que está relacionado con el parámetro de la distribución. Así, la distribución obtenida debe interpretarse de la misma manera, es decir:$$\frac{1}{n!}\mu^ne^{-\mu}=\textrm{ Probabilidad de que ocurran } n \textrm{ incumplimientos }$$
 
-## La agrupación por bandas de exposición por bandas de exposición a pérdidas
+## La agrupación por bandas de exposición las pérdidas
 
-Dado que pueden existir varios deudores que implican niveles de pérdidas semejantes, **CreditRisk+** empieza por agrupar a los deudores por bandas de exposiciónm oiguales. Aunque esta agrupación introduce errores de rodondeo en la estimación de la distribución, facilita mucho el desarrollo del modelo y reduce significativamente el número de datos requeridos para realizar los cálculos. Además, si el número de niveles de exposición es grande y el ancho de las bandas es pequeño, en relación con el tamaño de exposición promedio de la cartera, se puede demostrar que el error introducido es despreciable. De hecho, en la práctica es muy difícil determinar *a priori* el nivel de exposición y, por lo tanto, éste no debe representar un elemento crítico en la estimación del riesgo total de la cartera.
+Dado que pueden existir varios deudores que implican niveles de pérdidas semejantes, **CreditRisk+** empieza por agrupar a los deudores por bandas de exposición iguales. Aunque esta agrupación introduce errores de rodondeo en la estimación de la distribución, facilita mucho el desarrollo del modelo y reduce significativamente el número de datos requeridos para realizar los cálculos. Además, si el número de niveles de exposición es grande y el ancho de las bandas es pequeño, en relación con el tamaño de exposición promedio de la cartera, se puede demostrar que el error introducido es despreciable. De hecho, en la práctica es muy difícil determinar *a priori* el nivel de exposición y, por lo tanto, éste no debe representar un elemento crítico en la estimación del riesgo total de la cartera.
 
-Así, supóngase que la perdida esperada por deudor que cae en impago es una proporción fija "$\lambda_i$" del monto total "$D_i$" que debe el deudor "$i$". A su vez, para mantener la elegancia del modelo, supóngase que el nivel de exposición que representa el deudor para el acreedor "$L_i$" en un múltiplo entero de una únidad fija de pérdida "$L$". Estos múltiplos enteros de $L$ reciben el nombre de "*niveles de exposición estandar*". Aasí la pérdida que puede representar el incumplimiento del deudor "$i$" para el acreedor, se mide en términos de múltiplos de "$v_i$", de la únidad fija de pérdida $L$, y es simplemente la cantidad siguiente:$$v_i=\textrm{ Redondeo }\bigg{(}\frac{\lambda D_i}{L}\bigg{)}$$
+Así, supóngase que la pérdida esperada por deudor que cae en impago es una proporción fija "$\lambda_i$" del monto total "$D_i$" que debe el deudor "$i$". A su vez, para mantener la elegancia del modelo, supóngase que el nivel de exposición que representa el deudor para el acreedor "$L_i$" es un múltiplo entero de una únidad fija de pérdida "$L$". Estos múltiplos enteros de $L$ reciben el nombre de "*niveles de exposición estandar*". Así la pérdida que puede representar el incumplimiento del deudor "$i$" para el acreedor, se mide en términos de múltiplos de "$v_i$", de la únidad fija de pérdida $L$, y es simplemente la cantidad siguiente:$$v_i=\textrm{ Redondeo }\bigg{(}\frac{\lambda D_i}{L}\bigg{)}$$
 De esto se obtiene el  nivel estándar de exposición que representa cada deudor para el acreedor, mediante la identidad siguiente:$$L_i=L_{v_i}$$
 
 ## La determinación de la *distribución de pérdidas* de la cartera.
 
-El último paso es encontrar la *la distribución de pérdidas de la cartera*, para lo cual se procede de la misma manera, es decir, encontar la FGP de dicha distribución. Nótese que la distribución de pérdidas es necesariamente diferente a la delmnumero de impagos, ya que puede resultar un cierto nivel de pérdidas con diferentes combinaciones de incumplimientos de deudores. Por ejemplo una pérdida de $100.000$ dolares puede ser la consecuencia del incumplimiento que debe esta cantidad o del incumplimiento de $10$ de deudores que deben $10.000$ dolares cada uno. Además, el conocimiento de la forma en que están distribuidos los diferentes niveles de exposición entre los  diferentes deudores que componen la cartera es indispensable para poder obtener la distribución de pérdidas. Contrasrio a lo que sucede con las diferencias entre probabilidades de incumplimiento individuales, que son pequeñas aun en términos relativos y por lo tanto no afectan la distribución del número de incumplimiento, las diferencias en los niveles de exposición a los deudores representados en la cartera si son significativos y, por lo tanto, la distribución de pérdidas resultante no tiene por que ser *Poisson*. Sin embargo, aunque no se va a poder obtener una formula explícita de la distribución de pérdidas, se verá que es poisible obtener una expresión cerrada sencilla de la FGP, que se presta fácilmente al cálculo de las probabilidades correspindientes.
+El último paso es encontrar la *la distribución de pérdidas de la cartera*, para lo cual se procede de la misma manera, es decir, encontar la FGP de dicha distribución. Nótese que la distribución de pérdidas es necesariamente diferente a la del número de impagos, ya que puede resultar un cierto nivel de pérdidas con diferentes combinaciones de incumplimientos de deudores. Por ejemplo una pérdida de $100.000$ dolares puede ser la consecuencia del incumplimiento que debe esta cantidad o del incumplimiento de $10$ de deudores que deben $10.000$ dolares cada uno. Además, el conocimiento de la forma en que están distribuidos los diferentes niveles de exposición entre los  diferentes deudores que componen la cartera es indispensable para poder obtener la distribución de pérdidas. Contrario a lo que sucede con las diferencias entre probabilidades de incumplimiento individuales, que son pequeñas aun en términos relativos y por lo tanto no afectan la distribución del número de incumplimiento, las diferencias en los niveles de exposición a los deudores representados en la cartera si son significativos y, por lo tanto, la distribución de pérdidas resultante no tiene por que ser *Poisson*. Sin embargo, aunque no se va a poder obtener una fórmula explícita de la distribución de pérdidas, se verá que es posible obtener una expresión cerrada sencilla de la FGP, que se presta fácilmente al cálculo de las probabilidades correspondientes.
 
-Así recordemos que la FGP de las pérdidas es: $$G(s)=\sum_nProb(\textrm{ Pérdida acumulada}=n\textrm{x}L)S^n$$
+Así, recordemos que la FGP de las pérdidas es: $$G(s)=\sum_nProb(\textrm{ Pérdida acumulada}=n\textrm{x}L)S^n$$
 
-Sea "$G_j$" la FGP de las pérdidas de la banda "$j$", la probabilidad de que se pierda $n\times v_j$ unidades en la banda "$j$" es igual a la probabilidad de que "$n$" deudores de esta banda incumplan, y ya se sabe que el incumplimiento de estos deudores sigue una distreibución de *Poisson*, es decir:$$\textrm{ Prob. de }n\textrm{ incumplimientos en la banda }j=\frac{1}{n!}\mu_j^ne^{-\mu_j}$$
+Sea "$G_j$" la FGP de las pérdidas de la banda "$j$", la probabilidad de que se pierda $n\times v_j$ unidades en la banda "$j$" es igual a la probabilidad de que "$n$" deudores de esta banda incumplan, y ya se sabe que el incumplimiento de estos deudores sigue una distribución de *Poisson*, es decir:$$\textrm{ Prob. de }n\textrm{ incumplimientos en la banda }j=\frac{1}{n!}\mu_j^ne^{-\mu_j}$$
 
 Por lo tanto:$$G_j(s)=\sum_{n=0}^\infty \frac{1}{n!}\mu_j^ne^{-\mu_j}s^{nv_j}=e^{-\mu_j}\sum_{n=0}^\infty \frac{1}{n!}(\mu_js^{v_j})^n=e^{-\mu_j}e^{\mu_js^{v_j}}=e^{\mu_j(s^{v_j}-1)}$$
 
@@ -663,18 +656,19 @@ Suponiendo independencia de eventos de incumplimientos, las pérdidas asociadas 
 
 ## Obteniendo la distribución de las pérdidas
 
-Aunque a diferencia de la distribución del número de incumoplimientos, en el caso de las pérdidas no se sabe la forma de la distribución, la probabilidad de que se pierdan $n$ unidades de $L$ en la cartera total de créditos se puede obtener mediante la expansión de Taylor de la expresión anterior; es decir: la probabilidad de quen se pierdan $n$ unidades $L$ es el coeficiente de $s^n$ en la expansión de Taylor. El desarrollo se facilita definiendo el polinomio siguiente:$$P(s)=\frac{1}{\mu}\sum_{j=1}^m\mu_js^{v_j}=\frac{\sum_{j=1}^m\frac{\epsilon_j}{{v_j}}s^{v_j}}{\sum_{j=1}^m\frac{\epsilon_j}{{v_j}}}$$ donde $\epsilon_j$ es la pardida esperada de la banda $j$ y $v_j$ es la exposición común que comparten los deudores de la banda $j$.
+Aunque a diferencia de la distribución del número de incumplimientos, en el caso de las pérdidas no se sabe la forma de la distribución, la probabilidad de que se pierdan $n$ unidades de $L$ en la cartera total de créditos se puede obtener mediante la expansión de Taylor de la expresión anterior; es decir: la probabilidad de quen se pierdan $n$ unidades $L$ es el coeficiente de $s^n$ en la expansión de Taylor. El desarrollo se facilita definiendo el polinomio siguiente:$$P(s)=\frac{1}{\mu}\sum_{j=1}^m\mu_js^{v_j}=\frac{\sum_{j=1}^m\frac{\epsilon_j}{{v_j}}s^{v_j}}{\sum_{j=1}^m\frac{\epsilon_j}{{v_j}}}$$ donde $\epsilon_j$ es la pardida esperada de la banda $j$ y $v_j$ es la exposición común que comparten los deudores de la banda $j$.
 
 Con esto, la FGP de pérdidas se puede expresar de la forma siguiente:$$G(s)=e^{\sum_{j=1}^m\mu_j(s^{v_j}-1)}=e^{\mu[P(s)-1]}=F[P(s)]$$
-La función generadora de probabilidades de las pérdidas comprende dos fuentes de incertidumbre, a saber: el comportamiento *Poisson* del numero de incumplimiemntos y la aleatoriedad de las pérdidas dado incumplimiento, que esta asociado a los distintos niveles de exposición del acreedora los diferentes deudores. Notese que la única información requerida para obtener la distribución de pérdidases $\epsilon_j$ y $v_j$, estas parejas representan un número de datos significativamente menor, que si tuviera que manejar información semejante por cada deudor, aun para carteras con un número muy grandem de créditos.
-para encontrar la distribución de pérdidas, se parte de la expresión:$$G(s)=\sum_n\textrm{ Prob(pérdidas acumuladas}=n\times L)S^n $$.
+La función generadora de probabilidades de las pérdidas comprende dos fuentes de incertidumbre, a saber: el comportamiento *Poisson* del número de incumplimiemntos y la aleatoriedad de las pérdidas dado incumplimiento, que esta asociado a los distintos niveles de exposición del acreedor a los diferentes deudores. Notese que la única información requerida para obtener la distribución de pérdidas es $\epsilon_j$ y $v_j$, estas parejas representan un número de datos significativamente menor, que si tuviera que manejar información semejante por cada deudor, aun para carteras con un número muy grandes de créditos.
+Para encontrar la distribución de pérdidas, se parte de la expresión:$$G(s)=\sum_n\textrm{ Prob(pérdidas acumuladas}=n\times L)S^n $$.
 
-Tomando la expansión de Taylor para $G(s)$, la probabilidad de perdida de $nL$ unidades es$$P_n(L)=\frac{1}{n!}\frac{d^nG(s)}{ds^n}\bigg{|}_{s=0}$$. En el apéndice A 4.1 del manual de CreditRisk+ se deduce una fórmula recursiva sencilla para obtener estas probabilidades, las cuales es:$$P_n(L)=\sum_{j|v_j\le n}\frac{\epsilon_j}{n}P_{n-v_j}(L)=\frac{1}{n}\sum_{j|v_j\le n}\epsilon_jP_{n-v_j}(L)$$
+Tomando la expansión de Taylor para $G(s)$, la probabilidad de pérdida de $nL$ unidades es$$P_n(L)=\frac{1}{n!}\frac{d^nG(s)}{ds^n}\bigg{|}_{s=0}$$. En el apéndice A 4.1 del manual de CreditRisk+ se deduce una fórmula recursiva sencilla para obtener estas probabilidades, las cuales es:$$P_n(L)=\sum_{j|v_j\le n}\frac{\epsilon_j}{n}P_{n-v_j}(L)=\frac{1}{n}\sum_{j|v_j\le n}\epsilon_jP_{n-v_j}(L)$$
 donde $P_0(L)=e^{-\mu}$ donde $\mu=\sum_{j=1}^m\mu_j$
 
 ## Obtención del VaR
 
-Para obtener el VaR de una cartera de créditos bajo el esquema de CreditRisk+, simplemente se obtiene la distribución de distribución de probabilidad acumulada de las pérdidas y, una vez decidido el nivel de confianza $\alpha$ con el que se quiere trabajar se lee de la tabla el número de unidades estándar de pérdidas que corresponden a una probabilidad acumulada de de pérdida $1-\alpha$. El paso final es convertir las unidades estándar de pérdida a unidades manetarias, multiplicando las unidades de pérdidas correspondientes al nivel de confianza escogido, por la unidas de pérdida $L$.
+Para obtener el VaR de una cartera de créditos bajo el esquema de CreditRisk+, simplemente se obtiene la distribución 
+de probabilidad acumulada de las pérdidas y, una vez decidido el nivel de confianza $\alpha$ con el que se quiere trabajar se lee de la tabla el número de unidades estándar de pérdidas que corresponden a una probabilidad acumulada de de pérdida $1-\alpha$. El paso final es convertir las unidades estándar de pérdida a unidades manetarias, multiplicando las unidades de pérdidas correspondientes al nivel de confianza escogido, por la unidas de pérdida $L$.
 
 
 
@@ -707,18 +701,18 @@ Para obtener el VaR de una cartera de créditos bajo el esquema de CreditRisk+, 
 
 Mientras que en el caso de **CredictRisk+** se usa un enfoque actuarial mediante el cual se llega ha obtener una forma explícita de la distribución de pérdidas a través de la función generadora de probabilidades, en el  caso de **CredictMetrics**, aunque en teoría existe una representación explícita de la distribución de pérdidas, su obtención supera la capacidad de cálculo disponible en un computador convencional, y por lo tanto, está se estima a través de un proceso de simulación de *MonteCarlo*, otra caractéristica importante es que **CreditMetric** hace referencia, y utiliza extensamente, información que solo esta disponible en los mercados en desarrollo, aunque esto no impide que se aplique en los mercados emergentes si se hacen las edecuaciones correspondientes.
 
-Para la explicación de esta metodología usamos como guía el documento técnico de **CreditMetrics**. Iniciaremos con el caso más sencillo en el cual nuestrea cartera de créditos esta integrada por un único credito para luego generalizar el procedimiento a una cartera que puede incluir cualquier numero $N$ de créditos. Pero primero establescamos los elementos básicos que usaremos en esta metodología.
+Para la explicación de esta metodología usamos como guía el documento técnico de **CreditMetrics**. Iniciaremos con el caso más sencillo en el cual nuestrea cartera de créditos esta integrada por un único credito para luego generalizar el procedimiento a una cartera que puede incluir cualquier número $N$ de créditos. Pero primero establescamos los elementos básicos que usaremos en esta metodología.
 
 ## Elementos que usa **Credimetrics**
 
-+ *Conceptos relevantes al riesgo de crédito*: probabilidades de incumplimiento, patrones de migración entre los distitas clasificaciones que posean los clientes, umbrales que separen las calificaciones, el valor de los créditos, la tasa de recuperación en caso de incumplimiento de las calificaciones crediticia.
++ *Conceptos relevantes al riesgo de crédito*: probabilidades de incumplimiento, patrones de migración entre los distintas clasificaciones que posean los clientes, umbrales que separen las calificaciones, el valor de los créditos, la tasa de recuperación en caso de incumplimiento de las calificaciones crediticia.
 
 + Información del mercado en general: Tales como datos sobre las calificaciones e indicadores sobre su calidad.
 
 + Información generada internamente por las intituciones que se pueda mapear a los estandares del mercado.
 
 
-Historicamente Credimetrics fue desarrollado para abordar el problema de medir el riesgo de credito de que los emisores que colocan papel que se negocia en el mercado de los Estados Unidos incumplan sus compromisos. En general los elementos que son necesastios en esta metodologia estan disponibles en mercados desarrollados, pero las intituciones financieras pueden crear procedimientos y metologias internas para lograr suplir la falta de información. Los elementos clave del sistema son:
+Historicamente Credimetrics fue desarrollado para abordar el problema de medir el riesgo de credito de que los emisores que colocan papel que se negocia en el mercado de los Estados Unidos incumplan sus compromisos. En general, los elementos que son necesastios en esta metodología estan disponibles en mercados desarrollados, pero las intituciones financieras pueden crear procedimientos y metodologias internas para lograr suplir la falta de información. Los elementos clave del sistema son:
 
 + Las calificaciones que otorgan las instituciones financieras a los distintos elementos que conforman su portafolio.
 
@@ -730,13 +724,13 @@ Una característica importante de las calificaciones emitidas es que ellas aport
 
 + Probabilidades de incumplimiento históricas asociadas a cada calificación, así como las probabilidades de transición entre las categorias.
 
-+ Las distintas tasas de interes asociadas a cada categoria.
++ Las distintas tasas de interes asociadas a cada categoría.
 
-Otra parte fundamental del análisis es la cantidad que se espera recuperar en caso de que el crédito caiga en la cartera de vencidos. Aunque si el sistema de calificación es robusto raramente se espera que un credito que halla pasado a la cartera de vencido este en una calificación alta. Pero al final, la calificación no solo depende del sistema interno de la institución, sino tambien de la garantias que ofresca el crédito.
+Otra parte fundamental del análisis es la cantidad que se espera recuperar en caso de que el crédito caiga en la cartera de vencidos. Aunque si el sistema de calificación es robusto raramente se espera que un crédito que halla pasado a la cartera de vencido este en una calificación alta. Pero al final, la calificación no solo depende del sistema interno de la institución, sino tambien de la garantias que ofresca el crédito.
 
 En general, todos los requerimientos estan entrelazados, por ejemplo las calificaciones que se otorgan dependen de cosas como: historial de incumplimiento, garantias, utilidades de los créditos en los últimos años, el pais de origen, entre otros.
 
-A manera de ilustración se presenta una matriz de transición publicada por Standard & Poor's en abril de 1966. En ella se aprecian las probabilidades de transición de que un bono que se encuentra en una calificación dada migre a otra calificación, por ejemplo en la tabla se aprecia que la probabilidad de que un bono que esta en la calificación BB migre a una calificación C es de un 1%.
+A manera de ilustración se presenta una matriz de transición publicada por Standard & Poor's en Abril de 1966. En ella se aprecian las probabilidades de transición de que un bono que se encuentra en una calificación dada migre a otra calificación, por ejemplo en la tabla se aprecia que la probabilidad de que un bono que esta en la calificación BB migre a una calificación C es de un 1%.
 
 | Calificación inicial |  AAA  |   AA  |   A   | BBB   | BB    | B     | C     |
 |:--------------------:|:-----:|:-----:|:-----:|-------|-------|-------|-------|
@@ -750,7 +744,7 @@ A manera de ilustración se presenta una matriz de transición publicada por Sta
 
 
 
-Las tasas de recuperación de los creditos como ya se menciono son fundamentales, y no son únicamente proporcionadas por las indtituciones financieras, estas pueden recurrir a terceros por las calificaciones de los créditos. Acontinuación se presenta una table que muestra las tasas de recuperacion de créditos elaboradsas por Moody's y otros académicos.
+Las tasas de recuperación de los créditos como ya se menciono son fundamentales, y no son únicamente proporcionadas por las instituciones financieras, estas pueden recurrir a terceros por las calificaciones de los créditos. Acontinuación se presenta una tabla que muestra las tasas de recuperación de créditos elaboradsas por Moody's y otros académicos.
 
 |      Prelación      | Media (%) | Desv. Std (%) |
 |:-------------------:|:---------:|:-------------:|
@@ -760,11 +754,11 @@ Las tasas de recuperación de los creditos como ya se menciono son fundamentales
 | Subordinada         |   32.74   |     20.18     |
 | Junior Subordinada  |   17.09   |     10.90     |
 
-Una acotación interesante, es que originalmente credimetrics esta direccionada a medir el riesgo de crédito de una cartera de bonos. Sin embargo puede ser aplicado a distintos tipos de posiciones que i volucren riesgo de crédito, como por ejemplo: posiciones cortas en divisas, futuros, opciones o como es el caso de interes créditos tradicionales. Ahora, daremos el ejemplo de credimetrics usando un único crédito.
+Una acotación interesante, es que originalmente credimetrics esta direccionada a medir el riesgo de crédito de una cartera de bonos. Sin embargo puede ser aplicado a distintos tipos de posiciones que involucren riesgo de crédito, como por ejemplo: posiciones cortas en divisas, futuros, opciones o como es el caso de interes, créditos tradicionales. Ahora, daremos el ejemplo de credimetrics usando un único crédito.
 
 ## El caso de un solo crédito 
 
-Una vez descrito los elementos necesarios para esta metodología vamos a empezar por realizar los pasos que son necesarios para la medición del riesgo de crédito de una cartera de un solo activo. Utilizaremos un ejemplo parecido al que procede del dicumento de Credimetrics con la diferencia que ellos usan un bono y nosotros un credito personal. Los tres pasos a realizar son:
+Una vez descrito los elementos necesarios para esta metodología vamos a empezar por realizar los pasos que son necesarios para la medición del riesgo de crédito de una cartera de un solo activo. Utilizaremos un ejemplo parecido al que procede del documento de Credimetrics con la diferencia que ellos usan un bono y nosotros un credito personal. Los tres pasos a realizar son:
 
 + Dependiendo de la calificación del bono, se obtiene la probabilidad de que migre hacia un estado de migración diferente.
 
@@ -774,7 +768,7 @@ Una vez descrito los elementos necesarios para esta metodología vamos a empezar
 
 ### Ejemplo 1
 
-Supongamos que tenemos un credito con calificación BB con exposición de 250, la institución financiera posee la siguiente informacion sobre las probabilidades calificación de los créditos que estan en una calificación BB:
+Supongamos que tenemos un crédito con calificación BB con exposición de 250, la institución financiera posee la siguiente información sobre las probabilidades calificación de los créditos que estan en una calificación BB:
 
 | Calificación | Probabilidad de transición (%) |
 |:------------:|:------------------------------:|
@@ -798,7 +792,7 @@ Tambien la institución cuenta con las perdidad esperadas por calificación (las
 |       B      |          25          |
 |      CCC     |          40          |
 
-Ya con esta información podemos establecer una tabla con la pérdida esperada del credito en las distintas calificaciones, la cual es: 
+Ya con esta información podemos establecer una tabla con la pérdida esperada del crédito en las distintas calificaciones, la cual es: 
 
 | Calificación | Pérdida esperada del Crédito | Proababilidad |
 |:------------:|:----------------------------:|:-------------:|
@@ -819,13 +813,13 @@ PE = (0.25*0.04)+(7.5*0.05)& \\
 &+(62.5*0.18) +(100*0.05)=40.93
 \end{align*}
 
-Así la pérdida esperada de una cartera de un solo crédito de calificación BB de una exposición de 250 es de 40.935. Ahora para calcular el VaR a un nivel de confianza en especifico por ejemplo al 5% simplemente sumamos las probabilidad de manera descendentes de las calificaciones hasta llegar 95 en el caso de que se pase se toma la calificacion en la cual ocurre el exceso, en nuestro ejemplo el VaR ocurre en la calificación B, así el $VaR_{5\%}=62.5$.
+Así la pérdida esperada de una cartera de un solo crédito de calificación BB de una exposición de 250 es de 40.935. Ahora para calcular el VaR a un nivel de confianza en especifico por ejemplo al 5% simplemente sumamos las probabilidad de manera descendentes de las calificaciones hasta llegar 95 en el caso de que se pase se toma la calificación en la cual ocurre el exceso, en nuestro ejemplo el VaR ocurre en la calificación B, así el $VaR_{5\%}=62.5$.
 
 En general, se suele pensar que una aproximación normal a la distribución de pérdidas puede ser idonea, pero esto es incorrecto pues suele ocurrir que las probabilidades de transición se concentren en los extremos de las calificaciones, esto se verá en el siguiente ejemplo.
 
 ### Ejemplo 2
 
-Consideremos un bono con una calificación AA con un valor de 300 donde las probabilidades de tansición a las otras categorias esta representada en la siguiente tabla
+Consideremos un bono con una calificación AA con un valor de 300 donde las probabilidades de tansición a las otras categorías esta representada en la siguiente tabla
 
 | Calificación | Probabilidad de transición (%) |
 |:------------:|:------------------------------:|
@@ -837,10 +831,10 @@ Consideremos un bono con una calificación AA con un valor de 300 donde las prob
 |       B      |                4               |
 |      CCC     |                1               |
 
-Además la tasas de perdida por calificación son las mismas que el ejemplo anterior
+Además la tasas de pérdida por calificación son las mismas que el ejemplo anterior
 
 
-Ya con esta información podemos establecer una tabla con la pérdida esperada del credito en las distintas calificaciones, la cual es: 
+Ya con esta información podemos establecer una tabla con la pérdida esperada del crédito en las distintas calificaciones, la cual es: 
 
 | Calificación | Pérdida esperada del Crédito | Proababilidad |
 |:------------:|:----------------------------:|:-------------:|
@@ -863,9 +857,9 @@ PE = (0.3*0.15)+(9*0.48)& \\
 
 Para cálcular el valor en riesgo al 95% es suficiente tomar la pérdida esperada de la calificación BB, así el $VaR_{95\%}=54$.
 
-Con este ejemplo podemos notsr que la distribución normal no se ajusta de manera adecuada a la distribución de pérdidas, pues esta concentrada en un extremo de las pérdidas por calificación.
+Con este ejemplo podemos notar que la distribución normal no se ajusta de manera adecuada a la distribución de pérdidas, pues esta concentrada en un extremo de las pérdidas por calificación.
 
-## Cartera de dos de créditos con probabilidades de treansición independientes.
+## Cartera de dos de créditos con probabilidades de transición independientes.
 
 Como en realidad el caso de un solo instrumento no es de interes, pues una cartera de créditos de una institución financiera puede estar conformada por millones de créditos daremos un ejemplo ilustrativo con una cartera de dos créditos, con esto se pretende mostrar como aumenta el nivel de dificultad, mas adelante veremos que en general, no calcularemos la distribución de pérdidas explícitamente, sino realizaremos una aproximación por el método de simulación de Montecarlo.
 
@@ -885,7 +879,7 @@ Para facilitar los cálculos supondremos que nuestra cartera esta conformada por
 |     CCC    | 100.3 | 109  | 115   | 127   | 154   | 175   | 220    |
 
 
-Esta tabla se puede enteder como sigue, la perdida esperada si el crédito BB migra a la calificación BBB y el crédito AA migra a la calificación CCC es 142.5, ahora para hallar la probabilidad debemos multiplicar las probabilidades correspondientes de que estas migraciones ocurran, es decir, $0.15*0.01=0.0015$. Ahora para hallar la pérdida esperada de esta cartera debemos encontrar todas las probabilidades de transición, lo cual se muestra en la siguiente tabla:
+Esta tabla se puede entender como sigue, la pérdida esperada si el crédito BB migra a la calificación BBB y el crédito AA migra a la calificación CCC es 142.5, ahora para hallar la probabilidad debemos multiplicar las probabilidades correspondientes de que estas migraciones ocurran, es decir, $0.15*0.01=0.0015$. Ahora para hallar la pérdida esperada de esta cartera debemos encontrar todas las probabilidades de transición, lo cual se muestra en la siguiente tabla:
 
 
 | Crédito AA | AAA    |   AA   | A      | BBB    | BB     | B      | CCC    |
@@ -962,7 +956,7 @@ Ahora para comprobar la eficiencia del método de generación de números pseudo
 
 #### Aplicando simulación de MonteCarlo para hallar la distribución de pérdidas de una cartera.
 
-Ahora una vez se pretenda usar un método algorítmico de generación de números aleatorios, se usa este metódo para generar eventos probabilísticos en los cuales se consideren todos los posibles eventos de transición entre las distintas calificaciones. Cada evento se considera como una simulación de un evento particular, por cada simulación los créditos se encuentran en una calificación determinada por la probabilidad de transición respectiva, este calificación trae con si un pérdida esperada por crédito, asi por cada simulación se obtiene una pérdida. 
+Ahora una vez se pretenda usar un método algorítmico de generación de números aleatorios, se usa este metódo para generar eventos probabilísticos en los cuales se consideren todos los posibles eventos de transición entre las distintas calificaciones. Cada evento se considera como una simulación de un evento particular, por cada simulación los créditos se encuentran en una calificación determinada por la probabilidad de transición respectiva, este calificación trae con si una pérdida esperada por crédito, asi por cada simulación se obtiene una pérdida. 
 
 Ahora si nuestra cartera de crédito posee 1000 créditos, y existen 5 calificaciones, en la sección vimos que existen $5^{1000}$ posibles eventos, para imaginarnos esta cantidad basta saber que este número es mayor que un billón, por lo tanto debemos realizar un gran número de simulaciones para poder captar información verídica de la pérdida esperada. Una de las bondades de estimar la pérdida esperada de esta forma es que la distribución tendera asintóticamente a una normal donde su media tendera la pérdida esperada de la cartera.
 
@@ -1008,12 +1002,12 @@ Donde $\phi$ y $\Phi$ representan la función de densidad de probabilidad y la f
 # Manual técnico de la aplicación Vision CreditRisk
 
 
-En el presente capítulo, presentaremos el manual técnico de la aplicación Vision CreditRisk, el cual utiliza las nociones teóricas vistas anteriormente para lograr de una forma agradable y de facil entendimiento permtir que el usuario encargado del área de crédito de su institución maneje de forma precisa y adecuada las metricas de riesgo.  
+En el presente capítulo, presentaremos el manual técnico de la aplicación Vision CreditRisk, el cual utiliza las nociones teóricas vistas anteriormente para lograr de una forma agradable y de facil entendimiento permtir que el usuario encargado del área de crédito de su institución maneje de forma precisa y adecuada las métricas de riesgo.  
 
 ## Presentación de la aplicación.
 
 
-La aplicación esta compuesta de tres secciones, la primera referente a la metodología CreditRisk+, la segunda correspondiente a la metodología Credimetrics y la tercera una sección referente a indicadores técnicos.
+La aplicación esta compuesta de tres secciones, la primera referente a la metodología CreditRisk+, la segunda correspondiente a la metodología Credimetrics y la tercera sección referente a indicadores técnicos.
 
 ![\label{fig:"sd"}](~/Riesgo_de_Credito/portada.png)
 
@@ -1052,7 +1046,7 @@ En esta pestaña, veremos el gráfico estadístico de boxplot para ver el compor
 
 ![\label{fig:"sd"}](~/Riesgo_de_Credito/esta1.png)
 
-### Seleccion de variables
+### Selección de variables
 
 En esta sección el usuario podrá colocar el significancia para escoger las variables cualitativas y cuantitativas que se usaran en el modelo, la pestaña se divide en 2, una para cada tipo de variable.
 
@@ -1062,7 +1056,7 @@ En esta sección el usuario podrá colocar el significancia para escoger las var
 
 ## Pérdida por incumplimiento
 
-En esta sección podra calcular el usuario la pérdida histórica por incumplimiento. El usuario podrá ver graficamente lo que espera recuprar en caso de incumplimiento  mientras transcurre el tiempo.
+En esta sección podra calcular la pérdida histórica por incumplimiento. El usuario podrá ver graficamente lo que espera recuprar en caso de incumplimiento, mientras transcurre el tiempo.
 
 ![\label{fig:"sd"}](~/Riesgo_de_Credito/perdida.png)
 
@@ -1073,7 +1067,7 @@ En esta sección se calculara la probabilidad de incumplimiento, score o pontuja
 
 ### Selección y resultados del modelo
 
-En esta sección el usuario seleccionara el modelo que mejor se ajuste a los datos, una vez seleccionado se deplegara la matriz con los resultados del modelo y e grafico ROC para mostrar el nivel de acierto del modelo.
+En esta sección el usuario seleccionara el modelo que mejor se ajuste a los datos, una vez seleccionado se deplegara la matriz con los resultados del modelo y el grafico ROC para mostrar el nivel de acierto del modelo.
 
 ![\label{fig:"sd"}](~/Riesgo_de_Credito/score1.png)
 
@@ -1098,7 +1092,7 @@ En esta sección se pediran los valores de los parámetros básicos y se mostrar
 
 ### Parámetros iniciales
 
-En esta sección, deberemos la unidad de pérdida, que no es mas que la unidad de medida que inteta cuantificar la pérdida de una forma mas compacta. Deberemos ingresar el porcentaje de recuperación que se espera recuperar luego que un crédito esta en mora. Debemos cargar las probabilidades de incumplimiento de la cartera de clientes, podemos cargar una data propia genera por mecanismos internos o podemos cargar la proveniente de la sección de Score de crédito, en ambos casos la data debe tener la siguiente estructura:
+En esta sección, deberemos establecer la unidad de pérdida, que no es mas que la unidad de medida que inteta cuantificar la pérdida de una forma mas compacta. Deberemos ingresar el porcentaje de recuperación que se espera recuperar luego que un crédito esta en mora. Debemos cargar las probabilidades de incumplimiento de la cartera de clientes, podemos cargar una data propia generada por mecanismos internos o podemos cargar la proveniente de la sección de Score de crédito, en ambos casos la data debe tener la siguiente estructura:
 
 ![\label{fig:"sd"}](~/Riesgo_de_Credito/par2.png)
 
@@ -1144,7 +1138,7 @@ En esta sección debemos cargar los datos históricos de migraciones crediticias
 
 ### Selecección de la matriz de transición
 
-En esta sección se debera seleccionar la matriz de transición, se puede escoger la ya calculada o nn caso de que el banco no posea los datos historicos necesarios, podra cargar su matriz de transición propia, pero debe tener el siguiente formato.
+En esta sección se debera seleccionar la matriz de transición, se puede escoger la ya calculada o en caso de que el banco no posea los datos históricos necesarios, podra cargar su matriz de transición propia, pero debe tener el siguiente formato.
 
 
 ![\label{fig:"sd"}](~/Riesgo_de_Credito/mtr3.png)
@@ -1175,7 +1169,7 @@ En esta sección el usuario indicara el número de simulaciones para la simulaci
 
 ## Stress Testing.
 
-Una vez llevado a cabo todos los pasos requeridos para la metodología, el usuario podrá realizar una prueba de estres sobre los parametros del modelo.
+Una vez llevado a cabo todos los pasos requeridos para la metodología, el usuario podrá realizar una prueba de estres sobre los parámetros del modelo.
 
 ![\label{fig:"sd"}](~/Riesgo_de_Credito/stress2.png)
 
