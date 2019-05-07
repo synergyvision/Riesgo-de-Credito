@@ -1,6 +1,9 @@
 ---
-title: "Reporte CreditRisk+"
-output: pdf_document
+#title: "Reporte CreditRisk+"
+output: 
+  pdf_document:
+    includes:
+      in_header: /Users/arturocarreno/Riesgo_de_Credito/App/preambulo.tex
 params:
   titulo2: NA
   titulo3: NA
@@ -32,13 +35,13 @@ Para la selección de variables categóricas se realizó un análisis de indepen
 
 
 ```{r pressure, echo=FALSE,  out.width = '50%',fig.align = "center"}
-knitr::include_graphics("~/Riesgo_de_Credito/App/appTemplate/www/img/conti.png")
+knitr::include_graphics("~/Riesgo_de_Credito/App/www/img/conti.png")
 ```
 
 Para la selección de variables cualitativas se uso la prueba chicuadrado con un nivel de significancia `r signi` para comparar si las variables segmentadas por la variable mora provenian de distintas distribuciones.
 
 ```{r, echo=FALSE,  out.width = '50%',fig.align = "center"}
-knitr::include_graphics("~/Riesgo_de_Credito/App/appTemplate/www/img/dist.png")
+knitr::include_graphics("~/Riesgo_de_Credito/App/www/img/dist.png")
 ```
 
 Las variables usadas para la creacion del score de la cartera de clientes fueron:

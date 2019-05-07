@@ -1,6 +1,9 @@
 ---
-title: "Reporte CrediMetrics"
-output: pdf_document
+#title: "Reporte CrediMetrics"
+output: 
+  pdf_document:
+    includes:
+      in_header: /Users/arturocarreno/Riesgo_de_Credito/App/preambulo.tex
 params:
   vari1: NA
   vari2: NA
@@ -65,7 +68,7 @@ sim<- params$vari4
 
 Para la estimación de la métricas de riesgo de uso el método de **Simulación de Monte Carlo** con `r sim` simulaciones. El histograma de las pérdidas luego de la simulación es:
 
-```{r, echo=FALSE, fig.width = 5,fig.height=4,fig.align = "center"}
+```{r, echo=FALSE, fig.width = 4,fig.height=3,fig.align = "center"}
 
 sim<- params$vari4
 media <- params$vari3[[2]]
