@@ -1830,7 +1830,7 @@ shinyServer(function(input, output, session) {
     per <- NULL
     
     
-    
+   valor <-  try(
     if (input$meto==2) {
       
       per <- as.numeric(calvar()[[2]])
@@ -1843,18 +1843,24 @@ shinyServer(function(input, output, session) {
       per <- CrediTR()[1]
       
       rar <- as.numeric(datasetInputindices()[4,2])-per
-    }
+    })
     
     
+   
+   if (class(valor)=="try-error") {
+     
+     retorno <- " "
+     
+   }else{retorno <- rar }
     
     
-    return(rar)
+    return(retorno)
   })
   
   
   rorac1 <- reactive({
     
-    
+    valor <- try(
     if (input$meto==2) {
       
       
@@ -1872,19 +1878,28 @@ shinyServer(function(input, output, session) {
       
       rorac<- a/rac
       
-    }    
+    })    
+    
+    if (class(valor)=="try-error") {
+      
+      retorno <- " "
+      
+    }else{retorno <- rorac }
     
     
-    
-    
-    return(rorac)
+    return(retorno)
   })
   
   
   rarorac1 <- reactive({
     
-    rar <- rar1()
     
+    
+    
+    
+      
+      rar <- rar1()
+      valor =try(
     
     if (input$meto==2) {
       
@@ -1908,10 +1923,17 @@ shinyServer(function(input, output, session) {
       
     }    
     
+    )
     
     
-    
-    return(rarora)
+      
+      if (class(valor)=="try-error") {
+        
+        retorno <- " "
+        
+      }else{retorno <- rarora }
+      
+    return(retorno)
   })
   
   
@@ -1920,6 +1942,8 @@ shinyServer(function(input, output, session) {
     
     rar <- rar1()
     
+    
+    valor <- try(
     
     if (input$meto==2) {
       
@@ -1936,12 +1960,17 @@ shinyServer(function(input, output, session) {
       
       
       raroc <- rar/var
-    }    
+    }    )
+    
+    if (class(valor)=="try-error") {
+      
+      retorno <- " "
+      
+    }else{retorno <- raroc }
     
     
     
-    
-    return(raroc)
+    return(retorno)
   })
   
   output$Raroc1 <- renderText ({
@@ -1951,6 +1980,9 @@ shinyServer(function(input, output, session) {
   calraroc()
     
   })
+  
+  
+  
   
   output$rar <- renderText ({
     

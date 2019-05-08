@@ -53,7 +53,7 @@ shinyUI(
                   ),
                   
                   menuItem("Indicadores contables", icon = icon("exclamation-circle"), tabName = "raroc",
-                  menuSubItem("Cálculo del RAROC", tabName = "RAROC", icon = icon("circle-o")),
+                  menuSubItem("Datos", tabName = "RAROC", icon = icon("circle-o")),
                   menuSubItem("Indicadores contables", tabName = "Mor", icon = icon("circle-o"))
                   
                   ),
@@ -598,7 +598,7 @@ shinyUI(
                                tabBox( height = "1250px", width = 12,side = "left",
                                        
                                    
-                    tabPanel(title = tagList(shiny::icon("gear"), strong('RAROC')),
+                    tabPanel(title = tagList(shiny::icon("gear"), strong('Datos y parámetros')),
                           fluidRow(  
                             fluidRow(box(width=12,title = h3("Metodología"),solidHeader = T,status ="warning" ,checkboxGroupInput("meto",h3(""), 
                                                                                                choices = list("CreditRisk+" = 1, 
@@ -633,8 +633,8 @@ shinyUI(
                     )),
                     
                    tabItem( tabName = "Mor" ,
-                            fluidRow(column(4,box(width=12,status = "warning",solidHeader = T,title = h3("RAROC"),h2(textOutput("raro")))),column(4,box(width=12,solidHeader = T,status = "warning",title = h3("RORAC"),h4(textOutput("roracc")))),column(4, box(width=12,solidHeader = T,status = "warning",title = h3("RARORAC"),h4(textOutput("raroracc"))))),
-                            fluidRow(column(4,box(width=12,solidHeader = T,status = "warning",title = h3("Indice de Morósidad"),h4(textOutput("morosidad")))),column(4,box(width=12,solidHeader = T,status = "warning",title = h3("Indice de Cobertura"),h4(textOutput("cobertura")))),column(4, box(width=12,solidHeader = T,status = "warning",title = h3("RAR"),h4(textOutput("rar")))))
+                            fluidRow(column(4,box(width=12,status = "warning",solidHeader = T,title = h3("RAROC"),h3(textOutput("raro")))),column(4,box(width=12,solidHeader = T,status = "warning",title = h3("RORAC"),h3(textOutput("roracc")))),column(4, box(width=12,solidHeader = T,status = "warning",title = h3("RARORAC"),h3(textOutput("raroracc"))))),
+                            fluidRow(column(4,box(width=12,solidHeader = T,status = "warning",title = h3("Indice de Morósidad"),h3(textOutput("morosidad")))),column(4,box(width=12,solidHeader = T,status = "warning",title = h3("Indice de Cobertura"),h3(textOutput("cobertura")))),column(4, box(width=12,solidHeader = T,status = "warning",title = h3("RAR"),h3(textOutput("rar")))))
                               
                             
                             
