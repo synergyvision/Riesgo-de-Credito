@@ -1111,7 +1111,10 @@ shinyServer(function(input, output, session) {
      file.copy("reporte1.Rmd", tempReport, overwrite = TRUE)
      params <- list(titulo2=c(CrediTR()[2]),titulo3=c(CrediTR()[1]),titulo4=c(CrediTR()[3]),
                     titulo5=c(modprueba(data1(),data1org(),input$columns,input$radio1)) ,titulo6=calroc(data1(),data1org(),input$columns,modprueba(data1(),data1org(),input$columns,input$radio1)),titulo7=input$radio1, titulo8=input$uniper, titulo9=input$uni,
-                    titulo10 = calaccur(), titulo11 = input$significancia)
+                    titulo10 = calaccur(), titulo11 = input$significancia, raroc = raroc1333(),
+                    rorac = rorac1(), rarorac = rarorac1(), morosidad = (as.numeric(datasetInputindices()[1,2])/as.numeric(datasetInputindices()[2,2])), cobertura=(as.numeric(datasetInputindices()[1,2])/as.numeric(datasetInputindices()[3,2])),
+                    rar = rar1()
+                              )
      
      
      
@@ -1760,7 +1763,9 @@ shinyServer(function(input, output, session) {
    content = function(file){
      tempReport <- file.path(tempdir(),"reporte2.Rmd")
      file.copy("reporte2.Rmd", tempReport, overwrite = TRUE)
-     params <- list(vari1 =data4(),vari2=data5(),vari3=calvar(),vari4 = input$simcrm)
+     params <- list(vari1 =data4(),vari2=data5(),vari3=calvar(),vari4 = input$simcrm, raroc = raroc1333(),
+                    rorac = rorac1(), rarorac = rarorac1(), morosidad = (as.numeric(datasetInputindices()[1,2])/as.numeric(datasetInputindices()[2,2])), cobertura=(as.numeric(datasetInputindices()[1,2])/as.numeric(datasetInputindices()[3,2])),
+                    rar = rar1())
      
      
      
@@ -2062,6 +2067,6 @@ shinyServer(function(input, output, session) {
   
   
   
-  
+
   
 })

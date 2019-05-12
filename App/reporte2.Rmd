@@ -9,6 +9,12 @@ params:
   vari2: NA
   vari3: NA
   vari4: NA
+  raroc: NA
+  rorac: NA
+  rarorac: NA
+  morosidad: NA
+  cobertura: NA
+  rar: NA
   
 ---
 
@@ -91,3 +97,13 @@ kable(w)
 
 ```
 
+Acontinuación se presentan algunos indicadores contables que son calculados a partir de los datos obtenidos del balance de la institución.
+```{r, echo=FALSE, results='asis'}
+library(knitr)
+
+IndC <- data.frame(c("RAROC","RORAC","RARORAC","Morosidad","Cobertura","RAR"),c(round(params$raroc,3),round(params$rorac,3),round(params$rarorac,3),round(params$morosidad,3),round(params$cobertura,3),round(params$rar,3)))
+
+colnames(IndC) = c("Indicador","Valor")
+
+kable(IndC)
+```
