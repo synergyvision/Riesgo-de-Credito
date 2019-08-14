@@ -735,8 +735,6 @@ shinyServer(function(input, output, session) {
  
  ######## subcesion Proyeccion a nuevos clientes
  
- 
- 
  #### Se cargan los datos de la manera usual
  
  
@@ -757,12 +755,14 @@ shinyServer(function(input, output, session) {
  })
  
  
- data2 <- reactive({
-   if(input$datasetr){
-     data <- datasetSelectr()}
+ dataaa2 <- reactive({
+   if(input$userFiler){
+     data <- datasetInputr()
+     }
    
    else {
-     data <- datasetInputr()
+     data <- datasetSelectr()
+     
    }
  })
  
@@ -771,11 +771,52 @@ shinyServer(function(input, output, session) {
  
  
  output$datatabler<-renderDataTable({
-   data2()
+   dataaa2()
  })
  
  
-  
+ 
+ 
+ 
+ 
+ proyec <- function() {
+   
+   
+   s1 <- dataaa2()
+   nombres <- colnames(data1org())
+   
+   nombre <- input$columns
+   
+   posi <- which(nombres == nombre)
+   
+   
+   reduccion = modprueba(data1(),data1org(),input$columns,input$radio1)
+   
+   
+   Score <- predict(reduccion, newdata = s1, type = "link")
+   PD <- predict(reduccion, newdata = s1, type = "response")
+   n <- length(PD)
+   ress <- cbind(1:n,Score,PD)
+   colnames(ress) <- c("Posición","Score","Probabilidad de incumplimiento") 
+   return(ress)
+   
+ }
+ 
+ 
+ output$proy <- renderDataTable({
+   
+   pro <- try(proyec())
+   if (class(pro)=="try-error") {
+     
+     "Cargue datos"
+   }else{pro}
+   
+   
+ },options = list(scrollX=T,scrollY=300))
+ 
+ 
+ 
+
   
   ###### Seccion Parametros y resultados
  

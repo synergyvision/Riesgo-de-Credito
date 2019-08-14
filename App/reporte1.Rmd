@@ -171,7 +171,7 @@ Acontinuación se presentan algunos indicadores contables que son calculados a p
 ```{r, echo=FALSE, results='asis'}
 library(knitr)
 
-IndC <- data.frame(c("RAROC","RORAC","RARORAC","Morosidad","Cobertura","RAR"),c(round(params$raroc,3),round(params$rorac,3),round(params$rarorac,3),round(params$morosidad,3),round(params$cobertura,3),round(params$rar,3)))
+IndC <- data.frame(c("RAROC","RORAC","RARORAC","Morosidad","Cobertura","RAR"),c(params$raroc,round(params$rorac,3),params$rarorac,params$morosidad,params$cobertura,params$rar))
 
 colnames(IndC) = c("Indicador","Valor")
 
