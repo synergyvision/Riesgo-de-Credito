@@ -109,7 +109,7 @@ shinyUI(
                                                )
                                              )),
                             
-                           conditionalPanel(condition = "input.userFile == true",
+                           conditionalPanel(condition = "input.userFile == true|| input.dataset == true",
                            fluidRow(
                               box( style = "overflow-x:scroll",width=12,status = "warning",dataTableOutput('datatable'))
                             ))
@@ -159,7 +159,9 @@ shinyUI(
                                                                                                                                                                                      h3(""), 
                                                                                                                                                                                      choices = list(
                                                                                                                                                                                                     "Selección de variables cuantitativas" = 2))),
-                                                   conditionalPanel(condition = "(input.selec == 1)", box(style = "overflow-x:scroll",title = "Selección de variables cualitativas",width=12,status = "warning", numericInput("significancia","Ingrese el nivel de significancia",value = 0.05,min = 0.001,max=1),dataTableOutput('datatablecu'))),
+                                                   conditionalPanel(condition = "(input.selec == 1)", box(title = "Selección de variables cualitativas",width=6,status = "warning", numericInput("significancia","Ingrese el nivel de significancia",value = 0.05,min = 0.001,max=1)),
+                                                                    box(width = 6,status = "warning",title = "Región de Rechazo"),
+                                                   box(width = 12,style = "overflow-x:scroll",dataTableOutput('datatablecu'))),
                                                           
                                                    conditionalPanel(condition = "(input.selec1 == 2)",  box(style = "overflow-x:scroll",title = "Selección de variables cuantitativas",width=12,status = "warning", numericInput("significancia1","Ingrese el nivel de significancia",value = 0.05,min = 0.001,max=1),dataTableOutput('datatablecu1'))))
                                                   )
@@ -231,7 +233,7 @@ shinyUI(
                                       )),
                                       
                                       
-                                      tabPanel( title = tagList(shiny::icon("gear"), strong('Score de la cartera de crédito')),
+                                      tabPanel( title = tagList(shiny::icon("gear"), strong('Score de la cartera de crédito de entrenamiento.')),
                                                 
                                                 h2("Score y probabilidad de incumplimiento de los clientes"),
                                                 dataTableOutput("score")

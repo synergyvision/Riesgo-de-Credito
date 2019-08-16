@@ -196,76 +196,80 @@ shinyServer(function(input, output, session) {
  
    
    
-   pval <- function(datos){
- 
-     
-     D<- datos
-     M <- c()
-     
-     
-     for (i in 2:length(names(datos))) {
-       
-       if(length(summary(as.factor(D[[i]])))<=10){
-         M[length(M)+1] <- i
-         
-       }
-       
-     }
-     
-     
-     D1 <- D[,c(1,M)]
-     
-     
-     pval <- NULL
-     nomb <- colnames(D1)
-     
-     for (i in 2:length(colnames(D1))) {
-       
-       df <- D1[,c(1,i)]
-       df1 <- dummy_cols(df,select_columns = nomb[i])
-       
-       d0 <- subset(df1,Creditability==0)
-       d1 <- subset(df1,Creditability==1)
-       
-       d0 <- apply(d0, 2, sum)
-       d1 <- apply(d1, 2, sum)
-       
-       d <- data.frame(t(data.frame(d0,d1)))
-       
-       d <-d[,-2]
-       
-       
-       d$Creditability[2] <- 1
-       
-       d$Creditability[2] <- "buenos"
-       d$Creditability[1] <- "malos"
-       
-       
-       nombre <- d$Creditability
-       rownames(d) <- nombre
-       d <- d[,-1]
-       
-       pr <- chisq.test(d)
-       pval[i]<-pr$p.value
-       
-       
-     }
-     
-     
-     pval <- t(pval)
-     
-     
-     vd <- nomb[which(pval > 0.05)]
-     
-     
-     j <- colnames(datos)
-     
-     
-     
-     inf <- data.frame(pval)
-     colnames(inf) <- nomb
-     return(inf)
-   }
+  pval <- function(datos){
+    
+    
+    D<- datos
+    M <- c()
+    
+    
+    for (i in 2:length(names(datos))) {
+      
+      if(length(summary(as.factor(D[[i]])))<=10){
+        M[length(M)+1] <- i
+        
+      }
+      
+    }
+    
+    
+    D1 <- D[,c(1,M)]
+    
+    
+    pval <- NULL
+    est <- NULL
+    nomb <- colnames(D1)
+    
+    for (i in 2:length(colnames(D1))) {
+      
+      df <- D1[,c(1,i)]
+      df1 <- dummy_cols(df,select_columns = nomb[i])
+      
+      d0 <- subset(df1,Creditability==0)
+      d1 <- subset(df1,Creditability==1)
+      
+      d0 <- apply(d0, 2, sum)
+      d1 <- apply(d1, 2, sum)
+      
+      d <- data.frame(t(data.frame(d0,d1)))
+      
+      d <-d[,-2]
+      
+      
+      d$Creditability[2] <- 1
+      
+      d$Creditability[2] <- "buenos"
+      d$Creditability[1] <- "malos"
+      
+      
+      nombre <- d$Creditability
+      rownames(d) <- nombre
+      d <- d[,-1]
+      
+      pr <- chisq.test(d)
+      pval[i] <- round(pr$p.value,4)
+      est[i] <-round(pr$statistic,4)
+      
+    }
+    
+    
+    pval <- t(pval)
+    est <- t(est)
+    
+    vd <- nomb[which(pval > 0.05)]
+    
+    
+    j <- colnames(datos)
+    
+    
+    
+    inf <- rbind(pval,est)
+    inf[1,1] <- "P-valor"
+    inf[2,1] <- "Estadistico"
+    colnames(inf) <- nomb
+    return(inf)
+  }
+  
   ## se calculan los pvalores
    
   pvalor <- reactive({pval(data1org())})
@@ -757,13 +761,14 @@ shinyServer(function(input, output, session) {
  
  
  dataaa2 <- reactive({
-   if(input$userFiler){
-     data <- datasetInputproy()
-     }
-   
-   else {
+   if(input$datasetr){
      data <- datasetSelectr()
      
+     }
+   
+   else if(input$userFiler) {
+     
+     data <- datasetInputproy()
    }
  })
  
@@ -779,29 +784,59 @@ shinyServer(function(input, output, session) {
  
  
  
- 
- proyec <- function() {
-   
-   
-   s1 <- dataaa2()
-   nombres <- colnames(data1org())
-   
-   nombre <- input$columns
-   
-   posi <- which(nombres == nombre)
-   
-   
-   reduccion = modprueba(data1(),data1org(),input$columns,input$radio1)
-   
-   
-   Score <- predict(reduccion, newdata = s1, type = "link")
-   PD <- predict(reduccion, newdata = s1, type = "response")
-   n <- length(PD)
-   ress <- cbind(1:n,Score,PD)
-   colnames(ress) <- c("Posición","Score","Probabilidad de incumplimiento") 
-   return(ress)
+   proyec <- function() {
+     if(input$datasetr ){
+     
+     
+     s1 <- dataaa2()
+     nombres <- colnames(data1org())
+     
+     nombre <- input$columns
+     
+     posi <- which(nombres == nombre)
+     
+     
+     reduccion = modprueba(data1(),data1org(),input$columns,input$radio1)
+     
+     
+     Score <- predict(reduccion, newdata = s1, type = "link")
+     PD <- predict(reduccion, newdata = s1, type = "response")
+     n <- length(PD)
+     ress <- cbind(1:n,Score,PD)
+     colnames(ress) <- c("Posición","Score","Probabilidad de incumplimiento") 
+     return(ress)
+     
+     }else if(input$userFiler & !is.null(input$file_dataproy)){
+       
+       
+       s1 <- dataaa2()
+       nombres <- colnames(data1org())
+       
+       nombre <- input$columns
+       
+       posi <- which(nombres == nombre)
+       
+       
+       reduccion = modprueba(data1(),data1org(),input$columns,input$radio1)
+       
+       
+       Score <- predict(reduccion, newdata = s1, type = "link")
+       PD <- predict(reduccion, newdata = s1, type = "response")
+       n <- length(PD)
+       ress <- cbind(1:n,Score,PD)
+       colnames(ress) <- c("Posición","Score","Probabilidad de incumplimiento") 
+       return(ress)
+       
+       
+     }
+       
+       
+       
+     
    
  }
+ 
+ 
  
  
  output$proy <- renderDataTable({
