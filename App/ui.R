@@ -29,15 +29,22 @@ shinyUI(
       sidebarMenu(id = "tabs",
       
                   menuItem("Introducción", tabName = "intro", icon = icon("fal fa-database")),
+                  
+                  menuItem("Scoring y rating", tabName = "S_R", icon = icon("fal fa-database"),
+                           menuSubItem("Datos", tabName = "subitem1", icon = icon("circle-o")),
+                           menuSubItem("Estadísticos", tabName = "stat", icon = icon("circle-o")),
+                           menuSubItem("Score de crédito", tabName = "glm", icon = icon("circle-o"))
+                           
+                           ),
                               
                   menuItem("CreditRisk+", tabName = "data", icon = icon("fal fa-database"),
                            
                            
                            
-                           menuSubItem("Datos", tabName = "subitem1", icon = icon("circle-o")),
-                           menuSubItem("Estadísticos", tabName = "stat", icon = icon("circle-o")),
+                           
+                      
                            menuSubItem("Pérdida por incumplimiento", tabName = "lgd", icon = icon("circle-o")),
-                           menuSubItem("Score de crédito", tabName = "glm", icon = icon("circle-o")),
+                           
                            menuSubItem("Parámetros y resultados", tabName = "Param", icon = icon("circle-o")),
                            menuSubItem("Stress Testing", tabName = "ST1", icon = icon("circle-o"))
                   ),
@@ -101,9 +108,11 @@ shinyUI(
                                                    )
                                                )
                                              )),
-                            fluidRow(
+                            
+                           conditionalPanel(condition = "input.userFile == true",
+                           fluidRow(
                               box( style = "overflow-x:scroll",width=12,status = "warning",dataTableOutput('datatable'))
-                            )
+                            ))
                              
                     ),
                     tabItem( tabName = "stat",
@@ -244,7 +253,7 @@ shinyUI(
                                                                    fluidRow(
                                                                      box(width = 15, title = h3("Cargar el archivo con los datos"),
                                                                          box( width=15,background = "yellow",
-                                                                              fileInput('file_datar', 'Seleccione el archivo', accept = c('text/csv',
+                                                                              fileInput('file_dataproy', 'Seleccione el archivo', accept = c('text/csv',
                                                                                                                                           'text/comma-separated-values',
                                                                                                                                           'text/tab-separated-values',
                                                                                                                                           'text/plain',
@@ -255,13 +264,13 @@ shinyUI(
                                                                          ),
                                                                          fluidRow(
                                                                            box(width=4,background="yellow",strong("Encabezado de los datos"),
-                                                                               checkboxInput( width="80%", 'headerr', "Con encabezado", TRUE)),
+                                                                               checkboxInput( width="80%", 'headerproy', "Con encabezado", TRUE)),
                                                                            box(width=4,background="yellow",
-                                                                               radioButtons( width="40%", 'sepr', "Separador", c('Coma'=',',
+                                                                               radioButtons( width="40%", 'sepproy', "Separador", c('Coma'=',',
                                                                                                                                  'Punto y coma'=';',
                                                                                                                                  'Tab'='\t'), ';')),
                                                                            box(width=4,background="yellow",
-                                                                               radioButtons( width="40%", 'quoter', "Comillas", c('Ninguna'='',
+                                                                               radioButtons( width="40%", 'quoteproy', "Comillas", c('Ninguna'='',
                                                                                                                                   'Comilla doble'='"',
                                                                                                                                   'Comilla simple'="'"), ''))
                                                                          

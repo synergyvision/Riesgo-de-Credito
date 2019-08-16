@@ -743,21 +743,22 @@ shinyServer(function(input, output, session) {
  })
  
  
- datasetInputr <- reactive({
+ 
+ datasetInputproy <- reactive({
    
-   inFiler <- input$file_datar
+   inFiler <- input$file_dataproy
    
    if (is.null(inFiler))
      return(NULL)
-   read.table(inFiler$datapath, header = input$headerr,
-              sep = input$sepr, quote = input$quoter)
+   read.table(inFiler$datapath, header = input$headerproy,
+              sep = input$sepproy, quote = input$quoteproy)
    
  })
  
  
  dataaa2 <- reactive({
    if(input$userFiler){
-     data <- datasetInputr()
+     data <- datasetInputproy()
      }
    
    else {
