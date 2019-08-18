@@ -218,6 +218,7 @@ shinyServer(function(input, output, session) {
     
     pval <- NULL
     est <- NULL
+    rec <- NULL
     nomb <- colnames(D1)
     
     for (i in 2:length(colnames(D1))) {
@@ -249,12 +250,13 @@ shinyServer(function(input, output, session) {
       pr <- chisq.test(d)
       pval[i] <- round(pr$p.value,4)
       est[i] <-round(pr$statistic,4)
-      
+      rec[i] <- round(qchisq(1-as.numeric(input$significancia),pr$parameter),4)
     }
     
     
     pval <- t(pval)
     est <- t(est)
+    rec[i]
     
     vd <- nomb[which(pval > 0.05)]
     
@@ -263,10 +265,13 @@ shinyServer(function(input, output, session) {
     
     
     
-    inf <- rbind(pval,est)
+    inf <- rbind(pval,est,rec)
     inf[1,1] <- "P-valor"
     inf[2,1] <- "Estadistico"
+    inf[3,1] <- "Valor Crítico"
+    
     colnames(inf) <- nomb
+    colnames(inf)[1] <- ""
     return(inf)
   }
   
@@ -274,6 +279,7 @@ shinyServer(function(input, output, session) {
    
   pvalor <- reactive({pval(data1org())})
    
+  
    
   ## seccion que muestra los p-valores de las variables cualitativas
    
@@ -311,6 +317,8 @@ shinyServer(function(input, output, session) {
     
     D1 <- as.data.frame(D[,-M])
     pval <- NULL
+    est <- NULL
+    rec <- NULL
     
     nomb <- colnames(D1)
     
@@ -328,16 +336,23 @@ shinyServer(function(input, output, session) {
       
       w <-  ks.test(p1,p2)
       
-      pval[i] <- w$p.value
+      pval[i] <- round(w$p.value,4)
+      est[i] <- round(w$statistic,4)
+      
       
     }
     
     pval <- t(pval)
+    est <- t(est)
+    rec <- pval
     
     
-    inf <- data.frame(pval)
+    inf <- rbind(pval,est,rec)
     colnames(inf)<-nomb
-    
+    inf[1,1] <- "P-valor"
+    inf[2,1] <- "Estadistico"
+    inf[3,1] <- "Valor Crítico"
+    colnames(inf)[1] <- ""
     return(inf)
     
     
@@ -352,7 +367,7 @@ shinyServer(function(input, output, session) {
     
     datos <- data1org()
     
-    pvalores <- pvalor()
+    pvalores <- pvalor()[1,]
     
     pvalores <- pvalores[-1]
     
@@ -404,7 +419,7 @@ shinyServer(function(input, output, session) {
    
    datos <- data1.()
    
-   pvalores <- pvalor1()
+   pvalores <- pvalor1()[1,]
    
    pvalores <- pvalores[-1]
    
@@ -568,6 +583,7 @@ shinyServer(function(input, output, session) {
    
  }
  
+ GlmModel <- reactive(modprueba(data1(),data1org(),input$columns,input$radio1))
  
  #####Aque se calcula la matriz de confusion del modelo
  
@@ -613,6 +629,7 @@ shinyServer(function(input, output, session) {
      
    }
  )
+ 
  
  #######Se muestra la matriz de confusion.
  
@@ -690,7 +707,65 @@ shinyServer(function(input, output, session) {
    
  })
  
+ ###########Se muestran los parametros de la regresión
+ coefglm <- function(modelo){
+   
+   l1 <- modelo$coefficients
+   
+   l2 <-names(modelo$coefficients)
+   
+   res <- t(rbind(l2,l1))
+   
+   res[1,1] <- "Punto de corte con el eje Y"
+   colnames(res) <- c("Variables","Coeficientes")
+   
+   return(res)
+   
+ }
  
+ output$coefglm <- renderDataTable({
+   
+   ca134 <- try(coefglm(GlmModel()))
+   if (class(ca134)=="try-error") {
+     
+     "Cargue datos"
+   }else{ca134}
+   
+   
+ })
+ #####Se muestra información estadistica del modelo
+ 
+ 
+ estglm <- function(modelo){
+   
+   aic <- round(modelo$aic,2)
+   
+   ND <- round(modelo$null.deviance,2)
+   
+   RD <- round(modelo$deviance,2)
+   
+   fis <- modelo$iter
+   
+   Est <- c(aic,RD,ND,round(fis,1))
+   
+   inf <- data.frame(c("Criterio de información de Akaike","Desviación de los residuos","Desviación Nula","Número de iteraciones de Fischer"),Est)
+   colnames(inf) <- c("Estadísticos","Resultado")
+   
+   return(inf)
+   
+ }
+ 
+ 
+ output$estglm <- renderDataTable({
+   
+   ca139 <- try(estglm(GlmModel()))
+   if (class(ca139)=="try-error") {
+     
+     "Cargue datos"
+   }else{ca139}
+   
+   
+ })
  
 
  ############### Subseccion Score de la cartera de credito
@@ -978,7 +1053,7 @@ shinyServer(function(input, output, session) {
    #View(mydata)
    
    
-   EAD <- s1[,"Credit.Amount"]
+   EAD <- data1org()[,"Credit.Amount"]
    
    ###supondremos que la perdida dado el default es la misma para toda  la cartera
    ### la institucion puede ajustar a un cliente en particular una perdida diferente

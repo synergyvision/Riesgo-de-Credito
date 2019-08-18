@@ -159,11 +159,18 @@ shinyUI(
                                                                                                                                                                                      h3(""), 
                                                                                                                                                                                      choices = list(
                                                                                                                                                                                                     "Selección de variables cuantitativas" = 2))),
-                                                   conditionalPanel(condition = "(input.selec == 1)", box(title = "Selección de variables cualitativas",width=6,status = "warning", numericInput("significancia","Ingrese el nivel de significancia",value = 0.05,min = 0.001,max=1)),
-                                                                    box(width = 6,status = "warning",title = "Región de Rechazo"),
-                                                   box(width = 12,style = "overflow-x:scroll",dataTableOutput('datatablecu'))),
+                                                   conditionalPanel(condition = "(input.selec == 1)", box(title = "Selección de variables cualitativas",width=6,status = "warning",
+                                                                                                          height = "140px", numericInput("significancia","Ingrese el nivel de significancia",value = 0.05,min = 0.001,max=1)),
+                                                                    box(title = "Region de Rechazo",height = "140px","A continuación se muestra el resultado de una prueba de hipotesis de independencia
+                                                                        si el estadístico es mayor que el valor critico podemos suponer la existencia de un efecto entre las variables",status = "warning"),
+                                                                    
+                                                   box(width = 12,status = "warning",style = "overflow-x:scroll",dataTableOutput('datatablecu'))),
                                                           
-                                                   conditionalPanel(condition = "(input.selec1 == 2)",  box(style = "overflow-x:scroll",title = "Selección de variables cuantitativas",width=12,status = "warning", numericInput("significancia1","Ingrese el nivel de significancia",value = 0.05,min = 0.001,max=1),dataTableOutput('datatablecu1'))))
+                                                   conditionalPanel(condition = "(input.selec1 == 2)",
+                                                                    box(style = "overflow-x:scroll",title = "Selección de variables cuantitativas",width=6,status = "warning", 
+                                                                        numericInput("significancia1","Ingrese el nivel de significancia",value = 0.05,min = 0.001,max=1)
+                                                                                                            ),box(title = "Region de Rechazo",width=6,height = "140px","A continuación se muestra el resultado de una prueba de hipotesis de independencia
+                                                                        si el estadístico es mayor que el valor critico podemos suponer la existencia de un efecto entre las variables",status = "warning"),box(width = 12,status = "warning",style = "overflow-x:scroll",dataTableOutput('datatablecu1'))))
                                                   )
                                )
                              )
@@ -222,15 +229,18 @@ shinyUI(
                               tabBox( height = "1250px", width = 12,side = "left",
                                       tabPanel( title = tagList(shiny::icon("gear"), strong('Selección y resultados del modelo')),
                                                 
-                                               fluidRow( 
+                                               
+                                                fluidRow(
                                                 box(width=12, title =h2("Modelos de probabilidad lineal"),solidHeader = T,status = "warning",radioButtons("radio1", h3("Escoga el link del Modelo"),
                                                                                             choices = list("Modelo Probit" = "probit", "Modelo Logit" = "logit",
                                                                                                            "Modelo Cauchit" = "cauchit"),selected = "probit")),
+                                                box(width = 12,title = h1("Coeficientes del Modelo"),status = "warning",dataTableOutput("coefglm")),
+                                                box(width = 12,title = h1("Información estadística del Modelo"),status = "warning",dataTableOutput("estglm")),
                                                 
-                                                fluidRow(column(width=6,box(width=10, status="primary",tableOutput("accur"))),column(width = 6,plotOutput("roc")))
+                                                column(width=6,box(width=10, status="primary",tableOutput("accur"))),column(width = 6,plotOutput("roc")))
                                                 
                                                 
-                                      )),
+                                      ),
                                       
                                       
                                       tabPanel( title = tagList(shiny::icon("gear"), strong('Score de la cartera de crédito de entrenamiento.')),
