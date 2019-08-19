@@ -33,7 +33,8 @@ shinyUI(
                   menuItem("Scoring y rating", tabName = "S_R", icon = icon("fal fa-database"),
                            menuSubItem("Datos", tabName = "subitem1", icon = icon("circle-o")),
                            menuSubItem("Estadísticos", tabName = "stat", icon = icon("circle-o")),
-                           menuSubItem("Score de crédito", tabName = "glm", icon = icon("circle-o"))
+                           menuSubItem("Score de crédito", tabName = "glm", icon = icon("circle-o")),
+                           menuSubItem("Rating de crédito", tabName = "rat", icon = icon("circle-o"))
                            
                            ),
                               
@@ -301,7 +302,47 @@ shinyUI(
                                       
                                       
                                       
-                              )))
+                              ))),
+                    
+                    
+                    tabItem(tabName = "rat",
+                            
+                            fluidRow(
+                              tabBox( height = "1250px", width = 12,side = "left",
+                                      tabPanel( title = tagList(shiny::icon("gear"), strong('Selección y resultados del modelo')),
+                                                
+                                                
+                                                fluidRow(
+                                                  fluidRow(column(6,box(width = 11,background="yellow", checkboxInput("datasetRat", strong("Selecciona para inciar Datos de Ejemplo"), FALSE))),
+                                                           column(6,box(width = 12,background="yellow", checkboxInput('userFileRat', strong('Cargar Datos Propios'), FALSE))))
+                                                  ),
+                                                conditionalPanel(condition = "input.userFileRat == true",
+                                                                 fluidRow(
+                                                                   box(width = 15, title = h3(UPLOADDATA_TEXT),
+                                                                       box( width=15,background = "yellow",
+                                                                            fileInput('file_dataRat', SELECTFILE_TEXT, accept = UPLOADFILETYPE_CONF,
+                                                                                      placeholder = FILESELEC_TEXT, buttonLabel = BUTTSELEC_TEXT )
+                                                                       ),
+                                                                       fluidRow(
+                                                                         box(width=4,background="yellow",strong(ENCABEZADO_TEXT),
+                                                                             checkboxInput( width="80%", 'headerRat', WITHHEADER_TEXT, TRUE)),
+                                                                         box(width=4,background="yellow",
+                                                                             radioButtons( width="40%", 'sepRat', SEPARATOR_TEXT, UPLOADFILESEP_CONF, ';')),
+                                                                         box(width=4,background="yellow",
+                                                                             radioButtons( width="40%", 'quoteRat', COMILLAS_TEXT, UPLOADCOMILLAS_CONF, ''))
+                                                                       )
+                                                                   )
+                                                                 )),
+                                                conditionalPanel(condition = "input.userFileRat == true|| input.datasetRat == true",
+                                                                 fluidRow(
+                                                                   box( style = "overflow-x:scroll",width=12,status = "warning",dataTableOutput('datatableRat'))
+                                                                 ))
+                                      
+                                      
+                                      
+                              ))))
+                    
+                    
                     
                     
                     ,

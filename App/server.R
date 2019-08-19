@@ -585,6 +585,59 @@ shinyServer(function(input, output, session) {
  
  GlmModel <- reactive(modprueba(data1(),data1org(),input$columns,input$radio1))
  
+ 
+ #########Rating
+ 
+ ############# Parte que se encarga de leer los datos cargados por el usuario
+ 
+ datasetInputRat <- reactive({
+   # input$file1 will be NULL initially. After the user selects
+   # and uploads a file, it will be a data frame with 'name',
+   # 'size', 'type', and 'datapath' columns. The 'datapath'
+   # column will contain the local filenames where the data can
+   # be found.
+   
+   inFile <- input$file_dataRat
+   
+   if (is.null(inFile))
+     return(NULL)
+   read.table(inFile$datapath, header = input$headerRat,
+              sep = input$sepRat, quote = input$quoteRat)
+   
+ })
+ 
+ 
+ 
+ ####### Datos de ejemplo de una institucion financiera alemana###
+ 
+ datasetSelectRat <- reactive({
+   datasetSelect <- rat
+ })
+ 
+ 
+ ###### Cargando datos con que se trabajara: entre los de ejemplo y los propios
+ 
+ dataRat <- reactive({
+   if(input$dataset){
+     data <- datasetSelectRat()}
+   
+   else {
+     data <- datasetInputRat()
+   }
+ })
+ 
+ 
+ ####Se muestran los datos
+ 
+ 
+ output$datatableRat<-renderDataTable({
+   dataRat()
+ },options = list(scrollX=T,scrollY=300))
+ 
+ 
+ 
+ 
+ 
  #####Aque se calcula la matriz de confusion del modelo
  
  calaccur <- reactive(
