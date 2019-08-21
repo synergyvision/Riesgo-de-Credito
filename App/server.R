@@ -618,14 +618,13 @@ shinyServer(function(input, output, session) {
  ###### Cargando datos con que se trabajara: entre los de ejemplo y los propios
  
  dataRat <- reactive({
-   if(input$dataset){
+   if(input$datasetRat){
      data <- datasetSelectRat()}
    
    else {
      data <- datasetInputRat()
    }
  })
- 
  
  ####Se muestran los datos
  
@@ -635,6 +634,119 @@ shinyServer(function(input, output, session) {
  },options = list(scrollX=T,scrollY=300))
  
  
+ ####### función para calcular el modelo de Rating
+ 
+ lda_mo <- function(dat){
+   
+   ind <- as.data.frame(as.numeric(dat[,1]))
+   colnames(ind)<- c("PD") 
+   
+   d <- lda(dat[,2]~ .,data = ind)
+   return(d)
+   
+ }
+ 
+ ###########Funcion que calcula la informacion del modelo
+ 
+ infLda <- function(lda){
+   
+   prior <- round(lda$prior,4)
+   mea <- t(round(lda$means,4))
+   inf <- rbind(prior,mea)
+   inf <- cbind(c("Probabilidades a Priori","Valores medio de los grupos"),inf)
+   return(inf)
+ }
+ 
+##### Se calcula el modelo
+ 
+ mod_rat <- reactive(lda_mo(dataRat()))
+ 
+ ### Se muestra la informa del modelo
+ 
+ output$datatableRatInf <- renderDataTable({
+   
+   ca1342 <- try(infLda(mod_rat()))
+   
+   if (class(ca1342)=="try-error") {
+     
+     "Cargue datos"
+     
+   }else{ca1342}
+ })
+ 
+ 
+ ############# Aqui se calcula el rating de nuevos clientes
+ 
+ 
+ ############# Parte que se encarga de leer los datos cargados por el usuario
+ 
+ datasetInputRatN <- reactive({
+   # input$file1 will be NULL initially. After the user selects
+   # and uploads a file, it will be a data frame with 'name',
+   # 'size', 'type', and 'datapath' columns. The 'datapath'
+   # column will contain the local filenames where the data can
+   # be found.
+   
+   inFile <- input$file_dataRatN
+   
+   if (is.null(inFile))
+     return(NULL)
+   read.table(inFile$datapath, header = input$headerRatN,
+              sep = input$sepRatN, quote = input$quoteRatN)
+   
+ })
+ 
+ 
+ 
+ ####### Datos del score###
+ 
+ datasetSelectRatN <- reactive({
+   datasetSelect <- proyec()
+   
+ })
+ 
+ 
+ ###### Cargando datos con que se trabajara: entre los de ejemplo y los propios
+ 
+ dataRatN <- reactive({
+   if(input$datasetRatN){
+     data <- datasetSelectRatN()}
+   
+   else {
+     data <- datasetInputRatN()
+   }
+ })
+ 
+ output$datatableRatN <- renderDataTable({
+   l <- as.data.frame(dataRatN()[,3])
+   colnames(l) <- c("Probabilidad de incumplimiento")
+   l
+   
+ },options = list(scrollX=T,scrollY=300))
+ 
+ #### Funcion que calcula el rating a partir  del  modelo
+ 
+ 
+ Rat_Cli <- function(d,df){
+   
+   pd <- as.data.frame(as.numeric(df[,1]))
+   colnames(pd) <- c("PD")
+   rat <- predict(d,pd)
+   rat_cli <- as.data.frame(rat$class)
+   colnames(rat_cli) <- c("Rating")
+   return(rat_cli)
+   
+ }
+ 
+ 
+ 
+ output$datatableRatNC <- renderDataTable({
+   l <- Rat_Cli(mod_rat(),as.data.frame(dataRatN()[,3]))
+   #colnames(l) <- c("Rating")
+   l
+   
+   
+ },options = list(scrollX=T,scrollY=300))
  
  
  
@@ -821,7 +933,7 @@ shinyServer(function(input, output, session) {
  })
  
 
- ############### Subseccion Score de la cartera de credito
+ ############### Subseccion Score de la cartera de credito de entrenamento
  
  ###########Funcion que calcula el score y pd de toda la cartera
  
@@ -924,7 +1036,7 @@ shinyServer(function(input, output, session) {
      posi <- which(nombres == nombre)
      
      
-     reduccion = modprueba(data1(),data1org(),input$columns,input$radio1)
+     reduccion = GlmModel()
      
      
      Score <- predict(reduccion, newdata = s1, type = "link")

@@ -260,7 +260,9 @@ shinyUI(
                                                 
                                                 h2("Score y probabilidad de incumplimiento del nuevo cliente"),
                                                 
-                                                fluidRow(column(6,box(background="yellow",width = 200, checkboxInput("datasetr", strong("Selecciona para inciar Datos de Ejemplo"), FALSE))),column(6,box(background="yellow", width = 200,checkboxInput('userFiler', strong('Cargar Datos Propios'), FALSE)))),
+                                                
+                                                fluidRow(column(6,box(background="yellow",width = 200, checkboxInput("datasetr", strong("Selecciona para inciar Datos de Ejemplo"), FALSE))),
+                                                         column(6,box(background="yellow", width = 200,checkboxInput('userFiler', strong('Cargar Datos Propios'), FALSE)))),
                                                 
                                                conditionalPanel(condition = "input.userFiler == true",
                                                                    fluidRow(
@@ -294,7 +296,7 @@ shinyUI(
                                                 ),
                                                
                                                fluidRow(box(width=12,style = "overflow-x:scroll",status = "warning", title = h2("Proyección"), dataTableOutput("proy")))
-                                               
+                                                
                                                 
                                                 
                                                 
@@ -309,7 +311,7 @@ shinyUI(
                             
                             fluidRow(
                               tabBox( height = "1250px", width = 12,side = "left",
-                                      tabPanel( title = tagList(shiny::icon("gear"), strong('Selección y resultados del modelo')),
+                                      tabPanel( title = tagList(shiny::icon("gear"), strong('Construcción del Modelo de Rating')),
                                                 
                                                 
                                                 fluidRow(
@@ -336,11 +338,57 @@ shinyUI(
                                                 conditionalPanel(condition = "input.userFileRat == true|| input.datasetRat == true",
                                                                  fluidRow(
                                                                    box( style = "overflow-x:scroll",width=12,status = "warning",dataTableOutput('datatableRat'))
-                                                                 ))
+                                                                 )),
+                                                conditionalPanel(condition = "input.userFileRat == true|| input.datasetRat == true",
+                                                              fluidRow(
+                                                              box( style = "overflow-x:scroll",width=12,title = h3("Información del modelo basado en análisis de disciminante"),status = "warning",dataTableOutput('datatableRatInf'))
+                                                             ))
                                       
                                       
                                       
-                              ))))
+                              ),
+                              
+                              tabPanel( title = tagList(shiny::icon("gear"), strong('Rating de nuevos clientes.')),
+                                        
+                                        fluidRow(
+                                          fluidRow(column(6,box(width = 11,background="yellow", checkboxInput("datasetRatN", strong("Datos provenientes del Score"), FALSE))),
+                                                   column(6,box(width = 12,background="yellow", checkboxInput('userFileRatN', strong('Cargar Datos Propios'), FALSE))))
+                                        ),
+                                        
+                                        conditionalPanel(condition = "input.userFileRatN == true",
+                                                         fluidRow(
+                                                           box(width = 15, title = h3(UPLOADDATA_TEXT),
+                                                               box( width=15,background = "yellow",
+                                                                    fileInput('file_dataRatN', SELECTFILE_TEXT, accept = UPLOADFILETYPE_CONF,
+                                                                              placeholder = FILESELEC_TEXT, buttonLabel = BUTTSELEC_TEXT )
+                                                               ),
+                                                               fluidRow(
+                                                                 box(width=4,background="yellow",strong(ENCABEZADO_TEXT),
+                                                                     checkboxInput( width="80%", 'headerRatN', WITHHEADER_TEXT, TRUE)),
+                                                                 box(width=4,background="yellow",
+                                                                     radioButtons( width="40%", 'sepRatN', SEPARATOR_TEXT, UPLOADFILESEP_CONF, ';')),
+                                                                 box(width=4,background="yellow",
+                                                                     radioButtons( width="40%", 'quoteRatN', COMILLAS_TEXT, UPLOADCOMILLAS_CONF, ''))
+                                                               )
+                                                           )
+                                                         )),
+                                        conditionalPanel(condition = "input.userFileRatN == true|| input.datasetRatN == true",
+                                                         fluidRow(
+                                                           box( style = "overflow-x:scroll",width=12,status = "warning",dataTableOutput('datatableRatN'))
+                                                         )),
+                                        conditionalPanel(condition = "input.userFileRatN == true|| input.datasetRatN == true",
+                                                         fluidRow(
+                                                           box( style = "overflow-x:scroll",width=12,status = "warning",dataTableOutput('datatableRatNC'))
+                                                         ))
+                                        
+                                        
+                                        
+                                        
+                                        
+                              )
+                              
+                              
+                              )))
                     
                     
                     
