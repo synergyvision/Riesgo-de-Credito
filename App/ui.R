@@ -238,16 +238,16 @@ shinyUI(
                                                 box(width = 12,title = h1("Coeficientes del Modelo"),status = "warning",dataTableOutput("coefglm")),
                                                 box(width = 12,title = h1("Información estadística del Modelo"),status = "warning",dataTableOutput("estglm")),
                                                 
-                                                column(width=6,box(width=10, status="primary",tableOutput("accur"))),column(width = 6,plotOutput("roc")))
+                                                #column(width=6,box(width=10, status="primary",tableOutput("accur"))),column(width = 6,plotOutput("roc")))
+                                                box(title = h2("Matriz de confusión"),width=4,status="warning",tableOutput("accur")),box(title = h2("Gráfico ROC"),width=8,status="warning",plotOutput("roc"))
                                                 
-                                                
-                                      ),
+                                      )),
                                       
                                       
                                       tabPanel( title = tagList(shiny::icon("gear"), strong('Score de la cartera de crédito de entrenamiento.')),
                                                 
                                                 h2("Score y probabilidad de incumplimiento de los clientes"),
-                                                dataTableOutput("score")
+                                                dataTableOutput("score"),downloadButton('download',"Descargar datos")
                                                
                                                 
                                                 
@@ -295,7 +295,7 @@ shinyUI(
                                                   box(width=12,style = "overflow-x:scroll",status = "warning",dataTableOutput('datatabler'))
                                                 ),
                                                
-                                               fluidRow(box(width=12,style = "overflow-x:scroll",status = "warning", title = h2("Proyección"), dataTableOutput("proy")))
+                                               fluidRow(box(width=12,style = "overflow-x:scroll",status = "warning", title = h2("Proyección"), dataTableOutput("proy"))),downloadButton('download1',"Descargar datos")
                                                 
                                                 
                                                 
@@ -374,12 +374,8 @@ shinyUI(
                                                          )),
                                         conditionalPanel(condition = "input.userFileRatN == true|| input.datasetRatN == true",
                                                          fluidRow(
-                                                           box( style = "overflow-x:scroll",width=12,status = "warning",dataTableOutput('datatableRatN'))
-                                                         )),
-                                        conditionalPanel(condition = "input.userFileRatN == true|| input.datasetRatN == true",
-                                                         fluidRow(
-                                                           box( style = "overflow-x:scroll",width=12,status = "warning",dataTableOutput('datatableRatNC'))
-                                                         ))
+                                                           box( style = "overflow-x:scroll",width=12,status = "warning",dataTableOutput('datatableRatNCF'))
+                                                         ),downloadButton('download2',"Descargar datos"))
                                         
                                         
                                         

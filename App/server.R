@@ -717,12 +717,7 @@ shinyServer(function(input, output, session) {
    }
  })
  
- output$datatableRatN <- renderDataTable({
-   l <- as.data.frame(dataRatN()[,3])
-   colnames(l) <- c("Probabilidad de incumplimiento")
-   l
-   
- },options = list(scrollX=T,scrollY=300))
+ 
  
  #### Funcion que calcula el rating a partir  del  modelo
  
@@ -738,17 +733,35 @@ shinyServer(function(input, output, session) {
    
  }
  
+ proyrat <- reactive({
+   
+   l1 <- as.data.frame(dataRatN()[,3])
+   colnames(l1) <- c("Probabilidad de incumplimiento")
+   
+   
+   l2 <- Rat_Cli(mod_rat(),as.data.frame(dataRatN()[,3]))
+   
+   
+   l3 <- cbind(l1,l2)
+   l3
+   
+ })
  
- 
- output$datatableRatNC <- renderDataTable({
-   l <- Rat_Cli(mod_rat(),as.data.frame(dataRatN()[,3]))
-   #colnames(l) <- c("Rating")
-   l
+ output$datatableRatNCF <- renderDataTable({
+
+   proyrat()
+   
    
    
  },options = list(scrollX=T,scrollY=300))
  
  
+ output$download2 <- downloadHandler(
+   filename = function(){"score.csv"}, 
+   content = function(fname){
+     write.csv(proyrat(), fname)
+   }
+ )
  
  #####Aque se calcula la matriz de confusion del modelo
  
@@ -976,7 +989,12 @@ shinyServer(function(input, output, session) {
  },options = list(scrollX=T,scrollY=300))
  
 
- 
+ output$download <- downloadHandler(
+   filename = function(){"score.csv"}, 
+   content = function(fname){
+     write.csv(scor(), fname)
+   }
+ )
  ######## subcesion Proyeccion a nuevos clientes
  
  #### Se cargan los datos de la manera usual
@@ -1092,7 +1110,12 @@ shinyServer(function(input, output, session) {
  
  
  
-
+ output$download1 <- downloadHandler(
+   filename = function(){"score.csv"}, 
+   content = function(fname){
+     write.csv(proyec(), fname)
+   }
+ )
   
   ###### Seccion Parametros y resultados
  
