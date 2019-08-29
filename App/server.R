@@ -450,7 +450,7 @@ shinyServer(function(input, output, session) {
  ####Se cargan los datos de la manera usual
  
  datasetSelectrl <- reactive({
-   datasetSelectrl <- lgd
+   datasetSelectrl <- perdidas
  })
  
  
@@ -486,35 +486,14 @@ shinyServer(function(input, output, session) {
  
  lgd1 <- reactive({
    
-   lgd <-data7()
+   lgd <-data7()["Perdidas"]
    
-   nc <- dim(lgd)[2]
+   p7 <- ggplot(lgd, aes(x = Perdidas)) +
+     geom_histogram()+labs(x = "Pérdida",y = "Frecuencia")
    
+
    
-   lgdp <- NULL
-   
-   
-   
-   
-   for (i in 1:nc) {
-     
-     lgdp[i] <- median(lgd[,i])
-     
-   }
-   
-   lgdp <- as.data.frame(lgdp)
-   
-   lgdp[2] <- 1:24
-   
-   
-   
-   colnames(lgdp) <- c("Porcentajes","Periodos")
-   
-   
-   p <- plot_ly(lgdp, x = ~Periodos, y = ~Porcentajes, name = 'trace 0', type = 'scatter', mode = 'lines') 
-   retornar <- list(p,lgdp)
-   
-   return(retornar)
+   return( ggplotly(p7))
    
  })
  
@@ -522,7 +501,7 @@ shinyServer(function(input, output, session) {
  
  output$curvalgd <- renderPlotly({
    
-   ca13 <- try(lgd1()[[1]])
+   ca13 <- try(lgd1())
    
    
    if (class(ca13)=="try-error") {
@@ -535,6 +514,74 @@ shinyServer(function(input, output, session) {
    
  })
  
+ ### Lgd con bootstrap
+ 
+ 
+ bootL <- function(datos,n){
+   
+   
+   medias <- NULL
+   
+   for ( i  in 1:n) {
+     muestra <- sample(datos$Perdidas,ceiling((as.numeric(input$bootT)/100)*length(datos$Perdidas)),replace = T)
+     
+     medias[i] <- mean(muestra)
+     
+   }
+   
+   medias <- as.data.frame(medias)
+   
+   colnames(medias) <- c("Perdidas")
+   
+   
+   p7 <- ggplot(medias, aes(x = Perdidas)) +
+     geom_histogram()+labs(x = "Pérdida",y = "Frecuencia")
+   
+   
+   p7 <- ggplotly(p7)
+   promedio <- mean(medias[,1])
+   desv <- sd(medias[,1])
+   lista <- list(p7,promedio,desv)
+   return(lista)
+   
+
+ }
+ 
+ 
+ ### aqui se muestra la grafica.
+ 
+ bot <- reactive({bootL(data7(),input$boot)})
+ 
+ ############
+ 
+ output$booot1 <- renderPlotly({
+   
+   ca9879 <- try(bot()[[1]])
+   
+   
+   if (class(ca9879)=="try-error") {
+     
+     df <- data.frame()
+     ggplot(df) + geom_point() + xlim(0, 10) + ylim(0, 100)
+     
+   }else{ca9879}
+   
+   
+ })
+ 
+ 
+ 
+ output$boots3 <- renderUI({
+   my_calculated_value <- round(as.numeric(bot()[[2]])*100,2)
+   withMathJax(paste0("El valor promerdio de perdida cuando un cliente esta Default es: $$", my_calculated_value,"$$"))
+ })
+ 
+ output$boots4 <- renderUI({
+   media <- round(as.numeric(bot()[[2]])*100,2)
+   des <- round(as.numeric(bot()[[3]])*100,2)
+   
+   withMathJax(paste0("El intevalo de confianza al 95% para este valor : $$(", round(media+(qnorm((1-(as.numeric( input$boot23)/100 ))/2))*des/sqrt(as.numeric(input$boot)),2),",", round(media-(qnorm((1-(as.numeric( input$boot23)/100 ))/2)*des/sqrt(as.numeric(input$boot))),2),")$$"))
+ }) 
  
 ###### Seccion score de credito
  
@@ -1914,7 +1961,7 @@ shinyServer(function(input, output, session) {
      
    }
    
-   N <- N /100
+   N <- paste(round(N,2),"%",sep ="" ) 
    
    
    result <- data.frame(N,clases)
@@ -1928,19 +1975,6 @@ shinyServer(function(input, output, session) {
  }
  
  
- 
- 
- output$datatableCR<-renderDataTable({
-   
-   ca20 <- try(CR( data11()))
-   if (class(ca20)=="try-error") {
-     
-     "Cargue datos"
-   }else{ca20}
-   
-   
-   
- },options = list(scrollX=T,scrollY=300))
  
  
  
@@ -1973,6 +2007,53 @@ shinyServer(function(input, output, session) {
    else {
      data <- clasesPropias()
    }
+ })
+ 
+ 
+ 
+ bostCL <- function(cla, n ,tam){
+   
+   clases <- names(table(cla["clases"]))
+   
+   medias <- NULL
+   desviacion <- NULL
+   
+   
+   
+   for (i in 1:length(clases)) {
+     
+     pos <- which(cla[,1]==clases[i])
+     
+     filtro <- cla[pos,2]
+     
+     mediabost <- NULL
+     for ( j  in 1:n) {
+       muestra <- sample(filtro,ceiling((tam/100)*length(filtro)),replace = T)
+       mediabost[j] <- mean(muestra)
+     }
+     
+     medias[i] <- mean(mediabost)
+     desviacion[i] <- sd(mediabost)
+     
+     
+   }
+   
+   
+   return(list(medias,desviacion))
+   
+ }
+ 
+ clasescal <- reactive({
+   
+   bostCL(data11(), as.integer(input$bootC) , as.integer(input$bootTC)) 
+   
+   
+ })
+ 
+ output$datatablecrm2 <- renderDataTable({
+   
+   as.data.frame(clasescal()[[1]])
+   
  })
  
  

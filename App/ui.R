@@ -37,14 +37,19 @@ shinyUI(
                            menuSubItem("Rating de crédito", tabName = "rat", icon = icon("circle-o"))
                            
                            ),
+                  
+                  
+                  menuItem("Perdida por incumplimiento", tabName = "LGD", icon = icon("fal fa-database"),
+                           menuSubItem("Pérdida por clientes", tabName = "lgd", icon = icon("circle-o")),
+                           menuSubItem("Pérdida Por Clase", tabName = "CPC", icon = icon("circle-o"))
+                           
+                           
+                  ),
                               
                   menuItem("CreditRisk+", tabName = "data", icon = icon("fal fa-database"),
                            
-                           
-                           
-                           
-                      
-                           menuSubItem("Pérdida por incumplimiento", tabName = "lgd", icon = icon("circle-o")),
+                         
+                           #menuSubItem("Pérdida por incumplimiento", tabName = "lgd", icon = icon("circle-o")),
                            
                            menuSubItem("Parámetros y resultados", tabName = "Param", icon = icon("circle-o")),
                            menuSubItem("Stress Testing", tabName = "ST1", icon = icon("circle-o"))
@@ -54,7 +59,6 @@ shinyUI(
                   menuItem("Creditmetrics", icon = icon("th"), tabName = "crm",
                            menuSubItem("Créditos", tabName = "CRED", icon = icon("circle-o")),
                            menuSubItem("Matriz de transición", tabName = "CMT", icon = icon("circle-o")),
-                           menuSubItem("Pérdida por clase", tabName = "CPC", icon = icon("circle-o")),
                            menuSubItem("Simulación y Resultados", tabName = "RES", icon = icon("circle-o")),
                            menuSubItem("Stress Testing", tabName = "ST2", icon = icon("circle-o"))
                            
@@ -184,7 +188,7 @@ shinyUI(
                                 height = "1250px", width = 12,side = "left", 
                                 
                                 
-                                tabPanel( title = tagList(shiny::icon("gear"), strong('Pérdidas por incumplimiento')),h3("Pérdidas por incumplimiento"),
+                                tabPanel( title = tagList(shiny::icon("gear"), strong('Datos')),h3("Pérdidas por incumplimiento"),
                                           fluidRow(column(6,box(background="yellow",width = 112, checkboxInput("datasetrl", strong("Selecciona para inciar Datos de Ejemplo"), FALSE))), column(6,box(background="yellow",width = 112, checkboxInput('userFilerl', strong('Cargar Datos Propios'), FALSE)))),
                                           
                                           conditionalPanel(condition = "input.userFilerl == true",
@@ -216,13 +220,33 @@ shinyUI(
                                                            )),
                                           
                                           fluidRow(
-                                            box(style = "overflow-x:scroll",width=12,status = "warning",dataTableOutput('datatablerl'))
-                                          ), 
-                                          plotlyOutput("curvalgd")
+                                            box(style = "overflow-x:scroll",width=5,status = "warning",dataTableOutput('datatablerl')),
+                                            box(width=7,status = "warning", plotlyOutput("curvalgd")))
+                                          
+                                          
+                                ),
+                                
+                                
+                                tabPanel( title = tagList(shiny::icon("gear"), strong('Perdidas Usando Bootstrap')),h3("Pérdidas por incumplimiento"),
+                                          
+                                          fluidRow(box(status = "warning",h3("Número de sub-muestras"), numericInput("boot" , label = "",value = 100)),
+                                                   
+                                                   box(h3("Tamaños de las submuestras en porcentaje"),status = "warning", 
+                                                       numericInput("bootT",label = "",value = 20,min = 1,max = 100)) ),
+                                          fluidRow(box(width=12,status = "warning", title = h3("Histograma Bootstrap"),plotlyOutput("booot1"))),
+                                          fluidRow(box(width=4,status="warning", uiOutput("boots3")),box(width=4,status="warning",numericInput("boot23",label = " ",max = 100,min = 1,value = 95)),box(width=4,status="warning",uiOutput("boots4")))
                                           
                                           
                                           
-                                ))))
+                                          
+                                          
+                                          
+                                          
+                                )
+                                
+                                
+                                
+                                )))
                     
                     ,tabItem(tabName = "glm",
                             
@@ -624,11 +648,9 @@ shinyUI(
                                               ,
                              fluidRow(
                                box(style = "overflow-x:scroll",width=12,status = "warning",dataTableOutput('datatableC'))
-                             ),
-                             fluidRow(
-                               box(title = h3("Pérdida esperada por clase"),style = "overflow-x:scroll",width=12,status = "warning",dataTableOutput('datatableCR'))
                              )
-                    ), tabPanel( title = tagList(shiny::icon("gear"), strong('Pérdida esperada')), 
+                             
+                    ), tabPanel( title = tagList(shiny::icon("gear"), strong('Promedio de Pérdidas')), 
                                  box(width = 15, title = h1("Pérdida esperada por clase")),
                                  fluidRow(column(6,box(background="yellow",width = 120,checkboxInput("datasetcrm1", strong("Pérdida por clases calculada"), FALSE)))
                                  ,column(6,box(background="yellow", width = 120,checkboxInput('userFilecrm1', strong("Ingresar pérdida esperada por clase"), F)))),
@@ -661,7 +683,24 @@ shinyUI(
                                                   )
                                                   
                                  ),fluidRow(
-                                   box(width=12,status = "warning",dataTableOutput('datatablecrm1'))))))
+                                   box(width=12,status = "warning",dataTableOutput('datatablecrm1')))),
+                    
+                    
+                    tabPanel( title = tagList(shiny::icon("gear"), strong('Pérdidas Usando Bootstrap')),
+                              fluidRow(box(status = "warning",h3("Número de sub-muestras"), numericInput("bootC" , label = "",value = 100)),
+                                       
+                                       box(h3("Tamaños de las submuestras en porcentaje"),status = "warning", 
+                                           numericInput("bootTC",label = "",value = 20,min = 1,max = 100)) ),
+                              
+                              fluidRow(
+                                box(width=12,status = "warning",dataTableOutput('datatablecrm2')))
+                              
+                              
+                            
+                              
+                              
+                              )
+                    ))
                     
                     
                     
