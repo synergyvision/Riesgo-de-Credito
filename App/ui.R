@@ -234,7 +234,7 @@ shinyUI(
                                                    box(h3("Tamaños de las submuestras en porcentaje"),status = "warning", 
                                                        numericInput("bootT",label = "",value = 20,min = 1,max = 100)) ),
                                           fluidRow(box(width=12,status = "warning", title = h3("Histograma Bootstrap"),plotlyOutput("booot1"))),
-                                          fluidRow(box(width=4,status="warning", uiOutput("boots3")),box(width=4,status="warning",numericInput("boot23",label = " ",max = 100,min = 1,value = 95)),box(width=4,status="warning",uiOutput("boots4")))
+                                          fluidRow(box(width=4,status="warning", height = "100px",uiOutput("boots3")),box(width=4,status="warning", height = "100px",numericInput("boot23",label = " Nivel de Confianza",max = 100,min = 1,value = 95)),box(width=4,status="warning", height = "100px",uiOutput("boots4")))
                                           
                                           
                                           
@@ -687,10 +687,10 @@ shinyUI(
                     
                     
                     tabPanel( title = tagList(shiny::icon("gear"), strong('Pérdidas Usando Bootstrap')),
-                              fluidRow(box(status = "warning",h3("Número de sub-muestras"), numericInput("bootC" , label = "",value = 100)),
+                              fluidRow(box(width = 4,status = "warning",h3("Número de sub-muestras"),height = "160px", numericInput("bootC" , label = "",value = 100)),
                                        
-                                       box(h3("Tamaños de las submuestras en porcentaje"),status = "warning", 
-                                           numericInput("bootTC",label = "",value = 20,min = 1,max = 100)) ),
+                                       box(width = 4,h3("Tamaños de las submuestras"),status = "warning", height = "160px",
+                                           numericInput("bootTC",label = "",value = 20,min = 1,max = 100)) ,box(width = 4,h3("Nivel de Confianza"),height = "160px",status = "warning",label = " Nivel de Confianza",numericInput("boot2312",label = " ",max = 100,min = 1,value = 95))),
                               
                               fluidRow(
                                 box(width=12,status = "warning",dataTableOutput('datatablecrm2')))

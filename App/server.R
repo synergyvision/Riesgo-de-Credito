@@ -2052,10 +2052,21 @@ shinyServer(function(input, output, session) {
  
  output$datatablecrm2 <- renderDataTable({
    
-   as.data.frame(clasescal()[[1]])
+   l <- as.data.frame(clasescal()[[1]])
+   k <- as.data.frame(clasescal()[[2]])
+   
+   j <- k*qnorm((1-(as.numeric(input$boot2312)/100 ))/2)/sqrt(as.numeric(input$bootC))
+
+   
+   iz <- l+j
+   de <- l-j
+   final <- cbind(l,iz,de)
+   
+   colnames(final) <- c("Pérdida Esperada","Mínimo Esperado","Máximo Esperado")
+   
+   round(final,2)
    
  })
- 
  
 ### Se muestra la perdida por clases a usar para la metodologuia
  
