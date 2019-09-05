@@ -48,9 +48,7 @@ shinyUI(
                               
                   menuItem("CreditRisk+", tabName = "data", icon = icon("fal fa-database"),
                            
-                         
-                           #menuSubItem("Pérdida por incumplimiento", tabName = "lgd", icon = icon("circle-o")),
-                           
+                           menuSubItem("Datos Iniciales", tabName = "datini", icon = icon("circle-o")),
                            menuSubItem("Parámetros y resultados", tabName = "Param", icon = icon("circle-o")),
                            menuSubItem("Stress Testing", tabName = "ST1", icon = icon("circle-o"))
                   ),
@@ -415,11 +413,144 @@ shinyUI(
                     
                     ,
                     
+                    tabItem( tabName = "datini",
+                             fluidRow(
+                               tabBox( height = "1250px", width = 12,side = "left",
+                                       tabPanel( title = tagList(shiny::icon("gear"), strong('Indicación')),
+                                       
+                                       box(title = "Guía", "El modelo CreditRisk+ necesita como parametros básicos las expocisiones,
+                                           perdidas dado el incumplimiento y las probabilidades de incumplimiento."),
+                                       box(title = "Mejora", "A modo de aliviar el cálculo computacional se agrupan los creditos en 
+                                           bandas de exposición a partir de una unidad de pérdida dada por la institución.")),
+                                       
+                                       tabPanel( title = tagList(shiny::icon("gear"), strong('Exposiciones'))
+                                                 
+                                                 
+                                                 ,
+                                                 
+                                                 fluidRow(
+                                                   box(width = 15, title = h3("Cargar el archivo con las Exposiciónes crediticias"),
+                                                       box( width=15,background = "yellow",
+                                                            fileInput('file_dataEXP', 'Seleccione el archivo', accept = c('text/csv',
+                                                                                                                          'text/comma-separated-values',
+                                                                                                                          'text/tab-separated-values',
+                                                                                                                          'text/plain',
+                                                                                                                          '.csv',
+                                                                                                                          '.tsv',
+                                                                                                                          '.rda'),
+                                                                      placeholder = 'Aun no seleccionas el archivo...', buttonLabel = 'Buscar' )
+                                                       ),
+                                                       fluidRow(
+                                                         box(width=4,background="yellow",strong("Encabezado de los datos"),
+                                                             checkboxInput( width="80%", 'headerEXP', "Con encabezado", TRUE)),
+                                                         box(width=4,background="yellow",
+                                                             radioButtons( width="40%", 'sepEXP', "Separador", c('Coma'=',',
+                                                                                                                 'Punto y coma'=';',
+                                                                                                                 'Tab'='\t'), ';')),
+                                                         box(width=4,background="yellow",
+                                                             radioButtons( width="40%", 'quoteEXP', "Comillas", c('Ninguna'='',
+                                                                                                                  'Comilla doble'='"',
+                                                                                                                  'Comilla simple'="'"), ''))
+                                                       )
+                                                   )
+                                                 ),
+                                                 
+                                                 fluidRow(
+                                                   box(width=12,status = "warning",dataTableOutput('datatableEXP'))
+                                                 )
+                                                 
+                                                 
+                                                 ),
+                                       
+                                       tabPanel( title = tagList(shiny::icon("gear"), strong('Probabilidades de incumplimiento')),
+                                                 
+                                            
+                                                 fluidRow(
+                                                   fluidRow(column(6,box(width = 12,background="yellow", checkboxInput("datasetPro", strong("Provenientes del Score"), FALSE))),
+                                                            column(6,box(width = 12,background="yellow", checkboxInput('userFilePro', strong('Cargar Datos Propios'), FALSE))))
+                                                   ),
+                                                 conditionalPanel(condition = "input.userFilePro == true",
+                                                                  fluidRow(
+                                                                    box(width = 15, title = h3(UPLOADDATA_TEXT),
+                                                                        box( width=15,background = "yellow",
+                                                                             fileInput('file_dataPro', SELECTFILE_TEXT, accept = UPLOADFILETYPE_CONF,
+                                                                                       placeholder = FILESELEC_TEXT, buttonLabel = BUTTSELEC_TEXT )
+                                                                        ),
+                                                                        fluidRow(
+                                                                          box(width=4,background="yellow",strong(ENCABEZADO_TEXT),
+                                                                              checkboxInput( width="80%", 'headerPro', WITHHEADER_TEXT, TRUE)),
+                                                                          box(width=4,background="yellow",
+                                                                              radioButtons( width="40%", 'sepPro', SEPARATOR_TEXT, UPLOADFILESEP_CONF, ';')),
+                                                                          box(width=4,background="yellow",
+                                                                              radioButtons( width="40%", 'quotePro', COMILLAS_TEXT, UPLOADCOMILLAS_CONF, ''))
+                                                                        )
+                                                                    )
+                                                                  )),
+                                                 
+                                                 conditionalPanel(condition = "input.userFilePro == true|| input.datasetPro == true",
+                                                                  fluidRow(
+                                                                    box( style = "overflow-x:scroll",width=12,status = "warning",dataTableOutput('datatablePro'))
+                                                                  ))  
+                                                 
+                                                 
+                                                 
+                                                 
+                                       ),
+                                       
+                                       tabPanel( title = tagList(shiny::icon("gear"), strong('Pérdidas dada el incumplimiento')),
+                                                 
+                                                 fluidRow(
+                                                   fluidRow(
+                                                            column(6,box(width = 12,background="yellow", checkboxInput('PerdiGene', strong('Perdidas Por clientes'), FALSE))),
+                                                            column(6,box(width = 12,background="yellow", checkboxInput('userFilePerd', strong('Cargar Datos Propios'), FALSE))))
+                                                 ),
+                                                 
+                                                
+                                                 
+                                                 
+                                                 conditionalPanel(condition = " input.PerdiGene && !input.userFilePerd",
+                                                                  fluidRow(
+                                                                    box( style = "overflow-x:scroll",width=12,status = "warning",dataTableOutput('PerdidaCliente'))
+                                                                  )),
+                                                 conditionalPanel(condition = " !input.PerdiGene && input.userFilePerd",
+                                                                  fluidRow(
+                                                                    box( style = "overflow-x:scroll",width=12,status = "warning",dataTableOutput('PerdidaPropia'))
+                                                                  ))
+                                                 
+                                                 
+                                                 
+                                                 
+                                                 
+                                       )
+                                       
+                                       
+                                       
+                                       
+                                       
+                                       ))),
+                                                 
+                                                 
+                                                 
+                    
+                    
                     tabItem( tabName = "Param",
                              fluidRow(
                                tabBox( height = "1250px", width = 12,side = "left",
                              
                      
+                                       
+                                       
+                                       tabPanel( title = tagList(shiny::icon("gear"), strong('Datos iniciales'))   
+                                                 
+                                                 
+                                                
+                                                 
+                                                 
+                                                 
+                                                 
+                                       ),
+                                       
+                                       
                             
                             tabPanel( title = tagList(shiny::icon("gear"), strong('Parametros iniciales')),
                                       h3("Modelo CreditRisk+"),
@@ -461,7 +592,18 @@ shinyUI(
                                                            )
                                                          )),fluidRow(
                                                            box(width=12,status = "warning",dataTableOutput('datatabler1'))
-                                                         )),
+                                                         ),
+                                      fluidRow(
+                                        box(width=12,title="Exposicion pon bandas en unidades de perdia",status = "warning",dataTableOutput('bandas'))
+                                      )
+                                      
+                                      
+                                      
+                                      ),
+                            
+                            
+                            
+                            
                             tabPanel( title = tagList(shiny::icon("gear"), strong('Resultados')),
                                      
                                        fluidRow(box(title =h3("Escoga nivel de confianza para el VaR"),solidHeader = T,width=12,status = "warning",radioButtons("conf", "",

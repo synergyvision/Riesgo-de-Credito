@@ -1089,7 +1089,7 @@ shinyServer(function(input, output, session) {
  
  
  
-   proyec <- function() {
+   proyec <- reactive({
      if(input$datasetr ){
      
      
@@ -1139,7 +1139,7 @@ shinyServer(function(input, output, session) {
        
      
    
- }
+ })
  
  
  
@@ -1269,7 +1269,127 @@ shinyServer(function(input, output, session) {
  
  #### Sub seccion resultados
  
+ 
+ ### exp
+ 
+ datasetInputEXP <- reactive({
+   # input$file1 will be NULL initially. After the user selects
+   # and uploads a file, it will be a data frame with 'name',
+   # 'size', 'type', and 'datapath' columns. The 'datapath'
+   # column will contain the local filenames where the data can
+   # be found.
+   
+   inFile <- input$file_dataEXP
+   
+   if (is.null(inFile))
+     return(NULL)
+   read.table(inFile$datapath, header = input$headerEXP,
+              sep = input$sepEXP, quote = input$quoteEXP)
+   
+ })
+ 
+ output$datatableEXP<-renderDataTable({
+   datasetInputEXP()
+ },options = list(scrollX=T,scrollY=300))
+ 
+ 
+ 
+ ### probabilidades
+ 
+ 
+ 
+ datasetInputPro <- reactive({
+   # input$file1 will be NULL initially. After the user selects
+   # and uploads a file, it will be a data frame with 'name',
+   # 'size', 'type', and 'datapath' columns. The 'datapath'
+   # column will contain the local filenames where the data can
+   # be found.
+   
+   inFile <- input$file_dataPro
+   
+   if (is.null(inFile))
+     return(NULL)
+   read.table(inFile$datapath, header = input$headerPro,
+              sep = input$sepPro, quote = input$quotePro)
+   
+ })
+ 
+ datasetSelectPro <- reactive({
+   datasetSelect <- proyec() 
+ })
+ 
+ 
+ Proba <- reactive({
+   if(input$datasetPro){
+     data <- datasetSelectPro()}
+   
+   else {
+     data <- datasetInputPro()
+   }
+ })
+ 
+ ###Se muestran los datos
+ 
+ 
+ output$datatablePro<-renderDataTable({
+ l<- as.data.frame(Proba())
+ l[3]
+   
+ },options = list(scrollX=T,scrollY=300))
+ ### Baandas
+ 
+ 
+ 
+ 
+ bandas <- function(uni,EAD,LGD){
+   
+   res <- ceiling((EAD*LGD)/uni)
+   
+   res1 <- as.data.frame(table(res))
+   
+   colnames(res1) <- c("Unidades de Pérdidas","Frequencia")
+   
+   return(res1)
+   
+   
+ }  
+ 
+ ######### perididas
+ 
+ 
+ datasetInputPerdC <- reactive({
+   # input$file1 will be NULL initially. After the user selects
+   # and uploads a file, it will be a data frame with 'name',
+   # 'size', 'type', and 'datapath' columns. The 'datapath'
+   # column will contain the local filenames where the data can
+   # be found.
+   
+   inFile <- input$file_dataPerdC
+   
+   if (is.null(inFile))
+     return(NULL)
+   read.table(inFile$datapath, header = input$headerPerdC,
+              sep = input$sepPerdC, quote = input$quotePerdC)
+   
+ })
+ 
+ 
+ 
+ ####Se muestran los datos
+ 
+ 
+ output$PerdidaClase<-renderDataTable({
+   datasetInputPerdC()
+ },options = list(scrollX=T,scrollY=300))
+ 
+ 
+ 
+ 
  #################### La funcion CreditTR calcula las metricas de riesgo
+ 
+ 
+ 
+ 
  
  CrediTR <- reactive({
    
