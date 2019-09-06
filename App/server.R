@@ -1321,7 +1321,10 @@ shinyServer(function(input, output, session) {
  
  Proba <- reactive({
    if(input$datasetPro){
-     data <- datasetSelectPro()}
+     data <- datasetSelectPro()
+     data <- as.data.frame(data)
+     data <- data[3]
+     }
    
    else {
      data <- datasetInputPro()
@@ -1332,8 +1335,7 @@ shinyServer(function(input, output, session) {
  
  
  output$datatablePro<-renderDataTable({
- l<- as.data.frame(Proba())
- l[3]
+ Proba()
    
  },options = list(scrollX=T,scrollY=300))
  ### Baandas
@@ -1357,19 +1359,19 @@ shinyServer(function(input, output, session) {
  ######### perididas
  
  
- datasetInputPerdC <- reactive({
+ datasetInputPer <- reactive({
    # input$file1 will be NULL initially. After the user selects
    # and uploads a file, it will be a data frame with 'name',
    # 'size', 'type', and 'datapath' columns. The 'datapath'
    # column will contain the local filenames where the data can
    # be found.
    
-   inFile <- input$file_dataPerdC
+   inFile <- input$file_dataPer
    
    if (is.null(inFile))
      return(NULL)
-   read.table(inFile$datapath, header = input$headerPerdC,
-              sep = input$sepPerdC, quote = input$quotePerdC)
+   read.table(inFile$datapath, header = input$headerPer,
+              sep = input$sepPer, quote = input$quotePer)
    
  })
  
@@ -1378,9 +1380,39 @@ shinyServer(function(input, output, session) {
  ####Se muestran los datos
  
  
- output$PerdidaClase<-renderDataTable({
-   datasetInputPerdC()
+ output$PerdidaPropia<-renderDataTable({
+   datasetInputPer()
  },options = list(scrollX=T,scrollY=300))
+ 
+ 
+ 
+ #######
+ 
+ perdidaconstr <- reactive({
+   
+   n = length(datasetInputEXP()[[1]])
+   
+   if (input$PerdiGene && !input$userFilePerd) {
+     as.data.frame(rep(input$PerEsp,n))
+     
+   }else if(!input$PerdiGene && input$userFilePerd){ 
+     datasetInputPer()}
+   
+  
+   
+   
+ })
+ 
+ 
+ 
+ output$perclien <- renderDataTable(
+   
+   #cbind(datasetInputEXP(),Proba())
+   
+   perdidaconstr()
+ )
+
+ 
  
  
  

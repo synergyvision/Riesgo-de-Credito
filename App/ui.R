@@ -39,7 +39,7 @@ shinyUI(
                            ),
                   
                   
-                  menuItem("Perdida por incumplimiento", tabName = "LGD", icon = icon("fal fa-database"),
+                  menuItem("Pérdida por incumplimiento", tabName = "LGD", icon = icon("fal fa-database"),
                            menuSubItem("Pérdida por clientes", tabName = "lgd", icon = icon("circle-o")),
                            menuSubItem("Pérdida Por Clase", tabName = "CPC", icon = icon("circle-o"))
                            
@@ -49,7 +49,7 @@ shinyUI(
                   menuItem("CreditRisk+", tabName = "data", icon = icon("fal fa-database"),
                            
                            menuSubItem("Datos Iniciales", tabName = "datini", icon = icon("circle-o")),
-                           menuSubItem("Parámetros y resultados", tabName = "Param", icon = icon("circle-o")),
+                           menuSubItem("Resultados", tabName = "Param", icon = icon("circle-o")),
                            menuSubItem("Stress Testing", tabName = "ST1", icon = icon("circle-o"))
                   ),
                   
@@ -225,7 +225,7 @@ shinyUI(
                                 ),
                                 
                                 
-                                tabPanel( title = tagList(shiny::icon("gear"), strong('Perdidas Usando Bootstrap')),h3("Pérdidas por incumplimiento"),
+                                tabPanel( title = tagList(shiny::icon("gear"), strong('Pérdidas Usando Bootstrap')),h3("Pérdidas por incumplimiento"),
                                           
                                           fluidRow(box(status = "warning",h3("Número de sub-muestras"), numericInput("boot" , label = "",value = 100)),
                                                    
@@ -419,7 +419,7 @@ shinyUI(
                                        tabPanel( title = tagList(shiny::icon("gear"), strong('Indicación')),
                                        
                                        box(title = "Guía", "El modelo CreditRisk+ necesita como parametros básicos las expocisiones,
-                                           perdidas dado el incumplimiento y las probabilidades de incumplimiento."),
+                                           pérdidas dado el incumplimiento y las probabilidades de incumplimiento."),
                                        box(title = "Mejora", "A modo de aliviar el cálculo computacional se agrupan los creditos en 
                                            bandas de exposición a partir de una unidad de pérdida dada por la institución.")),
                                        
@@ -501,7 +501,7 @@ shinyUI(
                                                  
                                                  fluidRow(
                                                    fluidRow(
-                                                            column(6,box(width = 12,background="yellow", checkboxInput('PerdiGene', strong('Perdidas Por clientes'), FALSE))),
+                                                            column(6,box(width = 12,background="yellow", checkboxInput('PerdiGene', strong('Pérdidas Por clientes'), FALSE))),
                                                             column(6,box(width = 12,background="yellow", checkboxInput('userFilePerd', strong('Cargar Datos Propios'), FALSE))))
                                                  ),
                                                  
@@ -510,9 +510,28 @@ shinyUI(
                                                  
                                                  conditionalPanel(condition = " input.PerdiGene && !input.userFilePerd",
                                                                   fluidRow(
-                                                                    box( style = "overflow-x:scroll",width=12,status = "warning",dataTableOutput('PerdidaCliente'))
+                                                                    box( style = "overflow-x:scroll",width=12,status = "warning",numericInput("PerEsp", 
+                                                                                                                                              h3("Pérdida Esperada en porcentaje"), 
+                                                                                                                                              value = 75,min = 0.0001,max = 99.99))
                                                                   )),
                                                  conditionalPanel(condition = " !input.PerdiGene && input.userFilePerd",
+                                                                  
+                                                                  fluidRow(
+                                                                    box(width = 15, title = h3(UPLOADDATA_TEXT),
+                                                                        box( width=15,background = "yellow",
+                                                                             fileInput('file_dataPer', SELECTFILE_TEXT, accept = UPLOADFILETYPE_CONF,
+                                                                                       placeholder = FILESELEC_TEXT, buttonLabel = BUTTSELEC_TEXT )
+                                                                        ),
+                                                                        fluidRow(
+                                                                          box(width=4,background="yellow",strong(ENCABEZADO_TEXT),
+                                                                              checkboxInput( width="80%", 'headerPer', WITHHEADER_TEXT, TRUE)),
+                                                                          box(width=4,background="yellow",
+                                                                              radioButtons( width="40%", 'sepPer', SEPARATOR_TEXT, UPLOADFILESEP_CONF, ';')),
+                                                                          box(width=4,background="yellow",
+                                                                              radioButtons( width="40%", 'quotePer', COMILLAS_TEXT, UPLOADCOMILLAS_CONF, ''))
+                                                                        )
+                                                                    )
+                                                                  ),
                                                                   fluidRow(
                                                                     box( style = "overflow-x:scroll",width=12,status = "warning",dataTableOutput('PerdidaPropia'))
                                                                   ))
@@ -540,9 +559,9 @@ shinyUI(
                      
                                        
                                        
-                                       tabPanel( title = tagList(shiny::icon("gear"), strong('Datos iniciales'))   
+                                       tabPanel( title = tagList(shiny::icon("gear"), strong('Pérdida esperada por cliente')) ,  
                                                  
-                                                 
+                                                 fluidRow(box(width = 12,title = "Pérdida esperada por cliente",status = "warning",dataTableOutput("perclien")))
                                                 
                                                  
                                                  
