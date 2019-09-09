@@ -28,7 +28,9 @@ shinyUI(
       
       sidebarMenu(id = "tabs",
       
-                  menuItem("Introducción", tabName = "intro", icon = icon("fal fa-database")),
+                  menuItem("Datos", tabName = "datos", icon = icon("fal fa-database"),
+                           menuSubItem("Scoring y rating", tabName = "S_T_D", icon = icon("circle-o")),
+                           menuSubItem("CreditRisk+", tabName = "datini", icon = icon("circle-o"))),
                   
                   menuItem("Scoring y rating", tabName = "S_R", icon = icon("fal fa-database"),
                            menuSubItem("Datos", tabName = "subitem1", icon = icon("circle-o")),
@@ -48,7 +50,7 @@ shinyUI(
                               
                   menuItem("CreditRisk+", tabName = "data", icon = icon("fal fa-database"),
                            
-                           menuSubItem("Datos Iniciales", tabName = "datini", icon = icon("circle-o")),
+                           
                            menuSubItem("Resultados", tabName = "Param", icon = icon("circle-o")),
                            menuSubItem("Stress Testing", tabName = "ST1", icon = icon("circle-o"))
                   ),
@@ -74,15 +76,7 @@ shinyUI(
     dashboardBody(VisionHeader(),
                   
                   tabItems(
-                    tabItem(tabName = "intro",
-                            
-                            fluidRow(
-                              column(4,box(title = "Vision Credit Risk" ,width = 112,background="yellow","Vision Credit Risk es una herramienta web que permite realizar la medición de las principales métricas de riesgo en el sector crediticio,
-                                            tales como pérdida esperada, VaR, matrices de transición, recuperaciones luego del default, entre otras, de una manera sencilla, permitiendo al cliente tomar decisiones veloces gracias a la rapidez de los resultados, los cuales se basan en técnicas
-                                            estadísticas precisas y de alta calidad, que son usadas y reconocidas a nivel mundial en el sector financiero.
-                                           " )),column(8,div(img(src="img/cover.png",width=400),style="text-aling: center;")))
-                            
-                            ),
+                    
                     tabItem(tabName = "subitem1",
                             
                             
@@ -416,12 +410,7 @@ shinyUI(
                     tabItem( tabName = "datini",
                              fluidRow(
                                tabBox( height = "1250px", width = 12,side = "left",
-                                       tabPanel( title = tagList(shiny::icon("gear"), strong('Indicación')),
                                        
-                                       box(title = "Guía", "El modelo CreditRisk+ necesita como parametros básicos las expocisiones,
-                                           pérdidas dado el incumplimiento y las probabilidades de incumplimiento."),
-                                       box(title = "Mejora", "A modo de aliviar el cálculo computacional se agrupan los creditos en 
-                                           bandas de exposición a partir de una unidad de pérdida dada por la institución.")),
                                        
                                        tabPanel( title = tagList(shiny::icon("gear"), strong('Exposiciones'))
                                                  
@@ -560,7 +549,7 @@ shinyUI(
                                        
                                        
                                        tabPanel( title = tagList(shiny::icon("gear"), strong('Pérdida esperada por cliente')) ,  
-                                                 
+                                                 fluidRow(box(width = 12, background="yellow",status = "warning", numericInput("uniper","Ingrese unidad de pérdida",value = 10))),
                                                  fluidRow(box(width = 12,title = "Pérdida esperada por cliente",status = "warning",dataTableOutput("perclien")))
                                                 
                                                  
@@ -571,9 +560,12 @@ shinyUI(
                                        
                                        
                             
-                            tabPanel( title = tagList(shiny::icon("gear"), strong('Parametros iniciales')),
+                            tabPanel( title = tagList(shiny::icon("gear"), strong('Incumplimientos')),
                                       h3("Modelo CreditRisk+"),
-                                      fluidRow(column(6, box(width = 120, background="yellow",status = "warning", numericInput("uniper","Ingrese unidad de pérdida",value = 1000))),column(6,box(width = 200, background="yellow",status = "warning", numericInput("uni","Ingrese porcentaje de recuperación luego del default",value = 80)))),
+                                      fluidRow(box(style = "overflow-x:scroll",width = 12,title = "Probabilidades incumplimiento",status = "warning",dataTableOutput("numincum"))),
+                                      fluidRow(box(width = 12,title = "Distribución Acumulada de Número de Incumplimientos",status = "warning",plotlyOutput("comparacion1"))),
+                                      
+                                      fluidRow(column(6,box(width = 200, background="yellow",status = "warning", numericInput("uni","Ingrese porcentaje de recuperación luego del default",value = 80)))),
                                      
                                       
                                       
@@ -619,6 +611,19 @@ shinyUI(
                                       
                                       
                                       ),
+                            
+                            tabPanel( title = tagList(shiny::icon("gear"), strong('Pérdida')),
+                                      
+                                      
+                                      fluidRow(
+                                        box(width=12,status = "warning",dataTableOutput('Perd23'))
+                                      ),
+                                      fluidRow(
+                                        box(width=12,status = "warning",dataTableOutput('Perd24'))
+                                      )
+                                      
+                                      
+                            ),
                             
                             
                             

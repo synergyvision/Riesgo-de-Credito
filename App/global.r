@@ -16,6 +16,7 @@ library(caret)
 library(e1071)
 library(pROC)
 library(plotly)
+library(plyr)
 
 # Encabezado Vision
 VisionHeader <- function(){tags$head(

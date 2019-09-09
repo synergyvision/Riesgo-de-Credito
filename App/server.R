@@ -1393,7 +1393,9 @@ shinyServer(function(input, output, session) {
    n = length(datasetInputEXP()[[1]])
    
    if (input$PerdiGene && !input$userFilePerd) {
-     as.data.frame(rep(input$PerEsp,n))
+     l <- as.data.frame(rep(input$PerEsp/100,n))
+     colnames(l) <- c("Nivel de Recuperación")
+     l
      
    }else if(!input$PerdiGene && input$userFilePerd){ 
      datasetInputPer()}
@@ -1403,20 +1405,194 @@ shinyServer(function(input, output, session) {
    
  })
  
+
  
+ perclienv <- reactive({
+   
+   l<- cbind(datasetInputEXP(),Proba(),perdidaconstr())
+   l1 <- l[1]*l[2]*l[3]
+   colnames(l1) <- "Pérdida Esperada"
+   l2 <- cbind(datasetInputEXP(),Proba(),perdidaconstr(),l1)
+   
+   l3 <- ceiling(l2[4]/input$uniper)
+   
+   names(l3) <- "Unidades de pérdida"
+   
+   
+   cbind(l2,l3)
+   
+   
+   
+   
+   
+   
+ }) 
  
- output$perclien <- renderDataTable(
+ output$perclien <- renderDataTable({
    
-   #cbind(datasetInputEXP(),Proba())
+   perclienv()
    
-   perdidaconstr()
+ },options = list(scrollX=T,scrollY=300)
  )
 
  
  
  
  
+ probinc <- reactive({
+   
+   l <-  as.data.frame((-1*lfactorial(1:1000)))+ (as.data.frame(1:1000)*log(sum(Proba())))-(sum(Proba())*log(exp(1)))
+   
+   l1 <- exp(l) 
+   
+   colnames(l1) <- "Probabilidad de  Incumplimiento"
+   l2 <- as.data.frame(1:1000)
+   
+   colnames(l2)  <- "Numero de Incumplimientos"
+   return(cbind(l2,l1))
+   
+   
+   
+ })
  
+ 
+ output$numincum <- renderDataTable({
+   probinc()
+ 
+ },options = list(scrollX=T,scrollY=300))
+ 
+ 
+ 
+ ##############
+ 
+ disn <- reactive({
+   
+   
+   acum <- c()
+   
+   for (l in 1:1000) {
+     acum[l] <- sum(probinc()[1:l,2]) 
+   }
+   
+   
+   acum <- as.data.frame(acum)
+   num <- as.data.frame( 1:1000)
+   final <- cbind(num,acum)
+   colnames(final) <- c("Incumplimientos","Probabilidad")
+   
+   
+   return(ggplotly(ggplot(final, aes(y=Probabilidad,x=Incumplimientos)) + geom_point()))
+   
+   
+   
+  
+   
+ })
+ 
+ 
+ output$comparacion1 <- renderPlotly({
+   
+   disn()
+   
+ })
+ 
+ 
+ #### perdidas por bandas agrupadas
+ 
+ perd23v <- reactive({
+   
+   
+   
+   l <- perclienv()
+   
+   colnames(l) <- c("a","b","c","d","e")
+   
+   
+   l1 <- ddply( l,~e,summarise,"Número Esperado de Incumplimientos"=sum(b))
+   
+   colnames(l1)[1] <- "Bandas de Exposición"
+   
+   po <- cbind(c(0),c(exp(-sum(l[2]))))
+   colnames(po) <- c("Bandas de Exposición","Número Esperado de Incumplimientos")
+   
+   
+   l2 <- rbind(po,l1)
+   
+   l3 <- l2[1]*l2[2]
+   colnames(l3) <- "Pérdida Esperada por Banda"
+   cbind(l2,l3)
+   
+   
+ })
+ 
+ output$Perd23 <- renderDataTable({
+   
+   perd23v()
+   
+ },options = list(scrollX=T,scrollY=300))
+ 
+ #### Distribución de perdida de la cartera
+ 
+ 
+ 
+ bandas <- reactive({
+   
+   bandas <- rep(0,10000)
+   
+   names(bandas) <- 1:10000
+   
+   bandas[perd23v()[,1]] <-perd23v()[,3]
+    as.data.frame(bandas)
+   
+ })
+ 
+ 
+ 
+ 
+ percar <- reactive({
+   
+    
+    pro <- NULL
+    
+    l1 <-cbind(rep(0,20000),rep(0,20000),rep(0,20000))
+    colnames(l1) <- c("Bandas de Exposición","Número Esperado de Incumplimientos","Pérdida Esperada por Banda")
+    
+    l2 <- rbind(perd23v(),l1)
+    
+    pro[1] <- l2[1,2]
+    
+    for (i in 1:10000) {
+      
+     e <- l2[2:(i+1),3]
+     
+     
+     
+     p <- rev(pro[1:i])
+     
+     
+     
+     pro[i+1] <- sum(e*p)/i
+    
+     }
+   
+    
+   
+    
+   return(pro)
+   
+ })
+ 
+ 
+ output$Perd24 <- renderDataTable({
+   
+   bandas()
+   
+ },options = list(scrollX=T,scrollY=300))
+ 
+ 
+ 
+ 
+
  #################### La funcion CreditTR calcula las metricas de riesgo
  
  
