@@ -1535,14 +1535,33 @@ shinyServer(function(input, output, session) {
  
  
  
- bandas <- reactive({
+ bandas1 <- reactive({
    
-   bandas <- rep(0,10000)
    
-   names(bandas) <- 1:10000
    
-   bandas[perd23v()[,1]] <-perd23v()[,3]
-    as.data.frame(bandas)
+   l1 <- 1:100000
+   l2 <- rep(0,100000) 
+   bandas <- cbind(l1,l2)
+   
+   
+   for(i in 2:dim(perd23v()[1])) {
+     
+     n = perd23v()[i,1]
+     
+     bandas[n,2] = perd23v()[i,3]
+     
+     
+     
+     
+   }
+   
+   
+   colnames(bandas) <- c("Bandas de Exposición","Pérdida Esperada por Banda")
+   
+   bandas <- rbind(perd23v()[1,c(1,3)],bandas)
+   
+   return(bandas)
+  
    
  })
  
@@ -1551,47 +1570,59 @@ shinyServer(function(input, output, session) {
  
  percar <- reactive({
    
-    
-    pro <- NULL
-    
-    l1 <-cbind(rep(0,20000),rep(0,20000),rep(0,20000))
-    colnames(l1) <- c("Bandas de Exposición","Número Esperado de Incumplimientos","Pérdida Esperada por Banda")
-    
-    l2 <- rbind(perd23v(),l1)
-    
-    pro[1] <- l2[1,2]
+   prob <- NULL
+   
+    prob[1] <- exp(-sum(perclienv()[2]))
     
     for (i in 1:10000) {
       
-     e <- l2[2:(i+1),3]
+     e <-  bandas1()[2:(i+1),2]
+     p <- prob[1:i]
+      
+     p <- rev(p)
      
-     
-     
-     p <- rev(pro[1:i])
-     
-     
-     
-     pro[i+1] <- sum(e*p)/i
+     prob[i+1] <- sum(e*p)/i
+       
+      
+    }
     
-     }
+    return(prob)
+  
+ })
+ 
+ 
+ 
+ 
+ disn2 <- reactive({
    
-    
    
-    
-   return(pro)
+   acum <- c()
+   
+   for (l in 1:10001) {
+     acum[l] <- sum(percar()[1:l]) 
+   }
+   
+   
+   acum <- as.data.frame(acum)
+   num <- as.data.frame( 0:10000)
+   final <- cbind(num,acum)
+   colnames(final) <- c("Pérdida","Probabilidad")
+   
+   
+   return(ggplotly(ggplot(final, aes(y=Probabilidad,x=Pérdida)) + geom_point()))
+   
+   
+   
+   
    
  })
  
  
- output$Perd24 <- renderDataTable({
+ output$comparacion2 <- renderPlotly({
    
-   bandas()
+   disn2()
    
- },options = list(scrollX=T,scrollY=300))
- 
- 
- 
- 
+ })
 
  #################### La funcion CreditTR calcula las metricas de riesgo
  

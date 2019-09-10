@@ -29,11 +29,10 @@ shinyUI(
       sidebarMenu(id = "tabs",
       
                   menuItem("Datos", tabName = "datos", icon = icon("fal fa-database"),
-                           menuSubItem("Scoring y rating", tabName = "S_T_D", icon = icon("circle-o")),
+                           menuSubItem("Scoring y rating", tabName = "subitem1", icon = icon("circle-o")),
                            menuSubItem("CreditRisk+", tabName = "datini", icon = icon("circle-o"))),
                   
                   menuItem("Scoring y rating", tabName = "S_R", icon = icon("fal fa-database"),
-                           menuSubItem("Datos", tabName = "subitem1", icon = icon("circle-o")),
                            menuSubItem("Estadísticos", tabName = "stat", icon = icon("circle-o")),
                            menuSubItem("Score de crédito", tabName = "glm", icon = icon("circle-o")),
                            menuSubItem("Rating de crédito", tabName = "rat", icon = icon("circle-o"))
@@ -77,9 +76,13 @@ shinyUI(
                   
                   tabItems(
                     
+                    
                     tabItem(tabName = "subitem1",
                             
+                           fluidRow(
+                             tabBox( height = "1250px", width = 12,side = "left",
                             
+                            tabPanel( title = tagList(shiny::icon("gear"), strong('Scoring')),
                            fluidRow(
                              fluidRow(column(6,box(width = 11,background="yellow", checkboxInput("dataset", strong("Selecciona para inciar Datos de Ejemplo"), FALSE))),column(6,box(width = 12,background="yellow", checkboxInput('userFile', strong('Cargar Datos Propios'), FALSE)))),
                             fluidRow(
@@ -109,9 +112,108 @@ shinyUI(
                            conditionalPanel(condition = "input.userFile == true|| input.dataset == true",
                            fluidRow(
                               box( style = "overflow-x:scroll",width=12,status = "warning",dataTableOutput('datatable'))
-                            ))
+                            ))),
+                           
+                           tabPanel( title = tagList(shiny::icon("gear"), strong('Proyección Scoring')),
+                                     
+                                     fluidRow(column(6,box(background="yellow",width = 200, checkboxInput("datasetr", strong("Selecciona para inciar Datos de Ejemplo"), FALSE))),
+                                              column(6,box(background="yellow", width = 200,checkboxInput('userFiler', strong('Cargar Datos Propios'), FALSE)))),
+                                     
+                                     conditionalPanel(condition = "input.userFiler == true",
+                                                      fluidRow(
+                                                        box(width = 15, title = h3("Cargar el archivo con los datos"),
+                                                            box( width=15,background = "yellow",
+                                                                 fileInput('file_dataproy', 'Seleccione el archivo', accept = c('text/csv',
+                                                                                                                                'text/comma-separated-values',
+                                                                                                                                'text/tab-separated-values',
+                                                                                                                                'text/plain',
+                                                                                                                                '.csv',
+                                                                                                                                '.tsv',
+                                                                                                                                '.rda'),
+                                                                           placeholder = 'Aun no seleccionas el archivo...', buttonLabel = 'Buscar' )
+                                                            ),
+                                                            fluidRow(
+                                                              box(width=4,background="yellow",strong("Encabezado de los datos"),
+                                                                  checkboxInput( width="80%", 'headerproy', "Con encabezado", TRUE)),
+                                                              box(width=4,background="yellow",
+                                                                  radioButtons( width="40%", 'sepproy', "Separador", c('Coma'=',',
+                                                                                                                       'Punto y coma'=';',
+                                                                                                                       'Tab'='\t'), ';')),
+                                                              box(width=4,background="yellow",
+                                                                  radioButtons( width="40%", 'quoteproy', "Comillas", c('Ninguna'='',
+                                                                                                                        'Comilla doble'='"',
+                                                                                                                        'Comilla simple'="'"), ''))
+                                                              
+                                                            ))
+                                                      )),
+                                     
+                                     fluidRow(
+                                       box(width=12,style = "overflow-x:scroll",status = "warning",dataTableOutput('datatabler'))
+                                     )
+                                     
+                                     
+                                     ),
+                           tabPanel( title = tagList(shiny::icon("gear"), strong('Rating')),
+                                     
+                                     fluidRow(
+                                       fluidRow(column(6,box(width = 11,background="yellow", checkboxInput("datasetRat", strong("Selecciona para inciar Datos de Ejemplo"), FALSE))),
+                                                column(6,box(width = 12,background="yellow", checkboxInput('userFileRat', strong('Cargar Datos Propios'), FALSE))))
+                                     ),
+                                     conditionalPanel(condition = "input.userFileRat == true",
+                                                      fluidRow(
+                                                        box(width = 15, title = h3(UPLOADDATA_TEXT),
+                                                            box( width=15,background = "yellow",
+                                                                 fileInput('file_dataRat', SELECTFILE_TEXT, accept = UPLOADFILETYPE_CONF,
+                                                                           placeholder = FILESELEC_TEXT, buttonLabel = BUTTSELEC_TEXT )
+                                                            ),
+                                                            fluidRow(
+                                                              box(width=4,background="yellow",strong(ENCABEZADO_TEXT),
+                                                                  checkboxInput( width="80%", 'headerRat', WITHHEADER_TEXT, TRUE)),
+                                                              box(width=4,background="yellow",
+                                                                  radioButtons( width="40%", 'sepRat', SEPARATOR_TEXT, UPLOADFILESEP_CONF, ';')),
+                                                              box(width=4,background="yellow",
+                                                                  radioButtons( width="40%", 'quoteRat', COMILLAS_TEXT, UPLOADCOMILLAS_CONF, ''))
+                                                            )
+                                                        )
+                                                      )),
+                                     conditionalPanel(condition = "input.userFileRat == true|| input.datasetRat == true",
+                                                      fluidRow(
+                                                        box( style = "overflow-x:scroll",width=12,status = "warning",dataTableOutput('datatableRat'))
+                                                      ))
+                                     
+                                     ),
+                           
+                           tabPanel( title = tagList(shiny::icon("gear"), strong('Proyección Rating')),
+                                     
+                                     fluidRow(
+                                       fluidRow(column(6,box(width = 11,background="yellow", checkboxInput("datasetRatN", strong("Datos provenientes del Score"), FALSE))),
+                                                column(6,box(width = 12,background="yellow", checkboxInput('userFileRatN', strong('Cargar Datos Propios'), FALSE))))
+                                     ),
+                                     
+                                     conditionalPanel(condition = "input.userFileRatN == true",
+                                                      fluidRow(
+                                                        box(width = 15, title = h3(UPLOADDATA_TEXT),
+                                                            box( width=15,background = "yellow",
+                                                                 fileInput('file_dataRatN', SELECTFILE_TEXT, accept = UPLOADFILETYPE_CONF,
+                                                                           placeholder = FILESELEC_TEXT, buttonLabel = BUTTSELEC_TEXT )
+                                                            ),
+                                                            fluidRow(
+                                                              box(width=4,background="yellow",strong(ENCABEZADO_TEXT),
+                                                                  checkboxInput( width="80%", 'headerRatN', WITHHEADER_TEXT, TRUE)),
+                                                              box(width=4,background="yellow",
+                                                                  radioButtons( width="40%", 'sepRatN', SEPARATOR_TEXT, UPLOADFILESEP_CONF, ';')),
+                                                              box(width=4,background="yellow",
+                                                                  radioButtons( width="40%", 'quoteRatN', COMILLAS_TEXT, UPLOADCOMILLAS_CONF, ''))
+                                                            )
+                                                        )
+                                                      ))
+                                     
+                                     
+                                     )
                              
-                    ),
+                    ))),
+                    
+                    
                     tabItem( tabName = "stat",
                              fluidRow(
                                tabBox( height = "1250px", width = 12,side = "left",
@@ -254,7 +356,6 @@ shinyUI(
                                                 box(width = 12,title = h1("Coeficientes del Modelo"),status = "warning",dataTableOutput("coefglm")),
                                                 box(width = 12,title = h1("Información estadística del Modelo"),status = "warning",dataTableOutput("estglm")),
                                                 
-                                                #column(width=6,box(width=10, status="primary",tableOutput("accur"))),column(width = 6,plotOutput("roc")))
                                                 box(title = h2("Matriz de confusión"),width=4,status="warning",tableOutput("accur")),box(title = h2("Gráfico ROC"),width=8,status="warning",plotOutput("roc"))
                                                 
                                       )),
@@ -274,42 +375,10 @@ shinyUI(
                                       
                                       tabPanel( title = tagList(shiny::icon("gear"), strong('Proyección a nuevos clientes')),
                                                 
-                                                h2("Score y probabilidad de incumplimiento del nuevo cliente"),
+                                                h2("Score y probabilidad de incumplimiento del nuevo cliente")
                                                 
                                                 
-                                                fluidRow(column(6,box(background="yellow",width = 200, checkboxInput("datasetr", strong("Selecciona para inciar Datos de Ejemplo"), FALSE))),
-                                                         column(6,box(background="yellow", width = 200,checkboxInput('userFiler', strong('Cargar Datos Propios'), FALSE)))),
-                                                
-                                               conditionalPanel(condition = "input.userFiler == true",
-                                                                   fluidRow(
-                                                                     box(width = 15, title = h3("Cargar el archivo con los datos"),
-                                                                         box( width=15,background = "yellow",
-                                                                              fileInput('file_dataproy', 'Seleccione el archivo', accept = c('text/csv',
-                                                                                                                                          'text/comma-separated-values',
-                                                                                                                                          'text/tab-separated-values',
-                                                                                                                                          'text/plain',
-                                                                                                                                          '.csv',
-                                                                                                                                          '.tsv',
-                                                                                                                                          '.rda'),
-                                                                                        placeholder = 'Aun no seleccionas el archivo...', buttonLabel = 'Buscar' )
-                                                                         ),
-                                                                         fluidRow(
-                                                                           box(width=4,background="yellow",strong("Encabezado de los datos"),
-                                                                               checkboxInput( width="80%", 'headerproy', "Con encabezado", TRUE)),
-                                                                           box(width=4,background="yellow",
-                                                                               radioButtons( width="40%", 'sepproy', "Separador", c('Coma'=',',
-                                                                                                                                 'Punto y coma'=';',
-                                                                                                                                 'Tab'='\t'), ';')),
-                                                                           box(width=4,background="yellow",
-                                                                               radioButtons( width="40%", 'quoteproy', "Comillas", c('Ninguna'='',
-                                                                                                                                  'Comilla doble'='"',
-                                                                                                                                  'Comilla simple'="'"), ''))
-                                                                         
-                                                                     ))
-                                                                   )),
-                                                fluidRow(
-                                                  box(width=12,style = "overflow-x:scroll",status = "warning",dataTableOutput('datatabler'))
-                                                ),
+                                                ,
                                                
                                                fluidRow(box(width=12,style = "overflow-x:scroll",status = "warning", title = h2("Proyección"), dataTableOutput("proy"))),downloadButton('download1',"Descargar datos")
                                                 
@@ -330,31 +399,7 @@ shinyUI(
                                       tabPanel( title = tagList(shiny::icon("gear"), strong('Construcción del Modelo de Rating')),
                                                 
                                                 
-                                                fluidRow(
-                                                  fluidRow(column(6,box(width = 11,background="yellow", checkboxInput("datasetRat", strong("Selecciona para inciar Datos de Ejemplo"), FALSE))),
-                                                           column(6,box(width = 12,background="yellow", checkboxInput('userFileRat', strong('Cargar Datos Propios'), FALSE))))
-                                                  ),
-                                                conditionalPanel(condition = "input.userFileRat == true",
-                                                                 fluidRow(
-                                                                   box(width = 15, title = h3(UPLOADDATA_TEXT),
-                                                                       box( width=15,background = "yellow",
-                                                                            fileInput('file_dataRat', SELECTFILE_TEXT, accept = UPLOADFILETYPE_CONF,
-                                                                                      placeholder = FILESELEC_TEXT, buttonLabel = BUTTSELEC_TEXT )
-                                                                       ),
-                                                                       fluidRow(
-                                                                         box(width=4,background="yellow",strong(ENCABEZADO_TEXT),
-                                                                             checkboxInput( width="80%", 'headerRat', WITHHEADER_TEXT, TRUE)),
-                                                                         box(width=4,background="yellow",
-                                                                             radioButtons( width="40%", 'sepRat', SEPARATOR_TEXT, UPLOADFILESEP_CONF, ';')),
-                                                                         box(width=4,background="yellow",
-                                                                             radioButtons( width="40%", 'quoteRat', COMILLAS_TEXT, UPLOADCOMILLAS_CONF, ''))
-                                                                       )
-                                                                   )
-                                                                 )),
-                                                conditionalPanel(condition = "input.userFileRat == true|| input.datasetRat == true",
-                                                                 fluidRow(
-                                                                   box( style = "overflow-x:scroll",width=12,status = "warning",dataTableOutput('datatableRat'))
-                                                                 )),
+                                                
                                                 conditionalPanel(condition = "input.userFileRat == true|| input.datasetRat == true",
                                                               fluidRow(
                                                               box( style = "overflow-x:scroll",width=12,title = h3("Información del modelo basado en análisis de disciminante"),status = "warning",dataTableOutput('datatableRatInf'))
@@ -364,30 +409,9 @@ shinyUI(
                                       
                               ),
                               
-                              tabPanel( title = tagList(shiny::icon("gear"), strong('Rating de nuevos clientes.')),
+                              tabPanel( title = tagList(shiny::icon("gear"), strong('Rating de nuevos clientes.'))
                                         
-                                        fluidRow(
-                                          fluidRow(column(6,box(width = 11,background="yellow", checkboxInput("datasetRatN", strong("Datos provenientes del Score"), FALSE))),
-                                                   column(6,box(width = 12,background="yellow", checkboxInput('userFileRatN', strong('Cargar Datos Propios'), FALSE))))
-                                        ),
-                                        
-                                        conditionalPanel(condition = "input.userFileRatN == true",
-                                                         fluidRow(
-                                                           box(width = 15, title = h3(UPLOADDATA_TEXT),
-                                                               box( width=15,background = "yellow",
-                                                                    fileInput('file_dataRatN', SELECTFILE_TEXT, accept = UPLOADFILETYPE_CONF,
-                                                                              placeholder = FILESELEC_TEXT, buttonLabel = BUTTSELEC_TEXT )
-                                                               ),
-                                                               fluidRow(
-                                                                 box(width=4,background="yellow",strong(ENCABEZADO_TEXT),
-                                                                     checkboxInput( width="80%", 'headerRatN', WITHHEADER_TEXT, TRUE)),
-                                                                 box(width=4,background="yellow",
-                                                                     radioButtons( width="40%", 'sepRatN', SEPARATOR_TEXT, UPLOADFILESEP_CONF, ';')),
-                                                                 box(width=4,background="yellow",
-                                                                     radioButtons( width="40%", 'quoteRatN', COMILLAS_TEXT, UPLOADCOMILLAS_CONF, ''))
-                                                               )
-                                                           )
-                                                         )),
+                                        ,
                                         conditionalPanel(condition = "input.userFileRatN == true|| input.datasetRatN == true",
                                                          fluidRow(
                                                            box( style = "overflow-x:scroll",width=12,status = "warning",dataTableOutput('datatableRatNCF'))
@@ -412,13 +436,13 @@ shinyUI(
                                tabBox( height = "1250px", width = 12,side = "left",
                                        
                                        
-                                       tabPanel( title = tagList(shiny::icon("gear"), strong('Exposiciones'))
+                                       tabPanel( title = tagList(shiny::icon("gear"), strong('Exposición'))
                                                  
                                                  
                                                  ,
                                                  
                                                  fluidRow(
-                                                   box(width = 15, title = h3("Cargar el archivo con las Exposiciónes crediticias"),
+                                                   box(width = 15, title = h3("Cargar el archivo con las exposiciines crediticias"),
                                                        box( width=15,background = "yellow",
                                                             fileInput('file_dataEXP', 'Seleccione el archivo', accept = c('text/csv',
                                                                                                                           'text/comma-separated-values',
@@ -451,7 +475,7 @@ shinyUI(
                                                  
                                                  ),
                                        
-                                       tabPanel( title = tagList(shiny::icon("gear"), strong('Probabilidades de incumplimiento')),
+                                       tabPanel( title = tagList(shiny::icon("gear"), strong('Probabilidad de Incumplimiento')),
                                                  
                                             
                                                  fluidRow(
@@ -486,7 +510,7 @@ shinyUI(
                                                  
                                        ),
                                        
-                                       tabPanel( title = tagList(shiny::icon("gear"), strong('Pérdidas dada el incumplimiento')),
+                                       tabPanel( title = tagList(shiny::icon("gear"), strong('Pérdidas Dado el Incumplimiento')),
                                                  
                                                  fluidRow(
                                                    fluidRow(
@@ -549,7 +573,7 @@ shinyUI(
                                        
                                        
                                        tabPanel( title = tagList(shiny::icon("gear"), strong('Pérdida esperada por cliente')) ,  
-                                                 fluidRow(box(width = 12, background="yellow",status = "warning", numericInput("uniper","Ingrese unidad de pérdida",value = 10))),
+                                                 fluidRow(box(width = 12, background="yellow",status = "warning", numericInput("uniper","Ingrese unidad de pérdida",value = 100))),
                                                  fluidRow(box(width = 12,title = "Pérdida esperada por cliente",status = "warning",dataTableOutput("perclien")))
                                                 
                                                  
@@ -618,9 +642,12 @@ shinyUI(
                                       fluidRow(
                                         box(width=12,status = "warning",dataTableOutput('Perd23'))
                                       ),
-                                      fluidRow(
-                                        box(width=12,status = "warning",dataTableOutput('Perd24'))
-                                      )
+                                      
+                                      
+                                      fluidRow(box(width = 12,title = "Distribución Acumulada de Pérdidas (En Unidades)",status = "warning",plotlyOutput("comparacion2")))
+                                      
+                                      
+                                     
                                       
                                       
                             ),
