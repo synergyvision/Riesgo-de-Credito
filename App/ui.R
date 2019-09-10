@@ -568,7 +568,8 @@ shinyUI(
                     tabItem( tabName = "Param",
                              fluidRow(
                                tabBox( height = "1250px", width = 12,side = "left",
-                             
+                    
+                                                
                      
                                        
                                        
