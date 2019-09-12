@@ -580,7 +580,7 @@ shinyServer(function(input, output, session) {
    media <- round(as.numeric(bot()[[2]])*100,2)
    des <- round(as.numeric(bot()[[3]])*100,2)
    
-   withMathJax(paste0("El intevalo de confianza al 95% para este valor : $$(", round(media+(qnorm((1-(as.numeric( input$boot23)/100 ))/2))*des/sqrt(as.numeric(input$boot)),2),",", round(media-(qnorm((1-(as.numeric( input$boot23)/100 ))/2)*des/sqrt(as.numeric(input$boot))),2),")$$"))
+   withMathJax(paste0("El intevalo de confianza al " ,input$boot23,"% para este valor : $$(", round(media+(qnorm((1-(as.numeric( input$boot23)/100 ))/2))*des/sqrt(as.numeric(input$boot)),2),",", round(media-(qnorm((1-(as.numeric( input$boot23)/100 ))/2)*des/sqrt(as.numeric(input$boot))),2),")$$"))
  }) 
  
 ###### Seccion score de credito
@@ -1394,7 +1394,7 @@ shinyServer(function(input, output, session) {
    
    if (input$PerdiGene && !input$userFilePerd) {
      l <- as.data.frame(rep(input$PerEsp/100,n))
-     colnames(l) <- c("Nivel de Recuperación")
+     colnames(l) <- c("Pérdida Dado el Incumplimiento")
      l
      
    }else if(!input$PerdiGene && input$userFilePerd){ 
@@ -1421,12 +1421,14 @@ shinyServer(function(input, output, session) {
    
    cbind(l2,l3)
    
-   
-   
-   
-   
-   
+
  }) 
+ 
+ 
+ 
+ 
+
+ 
  
  output$perclien <- renderDataTable({
    
@@ -1454,6 +1456,11 @@ shinyServer(function(input, output, session) {
    
    
  })
+ 
+ 
+ 
+ 
+ 
  
  
  output$numincum <- renderDataTable({
@@ -1603,13 +1610,13 @@ shinyServer(function(input, output, session) {
    }
    
    
-   acum <- as.data.frame(acum)
+   acum1 <- as.data.frame(acum)
    num <- as.data.frame( 0:10000)
-   final <- cbind(num,acum)
+   final <- cbind(num,acum1)
    colnames(final) <- c("Pérdida","Probabilidad")
    
    
-   return(ggplotly(ggplot(final, aes(y=Probabilidad,x=Pérdida)) + geom_point()))
+   return(list(acum,ggplotly(ggplot(final, aes(y=Probabilidad,x=Pérdida)) + geom_point())))
    
    
    
@@ -1620,10 +1627,200 @@ shinyServer(function(input, output, session) {
  
  output$comparacion2 <- renderPlotly({
    
-   disn2()
+   disn2()[[2]]
    
  })
-
+### METRICAS DE RIESGO CREDITRISK +
+ 
+ 
+ 
+ metr <- reactive({
+   
+   pro <- percar()
+   n <- 0:(length(pro)-1)
+   
+   
+   ## Perdida esperada
+   pe <- sum(pro*n)*input$uniper
+   
+   
+   ## var
+   var <-  min(which(disn2()[[1]] > (as.numeric(input$conf)/100)))*input$uniper
+   
+   ### tvar
+   
+   c <- min(which(disn2()[[1]] > (as.numeric(input$conf)/100)))
+   
+   saltos <- diff(disn2()[[1]])
+   
+   v <- sum((saltos[c:length(saltos)]*c:10000))
+   
+   pw <- 1-sum(saltos[1:c])
+   
+   tvar <- v/pw*input$uniper
+   return(list(pe,var,tvar))
+   
+ })
+ 
+ ########### estress
+ 
+ 
+ perclienvSt <- reactive({
+   
+   l<- cbind(datasetInputEXP(),Proba()*(1 + as.numeric(input$estres2)),perdidaconstr())
+   l1 <- l[1]*l[2]*l[3]
+   colnames(l1) <- "Pérdida Esperada"
+   l2 <- cbind(datasetInputEXP(),Proba(),perdidaconstr(),l1)
+   
+   l3 <- ceiling(l2[4]/input$uniper)
+   
+   names(l3) <- "Unidades de pérdida"
+   
+   
+   cbind(l2,l3)
+   
+   
+ }) 
+ 
+ 
+ perd23vSt <- reactive({
+   
+   
+   
+   l <- perclienvSt()
+   
+   colnames(l) <- c("a","b","c","d","e")
+   
+   
+   l1 <- ddply( l,~e,summarise,"Número Esperado de Incumplimientos"=sum(b))
+   
+   colnames(l1)[1] <- "Bandas de Exposición"
+   
+   po <- cbind(c(0),c(exp(-sum(l[2]))))
+   colnames(po) <- c("Bandas de Exposición","Número Esperado de Incumplimientos")
+   
+   
+   l2 <- rbind(po,l1)
+   
+   l3 <- l2[1]*l2[2]
+   colnames(l3) <- "Pérdida Esperada por Banda"
+   cbind(l2,l3)
+   
+   
+ })
+ 
+ 
+ bandas1St <- reactive({
+   
+   
+   
+   l1 <- 1:100000
+   l2 <- rep(0,100000) 
+   bandas <- cbind(l1,l2)
+   
+   
+   for(i in 2:dim(perd23vSt()[1])) {
+     
+     n = perd23vSt()[i,1]
+     
+     bandas[n,2] = perd23vSt()[i,3]
+     
+     
+     
+     
+   }
+   
+   
+   colnames(bandas) <- c("Bandas de Exposición","Pérdida Esperada por Banda")
+   
+   bandas <- rbind(perd23vSt()[1,c(1,3)],bandas)
+   
+   return(bandas)
+   
+   
+ })
+ 
+ percarSt <- reactive({
+   
+   prob <- NULL
+   
+   prob[1] <- exp(-sum(perclienvSt()[2]))
+   
+   for (i in 1:10000) {
+     
+     e <-  bandas1St()[2:(i+1),2]
+     p <- prob[1:i]
+     
+     p <- rev(p)
+     
+     prob[i+1] <- sum(e*p)/i
+     
+     
+   }
+   
+   return(prob)
+   
+ })
+ 
+ 
+ disn2St <- reactive({
+   
+   
+   acum <- c()
+   
+   for (l in 1:10001) {
+     acum[l] <- sum(percarSt()[1:l]) 
+   }
+   
+   
+   acum1 <- as.data.frame(acum)
+   num <- as.data.frame( 0:10000)
+   final <- cbind(num,acum1)
+   colnames(final) <- c("Pérdida","Probabilidad")
+   
+   
+   return(acum)
+   
+ })
+ 
+ Stress <-reactive({
+   
+   
+   
+   
+   pro <- percar()
+   n <- 0:(length(pro)-1)
+   
+   
+ 
+  
+   varS <-  min(which(disn2St() > (as.numeric(input$conf)/100)))*input$uniper
+   
+   
+   return(varS)
+   
+   
+    
+ })
+ 
+ output$Stress <- renderText({
+   
+   ca18 <- try( Stress())
+   
+   
+   if (class(ca18)=="try-error") {
+     
+     "Cargue datos"
+     
+   }else{ca18}
+   
+   
+ })
+ 
+ 
+ 
+ 
+ 
  #################### La funcion CreditTR calcula las metricas de riesgo
  
  
@@ -1804,7 +2001,7 @@ shinyServer(function(input, output, session) {
  output$pe <- renderText({
    
    
-   ca <- try(CrediTR()[1])
+   ca <- try(metr()[[1]])
    if (class(ca)=="try-error") {
      
      "Cargue datos y seleccione parametros"
@@ -1820,7 +2017,7 @@ shinyServer(function(input, output, session) {
  output$var <- renderText({
    
    
-   ca1 <- try(CrediTR()[2])
+   ca1 <- try(metr()[[2]])
    if (class(ca1)=="try-error") {
      
      "Cargue datos y seleccione parametros"
@@ -1835,7 +2032,7 @@ shinyServer(function(input, output, session) {
  output$tvar <- renderText({
    
    
-   ca2 <- try(CrediTR()[3])
+   ca2 <- try(metr()[[3]])
    if (class(ca2)=="try-error") {
      
      "Cargue datos y seleccione parametros"
@@ -2031,23 +2228,7 @@ shinyServer(function(input, output, session) {
  })
  
  
- output$Stress <- renderText({
-   
-   ca18 <- try(StressT())
-   
-   
-   if (class(ca18)=="try-error") {
-     
-     "Cargue datos"
-     
-   }else{ca18}
-   
-   
-   
-   
- })
- 
- 
+
  
  ####### CreditMetrics#######################
  
@@ -2340,32 +2521,17 @@ shinyServer(function(input, output, session) {
  #### Subseccion perdida esperada
  
   
-  ### Se cargan los datos
-  
- clasesPropias <- reactive({
-   
-   inFiler <- input$file_datacrm1
-   
-   if (is.null(inFiler))
-     return(NULL)
-   read.table(inFiler$datapath, header = input$headecrm1,
-              sep = input$sepcrm1, quote = input$quotecrm1)
-   
- })
- 
- 
+
  datasetInputcrm1 <- reactive({
    datasetInputcrm1 <-CR(data11())
  })
  
  
  data5 <- reactive({
-   if(input$datasetcrm1){
-     data <-datasetInputcrm1() }
+  
+     datasetInputcrm1() 
    
-   else {
-     data <- clasesPropias()
-   }
+  
  })
  
  
