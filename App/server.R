@@ -142,7 +142,9 @@ shinyServer(function(input, output, session) {
                         # Aplicando la funcion anterior
   output$comparacion <- renderPlotly({
     
-    ca7 <- try(ggplotly(grafica(data1org(),input$columns,input$columns1)))
+    input$goButton
+    
+    ca7 <- try(isolate(ggplotly(grafica(data1org(),input$columns,input$columns1))))
     
     
     if (class(ca7)=="try-error") {
@@ -286,8 +288,9 @@ shinyServer(function(input, output, session) {
    
   output$datatablecu <- renderDataTable({
     
+    input$goButton1
     
-    ca10 <- try(pvalor())
+    ca10 <- try(isolate(pvalor()))
     if (class(ca10)=="try-error") {
       
       "Cargue datos y seleccione parametros"
@@ -400,7 +403,10 @@ shinyServer(function(input, output, session) {
   
   
   output$datatablecu1 <- renderDataTable({
-    ca11 <- try(pvalor1())
+    
+    input$goButton2
+    
+    ca11 <- try(isolate(pvalor1()))
     if (class(ca11)=="try-error") {
       
       "Cargue datos y seleccione parametros"
@@ -550,11 +556,18 @@ shinyServer(function(input, output, session) {
  
  ### aqui se muestra la grafica.
  
- bot <- reactive({bootL(data7(),input$boot)})
+ bot <- reactive({
+   
+   input$goButton5
+   
+   isolate(bootL(data7(),input$boot))
+           })
  
  ############
  
  output$booot1 <- renderPlotly({
+   
+  
    
    ca9879 <- try(bot()[[1]])
    
@@ -630,7 +643,14 @@ shinyServer(function(input, output, session) {
    
  }
  
- GlmModel <- reactive(modprueba(data1(),data1org(),input$columns,input$radio1))
+ GlmModel <- reactive({
+   
+   input$goButton3
+   
+   isolate(modprueba(data1(),data1org(),input$columns,input$radio1))
+   
+ }
+   )
  
  
  #########Rating
@@ -949,6 +969,9 @@ shinyServer(function(input, output, session) {
  }
  
  output$coefglm <- renderDataTable({
+   
+   
+   
    
    ca134 <- try(coefglm(GlmModel()))
    if (class(ca134)=="try-error") {
@@ -2321,67 +2344,20 @@ shinyServer(function(input, output, session) {
  
  MTR <- function(migra){
    
+   MT <- as.data.frame.matrix(table(migra))
    
-   clases <- levels(migra[,1])
-   
-   
-   periodos <- length(migra)/2
-   
-   n <- NULL
-   
-   
-   
-   for (k in 1:periodos) {
+   for (i in 1:ncol(MT)) {
      
-     
-     
-     for (j in 1:length(clases)) {
-       
-       
-       orig <- length(which(migra[,(2*k)-1]==clases[j]))
-       s <- migra[,2*k]
-       s1<- s[which(migra[,(2*k)-1]==clases[j])]
-       
-       
-       for (i in 1:length(clases)) {
-         
-         
-         final <-length(which(s1==clases[i]))
-         
-         
-         n[i+(5*(j-1))+(25*(k-1))] <- 100*final/orig
-         
-         
-       }
-       
-       
-     }
-     
-     
+     sum1 <- sum(MT[,i])
+     MT[,i] <- MT[,i]/sum1
      
    }
    
+   MT <- round(MT*100,2)
    
-   
-   
-   
-   o <- matrix(numeric(25),nrow = 5)
-   
-   
-   
-   for (b in 0:9) {
-     
-     h <- matrix(n[(1+(25*b)):(25+(25*b))],5, byrow = T)
-     o <- o + h
-     
-   }
-   
-   Matrix <- o / 10
-   colnames(Matrix) <- clases
-   MT <- round(Matrix)
-   
-   
-   return(as.data.frame(MT))
+   MT <- cbind(colnames(MT),MT)
+   colnames(MT)[1]<-"Inicio/fin"
+   return(MT)
   
  }
  

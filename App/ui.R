@@ -31,6 +31,7 @@ shinyUI(
                   menuItem("Datos", tabName = "datos", icon = icon("fal fa-database"),
                            menuSubItem("Scoring y rating", tabName = "subitem1", icon = icon("circle-o")),
                            menuSubItem("Pérdida por Incumplimiento", tabName = "subitem2", icon = icon("circle-o")),
+                           menuSubItem("Matriz de Transición", tabName = "subitem3", icon = icon("circle-o")),
                            menuSubItem("CreditRisk+", tabName = "datini", icon = icon("circle-o")),
                            menuSubItem("CreditMetrics", tabName = "CRED", icon = icon("circle-o"))
                            ),
@@ -49,7 +50,15 @@ shinyUI(
                            
                            
                   ),
-                              
+                      
+                  
+                  menuItem("Matriz de transición", tabName = "MT", icon = icon("fal fa-database"),
+                           
+                           menuSubItem("Matriz de transición", tabName = "CMT", icon = icon("circle-o"))
+                           
+                           ),
+                  
+                          
                   menuItem("CreditRisk+", tabName = "data", icon = icon("fal fa-database"),
                            
                            
@@ -59,8 +68,7 @@ shinyUI(
                   
                   
                   menuItem("Creditmetrics", icon = icon("th"), tabName = "crm",
-                           #menuSubItem("Créditos", tabName = "CRED", icon = icon("circle-o")),
-                           menuSubItem("Matriz de transición", tabName = "CMT", icon = icon("circle-o")),
+                          
                            menuSubItem("Simulación y Resultados", tabName = "RES", icon = icon("circle-o")),
                            menuSubItem("Stress Testing", tabName = "ST2", icon = icon("circle-o"))
                            
@@ -217,6 +225,38 @@ shinyUI(
                     ))),
                     
                     
+                    tabItem( tabName = "subitem3",
+                             fluidRow(
+                               tabBox( height = "1250px", width = 12,side = "left",
+                                       
+                                tabPanel( title = tagList(shiny::icon("gear"), strong('Migraciones Historicas ')),
+                                          fluidRow(column(6,box(background="yellow",width = 200, checkboxInput("datasetMT", strong("Selecciona para inciar Datos de Ejemplo"), FALSE))),column(6,box(background="yellow", width = 200,checkboxInput('userFileMT', strong('Cargar Datos Propios'), FALSE)))),
+                                          
+                                          conditionalPanel(condition = "input.userFileMT == true",
+                                                           
+                                                           box(width = 15, title = h3(UPLOADDATA_TEXT),
+                                                               fluidRow( box( width=12,background = "yellow",
+                                                                              fileInput('file_dataMT', SELECTFILE_TEXT, accept = UPLOADFILETYPE_CONF,
+                                                                                        placeholder = FILESELEC_TEXT, buttonLabel = BUTTSELEC_TEXT )
+                                                               ),
+                                                               
+                                                               box(width=4,background="yellow",strong(ENCABEZADO_TEXT),
+                                                                   checkboxInput( width="80%", 'headerMT', WITHHEADER_TEXT, TRUE)),
+                                                               box(width=4,background="yellow",
+                                                                   radioButtons( width="40%", 'sepMT', SEPARATOR_TEXT, UPLOADFILESEP_CONF, ';')),
+                                                               box(width=4,background="yellow",
+                                                                   radioButtons( width="40%", 'quoteMT', COMILLAS_TEXT, UPLOADCOMILLAS_CONF, ''))
+                                                               )
+                                                           )
+                                          ),
+                                         fluidRow( box(style = "overflow-x:scroll",width=12,status = "warning",dataTableOutput('datatableMT')))
+                                          
+                                          
+                                          
+                                          )))),
+                    
+                    
+                    
                     
                     tabItem( tabName = "subitem2",
                              fluidRow(
@@ -341,6 +381,46 @@ shinyUI(
                                                  
                                                  
                                        )
+                                       ,
+                                       
+                                       tabPanel( title = tagList(shiny::icon("gear"), strong('Selección de la Matriz de transición')),
+                                                 
+                                                 box(width = 120, h2("Matriz de probabilidades de transición")),
+                                                 fluidRow( column(width=6,box(background="yellow",width = 200, checkboxInput("datasetcrm", strong("Matriz de transición calculada"), FALSE))),column(width=6,box(background="yellow",width = 200, checkboxInput('userFilecrm', strong("Matriz de transición propia"), FALSE)))),
+                                                 conditionalPanel(condition = "input.userFilecrm == true",
+                                                                  
+                                                                  box(width = 15, title = h3("Cargar el archivo con la matriz de transición"),
+                                                                      fluidRow( box( width=12,background = "yellow",
+                                                                                     fileInput('file_datacrm', 'Seleccione el archivo', accept = c('text/csv',
+                                                                                                                                                   'text/comma-separated-values',
+                                                                                                                                                   'text/tab-separated-values',
+                                                                                                                                                   'text/plain',
+                                                                                                                                                   '.csv',
+                                                                                                                                                   '.tsv',
+                                                                                                                                                   '.rda'),
+                                                                                               placeholder = 'Aun no seleccionas el archivo...', buttonLabel = 'Buscar' )
+                                                                      ),
+                                                                      
+                                                                      box(width=4,background="yellow",strong("Encabezado de los datos"),
+                                                                          checkboxInput( width="80%", 'headecrm', "Con encabezado", TRUE)),
+                                                                      box(width=4,background="yellow",
+                                                                          radioButtons( width="40%", 'sepcrm', "Separador", c('Coma'=',',
+                                                                                                                              'Punto y coma'=';',
+                                                                                                                              'Tab'='\t'), ';')),
+                                                                      box(width=4,background="yellow",
+                                                                          radioButtons( width="40%", 'quotecrm', "Comillas", c('Ninguna'='',
+                                                                                                                               'Comilla doble'='"',
+                                                                                                                               'Comilla simple'="'"), ''))
+                                                                      )
+                                                                  )
+                                                                  
+                                                                  
+                                                 ),fluidRow(
+                                                   box(width=12,status = "warning",dataTableOutput('datatablecrm')))
+                                                 
+                                                 
+                                                 
+                                       )
                                        
                                       
                                )
@@ -358,7 +438,7 @@ shinyUI(
                                        tabPanel( title = tagList(shiny::icon("gear"), strong('Relación de las variables independientes')),
                                                  fluidRow(
                                                    box( background="yellow",width=12,status = "warning",
-                                                        selectInput('columns1', 'Selecciona variable de estudio', "Seleccione primero los datos")
+                                                        selectInput('columns1', 'Selecciona variable de estudio', "Seleccione primero los datos"),actionButton("goButton", "Actualizar Variable")
                                                    )
                                                    
                                                  ),
@@ -392,15 +472,15 @@ shinyUI(
                                                                                                                                                                                      choices = list(
                                                                                                                                                                                                     "Selección de variables cuantitativas" = 2))),
                                                    conditionalPanel(condition = "(input.selec == 1)", box(title = "Selección de variables cualitativas",width=6,status = "warning",
-                                                                                                          height = "140px", numericInput("significancia","Ingrese el nivel de significancia",value = 0.05,min = 0.001,max=1)),
-                                                                    box(title = "Region de Rechazo",height = "140px","A continuación se muestra el resultado de una prueba de hipotesis de independencia
+                                                                                                          height = "180px", numericInput("significancia","Ingrese el nivel de significancia",value = 0.05,min = 0.001,max=1),actionButton("goButton1", "Actualizar Nivel de Significancia")),
+                                                                    box(title = "Region de Rechazo",height = "180px","A continuación se muestra el resultado de una prueba de hipotesis de independencia
                                                                         si el estadístico es mayor que el valor critico podemos suponer la existencia de un efecto entre las variables",status = "warning"),
                                                                     
                                                    box(width = 12,status = "warning",style = "overflow-x:scroll",dataTableOutput('datatablecu'))),
                                                           
                                                    conditionalPanel(condition = "(input.selec1 == 2)",
                                                                     box(style = "overflow-x:scroll",title = "Selección de variables cuantitativas",width=6,status = "warning", 
-                                                                        numericInput("significancia1","Ingrese el nivel de significancia",value = 0.05,min = 0.001,max=1)
+                                                                        numericInput("significancia1","Ingrese el nivel de significancia",value = 0.05,min = 0.001,max=1),actionButton("goButton2", "Actualizar Nivel de Significancia")
                                                                                                             ),box(title = "Region de Rechazo",width=6,height = "140px","A continuación se muestra el resultado de una prueba de hipotesis de independencia
                                                                         si el estadístico es mayor que el valor critico podemos suponer la existencia de un efecto entre las variables",status = "warning"),box(width = 12,status = "warning",style = "overflow-x:scroll",dataTableOutput('datatablecu1'))))
                                                   )
@@ -428,10 +508,10 @@ shinyUI(
                                 
                                 tabPanel( title = tagList(shiny::icon("gear"), strong('Pérdidas Usando Bootstrap')),h3("Pérdidas por incumplimiento"),
                                           
-                                          fluidRow(box(status = "warning",h3("Número de sub-muestras"), numericInput("boot" , label = "",value = 100)),
+                                          fluidRow(box(status = "warning",h3("Número de sub-muestras"), numericInput("boot" , label = "",value = 100), actionButton("goButton5", "Actualizar")),
                                                    
                                                    box(h3("Tamaños de las submuestras en porcentaje"),status = "warning", 
-                                                       numericInput("bootT",label = "",value = 20,min = 1,max = 100)) ),
+                                                       numericInput("bootT",label = "",value = 20,min = 1,max = 100), actionButton("goButton6", "Actualizar") ) ),
                                           fluidRow(box(width=12,status = "warning", title = h3("Histograma Bootstrap"),plotlyOutput("booot1"))),
                                           fluidRow(box(width=4,status="warning", height = "100px",uiOutput("boots3")),box(width=4,status="warning", height = "100px",numericInput("boot23",label = " Nivel de Confianza",max = 100,min = 1,value = 95)),box(width=4,status="warning", height = "100px",uiOutput("boots4")))
                                           
@@ -457,7 +537,7 @@ shinyUI(
                                                 fluidRow(
                                                 box(width=12, title =h2("Modelos de probabilidad lineal"),solidHeader = T,status = "warning",radioButtons("radio1", h3("Escoga el link del Modelo"),
                                                                                             choices = list("Modelo Probit" = "probit", "Modelo Logit" = "logit",
-                                                                                                           "Modelo Cauchit" = "cauchit"),selected = "probit")),
+                                                                                                           "Modelo Cauchit" = "cauchit"),selected = "probit"),actionButton("goButton3", "Actualizar Link")),
                                                 box(width = 12,title = h1("Coeficientes del Modelo"),status = "warning",dataTableOutput("coefglm")),
                                                 box(width = 12,title = h1("Información estadística del Modelo"),status = "warning",dataTableOutput("estglm")),
                                                 
@@ -766,27 +846,9 @@ shinyUI(
                     
                       
                     box(width = 120, h1('Calculo de la Matriz de transición')),
-                            fluidRow(column(6,box(background="yellow",width = 200, checkboxInput("datasetMT", strong("Selecciona para inciar Datos de Ejemplo"), FALSE))),column(6,box(background="yellow", width = 200,checkboxInput('userFileMT', strong('Cargar Datos Propios'), FALSE)))),
-                            
-                            conditionalPanel(condition = "input.userFileMT == true",
-                                             
-                                               box(width = 15, title = h3(UPLOADDATA_TEXT),
-                                                   fluidRow( box( width=12,background = "yellow",
-                                                        fileInput('file_dataMT', SELECTFILE_TEXT, accept = UPLOADFILETYPE_CONF,
-                                                                  placeholder = FILESELEC_TEXT, buttonLabel = BUTTSELEC_TEXT )
-                                                   ),
-                                                   
-                                                     box(width=4,background="yellow",strong(ENCABEZADO_TEXT),
-                                                         checkboxInput( width="80%", 'headerMT', WITHHEADER_TEXT, TRUE)),
-                                                     box(width=4,background="yellow",
-                                                         radioButtons( width="40%", 'sepMT', SEPARATOR_TEXT, UPLOADFILESEP_CONF, ';')),
-                                                     box(width=4,background="yellow",
-                                                         radioButtons( width="40%", 'quoteMT', COMILLAS_TEXT, UPLOADCOMILLAS_CONF, ''))
-                                                   )
-                                               )
-                                             ),
+                          
                             fluidRow(
-                              box(style = "overflow-x:scroll",width=12,status = "warning",dataTableOutput('datatableMT')),
+                              
                               box(title = h3("Matriz de transición"),style = "overflow-x:scroll",width=12,status = "warning",dataTableOutput('datatableMTR'))
                             )
                       
@@ -794,45 +856,6 @@ shinyUI(
                            
                               
                             
-                    ),
-                    
-                    tabPanel( title = tagList(shiny::icon("gear"), strong('Selección de la Matriz de transición')),
-                              
-                              box(width = 120, h2("Matriz de probabilidades de transición")),
-                              fluidRow( column(width=6,box(background="yellow",width = 200, checkboxInput("datasetcrm", strong("Matriz de transición calculada"), FALSE))),column(width=6,box(background="yellow",width = 200, checkboxInput('userFilecrm', strong("Matriz de transición propia"), FALSE)))),
-                              conditionalPanel(condition = "input.userFilecrm == true",
-                                              
-                                                 box(width = 15, title = h3("Cargar el archivo con la matriz de transición"),
-                                                     fluidRow( box( width=12,background = "yellow",
-                                                          fileInput('file_datacrm', 'Seleccione el archivo', accept = c('text/csv',
-                                                                                                                        'text/comma-separated-values',
-                                                                                                                        'text/tab-separated-values',
-                                                                                                                        'text/plain',
-                                                                                                                        '.csv',
-                                                                                                                        '.tsv',
-                                                                                                                        '.rda'),
-                                                                    placeholder = 'Aun no seleccionas el archivo...', buttonLabel = 'Buscar' )
-                                                     ),
-                                                    
-                                                       box(width=4,background="yellow",strong("Encabezado de los datos"),
-                                                           checkboxInput( width="80%", 'headecrm', "Con encabezado", TRUE)),
-                                                       box(width=4,background="yellow",
-                                                           radioButtons( width="40%", 'sepcrm', "Separador", c('Coma'=',',
-                                                                                                               'Punto y coma'=';',
-                                                                                                               'Tab'='\t'), ';')),
-                                                       box(width=4,background="yellow",
-                                                           radioButtons( width="40%", 'quotecrm', "Comillas", c('Ninguna'='',
-                                                                                                                'Comilla doble'='"',
-                                                                                                                'Comilla simple'="'"), ''))
-                                                     )
-                                                 )
-                                               
-                                               
-                              ),fluidRow(
-                                box(width=12,status = "warning",dataTableOutput('datatablecrm')))
-                              
-                              
-                             
                     )
                     
                     ))),
