@@ -383,7 +383,7 @@ shinyUI(
                                        )
                                        ,
                                        
-                                       tabPanel( title = tagList(shiny::icon("gear"), strong('Selección de la Matriz de transición')),
+                                       tabPanel( title = tagList(shiny::icon("gear"), strong('Matriz de transición')),
                                                  
                                                  box(width = 120, h2("Matriz de probabilidades de transición")),
                                                  fluidRow( column(width=6,box(background="yellow",width = 200, checkboxInput("datasetcrm", strong("Matriz de transición calculada"), FALSE))),column(width=6,box(background="yellow",width = 200, checkboxInput('userFilecrm', strong("Matriz de transición propia"), FALSE)))),
@@ -420,7 +420,38 @@ shinyUI(
                                                  
                                                  
                                                  
-                                       )
+                                       ),
+                                       tabPanel( title = tagList(shiny::icon("gear"), strong('Pérdida por clase')),
+                                                 
+                                                 fluidRow(
+                                                   fluidRow(column(6,box(width = 11,background="yellow", checkboxInput("dataset_Cla_Cr", strong("Selecciona para inciar Datos de Ejemplo"), FALSE))),column(6,box(width = 12,background="yellow", checkboxInput('userFile_Cla_Cr', strong('Cargar Datos Propios'), FALSE))))
+                                                   ),
+                                                 conditionalPanel(condition = "input.userFile_Cla_Cr == true",
+                                                                  fluidRow(
+                                                                    box(width = 15, title = h3(UPLOADDATA_TEXT),
+                                                                        box( width=15,background = "yellow",
+                                                                             fileInput('file_data_Cla_Cr', SELECTFILE_TEXT, accept = UPLOADFILETYPE_CONF,
+                                                                                       placeholder = FILESELEC_TEXT, buttonLabel = BUTTSELEC_TEXT )
+                                                                        ),
+                                                                        fluidRow(
+                                                                          box(width=4,background="yellow",strong(ENCABEZADO_TEXT),
+                                                                              checkboxInput( width="80%", 'header_Cla_Cr', WITHHEADER_TEXT, TRUE)),
+                                                                          box(width=4,background="yellow",
+                                                                              radioButtons( width="40%", 'sep_Cla_Cr', SEPARATOR_TEXT, UPLOADFILESEP_CONF, ';')),
+                                                                          box(width=4,background="yellow",
+                                                                              radioButtons( width="40%", 'quote_Cla_Cr', COMILLAS_TEXT, UPLOADCOMILLAS_CONF, ''))
+                                                                        )
+                                                                    )
+                                                                  )),
+                                                 
+                                                 conditionalPanel(condition = "input.userFile_Cla_Cr == true|| input.dataset_Cla_Cr == true",
+                                                                  fluidRow(
+                                                                    box( style = "overflow-x:scroll",width=12,status = "warning",dataTableOutput('datatable_Cla_Cr'))
+                                                                  ))
+                                                 
+                                                 
+                                                 
+                                                 )
                                        
                                       
                                )

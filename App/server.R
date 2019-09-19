@@ -55,6 +55,62 @@ shinyServer(function(input, output, session) {
   
   
   
+  
+  
+  
+  
+  ############# Parte que se encarga de leer los datos cargados por el usuario
+  
+  datasetInput_Cla_Cr <- reactive({
+    # input$file1 will be NULL initially. After the user selects
+    # and uploads a file, it will be a data frame with 'name',
+    # 'size', 'type', and 'datapath' columns. The 'datapath'
+    # column will contain the local filenames where the data can
+    # be found.
+    
+    inFile <- input$file_data_Cla_Cr
+    
+    if (is.null(inFile))
+      return(NULL)
+    read.table(inFile$datapath, header = input$header_Cla_Cr,
+               sep = input$sep_Cla_Cr, quote = input$quote_Cla_Cr)
+    
+  })
+  
+  
+  
+  ####### Datos de ejemplo de una institucion financiera alemana###
+  
+  datasetSelect_Cla_Cr <- reactive({
+    datasetSelect <- clasecrm()
+  })
+  
+  
+  ###### Cargando datos con que se trabajara: entre los de ejemplo y los propios
+  
+  data_Cla_Cr <- reactive({
+    if(input$dataset_Cla_Cr){
+      data <- datasetSelect_Cla_Cr()}
+    
+    else {
+      data <- datasetInput_Cla_Cr()
+    }
+  })
+  
+  
+  ####Se muestran los datos
+  
+  
+  output$datatable_Cla_Cr<-renderDataTable({
+    data_Cla_Cr()
+  },options = list(scrollX=T,scrollY=300))
+  
+  
+  
+  
+  
+  
+  
   ##### OutVar Se encarga de obtener los nombres de la variables 
   
   outVar = reactive({
@@ -2540,7 +2596,7 @@ shinyServer(function(input, output, session) {
    }
    
    
-   return(list(medias,desviacion))
+   return(list(medias,desviacion,clases))
    
  }
  
@@ -2551,13 +2607,13 @@ shinyServer(function(input, output, session) {
    
  })
  
- output$datatablecrm2 <- renderDataTable({
+ clasecrm <- reactive({
    
    l <- as.data.frame(clasescal()[[1]])
    k <- as.data.frame(clasescal()[[2]])
    
    j <- k*qnorm((1-(as.numeric(input$boot2312)/100 ))/2)/sqrt(as.numeric(input$bootC))
-
+   
    
    iz <- l+j
    de <- l-j
@@ -2565,7 +2621,14 @@ shinyServer(function(input, output, session) {
    
    colnames(final) <- c("Pérdida Esperada","Mínimo Esperado","Máximo Esperado")
    
-   round(final,2)
+   d <- cbind(clasescal()[[3]],round(final,2))
+   colnames(d)[1] <- "Clase" 
+   d
+ })
+ 
+ output$datatablecrm2 <- renderDataTable({
+   
+   clasecrm()
    
  })
  
