@@ -2,7 +2,6 @@
 rm(list = ls())
 
 
-library(Rdice)
 library(fastDummies)
 library(readr)
 library(shiny)
@@ -56,14 +55,14 @@ attach(mydata)
 
 ############################################# DATA TEXTO###############################################
 
-UPLOADDATA_TEXT<-"Cargar el archivo con los datos"
-SELECTFILE_TEXT<-'Seleccione el archivo'
-FILESELEC_TEXT<-'Aun no seleccionas el archivo...'
+UPLOADDATA_TEXT<-"Cargar el Archivo con los Datos"
+SELECTFILE_TEXT<-'Seleccione el Archivo'
+FILESELEC_TEXT<-'Aún no Seleccionas el Archivo...'
 BUTTSELEC_TEXT<-'Buscar'
-WITHHEADER_TEXT<-"Con encabezado"
+WITHHEADER_TEXT<-"Con Encabezado"
 SEPARATOR_TEXT<-"Separador"
 COMILLAS_TEXT<-"Comillas"
-ENCABEZADO_TEXT<-"Encabezado de los datos"
+ENCABEZADO_TEXT<-"Encabezado de los Datos"
 
 
 UPLOADFILETYPE_CONF<-c('text/csv',
@@ -75,9 +74,9 @@ UPLOADFILETYPE_CONF<-c('text/csv',
                        '.rda')
 
 UPLOADFILESEP_CONF<-c('Coma'=',',
-                      'Punto y coma'=';',
+                      'Punto y Coma'=';',
                       'Tab'='\t')
 
 UPLOADCOMILLAS_CONF<-c('Ninguna'='',
-                       'Comilla doble'='"',
-                       'Comilla simple'="'")
+                       'Comilla Doble'='"',
+                       'Comilla Simple'="'")

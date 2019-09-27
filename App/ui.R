@@ -29,32 +29,32 @@ shinyUI(
       sidebarMenu(id = "tabs",
       
                   menuItem("Datos", tabName = "datos", icon = icon("fal fa-database"),
-                           menuSubItem("Scoring y rating", tabName = "subitem1", icon = icon("circle-o")),
+                           menuSubItem("Scoring y Rating", tabName = "subitem1", icon = icon("circle-o")),
                            menuSubItem("Pérdida por Incumplimiento", tabName = "subitem2", icon = icon("circle-o")),
                            menuSubItem("Matriz de Transición", tabName = "subitem3", icon = icon("circle-o")),
                            menuSubItem("CreditRisk+", tabName = "datini", icon = icon("circle-o")),
-                           menuSubItem("CreditMetrics", tabName = "CRED", icon = icon("circle-o"))
-                           ),
+                           menuSubItem("CreditMetrics", tabName = "CRED", icon = icon("circle-o")),
+                           menuSubItem("Indicadores Contables", tabName = "RAROC", icon = icon("circle-o")) ),
                   
-                  menuItem("Scoring y rating", tabName = "S_R", icon = icon("fal fa-database"),
+                  menuItem("Scoring y Rating", tabName = "S_R", icon = icon("fal fa-database"),
                            menuSubItem("Estadísticos", tabName = "stat", icon = icon("circle-o")),
-                           menuSubItem("Score de crédito", tabName = "glm", icon = icon("circle-o")),
-                           menuSubItem("Rating de crédito", tabName = "rat", icon = icon("circle-o"))
+                           menuSubItem("Score de Crédito", tabName = "glm", icon = icon("circle-o")),
+                           menuSubItem("Rating de Crédito", tabName = "rat", icon = icon("circle-o"))
                            
                            ),
                   
                   
-                  menuItem("Pérdida por incumplimiento", tabName = "LGD", icon = icon("fal fa-database"),
-                           menuSubItem("Pérdida por cliente", tabName = "lgd", icon = icon("circle-o")),
+                  menuItem("Pérdida por Incumplimiento", tabName = "LGD", icon = icon("fal fa-database"),
+                           menuSubItem("Pérdida por Cliente", tabName = "lgd", icon = icon("circle-o")),
                            menuSubItem("Pérdida Por Clase", tabName = "CPC", icon = icon("circle-o"))
                            
                            
                   ),
                       
                   
-                  menuItem("Matriz de transición", tabName = "MT", icon = icon("fal fa-database"),
+                  menuItem("Matriz de Transición", tabName = "MT", icon = icon("fal fa-database"),
                            
-                           menuSubItem("Matriz de transición", tabName = "CMT", icon = icon("circle-o"))
+                           menuSubItem("Matriz de Transición", tabName = "CMT", icon = icon("circle-o"))
                            
                            ),
                   
@@ -74,9 +74,8 @@ shinyUI(
                            
                   ),
                   
-                  menuItem("Indicadores contables", icon = icon("exclamation-circle"), tabName = "raroc",
-                  menuSubItem("Datos", tabName = "RAROC", icon = icon("circle-o")),
-                  menuSubItem("Indicadores contables", tabName = "Mor", icon = icon("circle-o"))
+                  menuItem("Indicadores Contables", icon = icon("exclamation-circle"), tabName = "raroc",
+                  menuSubItem("Indicadores Contables", tabName = "Mor", icon = icon("circle-o"))
                   
                   ),
                   
@@ -95,10 +94,10 @@ shinyUI(
                             
                             tabPanel( title = tagList(shiny::icon("gear"), strong('Scoring')),
                            fluidRow(
-                             fluidRow(column(6,box(width = 11,background="yellow", checkboxInput("dataset", strong("Selecciona para inciar Datos de Ejemplo"), FALSE))),column(6,box(width = 12,background="yellow", checkboxInput('userFile', strong('Cargar Datos Propios'), FALSE)))),
+                             fluidRow(column(6,box(width = 11,background="yellow", checkboxInput("dataset", strong("Datos de Ejemplo"), FALSE))),column(6,box(width = 12,background="yellow", checkboxInput('userFile', strong('Datos Propios'), FALSE)))),
                             fluidRow(
                               column(12,box( background="yellow",width=12,status = "warning",
-                                   selectInput('columns', 'Selecciona variable de estudio', "Seleccione primero los datos")
+                                   selectInput('columns', 'Selección de Variable de Estudio', "Seleccione los Datos")
                               ))
                               
                             )),
@@ -127,12 +126,12 @@ shinyUI(
                            
                            tabPanel( title = tagList(shiny::icon("gear"), strong('Proyección Scoring')),
                                      
-                                     fluidRow(column(6,box(background="yellow",width = 200, checkboxInput("datasetr", strong("Selecciona para inciar Datos de Ejemplo"), FALSE))),
-                                              column(6,box(background="yellow", width = 200,checkboxInput('userFiler', strong('Cargar Datos Propios'), FALSE)))),
+                                     fluidRow(column(6,box(background="yellow",width = 200, checkboxInput("datasetr", strong("Datos de Ejemplo"), FALSE))),
+                                              column(6,box(background="yellow", width = 200,checkboxInput('userFiler', strong('Datos Propios'), FALSE)))),
                                      
                                      conditionalPanel(condition = "input.userFiler == true",
                                                       fluidRow(
-                                                        box(width = 15, title = h3("Cargar el archivo con los datos"),
+                                                        box(width = 15, title = h3("Cargar el Archivo con los Datos"),
                                                             box( width=15,background = "yellow",
                                                                  fileInput('file_dataproy', 'Seleccione el archivo', accept = c('text/csv',
                                                                                                                                 'text/comma-separated-values',
@@ -141,11 +140,11 @@ shinyUI(
                                                                                                                                 '.csv',
                                                                                                                                 '.tsv',
                                                                                                                                 '.rda'),
-                                                                           placeholder = 'Aun no seleccionas el archivo...', buttonLabel = 'Buscar' )
+                                                                           placeholder = 'Aún no Seleccionas el Archivo...', buttonLabel = 'Buscar' )
                                                             ),
                                                             fluidRow(
-                                                              box(width=4,background="yellow",strong("Encabezado de los datos"),
-                                                                  checkboxInput( width="80%", 'headerproy', "Con encabezado", TRUE)),
+                                                              box(width=4,background="yellow",strong("Encabezado de los Datos"),
+                                                                  checkboxInput( width="80%", 'headerproy', "Con Encabezado", TRUE)),
                                                               box(width=4,background="yellow",
                                                                   radioButtons( width="40%", 'sepproy', "Separador", c('Coma'=',',
                                                                                                                        'Punto y coma'=';',
@@ -167,8 +166,8 @@ shinyUI(
                            tabPanel( title = tagList(shiny::icon("gear"), strong('Rating')),
                                      
                                      fluidRow(
-                                       fluidRow(column(6,box(width = 11,background="yellow", checkboxInput("datasetRat", strong("Selecciona para inciar Datos de Ejemplo"), FALSE))),
-                                                column(6,box(width = 12,background="yellow", checkboxInput('userFileRat', strong('Cargar Datos Propios'), FALSE))))
+                                       fluidRow(column(6,box(width = 11,background="yellow", checkboxInput("datasetRat", strong("Datos de Ejemplo"), FALSE))),
+                                                column(6,box(width = 12,background="yellow", checkboxInput('userFileRat', strong('Datos Propios'), FALSE))))
                                      ),
                                      conditionalPanel(condition = "input.userFileRat == true",
                                                       fluidRow(
@@ -197,8 +196,8 @@ shinyUI(
                            tabPanel( title = tagList(shiny::icon("gear"), strong('Proyección Rating')),
                                      
                                      fluidRow(
-                                       fluidRow(column(6,box(width = 11,background="yellow", checkboxInput("datasetRatN", strong("Datos provenientes del Score"), FALSE))),
-                                                column(6,box(width = 12,background="yellow", checkboxInput('userFileRatN', strong('Cargar Datos Propios'), FALSE))))
+                                       fluidRow(column(6,box(width = 11,background="yellow", checkboxInput("datasetRatN", strong("Datos Provenientes del Score"), FALSE))),
+                                                column(6,box(width = 12,background="yellow", checkboxInput('userFileRatN', strong('Datos Propios'), FALSE))))
                                      ),
                                      
                                      conditionalPanel(condition = "input.userFileRatN == true",
@@ -229,8 +228,8 @@ shinyUI(
                              fluidRow(
                                tabBox( height = "1250px", width = 12,side = "left",
                                        
-                                tabPanel( title = tagList(shiny::icon("gear"), strong('Migraciones Historicas ')),
-                                          fluidRow(column(6,box(background="yellow",width = 200, checkboxInput("datasetMT", strong("Selecciona para inciar Datos de Ejemplo"), FALSE))),column(6,box(background="yellow", width = 200,checkboxInput('userFileMT', strong('Cargar Datos Propios'), FALSE)))),
+                                tabPanel( title = tagList(shiny::icon("gear"), strong('Migraciones Históricas ')),
+                                          fluidRow(column(6,box(background="yellow",width = 200, checkboxInput("datasetMT", strong("Datos de Ejemplo"), FALSE))),column(6,box(background="yellow", width = 200,checkboxInput('userFileMT', strong('Datos Propios'), FALSE)))),
                                           
                                           conditionalPanel(condition = "input.userFileMT == true",
                                                            
@@ -268,24 +267,24 @@ shinyUI(
                                        
                                        tabPanel( title = tagList(shiny::icon("gear"), strong('Pérdidas por Clientes')),
                                                  
-                                                 fluidRow(column(6,box(background="yellow",width = 112, checkboxInput("datasetrl", strong("Selecciona para inciar Datos de Ejemplo"), FALSE))), column(6,box(background="yellow",width = 112, checkboxInput('userFilerl', strong('Cargar Datos Propios'), FALSE)))),
+                                                 fluidRow(column(6,box(background="yellow",width = 112, checkboxInput("datasetrl", strong("Datos de Ejemplo"), FALSE))), column(6,box(background="yellow",width = 112, checkboxInput('userFilerl', strong('Datos Propios'), FALSE)))),
                                                  
                                                  conditionalPanel(condition = "input.userFilerl == true",
                                                                   fluidRow(
-                                                                    box(width = 15, title = h3("Cargar el archivo con los datos"),
+                                                                    box(width = 15, title = h3("Cargar el Archivo con los Datos"),
                                                                         box( width=15,background = "yellow",
-                                                                             fileInput('file_datarl', 'Seleccione el archivo', accept = c('text/csv',
+                                                                             fileInput('file_datarl', 'Seleccione el Archivo', accept = c('text/csv',
                                                                                                                                           'text/comma-separated-values',
                                                                                                                                           'text/tab-separated-values',
                                                                                                                                           'text/plain',
                                                                                                                                           '.csv',
                                                                                                                                           '.tsv',
                                                                                                                                           '.rda'),
-                                                                                       placeholder = 'Aun no seleccionas el archivo...', buttonLabel = 'Buscar' )
+                                                                                       placeholder = 'Aún no Seleccionas el Archivo...', buttonLabel = 'Buscar' )
                                                                         ),
                                                                         fluidRow(
-                                                                          box(width=4,background="yellow",strong("Encabezado de los datos"),
-                                                                              checkboxInput( width="80%", 'headerrl', "Con encabezado", TRUE)),
+                                                                          box(width=4,background="yellow",strong("Encabezado de los Datos"),
+                                                                              checkboxInput( width="80%", 'headerrl', "Con Encabezado", TRUE)),
                                                                           box(width=4,background="yellow",
                                                                               radioButtons( width="40%", 'seprl', "Separador", c('Coma'=',',
                                                                                                                                  'Punto y coma'=';',
@@ -296,15 +295,17 @@ shinyUI(
                                                                                                                                   'Comilla simple'="'"), ''))
                                                                         )
                                                                     )
-                                                                  ))
+                                                                  )),
+                                                 fluidRow(
+                                                   box(style = "overflow-x:scroll",width = 12,status = "warning",dataTableOutput('datatablerl'))
+                                                 )
                                                  
                                                  ),
                                        
                                        tabPanel( title = tagList(shiny::icon("gear"), strong('Pérdida por Clases')),
                                                  
                                                  
-                                                 h1('Cálculo de las Pérdidas esperada por clases'),
-                                                 fluidRow(column(6,box(background="yellow", width = 120,checkboxInput("datasetC", strong("Selecciona para inciar Datos de Ejemplo"), FALSE))),column(6,box(background="yellow",width = 120, checkboxInput('userFileC', strong('Cargar Datos Propios'), FALSE)))),
+                                                 fluidRow(column(6,box(background="yellow", width = 120,checkboxInput("datasetC", strong("Datos de Ejemplo"), FALSE))),column(6,box(background="yellow",width = 120, checkboxInput('userFileC', strong('Datos Propios'), FALSE)))),
                                                  
                                                  conditionalPanel(condition = "input.userFileC == true",
                                                                   
@@ -345,7 +346,7 @@ shinyUI(
                                        tabPanel( title = tagList(shiny::icon("gear"), strong('Expocisión')),
                                                  
                                                  
-                                                 fluidRow(column(6,box(background="yellow",width = 200, checkboxInput("dataset0", strong("Selecciona para inciar Datos de Ejemplo"), FALSE))),column(6,box(background="yellow", width = 200,checkboxInput('userFile0', strong('Cargar Datos Propios'), FALSE)))),
+                                                 fluidRow(column(6,box(background="yellow",width = 200, checkboxInput("dataset0", strong("Datos de Ejemplo"), FALSE))),column(6,box(background="yellow", width = 200,checkboxInput('userFile0', strong('Datos Propios'), FALSE)))),
                                                  
                                                  conditionalPanel(condition = "input.userFile0 == true",
                                                                   fluidRow(
@@ -358,11 +359,11 @@ shinyUI(
                                                                                                                                                      '.csv',
                                                                                                                                                      '.tsv',
                                                                                                                                                      '.rda'),
-                                                                                                placeholder = 'Aun no seleccionas el archivo...', buttonLabel = 'Buscar' )
+                                                                                                placeholder = 'Aún no Seleccionas el Archivo...', buttonLabel = 'Buscar' )
                                                                         ),
                                                                         
-                                                                        box(width=4,background="yellow",strong("Encabezado de los datos"),
-                                                                            checkboxInput( width="80%", 'headecrm0', "Con encabezado", TRUE)),
+                                                                        box(width=4,background="yellow",strong("Encabezado de los Datos"),
+                                                                            checkboxInput( width="80%", 'headecrm0', "Con Encabezado", TRUE)),
                                                                         box(width=4,background="yellow",
                                                                             radioButtons( width="40%", 'sepcrm0', "Separador", c('Coma'=',',
                                                                                                                                  'Punto y coma'=';',
@@ -385,11 +386,11 @@ shinyUI(
                                        
                                        tabPanel( title = tagList(shiny::icon("gear"), strong('Matriz de transición')),
                                                  
-                                                 box(width = 120, h2("Matriz de probabilidades de transición")),
-                                                 fluidRow( column(width=6,box(background="yellow",width = 200, checkboxInput("datasetcrm", strong("Matriz de transición calculada"), FALSE))),column(width=6,box(background="yellow",width = 200, checkboxInput('userFilecrm', strong("Matriz de transición propia"), FALSE)))),
+                                                 box(width = 120, h2("Matriz de Probabilidades de Transición")),
+                                                 fluidRow( column(width=6,box(background="yellow",width = 200, checkboxInput("datasetcrm", strong("Matriz de Transición Calculada"), FALSE))),column(width=6,box(background="yellow",width = 200, checkboxInput('userFilecrm', strong("Matriz de Transición Propia"), FALSE)))),
                                                  conditionalPanel(condition = "input.userFilecrm == true",
                                                                   
-                                                                  box(width = 15, title = h3("Cargar el archivo con la matriz de transición"),
+                                                                  box(width = 15, title = h3("Cargar el Archivo con la Matriz de Transición"),
                                                                       fluidRow( box( width=12,background = "yellow",
                                                                                      fileInput('file_datacrm', 'Seleccione el archivo', accept = c('text/csv',
                                                                                                                                                    'text/comma-separated-values',
@@ -398,11 +399,11 @@ shinyUI(
                                                                                                                                                    '.csv',
                                                                                                                                                    '.tsv',
                                                                                                                                                    '.rda'),
-                                                                                               placeholder = 'Aun no seleccionas el archivo...', buttonLabel = 'Buscar' )
+                                                                                               placeholder = 'Aún no Seleccionas el Archivo...', buttonLabel = 'Buscar' )
                                                                       ),
                                                                       
-                                                                      box(width=4,background="yellow",strong("Encabezado de los datos"),
-                                                                          checkboxInput( width="80%", 'headecrm', "Con encabezado", TRUE)),
+                                                                      box(width=4,background="yellow",strong("Encabezado de los Datos"),
+                                                                          checkboxInput( width="80%", 'headecrm', "Con Encabezado", TRUE)),
                                                                       box(width=4,background="yellow",
                                                                           radioButtons( width="40%", 'sepcrm', "Separador", c('Coma'=',',
                                                                                                                               'Punto y coma'=';',
@@ -424,7 +425,7 @@ shinyUI(
                                        tabPanel( title = tagList(shiny::icon("gear"), strong('Pérdida por clase')),
                                                  
                                                  fluidRow(
-                                                   fluidRow(column(6,box(width = 11,background="yellow", checkboxInput("dataset_Cla_Cr", strong("Selecciona para inciar Datos de Ejemplo"), FALSE))),column(6,box(width = 12,background="yellow", checkboxInput('userFile_Cla_Cr', strong('Cargar Datos Propios'), FALSE))))
+                                                   fluidRow(column(6,box(width = 11,background="yellow", checkboxInput("dataset_Cla_Cr", strong("Pérdida por Clase Calculada"), FALSE))),column(6,box(width = 12,background="yellow", checkboxInput('userFile_Cla_Cr', strong('Datos Propios'), FALSE))))
                                                    ),
                                                  conditionalPanel(condition = "input.userFile_Cla_Cr == true",
                                                                   fluidRow(
@@ -466,10 +467,10 @@ shinyUI(
                                        
                                        
                                        
-                                       tabPanel( title = tagList(shiny::icon("gear"), strong('Relación de las variables independientes')),
+                                       tabPanel( title = tagList(shiny::icon("gear"), strong('Relación de las Variables Independientes')),
                                                  fluidRow(
                                                    box( background="yellow",width=12,status = "warning",
-                                                        selectInput('columns1', 'Selecciona variable de estudio', "Seleccione primero los datos"),actionButton("goButton", "Actualizar Variable")
+                                                        selectInput('columns1', 'Selección de Variable de Estudio', "Seleccione los Datos"),actionButton("goButton", "Actualizar Variable")
                                                    )
                                                    
                                                  ),
@@ -477,7 +478,7 @@ shinyUI(
                                                  
                                                  
                                                  fluidRow(column(width=11,plotlyOutput("comparacion")),
-                                                          box( width=12,title = "Resumen estadístico de la variable seleccionada",status = "warning",
+                                                          box( width=12,title = "Resumen Estadístico de la Variable Seleccionada",status = "warning",
                                                                                            dataTableOutput('estad1')
                                                  ))
                                                  
@@ -493,17 +494,17 @@ shinyUI(
                                        
                                        
                                        
-                                       tabPanel( title = tagList(shiny::icon("gear"), strong("Selección de variables")),
+                                       tabPanel( title = tagList(shiny::icon("gear"), strong("Selección de Variables")),
                                                  fluidRow(
                                                    
                                                    box(width=12,status = "warning",checkboxGroupInput("selec", 
-                                                                                                      h3("Tipo de selección"), 
-                                                                                                      choices = list("Selección de variables cualitativas" = 1)),checkboxGroupInput("selec1" ,
+                                                                                                      h3("Tipo de Selección"), 
+                                                                                                      choices = list("Selección de Variables Cualitativas" = 1)),checkboxGroupInput("selec1" ,
                                                                                                                                                                                      h3(""), 
                                                                                                                                                                                      choices = list(
-                                                                                                                                                                                                    "Selección de variables cuantitativas" = 2))),
-                                                   conditionalPanel(condition = "(input.selec == 1)", box(title = "Selección de variables cualitativas",width=6,status = "warning",
-                                                                                                          height = "180px", numericInput("significancia","Ingrese el nivel de significancia",value = 0.05,min = 0.001,max=1),actionButton("goButton1", "Actualizar Nivel de Significancia")),
+                                                                                                                                                                                                    "Selección de Variables Cuantitativas" = 2))),
+                                                   conditionalPanel(condition = "(input.selec == 1)", box(title = "Selección de Variables Cualitativas",width=6,status = "warning",
+                                                                                                          height = "180px", numericInput("significancia","Ingrese el Nivel de Significancia",value = 0.05,min = 0.001,max=1),actionButton("goButton1", "Actualizar Nivel de Significancia")),
                                                                     box(title = "Region de Rechazo",height = "180px","A continuación se muestra el resultado de una prueba de hipotesis de independencia
                                                                         si el estadístico es mayor que el valor critico podemos suponer la existencia de un efecto entre las variables",status = "warning"),
                                                                     
@@ -511,7 +512,7 @@ shinyUI(
                                                           
                                                    conditionalPanel(condition = "(input.selec1 == 2)",
                                                                     box(style = "overflow-x:scroll",title = "Selección de variables cuantitativas",width=6,status = "warning", 
-                                                                        numericInput("significancia1","Ingrese el nivel de significancia",value = 0.05,min = 0.001,max=1),actionButton("goButton2", "Actualizar Nivel de Significancia")
+                                                                        numericInput("significancia1","Ingrese el Nivel de Significancia",value = 0.05,min = 0.001,max=1),actionButton("goButton2", "Actualizar Nivel de Significancia")
                                                                                                             ),box(title = "Region de Rechazo",width=6,height = "140px","A continuación se muestra el resultado de una prueba de hipotesis de independencia
                                                                         si el estadístico es mayor que el valor critico podemos suponer la existencia de un efecto entre las variables",status = "warning"),box(width = 12,status = "warning",style = "overflow-x:scroll",dataTableOutput('datatablecu1'))))
                                                   )
@@ -526,22 +527,22 @@ shinyUI(
                                 height = "1250px", width = 12,side = "left", 
                                 
                                 
-                                tabPanel( title = tagList(shiny::icon("gear"), strong('Datos')),h3("Pérdidas por incumplimiento"),
+                                tabPanel( title = tagList(shiny::icon("gear"), strong('Datos')),
                                           
                                           
                                           fluidRow(
-                                            box(style = "overflow-x:scroll",width=5,status = "warning",dataTableOutput('datatablerl')),
-                                            box(width=7,status = "warning", plotlyOutput("curvalgd")))
+                                            
+                                            box(title = h2("Histograma de Pérdidas"),width=12,status = "warning", plotlyOutput("curvalgd")))
                                           
                                           
                                 ),
                                 
                                 
-                                tabPanel( title = tagList(shiny::icon("gear"), strong('Pérdidas Usando Bootstrap')),h3("Pérdidas por incumplimiento"),
+                                tabPanel( title = tagList(shiny::icon("gear"), strong('Pérdidas Usando Bootstrap')),
                                           
-                                          fluidRow(box(status = "warning",h3("Número de sub-muestras"), numericInput("boot" , label = "",value = 100), actionButton("goButton5", "Actualizar")),
+                                          fluidRow(box(height = "200px",status = "warning",h3("Número de Sub-Muestras"), numericInput("boot" , label = "",value = 100), actionButton("goButton5", "Actualizar")),
                                                    
-                                                   box(h3("Tamaños de las submuestras en porcentaje"),status = "warning", 
+                                                   box(height = "200px",h3("Tamaños de las Submuestras en Porcentaje"),status = "warning", 
                                                        numericInput("bootT",label = "",value = 20,min = 1,max = 100), actionButton("goButton6", "Actualizar") ) ),
                                           fluidRow(box(width=12,status = "warning", title = h3("Histograma Bootstrap"),plotlyOutput("booot1"))),
                                           fluidRow(box(width=4,status="warning", height = "100px",uiOutput("boots3")),box(width=4,status="warning", height = "100px",numericInput("boot23",label = " Nivel de Confianza",max = 100,min = 1,value = 95)),box(width=4,status="warning", height = "100px",uiOutput("boots4")))
@@ -562,25 +563,25 @@ shinyUI(
                             
                             fluidRow(
                               tabBox( height = "1250px", width = 12,side = "left",
-                                      tabPanel( title = tagList(shiny::icon("gear"), strong('Selección y resultados del modelo')),
+                                      tabPanel( title = tagList(shiny::icon("gear"), strong('Selección y Resultados del Modelo')),
                                                 
                                                
                                                 fluidRow(
-                                                box(width=12, title =h2("Modelos de probabilidad lineal"),solidHeader = T,status = "warning",radioButtons("radio1", h3("Escoga el link del Modelo"),
+                                                box(width=12, title =h2("Modelos de Probabilidad Lineal"),solidHeader = T,status = "warning",radioButtons("radio1", h3("Escoga el Link del Modelo"),
                                                                                             choices = list("Modelo Probit" = "probit", "Modelo Logit" = "logit",
                                                                                                            "Modelo Cauchit" = "cauchit"),selected = "probit"),actionButton("goButton3", "Actualizar Link")),
                                                 box(width = 12,title = h1("Coeficientes del Modelo"),status = "warning",dataTableOutput("coefglm")),
-                                                box(width = 12,title = h1("Información estadística del Modelo"),status = "warning",dataTableOutput("estglm")),
+                                                box(width = 12,title = h1("Información Estadística del Modelo"),status = "warning",dataTableOutput("estglm")),
                                                 
-                                                box(title = h2("Matriz de confusión"),width=4,status="warning",tableOutput("accur")),box(title = h2("Gráfico ROC"),width=8,status="warning",plotOutput("roc"))
+                                                box(title = h2("Matriz de Confusión"),width=4,status="warning",tableOutput("accur")),box(title = h2("Gráfico ROC"),width=8,status="warning",plotOutput("roc"))
                                                 
                                       )),
                                       
                                       
-                                      tabPanel( title = tagList(shiny::icon("gear"), strong('Score de la cartera de crédito de entrenamiento.')),
+                                      tabPanel( title = tagList(shiny::icon("gear"), strong('Score de la Cartera de Crédito de Entrenamiento.')),
                                                 
-                                                h2("Score y probabilidad de incumplimiento de los clientes"),
-                                                dataTableOutput("score"),downloadButton('download',"Descargar datos")
+                                                h2("Score y Probabilidad de Incumplimiento de los Clientes"),
+                                                dataTableOutput("score"),downloadButton('download',"Descargar Datos")
                                                
                                                 
                                                 
@@ -589,14 +590,14 @@ shinyUI(
                                                 
                                       ),
                                       
-                                      tabPanel( title = tagList(shiny::icon("gear"), strong('Proyección a nuevos clientes')),
+                                      tabPanel( title = tagList(shiny::icon("gear"), strong('Proyección a Nuevos Clientes')),
                                                 
-                                                h2("Score y probabilidad de incumplimiento del nuevo cliente")
+                                                h2("Score y Probabilidad de Incumplimiento del Nuevo Cliente")
                                                 
                                                 
                                                 ,
                                                
-                                               fluidRow(box(width=12,style = "overflow-x:scroll",status = "warning", title = h2("Proyección"), dataTableOutput("proy"))),downloadButton('download1',"Descargar datos")
+                                               fluidRow(box(width=12,style = "overflow-x:scroll",status = "warning", title = h2("Proyección"), dataTableOutput("proy"))),downloadButton('download1',"Descargar Datos")
                                                 
                                                 
                                                 
@@ -618,14 +619,14 @@ shinyUI(
                                                 
                                                 conditionalPanel(condition = "input.userFileRat == true|| input.datasetRat == true",
                                                               fluidRow(
-                                                              box( style = "overflow-x:scroll",width=12,title = h3("Información del modelo basado en análisis de disciminante"),status = "warning",dataTableOutput('datatableRatInf'))
+                                                              box( style = "overflow-x:scroll",width=12,title = h3("Información del Modelo Basado en Análisis de Disciminante"),status = "warning",dataTableOutput('datatableRatInf'))
                                                              ))
                                       
                                       
                                       
                               ),
                               
-                              tabPanel( title = tagList(shiny::icon("gear"), strong('Rating de nuevos clientes.'))
+                              tabPanel( title = tagList(shiny::icon("gear"), strong('Rating de Nuevos Clientes.'))
                                         
                                         ,
                                         conditionalPanel(condition = "input.userFileRatN == true|| input.datasetRatN == true",
@@ -667,11 +668,11 @@ shinyUI(
                                                                                                                           '.csv',
                                                                                                                           '.tsv',
                                                                                                                           '.rda'),
-                                                                      placeholder = 'Aun no seleccionas el archivo...', buttonLabel = 'Buscar' )
+                                                                      placeholder = 'Aún no Seleccionas el Archivo...', buttonLabel = 'Buscar' )
                                                        ),
                                                        fluidRow(
-                                                         box(width=4,background="yellow",strong("Encabezado de los datos"),
-                                                             checkboxInput( width="80%", 'headerEXP', "Con encabezado", TRUE)),
+                                                         box(width=4,background="yellow",strong("Encabezado de los Datos"),
+                                                             checkboxInput( width="80%", 'headerEXP', "Con Encabezado", TRUE)),
                                                          box(width=4,background="yellow",
                                                              radioButtons( width="40%", 'sepEXP', "Separador", c('Coma'=',',
                                                                                                                  'Punto y coma'=';',
@@ -695,7 +696,7 @@ shinyUI(
                                                  
                                             
                                                  fluidRow(
-                                                   fluidRow(column(6,box(width = 12,background="yellow", checkboxInput('userFilePro', strong('Cargar Datos Propios'), FALSE))),
+                                                   fluidRow(column(6,box(width = 12,background="yellow", checkboxInput('userFilePro', strong('Datos Propios'), FALSE))),
                                                             column(6,box(width = 12,background="yellow", checkboxInput("datasetPro", strong("Provenientes del Score"), FALSE))) )
                                                    ),
                                                  conditionalPanel(condition = "input.userFilePro == true",
@@ -731,7 +732,7 @@ shinyUI(
                                                  fluidRow(
                                                    fluidRow(
                                                             column(6,box(width = 12,background="yellow", checkboxInput('PerdiGene', strong('Pérdidas Por clientes'), FALSE))),
-                                                            column(6,box(width = 12,background="yellow", checkboxInput('userFilePerd', strong('Cargar Datos Propios'), FALSE))))
+                                                            column(6,box(width = 12,background="yellow", checkboxInput('userFilePerd', strong('Datos Propios'), FALSE))))
                                                  ),
                                                  
                                                 
@@ -789,9 +790,9 @@ shinyUI(
                      
                                        
                                        
-                                       tabPanel( title = tagList(shiny::icon("gear"), strong('Pérdida esperada por cliente')) ,  
-                                                 fluidRow(box(width = 12, background="yellow",status = "warning", numericInput("uniper","Ingrese unidad de pérdida",value = 100))),
-                                                 fluidRow(box(width = 12,title = "Pérdida esperada por cliente",status = "warning",dataTableOutput("perclien")))
+                                       tabPanel( title = tagList(shiny::icon("gear"), strong('Pérdida Esperada por Cliente')) ,  
+                                                 fluidRow(box(width = 12, background="yellow",status = "warning", numericInput("uniper","Ingrese Unidad de Pérdida",value = 100))),
+                                                 fluidRow(box(width = 12,title = "Pérdida Esperada por Cliente",status = "warning",dataTableOutput("perclien")))
                                                 
                                                  
                                                  
@@ -803,7 +804,7 @@ shinyUI(
                             
                             tabPanel( title = tagList(shiny::icon("gear"), strong('Incumplimientos')),
                                       h3("Modelo CreditRisk+"),
-                                      fluidRow(box(style = "overflow-x:scroll",width = 12,title = "Probabilidades incumplimiento",status = "warning",dataTableOutput("numincum"))),
+                                      fluidRow(box(style = "overflow-x:scroll",width = 12,title = "Probabilidades Incumplimiento",status = "warning",dataTableOutput("numincum"))),
                                       fluidRow(box(width = 12,title = "Distribución Acumulada de Número de Incumplimientos",status = "warning",plotlyOutput("comparacion1")))
                                       
 
@@ -838,12 +839,12 @@ shinyUI(
                             
                             tabPanel( title = tagList(shiny::icon("gear"), strong('Resultados')),
                                      
-                                       fluidRow(box(title =h3("Escoga nivel de confianza para el VaR"),solidHeader = T,width=12,status = "warning",radioButtons("conf", "",
+                                       fluidRow(box(title =h3("Escoga Nivel de Confianza Para el VaR"),solidHeader = T,width=12,status = "warning",radioButtons("conf", "",
                                                                                                                 choices = list("90%" = 90, "95%" = 95,
                                                                                                                                "99%" = 99),selected = 95)),   
                                                
                                                
-                                               fluidRow(column(4,box(width=12,status = "warning",h3("Pérdida esperada"), h2(textOutput("pe")) )),column( 4,box(width=12,status = "warning",h3("Valor en rieso"), h2(textOutput("var"))  )),column(4,box(width=12,status = "warning",h3("TVaR"), h2(textOutput("tvar"))))),
+                                               fluidRow(column(4,box(width=12,status = "warning",h3("Pérdida Esperada"), h2(textOutput("pe")) )),column( 4,box(width=12,status = "warning",h3("Valor en Riesgo"), h2(textOutput("var"))  )),column(4,box(width=12,status = "warning",h3("TVaR"), h2(textOutput("tvar"))))),
                                                fluidRow( column( 12,box(width=12,h2("Reporte"), status = "warning",downloadButton("reporte1","Descargar")))))
                                       
                                       
@@ -851,9 +852,9 @@ shinyUI(
                                                           )))),
                     tabItem(tabName = "ST1",
                             
-                            fluidRow(column(6,box(width=12,title = h2("StressTesting"),solidHeader = T,status = "warning",radioButtons("estres2", h3("Nivel de estrés de la prueba"),
+                            fluidRow(column(6,box(width=12,title = h2("StressTesting"),solidHeader = T,status = "warning",radioButtons("estres2", h3("Nivel de Estrés de la Prueba"),
                                                                                                                               choices = list("1 %" = 0.01, "5 %" = 0.05,
-                                                                                                                                             "10 %" = 0.1),selected = 0.01))),column(6,box(width=12,title = h2("Resultado"),solidHeader = T,status = "warning",h3("El valor de la prueba"),h1(textOutput("Stress")))))
+                                                                                                                                             "10 %" = 0.1),selected = 0.01))),column(6,box(width=12,title = h2("Resultado"),solidHeader = T,status = "warning",h3("El Valor de la Prueba"),h1(textOutput("Stress")))))
                             
                             
                     )
@@ -873,14 +874,14 @@ shinyUI(
                               
                               tabPanel( title = tagList(shiny::icon("gear"), 
                                                         
-                      strong('Cálculo de la Matriz de transición')),
+                      strong('Cálculo de la Matriz de Transición')),
                     
                       
-                    box(width = 120, h1('Calculo de la Matriz de transición')),
+                    
                           
                             fluidRow(
                               
-                              box(title = h3("Matriz de transición"),style = "overflow-x:scroll",width=12,status = "warning",dataTableOutput('datatableMTR'))
+                              box(title = h3("Matriz de Transición Calculada"),style = "overflow-x:scroll",width=12,status = "warning",dataTableOutput('datatableMTR'))
                             )
                       
                       
@@ -902,18 +903,20 @@ shinyUI(
                               
                               
                               
-                              , tabPanel( title = tagList(shiny::icon("gear"), strong('Promedio de Pérdidas')), 
+                              , tabPanel( title = tagList(shiny::icon("gear"), strong('Pérdidas Promedios')), 
                                  
                                  
                                  fluidRow(
-                                   box(width=12,title = h1("Pérdida esperada por clase"),status = "warning",dataTableOutput('datatablecrm1')))),
+                                   box(width=12,title = h1("Pérdida Esperada por Clase"),status = "warning",dataTableOutput('datatablecrm1')))),
                     
                     
                     tabPanel( title = tagList(shiny::icon("gear"), strong('Pérdidas Usando Bootstrap')),
-                              fluidRow(box(width = 4,status = "warning",h3("Número de sub-muestras"),height = "160px", numericInput("bootC" , label = "",value = 100)),
+                              fluidRow(box(width = 4,status = "warning",h3("Número de Sub-Muestras"),height = "160px", numericInput("bootC" , label = "",value = 100)),
                                        
                                        box(width = 4,h3("Tamaños de las submuestras"),status = "warning", height = "160px",
-                                           numericInput("bootTC",label = "",value = 20,min = 1,max = 100)) ,box(width = 4,h3("Nivel de Confianza"),height = "160px",status = "warning",label = " Nivel de Confianza",numericInput("boot2312",label = " ",max = 100,min = 1,value = 95))),
+                                           numericInput("bootTC",label = "",value = 20,min = 1,max = 100)) ,
+                                       box(width = 4,h3("Nivel de Confianza"),height = "160px",status = "warning",label = " Nivel de Confianza",
+                                           numericInput("boot2312",label = " ",max = 100,min = 1,value = 95))),
                               
                               fluidRow(
                                 box(width=12,status = "warning",dataTableOutput('datatablecrm2')))
@@ -934,14 +937,19 @@ shinyUI(
                              fluidRow(
                                
                                
-                             box(h1('Simulación y Resultados'),width=8, status = "warning",numericInput("simcrm","Número de simulaciones",value = 2) ),
-                             box(title = h3("Escoga nivel de confianza para el VaR"),width=12,solidHeader = T,status = "warning",radioButtons("conf1","", 
+                             box(h1('Simulación y Resultados'),width=8, status = "warning",numericInput("simcrm","Número de Simulaciones",value = 2),actionButton("goButtonSim", "Iniciar Simulación") ),
+                             box(title = h3("Escoga Nivel de Confianza Para el VaR"),width=12,solidHeader = T,status = "warning",radioButtons("conf1","", 
                                                                                           choices = list("90%" = 90, "95%" = 95,
                                                                                                          "99%" = 99),selected = 95)),
-                             fluidRow(column(4, box(title = h3("Pérdida esperada:"),width=12,status = "warning", h3(textOutput("pe122")) )),
-                                      column(4,box(title = h3("Valor en riesgo:"),width=12,status = "warning", h3(textOutput("var122")) )),
+                             
+                             
+                             box(width=12,status = "warning", plotlyOutput("credime")),
+                             fluidRow(column(4, box(title = h3("Pérdida Esperada:"),width=12,status = "warning", h3(textOutput("pe122")) )),
+                                      column(4,box(title = h3("Valor en Riesgo:"),width=12,status = "warning", h3(textOutput("var122")) )),
                                       column(4, box(title = h3("TVaR:"),width=12,status = "warning",h3(textOutput("tvar122")) 
                                                   ))),downloadButton("reporte2","Descargar")
+                             
+                             
                             
                              
                             )
@@ -953,9 +961,9 @@ shinyUI(
                    
                    tabItem(tabName = "ST2",
                            
-                           fluidRow(column(6,box(width=12,title = h2("StressTesting"),solidHeader = T,status = "warning",radioButtons("stress3", h3("Nivel de estrés de la prueba"),
+                           fluidRow(column(6,box(width=12,title = h2("StressTesting"),solidHeader = T,status = "warning",radioButtons("stress3", h3("Nivel de Estrés de la Prueba"),
                                                                                   choices = list("1 %" = 0.01, "5 %" = 0.05,
-                                                                                                 "10 %" = 0.1),selected = 0.1))),column(6,box(width=12,title = h2("Resultado"),solidHeader = T,status = "warning",h3("El valor de la prueba"),h1(textOutput("Stres45")))))
+                                                                                                 "10 %" = 0.1),selected = 0.1))),column(6,box(width=12,title = h2("Resultado"),solidHeader = T,status = "warning",h3("El Valor de la Prueba"),h1(textOutput("Stres45")))))
                            
                            
                            ),

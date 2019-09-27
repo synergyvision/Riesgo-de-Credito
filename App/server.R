@@ -776,7 +776,7 @@ shinyServer(function(input, output, session) {
    prior <- round(lda$prior,4)
    mea <- t(round(lda$means,4))
    inf <- rbind(prior,mea)
-   inf <- cbind(c("Probabilidades a Priori","Valores medio de los grupos"),inf)
+   inf <- cbind(c("Probabilidades a Priori","Valores Medio de los Grupos"),inf)
    return(inf)
  }
  
@@ -2409,7 +2409,7 @@ shinyServer(function(input, output, session) {
      
    }
    
-   MT <- round(MT*100,2)
+   MT <- round(MT*100,1)
    
    MT <- cbind(colnames(MT),MT)
    colnames(MT)[1]<-"Inicio/fin"
@@ -2657,100 +2657,171 @@ shinyServer(function(input, output, session) {
  #### calvar calcula las metricas de riesgo
  
  
- calvar <- reactive({
+ calvar <-eventReactive(input$goButtonSim,{
    
-   withProgress(message="simulando", value = 0,{
+   
+     
+   
+     ## Matriz de transicion
      MT <- data4()
+     ## Perdida por clase
      
-     
-     clasi <- colnames(MT)
-     
-     
-     RP <- data5()
-     RP <- RP[,"Perdida"]
-     
-     creditos1 <- data6()
-     
-     
-     
-     NSim <- as.numeric(input$simcrm)
-     
-     M <- NULL
-     for (j in 1:NSim) {
+     RP <- clasecrm()
+     # 
+     #clasificaciones  
+    clasi <- colnames(MT)[2:ncol(MT)]
+     # 
+     # 
+     # 
+      creditos <- data6()
+     # 
+     # 
+     # 
+      
+      
+      muestras <- list()
+      
+      
+      for (i in 1:length(clasi)) {
+        
+        prob = as.numeric(MT[,i+1])
+        
+        sim <- NULL
+        
+        
+        for (j in 1:length(clasi)) {
+          
+          sim <- c(sim,rep(clasi[j],round(10*prob[j],0)))
+          
+        }
+        
+        muestras[[i]] <- sim
+      }
+      
+      
+      
+      NSim <- as.numeric(input$simcrm)
+     # 
+      Total <- NULL
+      for (j in 1:NSim) {
+        
+      
+      
+      acum <- NULL
+      for (i in 1:length(clasi)) {
+        
+        l <- subset(creditos,calif==clasi[i])
+        trans <- sample(muestras[[i]],nrow(l))
+        per <- NULL
+        
+        for (k in 1:length(trans)) {
+          
+          per[k] <- l[k,"creditos"]*as.numeric(RP[which(RP[,"Clase"]==trans[k]),"Pérdida Esperada"])/100
+          
+        }
+        
+        acum[i] <- sum(per)
+        
+        
+      }
+      
+      Total[j] <- sum(acum)
+      
+      }
+      
+      peresp <- mean(Total)
+      
+      var <- mean(Total)+(sd(Total)*qnorm(as.numeric(input$conf1)/100))
+      
+      tvar <- mean(Total)+((sd(Total)*dnorm(qnorm(as.numeric(input$conf1)/100)))/(1-(as.numeric(input$conf1)/100)))
+      
+      strescr <- (mean(Total)+(mean(Total)*as.numeric(input$stress3)))+((sd(Total)+sd(Total)*as.numeric(input$stress3))*qnorm(as.numeric(input$conf1)/100))
        
-       
-       N <- NULL 
-       for (i in 1:length(clasi)) {
-         l <- subset(creditos1,calif==clasi[i]) 
-         g <- dice.roll(faces=length(clasi), dice=length(l[,"creditos"]), rolls=1, weights=as.numeric(MT[i,]/100))
-         
-         N[i] <- sum((l[,"creditos"])*RP[as.numeric(g$results[,1:length(l[,"creditos"])])])
-       }
-       
-       M[j] <- sum(N)
-       
-     }
+      total1 <- as.data.frame(Total)
+      num <- 1:input$simcrm
+      
+      total1 <- cbind(total1,num)
+      colnames(total1)[1] <- "Perdidas"
+      p7 <- ggplot(total1, aes(x = Perdidas)) +
+        geom_histogram()+labs(x = "Pérdida",y = "Frecuencia")
+      
      
-     var <- mean(M)+(sd(M)*qnorm(as.numeric(input$conf1)/100))
+     return(list(peresp,var,tvar,strescr,p7))
+  
+   
+ })
+ 
+
+ 
+ 
+ 
+ output$credime <- renderPlotly({
+   
+   
+   
+   ca7 <- try(calvar()[[5]])
+   
+   
+   if (class(ca7)=="try-error") {
      
-     tvar <- mean(M)+((sd(M)*dnorm(qnorm(as.numeric(input$conf1)/100)))/(1-(as.numeric(input$conf1)/100)))
+     df <- data.frame()
+     ggplot(df) + geom_point() + xlim(0, 10) + ylim(0, 100)
      
-     strescr <- (mean(M)+(mean(M)*as.numeric(input$stress3)))+((sd(M)+sd(M)*as.numeric(input$stress3))*qnorm(as.numeric(input$conf1)/100))
-     
-     return(list(var,mean(M),M,tvar, strescr))
-   })
+   }else{ca7}
+   
+   
    
  })
  
  
   ##### Se muestra la perdida esperada
  
- 
  output$pe122 <- renderText({
-   ca4 <- try(calvar()[[2]])
+   ca4 <- try(calvar()[[1]])
    if (class(ca4)=="try-error") {
-     
+
      "Cargue datos y seleccione parametros"
-   }else{ca4}
+   }else{ca4} })
+
    
    
    
-   
- })
+ 
  
  #### Se muestra el var
  
+ 
+ 
  output$var122 <- renderText({
-   
-   ca5 <- try(calvar()[[1]])
+
+   ca5 <- try(calvar()[[2]])
    if (class(ca5)=="try-error") {
-     
+
      "Cargue datos y seleccione parametros"
    }else{ca5}
-   
-   
-   
-   
-   
- }) 
+
+ })
+
+ 
+ 
  
  #### Se muestra el Tvar
 
   
  output$tvar122 <- renderText({
-   
-   ca6 <- try(calvar()[[4]])
+
+   ca6 <- try(calvar()[[3]])
    if (class(ca6)=="try-error") {
-     
+
      "Cargue datos y seleccione parametros"
    }else{ca6}
-   
-   
-   
-   
-   
- })  
+
+ })
   
+ 
+ 
+ 
+ 
 ######## El reporte de credimetrics
  
  output$reporte2 <- downloadHandler(
@@ -2776,21 +2847,19 @@ shinyServer(function(input, output, session) {
  
  ##### Simplemente se llama a clavar
  output$Stres45 <- renderText({
-   
-   
-   ca23 <- try(calvar()[[5]])
-   
-   
+
+
+   ca23 <- try(calvar()[[4]])
+
+
    if (class(ca23)=="try-error") {
-     
+
      "Cargue datos"
-     
+
    }else{ca23}
-   
-   
-   
+
  })
-  
+ #  
   
   
 ################### Indicadores contables#################
