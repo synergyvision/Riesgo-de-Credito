@@ -1,0 +1,100 @@
+\babel@toc {spanish}{}
+\contentsline {fm}{\'{I}ndice de cuadros}{\es@scroman {vii}}{chapter*.1}
+\contentsline {fm}{\'{I}ndice de figuras}{\es@scroman {ix}}{chapter*.2}
+\contentsline {fm}{Prefacio}{\es@scroman {xi}}{chapter*.3}
+\contentsline {fm}{Acerca del Autor}{\es@scroman {xv}}{chapter*.8}
+\contentsline {chapter}{\numberline {1}Introducci\IeC {\'o}n}{1}{chapter.1}
+\contentsline {chapter}{\numberline {2}Introducci\IeC {\'o}n a la teor\IeC {\'\i }a de probabilidad}{1}{chapter.2}
+\contentsline {section}{\numberline {2.1}Espacio de probabilidad}{1}{section.2.1}
+\contentsline {section}{\numberline {2.2}Variables aleatorias y funci\IeC {\'o}n de distribuci\IeC {\'o}n.}{3}{section.2.2}
+\contentsline {subsection}{\numberline {2.2.1}Variable aleatoria}{3}{subsection.2.2.1}
+\contentsline {subsection}{\numberline {2.2.2}Tipos de variables aleatorias}{4}{subsection.2.2.2}
+\contentsline {subsection}{\numberline {2.2.3}Distribuci\IeC {\'o}n de probabilidad:}{4}{subsection.2.2.3}
+\contentsline {subsubsection}{\numberline {2.2.3.1}Distribuci\IeC {\'o}n de probabilidad discreta}{5}{subsubsection.2.2.3.1}
+\contentsline {subsubsection}{\numberline {2.2.3.2}Distribuci\IeC {\'o}n de probabilidad continua}{5}{subsubsection.2.2.3.2}
+\contentsline {subsection}{\numberline {2.2.4}Funci\IeC {\'o}n de distribuci\IeC {\'o}n:}{5}{subsection.2.2.4}
+\contentsline {subsubsection}{\numberline {2.2.4.1}Caso discreto}{6}{subsubsection.2.2.4.1}
+\contentsline {subsubsection}{\numberline {2.2.4.2}Caso continuo}{6}{subsubsection.2.2.4.2}
+\contentsline {subsection}{\numberline {2.2.5}Algunos tipos de variables aleatorias}{6}{subsection.2.2.5}
+\contentsline {subsubsection}{\numberline {2.2.5.1}Bernoulli}{6}{subsubsection.2.2.5.1}
+\contentsline {subsubsection}{\numberline {2.2.5.2}Binomial}{6}{subsubsection.2.2.5.2}
+\contentsline {subsubsection}{\numberline {2.2.5.3}Poisson}{7}{subsubsection.2.2.5.3}
+\contentsline {subsubsection}{\numberline {2.2.5.4}Distribuci\IeC {\'o}n uniforme}{7}{subsubsection.2.2.5.4}
+\contentsline {subsubsection}{\numberline {2.2.5.5}Distribuci\IeC {\'o}n exponencial}{7}{subsubsection.2.2.5.5}
+\contentsline {subsubsection}{\numberline {2.2.5.6}Distribuci\IeC {\'o}n normal}{8}{subsubsection.2.2.5.6}
+\contentsline {subsection}{\numberline {2.2.6}Esperanza de una variable aleatoria.}{8}{subsection.2.2.6}
+\contentsline {subsubsection}{\numberline {2.2.6.1}Esperanza de una variable aleatoria discreta.}{8}{subsubsection.2.2.6.1}
+\contentsline {subsubsection}{\numberline {2.2.6.2}Esperanza de una variable aleatoria continua.}{9}{subsubsection.2.2.6.2}
+\contentsline {subsection}{\numberline {2.2.7}Varianza de una variable aleatoria.}{9}{subsection.2.2.7}
+\contentsline {subsection}{\numberline {2.2.8}Covarianza de variables aleatorias.}{9}{subsection.2.2.8}
+\contentsline {chapter}{\numberline {3}Conceptos de la gesti\IeC {\'o}n del riesgo de cr\IeC {\'e}dito}{1}{chapter.3}
+\contentsline {section}{\numberline {3.1}P\IeC {\'e}rdida esperada}{1}{section.3.1}
+\contentsline {section}{\numberline {3.2}Probabilidad de incumplimiento (DP)}{2}{section.3.2}
+\contentsline {section}{\numberline {3.3}Exposici\IeC {\'o}n (\(EAD\))}{3}{section.3.3}
+\contentsline {section}{\numberline {3.4}P\IeC {\'e}rdida dado el incumplimiento (\(LGD\))}{4}{section.3.4}
+\contentsline {section}{\numberline {3.5}P\IeC {\'e}rdida inesperada (\(UL\))}{4}{section.3.5}
+\contentsline {section}{\numberline {3.6}Capital econ\IeC {\'o}mico o valor en riesgo}{5}{section.3.6}
+\contentsline {section}{\numberline {3.7}Matriz de transici\IeC {\'o}n}{6}{section.3.7}
+\contentsline {chapter}{\numberline {4}Scoring de credito}{1}{chapter.4}
+\contentsline {section}{\numberline {4.1}Estructura del Scoring de Cr\IeC {\'e}dito}{2}{section.4.1}
+\contentsline {subsection}{\numberline {4.1.1}Los modelos probit y logit.}{4}{subsection.4.1.1}
+\contentsline {subsection}{\numberline {4.1.2}Interpretaci\IeC {\'o}n del modelo}{6}{subsection.4.1.2}
+\contentsline {subsection}{\numberline {4.1.3}Relaci\IeC {\'o}n entre el score y el riesgo}{7}{subsection.4.1.3}
+\contentsline {subsection}{\numberline {4.1.4}Uso de modelos lineales para la selecci\IeC {\'o}n de variables (M\IeC {\'e}todos de b\IeC {\'u}squeda secuencial).}{8}{subsection.4.1.4}
+\contentsline {subsubsection}{\numberline {4.1.4.1}Estimaci\IeC {\'o}n por etapas (paso a paso o stepwise)}{8}{subsubsection.4.1.4.1}
+\contentsline {subsubsection}{\numberline {4.1.4.2}La adici\IeC {\'o}n progresiva (forward) y la eliminaci\IeC {\'o}n regresiva (backward)}{9}{subsubsection.4.1.4.2}
+\contentsline {subsubsection}{\numberline {4.1.4.3}Advertencias sobre los m\IeC {\'e}todos de b\IeC {\'u}squeda secuenciales}{10}{subsubsection.4.1.4.3}
+\contentsline {chapter}{\numberline {5}CreditRisk+}{1}{chapter.5}
+\contentsline {section}{\numberline {5.1}La distribuci\IeC {\'o}n del n\IeC {\'u}mero de incumplimientos con probabilidades de impago fijas.}{2}{section.5.1}
+\contentsline {section}{\numberline {5.2}La agrupaci\IeC {\'o}n por bandas de exposici\IeC {\'o}n las p\IeC {\'e}rdidas}{4}{section.5.2}
+\contentsline {section}{\numberline {5.3}La determinaci\IeC {\'o}n de la \emph {distribuci\IeC {\'o}n de p\IeC {\'e}rdidas} de la cartera.}{5}{section.5.3}
+\contentsline {section}{\numberline {5.4}Obteniendo la distribuci\IeC {\'o}n de las p\IeC {\'e}rdidas}{6}{section.5.4}
+\contentsline {section}{\numberline {5.5}Obtenci\IeC {\'o}n del VaR}{8}{section.5.5}
+\contentsline {chapter}{\numberline {6}CreditMetrics}{1}{chapter.6}
+\contentsline {section}{\numberline {6.1}Elementos que usa \textbf {Credimetrics}}{1}{section.6.1}
+\contentsline {section}{\numberline {6.2}El caso de un solo cr\IeC {\'e}dito}{4}{section.6.2}
+\contentsline {subsection}{\numberline {6.2.1}Ejemplo 1}{5}{subsection.6.2.1}
+\contentsline {subsection}{\numberline {6.2.2}Ejemplo 2}{7}{subsection.6.2.2}
+\contentsline {section}{\numberline {6.3}Cartera de dos de cr\IeC {\'e}ditos con probabilidades de transici\IeC {\'o}n independientes.}{8}{section.6.3}
+\contentsline {subsection}{\numberline {6.3.1}Ejemplo 3}{8}{subsection.6.3.1}
+\contentsline {section}{\numberline {6.4}Aproximaci\IeC {\'o}n de la distribuci\IeC {\'o}n de p\IeC {\'e}rdidas de una cartera con \(n\) cr\IeC {\'e}ditos.}{10}{section.6.4}
+\contentsline {subsection}{\numberline {6.4.1}Simulaci\IeC {\'o}n de MonteCarlo}{10}{subsection.6.4.1}
+\contentsline {subsubsection}{\numberline {6.4.1.1}\IeC {\textquestiondown }Que es un M\IeC {\'e}todo de Montecarlo?}{10}{subsubsection.6.4.1.1}
+\contentsline {subsubsection}{\numberline {6.4.1.2}Ejemplo: Gotas de lluvia para estimar \(\pi \)}{11}{subsubsection.6.4.1.2}
+\contentsline {subsubsection}{\numberline {6.4.1.3}N\IeC {\'u}meros pseudoaleatorios}{11}{subsubsection.6.4.1.3}
+\contentsline {subsubsection}{\numberline {6.4.1.4}Aplicando simulaci\IeC {\'o}n de MonteCarlo para hallar la distribuci\IeC {\'o}n de p\IeC {\'e}rdidas de una cartera.}{14}{subsubsection.6.4.1.4}
+\contentsline {subsubsection}{\numberline {6.4.1.5}Obtenci\IeC {\'o}n de las m\IeC {\'e}tricas de riesgo.}{14}{subsubsection.6.4.1.5}
+\contentsline {chapter}{\numberline {7}Manual t\IeC {\'e}cnico de la aplicaci\IeC {\'o}n Vision CreditRisk}{1}{chapter.7}
+\contentsline {section}{\numberline {7.1}Presentaci\IeC {\'o}n de la aplicaci\IeC {\'o}n.}{1}{section.7.1}
+\contentsline {section}{\numberline {7.2}Primera secci\IeC {\'o}n: CreditRisk+}{1}{section.7.2}
+\contentsline {subsection}{\numberline {7.2.1}Datos}{3}{subsection.7.2.1}
+\contentsline {subsection}{\numberline {7.2.2}Estad\IeC {\'\i }sticos:}{3}{subsection.7.2.2}
+\contentsline {subsubsection}{\numberline {7.2.2.1}Relaci\IeC {\'o}n de las variables independientes}{4}{subsubsection.7.2.2.1}
+\contentsline {subsection}{\numberline {7.2.3}Selecci\IeC {\'o}n de variables}{5}{subsection.7.2.3}
+\contentsline {section}{\numberline {7.3}P\IeC {\'e}rdida por incumplimiento}{6}{section.7.3}
+\contentsline {section}{\numberline {7.4}Score de Cr\IeC {\'e}dito.}{6}{section.7.4}
+\contentsline {subsection}{\numberline {7.4.1}Selecci\IeC {\'o}n y resultados del modelo}{6}{subsection.7.4.1}
+\contentsline {subsection}{\numberline {7.4.2}Score de la cartera de cr\IeC {\'e}dito.}{7}{subsection.7.4.2}
+\contentsline {subsection}{\numberline {7.4.3}Proyecci\IeC {\'o}n a nuevos clientes.}{7}{subsection.7.4.3}
+\contentsline {section}{\numberline {7.5}Parametros y resultados.}{7}{section.7.5}
+\contentsline {subsection}{\numberline {7.5.1}Par\IeC {\'a}metros iniciales}{8}{subsection.7.5.1}
+\contentsline {subsection}{\numberline {7.5.2}Resultados}{9}{subsection.7.5.2}
+\contentsline {section}{\numberline {7.6}Stress Testing}{9}{section.7.6}
+\contentsline {section}{\numberline {7.7}Segunda secci\IeC {\'o}n: Credimetrics}{10}{section.7.7}
+\contentsline {section}{\numberline {7.8}Cr\IeC {\'e}ditos}{11}{section.7.8}
+\contentsline {section}{\numberline {7.9}Matriz de trancici\IeC {\'o}n}{12}{section.7.9}
+\contentsline {subsection}{\numberline {7.9.1}C\IeC {\'a}lculo de la matriz de transici\IeC {\'o}n}{12}{subsection.7.9.1}
+\contentsline {subsection}{\numberline {7.9.2}Selececci\IeC {\'o}n de la matriz de transici\IeC {\'o}n}{12}{subsection.7.9.2}
+\contentsline {section}{\numberline {7.10}P\IeC {\'e}rdida por clase.}{14}{section.7.10}
+\contentsline {subsection}{\numberline {7.10.1}C\IeC {\'a}lculo de p\IeC {\'e}rdida esperada}{14}{subsection.7.10.1}
+\contentsline {subsection}{\numberline {7.10.2}P\IeC {\'e}rdida esperada}{14}{subsection.7.10.2}
+\contentsline {section}{\numberline {7.11}Simulaci\IeC {\'o}n y resultados.}{15}{section.7.11}
+\contentsline {section}{\numberline {7.12}Stress Testing.}{15}{section.7.12}
+\contentsline {section}{\numberline {7.13}Tercera secci\IeC {\'o}n: Indicadores contables}{17}{section.7.13}
+\contentsline {section}{\numberline {7.14}C\IeC {\'a}lculo del RAROC}{17}{section.7.14}
+\contentsline {subsection}{\numberline {7.14.1}RAROC}{17}{subsection.7.14.1}
+\contentsline {chapter}{Ap\'{e}ndice}{19}{figure.caption.35}
+\contentsline {chapter}{\numberline {A}Software Tools}{19}{appendix.Alph1}
+\contentsline {section}{\numberline {A.1}R and R packages}{19}{section.Alph1.1}
+\contentsline {section}{\numberline {A.2}Pandoc}{20}{section.Alph1.2}
+\contentsline {section}{\numberline {A.3}LaTeX}{21}{section.Alph1.3}

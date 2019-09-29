@@ -52,13 +52,13 @@ Al principio de este capítulo presentamos el $EL$ de una transacción como un s
 
 Hasta ahora hemos aprendido que los bancos deberían tener algún tipo de colchón de capital contra pérdidas inesperadas. Sin embargo, definir la $UL$ de una cartera como el capital de riesgo ahorrado para casos de dificultades financieras no es la mejor opción, porque podría haber una probabilidad significativa de que las pérdidas superen la pérdida esperada de la cartera en más de una desviación estándar de la pérdida de la cartera. Por lo tanto, se buscan otras formas de cuantificar el capital riesgo, teniendo en cuenta un nivel objetivo de confianza estadística. La forma más común de cuantificar el capital riesgo es el concepto de capital económico o valor en riesgo ($VaR$). Para un un nivel de confiaza especifico $\alpha$, donde $\alpha$ representa el nivel de confianza de la pérdida esperada, es decir: $$VaR_{\alpha}= q_\alpha - EL$$ donde $q_\alpha$ es el quantil $\alpha$ de la distribución anterior mencionada:$$q_{\alpha}=inf\{q>0 |P[\tilde{L}\leq q]\geq \alpha\}$$ Un ejemplo grafico de lo que esta ocurriendo es presentado a continuación:
 
-![\label{fig:"sd"}](~/Riesgo_de_Credito/bookdown/varr.png)
+![\label{fig:"sd"}](images/varr.png)
 
 ##  Matriz de transición
 
 La matriz de transición es un instrumento que se usa de manera fundamental en la metodología Credimetrics, que será desarrolada mas adelante. Como su nombre lo indica es una matriz, que además es cuadrada, el orden de la matriz depende de la cantidad de calificaciones que use la intitución financiera para calificar sus créditos, por ejemplo, si la intitucion usa 5 calificaciones, la matriz será una matriz cuadrada de orden 5
 
-![\label{fig:"sd"}](~/Riesgo_de_Credito/bookdown/mtr.jpg)
+![\label{fig:"sd"}](images/mtr.jpg)
 
 
 

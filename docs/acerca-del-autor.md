@@ -2,10 +2,9 @@
 title: "Riesgo de Crédito"
 subtitle: "Ciencia de los Datos Financieros"
 author: "Synergy Vision"
-date: "2019-05-06"
+date: "2019-09-28"
 knit: "bookdown::render_book"
 documentclass: krantz
-bibliography: [book.bib, packages.bib]
 biblio-style: apalike
 link-citations: yes
 colorlinks: yes
@@ -38,9 +37,9 @@ Placeholder
 
 Este material es un esfuerzo de equipo en Synergy Vision, (<http://synergy.vision/nosotros/>). En especial al equipo conformado por Danny Morales y Arturo Carreño. Los cuales en conjunto y con su experiencia en el sector financiero crearon este sistema para la facilitar a las instituciones cumplir con las regulaciones obligatorias exigidas por el ente regulatorio.
 
-Danny Morales: Licenciado en ciencian actuariales, cuenta con varios años de experiencia en el sector financiero y en la actualidad es gerente general de synergy vision y profesor universitario (UCV) 
+Danny Morales: Licenciado en Ciencias Actuariales, cuenta con varios años de experiencia en el sector financiero y en la actualidad es Gerente General de Synergy Vision y profesor universitario (UCV) 
 
-Arturo Carreño: Liceciado en matemáticas, cuenta con experiencia en el sector financiero y en la actualidad es cientifico de datos financieros de synergy vision y profesor universitario (UCV)
+Arturo Carreño: Liceciado en Matemáticas, cuenta con experiencia en el sector financiero y en la actualidad es Cientifico de Datos Financieros de Synergy Vision y profesor universitario (UCV)
 
 Nuestra cuenta de Twitter es (https://twitter.com/bysynergyvision) y nuestros repositorios están en GitHub (https://github.com/synergyvision).
   		  
@@ -193,27 +192,4 @@ Placeholder
 ### RAROC
 
 <!--chapter:end:303-ManualVisionRisk.Rmd-->
-
-
-# (APPENDIX) Apéndice {-}
-
-Placeholder
-
-# Software Tools
-
-Placeholder
-
-
-## R and R packages
-## Pandoc
-## LaTeX
-
-<!--chapter:end:400-apendice.Rmd-->
-
-# Referencias {-}
-
-
-
-
-<!--chapter:end:500-references.Rmd-->
 

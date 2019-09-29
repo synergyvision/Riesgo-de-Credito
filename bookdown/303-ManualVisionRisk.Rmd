@@ -10,7 +10,7 @@ En el presente capítulo, presentaremos el manual técnico de la aplicación Vis
 
 La aplicación esta compuesta de tres secciones, la primera referente a la metodología CreditRisk+, la segunda correspondiente a la metodología Credimetrics y la tercera sección referente a indicadores técnicos.
 
-![\label{fig:"sd"}](~/Riesgo_de_Credito/bookdown/portada.png)
+![\label{fig:"sd"}](images/portada.png)
 
 
 
@@ -18,21 +18,21 @@ La aplicación esta compuesta de tres secciones, la primera referente a la metod
 
 En la primera sección que se observa en la columna izquierda, consta de las siguientes secciones: Datos, Estadísticos, Pérdida por incumplimiento, Score de crédito, parámetros y resultados, stressting.
 
-![\label{fig:"sd"}](~/Riesgo_de_Credito/bookdown/datos.png)
+![\label{fig:"sd"}](images/datos.png)
 
 ### Datos
 
 En esta sección se cargan los datos con los que se alimentara la costrucción del score de crédito y parte de la metología, al iniciar veremos la siguiente pantalla:
 
-![\label{fig:"sd"}](~/Riesgo_de_Credito/bookdown/datos1.png)
+![\label{fig:"sd"}](images/datos1.png)
 
 Tendremos dos opciones, una a manera de ejemplo para entender como debe ser el formato de los datos, al seleccionarla se nos desplegara la siguiente pantalla. 
 
-![\label{fig:"sd"}](~/Riesgo_de_Credito/bookdown/datos2.png)
+![\label{fig:"sd"}](images/datos2.png)
 
 Ahora del lado que debemos seleccionar, se nos desplagara:
 
-![\label{fig:"sd"}](~/Riesgo_de_Credito/bookdown/datos3.png)
+![\label{fig:"sd"}](images/datos3.png)
 
 Debemos hacer click en buscar los datos a seleccionar, estos datos deberan estar conformados por la lista de los clientes, similar a los datos de ejemplo, una de la columnas debe tener el nombre de "Creditability" (la cual indica si el cliente esta en mora, valor de $1$ o no valor de $0$)
 
@@ -45,13 +45,13 @@ En esta seccion tendremos dos pestañas:
 En esta pestaña, veremos el gráfico estadístico de boxplot para ver el comportamiento de la variable al segmentarla en deudores o no, ademas en la parte inferior tendremos un resumen estadístico de la variable seleccionada.
 
 
-![\label{fig:"sd"}](~/Riesgo_de_Credito/bookdown/esta1.png)
+![\label{fig:"sd"}](images/esta1.png)
 
 ### Selección de variables
 
 En esta sección el usuario podrá colocar el significancia para escoger las variables cualitativas y cuantitativas que se usaran en el modelo, la pestaña se divide en 2, una para cada tipo de variable.
 
-![\label{fig:"sd"}](~/Riesgo_de_Credito/bookdown/esta2.png)
+![\label{fig:"sd"}](images/esta2.png)
 
 
 
@@ -59,7 +59,7 @@ En esta sección el usuario podrá colocar el significancia para escoger las var
 
 En esta sección podra calcular la pérdida histórica por incumplimiento. El usuario podrá ver graficamente lo que espera recuprar en caso de incumplimiento, mientras transcurre el tiempo.
 
-![\label{fig:"sd"}](~/Riesgo_de_Credito/bookdown/perdida.png)
+![\label{fig:"sd"}](images/perdida.png)
 
 
 ## Score de Crédito.
@@ -70,13 +70,13 @@ En esta sección se calculara la probabilidad de incumplimiento, score o pontuja
 
 En esta sección el usuario seleccionara el modelo que mejor se ajuste a los datos, una vez seleccionado se deplegara la matriz con los resultados del modelo y el grafico ROC para mostrar el nivel de acierto del modelo.
 
-![\label{fig:"sd"}](~/Riesgo_de_Credito/bookdown/score1.png)
+![\label{fig:"sd"}](images/score1.png)
 
 ### Score de la cartera de crédito.
 
 Una vez selecionado el modelo, en esta pestaña el usuario podra ver la probabilidad de incumplimiento y el score o puntaje crediticio de los clientes.
 
-![\label{fig:"sd"}](~/Riesgo_de_Credito/bookdown/score2.png)
+![\label{fig:"sd"}](images/score2.png)
 
 
 ### Proyección a nuevos clientes.
@@ -87,7 +87,7 @@ Una vez selecionado el modelo, en esta pestaña el usuario podra ver la probabil
 
 En esta sección se pediran los valores de los parámetros básicos y se mostraran los resultados de las principales métricas de riesgo para la metodología CreditRisk+.
 
-![\label{fig:"sd"}](~/Riesgo_de_Credito/bookdown/par1.png)
+![\label{fig:"sd"}](images/par1.png)
 
 
 
@@ -95,33 +95,33 @@ En esta sección se pediran los valores de los parámetros básicos y se mostrar
 
 En esta sección, deberemos establecer la unidad de pérdida, que no es mas que la unidad de medida que inteta cuantificar la pérdida de una forma mas compacta. Deberemos ingresar el porcentaje de recuperación que se espera recuperar luego que un crédito esta en mora. Debemos cargar las probabilidades de incumplimiento de la cartera de clientes, podemos cargar una data propia generada por mecanismos internos o podemos cargar la proveniente de la sección de Score de crédito, en ambos casos la data debe tener la siguiente estructura:
 
-![\label{fig:"sd"}](~/Riesgo_de_Credito/bookdown/par2.png)
+![\label{fig:"sd"}](images/par2.png)
 
 ### Resultados
 
 En la sección resultados, podremos escoger el nivel de significancia deseado, para mostrar las metrícas usuales de riesgo, tendremos tambien la opción para descargar el roporte proveniente de esta metodología
 
-![\label{fig:"sd"}](~/Riesgo_de_Credito/bookdown/par3.png)
+![\label{fig:"sd"}](images/par3.png)
 
 
 ## Stress Testing
 
 En esta sección de una manera controlada porcentualmente simularemos resultados extremos de pérdida, para luego mostrar la pérdida esperada tras esto.  
 
-![\label{fig:"sd"}](~/Riesgo_de_Credito/bookdown/stre.png)
+![\label{fig:"sd"}](images/stre.png)
 
 
 ## Segunda sección: Credimetrics
 
 En la segunda sección que se observa en la columna izquierda, consta de las siguientes secciones: créditos, matriz de transición, Pérdida por clase, simulación y resultados, stressting.
 
-![\label{fig:"sd"}](~/Riesgo_de_Credito/bookdown/sec2.png)
+![\label{fig:"sd"}](images/sec2.png)
 
 ## Créditos
 
 En esta sección, deberemos cargar las exposiciones de los créditos y sus respectivas calificaciones:
 
-![\label{fig:"sd"}](~/Riesgo_de_Credito/bookdown/exp.png)
+![\label{fig:"sd"}](images/exp.png)
 
 
 ## Matriz de trancición
@@ -132,17 +132,17 @@ En esta sección cargaremos los datos para el cálculo de la matriz de transici�
 
 En esta sección debemos cargar los datos históricos de migraciones crediticias en periodos de tiempo especificos, es decir, con que calificación inicio el crédito y con cual finalizo.
 
-![\label{fig:"sd"}](~/Riesgo_de_Credito/bookdown/mtr.png)
+![\label{fig:"sd"}](images/mtr.png)
  Una vez cargados los datos en la parte inferior se mostrara la matriz de transición cálculada:
  
-![\label{fig:"sd"}](~/Riesgo_de_Credito/bookdown/mtr2.png)
+![\label{fig:"sd"}](images/mtr2.png)
 
 ### Selecección de la matriz de transición
 
 En esta sección se debera seleccionar la matriz de transición, se puede escoger la ya calculada o en caso de que el banco no posea los datos históricos necesarios, podra cargar su matriz de transición propia, pero debe tener el siguiente formato.
 
 
-![\label{fig:"sd"}](~/Riesgo_de_Credito/bookdown/mtr3.png)
+![\label{fig:"sd"}](images/mtr3.png)
 
 ## Pérdida por clase.
 
@@ -152,19 +152,19 @@ En esta sección se calcula o solicita las pérdidas esperadas por calificación
 
 En esta pestaña el usuario debe cargar los datos históricos de las pérdidad ocacionadas por clientes dado su calificación.
 
-![\label{fig:"sd"}](~/Riesgo_de_Credito/bookdown/perd1.png)
+![\label{fig:"sd"}](images/perd1.png)
 
 ### Pérdida esperada
 
 Al igual que en la sección de la matriz de transición, el usuario podra seleccionar la matriz calculada o introducir una propia:
 
-![\label{fig:"sd"}](~/Riesgo_de_Credito/bookdown/perd2.png)
+![\label{fig:"sd"}](images/perd2.png)
 
 ##  Simulación y resultados.
 
 En esta sección el usuario indicara el número de simulaciones para la simulación de MonteCarlo, la aplicación realizara los cálculos y nos presentara las métricas de riesgo y la opción de descargar el reporte.
 
-![\label{fig:"sd"}](~/Riesgo_de_Credito/bookdown/var2.png)
+![\label{fig:"sd"}](images/var2.png)
 
 
 
@@ -172,7 +172,7 @@ En esta sección el usuario indicara el número de simulaciones para la simulaci
 
 Una vez llevado a cabo todos los pasos requeridos para la metodología, el usuario podrá realizar una prueba de estres sobre los parámetros del modelo.
 
-![\label{fig:"sd"}](~/Riesgo_de_Credito/bookdown/stress2.png)
+![\label{fig:"sd"}](images/stress2.png)
 
 ## Tercera sección: Indicadores contables
 
@@ -182,7 +182,7 @@ En esta sección se calculan indicadores contables, poniendo atención al RAROC 
 
 Dedicamos una subsección completa debido a su gran uso en las entidades financieras. Lo primero que veremos es una sección informativa:
 
-![\label{fig:"sd"}](~/Riesgo_de_Credito/bookdown/cont1.png)
+![\label{fig:"sd"}](images/cont1.png)
 
 ### RAROC
 
@@ -190,7 +190,7 @@ En esta pestaña, requerimos que el usuario cargue la información del balence n
 
 
 
-![\label{fig:"sd"}](~/Riesgo_de_Credito/bookdown/cont2.png)
+![\label{fig:"sd"}](images/cont2.png)
 
 
 

@@ -3,9 +3,9 @@
 
 Este material es un esfuerzo de equipo en Synergy Vision, (<http://synergy.vision/nosotros/>). En especial al equipo conformado por Danny Morales y Arturo Carreño. Los cuales en conjunto y con su experiencia en el sector financiero crearon este sistema para la facilitar a las instituciones cumplir con las regulaciones obligatorias exigidas por el ente regulatorio.
 
-Danny Morales: Licenciado en ciencian actuariales, cuenta con varios años de experiencia en el sector financiero y en la actualidad es gerente general de synergy vision y profesor universitario (UCV) 
+Danny Morales: Licenciado en Ciencias Actuariales, cuenta con varios años de experiencia en el sector financiero y en la actualidad es Gerente General de Synergy Vision y profesor universitario (UCV) 
 
-Arturo Carreño: Liceciado en matemáticas, cuenta con experiencia en el sector financiero y en la actualidad es cientifico de datos financieros de synergy vision y profesor universitario (UCV)
+Arturo Carreño: Liceciado en Matemáticas, cuenta con experiencia en el sector financiero y en la actualidad es Cientifico de Datos Financieros de Synergy Vision y profesor universitario (UCV)
 
 Nuestra cuenta de Twitter es (https://twitter.com/bysynergyvision) y nuestros repositorios están en GitHub (https://github.com/synergyvision).
   		  

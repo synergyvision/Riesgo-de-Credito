@@ -2,10 +2,9 @@
 title: "Riesgo de Crédito"
 subtitle: "Ciencia de los Datos Financieros"
 author: "Synergy Vision"
-date: "2019-05-06"
+date: "2019-09-28"
 knit: "bookdown::render_book"
 documentclass: krantz
-bibliography: [book.bib, packages.bib]
 biblio-style: apalike
 link-citations: yes
 colorlinks: yes
@@ -79,11 +78,11 @@ A todo el equipo de Synergy Vision que no deja de soñar. Hay que hacer lo que p
 
 # Acerca del Autor {-}
 
-Este material es un esfuerzo de equipo en Synergy Vision, (<http://synergy.vision/nosotros/>).		 
+Este material es un esfuerzo de equipo en Synergy Vision, (<http://synergy.vision/nosotros/>). En especial al equipo conformado por Danny Morales y Arturo Carreño. Los cuales en conjunto y con su experiencia en el sector financiero crearon este sistema para la facilitar a las instituciones cumplir con las regulaciones obligatorias exigidas por el ente regulatorio.
 
-El propósito de este material es ofrecer una experiencia de aprendizaje distinta y enfocada en el estudiante. El propósito es que realmente aprenda y practique con mucha intensidad. La idea es cambiar el modelo de clases magistrales y ofrecer una experiencia más centrada en el estudiante y menos centrado en el profesor. Para los temas más técnicos y avanzados es necesario trabajar de la mano con el estudiante y asistirlo en el proceso de aprendizaje con prácticas guiadas, material en línea e interactivo, videos, evaluación contínua de brechas y entendimiento, entre otros, para procurar el dominio de la materia.
-  		  
-Nuestro foco es la Ciencia de los Datos Financieros y para ello se desarrollará material sobre: **Probabilidad y Estadística Matemática en R**, **Programación Científica en R**, **Mercados**, **Inversiones y Trading**, **Datos y Modelos Financieros en R**, **Renta Fija**, **Inmunización de Carteras de Renta Fija**, **Teoría de Riesgo en R**, **Finanzas Cuantitativas**, **Ingeniería Financiera**, **Procesos Estocásticos en R**, **Series de Tiempo en R**, **Ciencia de los Datos**, **Ciencia de los Datos Financieros**, **Simulación en R**, **Desarrollo de Aplicaciones Interactivas en R**, **Minería de Datos**, **Aprendizaje Estadístico**, **Estadística Multivariante**, **Riesgo de Crédito**, **Riesgo de Liquidez**, **Riesgo de Mercado**, **Riesgo Operacional**, **Riesgo de Cambio**, **Análisis Técnico**, **Inversión Visual**, **Finanzas**, **Finanzas Corporativas**, **Valoración**, **Teoría de Portafolio**, entre otros.
+Danny Morales: Licenciado en ciencian actuariales, cuenta con varios años de experiencia en el sector financiero y en la actualidad es gerente general de synergy vision y profesor universitario (UCV) 
+
+Arturo Carreño: Liceciado en matemáticas, cuenta con experiencia en el sector financiero y en la actualidad es cientifico de datos financieros de synergy vision y profesor universitario (UCV)
 
 Nuestra cuenta de Twitter es (https://twitter.com/bysynergyvision) y nuestros repositorios están en GitHub (https://github.com/synergyvision).
   		  
@@ -376,13 +375,13 @@ Al principio de este capítulo presentamos el $EL$ de una transacción como un s
 
 Hasta ahora hemos aprendido que los bancos deberían tener algún tipo de colchón de capital contra pérdidas inesperadas. Sin embargo, definir la $UL$ de una cartera como el capital de riesgo ahorrado para casos de dificultades financieras no es la mejor opción, porque podría haber una probabilidad significativa de que las pérdidas superen la pérdida esperada de la cartera en más de una desviación estándar de la pérdida de la cartera. Por lo tanto, se buscan otras formas de cuantificar el capital riesgo, teniendo en cuenta un nivel objetivo de confianza estadística. La forma más común de cuantificar el capital riesgo es el concepto de capital económico o valor en riesgo ($VaR$). Para un un nivel de confiaza especifico $\alpha$, donde $\alpha$ representa el nivel de confianza de la pérdida esperada, es decir: $$VaR_{\alpha}= q_\alpha - EL$$ donde $q_\alpha$ es el quantil $\alpha$ de la distribución anterior mencionada:$$q_{\alpha}=inf\{q>0 |P[\tilde{L}\leq q]\geq \alpha\}$$ Un ejemplo grafico de lo que esta ocurriendo es presentado a continuación:
 
-![\label{fig:"sd"}](~/Riesgo_de_Credito/varr.png)
+![\label{fig:"sd"}](~/Riesgo_de_Credito/bookdown/varr.png)
 
 ##  Matriz de transición
 
 La matriz de transición es un instrumento que se usa de manera fundamental en la metodología Credimetrics, que será desarrolada mas adelante. Como su nombre lo indica es una matriz, que además es cuadrada, el orden de la matriz depende de la cantidad de calificaciones que use la intitución financiera para calificar sus créditos, por ejemplo, si la intitucion usa 5 calificaciones, la matriz será una matriz cuadrada de orden 5
 
-![\label{fig:"sd"}](~/Riesgo_de_Credito/mtr.jpg)
+![\label{fig:"sd"}](~/Riesgo_de_Credito/bookdown/mtr.jpg)
 
 
 
@@ -914,7 +913,7 @@ Más técnicamente, un método de MonteCarlo es un proceso estocástico numéric
 
 Consideremos un círculo  de radio unidad circunscrito por un cuadrado. Suponiendo una lluvia uniforme sobre el cuadrado, podemos hallar el valor de $\pi$ a partir de la probabilidad de que las gotas caigan dentro del círculo (próxima figura)
 
-![\label{fig:"sd"}](~/Riesgo_de_Credito/circulo.png)
+![\label{fig:"sd"}](~/Riesgo_de_Credito/bookdown/circulo.png)
 
 Sea $P$ dicha probabilidad, por calculo:
 
@@ -1009,7 +1008,7 @@ En el presente capítulo, presentaremos el manual técnico de la aplicación Vis
 
 La aplicación esta compuesta de tres secciones, la primera referente a la metodología CreditRisk+, la segunda correspondiente a la metodología Credimetrics y la tercera sección referente a indicadores técnicos.
 
-![\label{fig:"sd"}](~/Riesgo_de_Credito/portada.png)
+![\label{fig:"sd"}](~/Riesgo_de_Credito/bookdown/portada.png)
 
 
 
@@ -1017,21 +1016,21 @@ La aplicación esta compuesta de tres secciones, la primera referente a la metod
 
 En la primera sección que se observa en la columna izquierda, consta de las siguientes secciones: Datos, Estadísticos, Pérdida por incumplimiento, Score de crédito, parámetros y resultados, stressting.
 
-![\label{fig:"sd"}](~/Riesgo_de_Credito/datos.png)
+![\label{fig:"sd"}](~/Riesgo_de_Credito/bookdown/datos.png)
 
 ### Datos
 
 En esta sección se cargan los datos con los que se alimentara la costrucción del score de crédito y parte de la metología, al iniciar veremos la siguiente pantalla:
 
-![\label{fig:"sd"}](~/Riesgo_de_Credito/datos1.png)
+![\label{fig:"sd"}](~/Riesgo_de_Credito/bookdown/datos1.png)
 
 Tendremos dos opciones, una a manera de ejemplo para entender como debe ser el formato de los datos, al seleccionarla se nos desplegara la siguiente pantalla. 
 
-![\label{fig:"sd"}](~/Riesgo_de_Credito/datos2.png)
+![\label{fig:"sd"}](~/Riesgo_de_Credito/bookdown/datos2.png)
 
 Ahora del lado que debemos seleccionar, se nos desplagara:
 
-![\label{fig:"sd"}](~/Riesgo_de_Credito/datos3.png)
+![\label{fig:"sd"}](~/Riesgo_de_Credito/bookdown/datos3.png)
 
 Debemos hacer click en buscar los datos a seleccionar, estos datos deberan estar conformados por la lista de los clientes, similar a los datos de ejemplo, una de la columnas debe tener el nombre de "Creditability" (la cual indica si el cliente esta en mora, valor de $1$ o no valor de $0$)
 
@@ -1044,13 +1043,13 @@ En esta seccion tendremos dos pestañas:
 En esta pestaña, veremos el gráfico estadístico de boxplot para ver el comportamiento de la variable al segmentarla en deudores o no, ademas en la parte inferior tendremos un resumen estadístico de la variable seleccionada.
 
 
-![\label{fig:"sd"}](~/Riesgo_de_Credito/esta1.png)
+![\label{fig:"sd"}](~/Riesgo_de_Credito/bookdown/esta1.png)
 
 ### Selección de variables
 
 En esta sección el usuario podrá colocar el significancia para escoger las variables cualitativas y cuantitativas que se usaran en el modelo, la pestaña se divide en 2, una para cada tipo de variable.
 
-![\label{fig:"sd"}](~/Riesgo_de_Credito/esta2.png)
+![\label{fig:"sd"}](~/Riesgo_de_Credito/bookdown/esta2.png)
 
 
 
@@ -1058,7 +1057,7 @@ En esta sección el usuario podrá colocar el significancia para escoger las var
 
 En esta sección podra calcular la pérdida histórica por incumplimiento. El usuario podrá ver graficamente lo que espera recuprar en caso de incumplimiento, mientras transcurre el tiempo.
 
-![\label{fig:"sd"}](~/Riesgo_de_Credito/perdida.png)
+![\label{fig:"sd"}](~/Riesgo_de_Credito/bookdown/perdida.png)
 
 
 ## Score de Crédito.
@@ -1069,13 +1068,13 @@ En esta sección se calculara la probabilidad de incumplimiento, score o pontuja
 
 En esta sección el usuario seleccionara el modelo que mejor se ajuste a los datos, una vez seleccionado se deplegara la matriz con los resultados del modelo y el grafico ROC para mostrar el nivel de acierto del modelo.
 
-![\label{fig:"sd"}](~/Riesgo_de_Credito/score1.png)
+![\label{fig:"sd"}](~/Riesgo_de_Credito/bookdown/score1.png)
 
 ### Score de la cartera de crédito.
 
 Una vez selecionado el modelo, en esta pestaña el usuario podra ver la probabilidad de incumplimiento y el score o puntaje crediticio de los clientes.
 
-![\label{fig:"sd"}](~/Riesgo_de_Credito/score2.png)
+![\label{fig:"sd"}](~/Riesgo_de_Credito/bookdown/score2.png)
 
 
 ### Proyección a nuevos clientes.
@@ -1086,7 +1085,7 @@ Una vez selecionado el modelo, en esta pestaña el usuario podra ver la probabil
 
 En esta sección se pediran los valores de los parámetros básicos y se mostraran los resultados de las principales métricas de riesgo para la metodología CreditRisk+.
 
-![\label{fig:"sd"}](~/Riesgo_de_Credito/par1.png)
+![\label{fig:"sd"}](~/Riesgo_de_Credito/bookdown/par1.png)
 
 
 
@@ -1094,33 +1093,33 @@ En esta sección se pediran los valores de los parámetros básicos y se mostrar
 
 En esta sección, deberemos establecer la unidad de pérdida, que no es mas que la unidad de medida que inteta cuantificar la pérdida de una forma mas compacta. Deberemos ingresar el porcentaje de recuperación que se espera recuperar luego que un crédito esta en mora. Debemos cargar las probabilidades de incumplimiento de la cartera de clientes, podemos cargar una data propia generada por mecanismos internos o podemos cargar la proveniente de la sección de Score de crédito, en ambos casos la data debe tener la siguiente estructura:
 
-![\label{fig:"sd"}](~/Riesgo_de_Credito/par2.png)
+![\label{fig:"sd"}](~/Riesgo_de_Credito/bookdown/par2.png)
 
 ### Resultados
 
 En la sección resultados, podremos escoger el nivel de significancia deseado, para mostrar las metrícas usuales de riesgo, tendremos tambien la opción para descargar el roporte proveniente de esta metodología
 
-![\label{fig:"sd"}](~/Riesgo_de_Credito/par3.png)
+![\label{fig:"sd"}](~/Riesgo_de_Credito/bookdown/par3.png)
 
 
 ## Stress Testing
 
 En esta sección de una manera controlada porcentualmente simularemos resultados extremos de pérdida, para luego mostrar la pérdida esperada tras esto.  
 
-![\label{fig:"sd"}](~/Riesgo_de_Credito/stre.png)
+![\label{fig:"sd"}](~/Riesgo_de_Credito/bookdown/stre.png)
 
 
 ## Segunda sección: Credimetrics
 
 En la segunda sección que se observa en la columna izquierda, consta de las siguientes secciones: créditos, matriz de transición, Pérdida por clase, simulación y resultados, stressting.
 
-![\label{fig:"sd"}](~/Riesgo_de_Credito/sec2.png)
+![\label{fig:"sd"}](~/Riesgo_de_Credito/bookdown/sec2.png)
 
 ## Créditos
 
 En esta sección, deberemos cargar las exposiciones de los créditos y sus respectivas calificaciones:
 
-![\label{fig:"sd"}](~/Riesgo_de_Credito/exp.png)
+![\label{fig:"sd"}](~/Riesgo_de_Credito/bookdown/exp.png)
 
 
 ## Matriz de trancición
@@ -1131,17 +1130,17 @@ En esta sección cargaremos los datos para el cálculo de la matriz de transici�
 
 En esta sección debemos cargar los datos históricos de migraciones crediticias en periodos de tiempo especificos, es decir, con que calificación inicio el crédito y con cual finalizo.
 
-![\label{fig:"sd"}](~/Riesgo_de_Credito/mtr.png)
+![\label{fig:"sd"}](~/Riesgo_de_Credito/bookdown/mtr.png)
  Una vez cargados los datos en la parte inferior se mostrara la matriz de transición cálculada:
  
-![\label{fig:"sd"}](~/Riesgo_de_Credito/mtr2.png)
+![\label{fig:"sd"}](~/Riesgo_de_Credito/bookdown/mtr2.png)
 
 ### Selecección de la matriz de transición
 
 En esta sección se debera seleccionar la matriz de transición, se puede escoger la ya calculada o en caso de que el banco no posea los datos históricos necesarios, podra cargar su matriz de transición propia, pero debe tener el siguiente formato.
 
 
-![\label{fig:"sd"}](~/Riesgo_de_Credito/mtr3.png)
+![\label{fig:"sd"}](~/Riesgo_de_Credito/bookdown/mtr3.png)
 
 ## Pérdida por clase.
 
@@ -1151,19 +1150,19 @@ En esta sección se calcula o solicita las pérdidas esperadas por calificación
 
 En esta pestaña el usuario debe cargar los datos históricos de las pérdidad ocacionadas por clientes dado su calificación.
 
-![\label{fig:"sd"}](~/Riesgo_de_Credito/perd1.png)
+![\label{fig:"sd"}](~/Riesgo_de_Credito/bookdown/perd1.png)
 
 ### Pérdida esperada
 
 Al igual que en la sección de la matriz de transición, el usuario podra seleccionar la matriz calculada o introducir una propia:
 
-![\label{fig:"sd"}](~/Riesgo_de_Credito/perd2.png)
+![\label{fig:"sd"}](~/Riesgo_de_Credito/bookdown/perd2.png)
 
 ##  Simulación y resultados.
 
 En esta sección el usuario indicara el número de simulaciones para la simulación de MonteCarlo, la aplicación realizara los cálculos y nos presentara las métricas de riesgo y la opción de descargar el reporte.
 
-![\label{fig:"sd"}](~/Riesgo_de_Credito/var2.png)
+![\label{fig:"sd"}](~/Riesgo_de_Credito/bookdown/var2.png)
 
 
 
@@ -1171,7 +1170,7 @@ En esta sección el usuario indicara el número de simulaciones para la simulaci
 
 Una vez llevado a cabo todos los pasos requeridos para la metodología, el usuario podrá realizar una prueba de estres sobre los parámetros del modelo.
 
-![\label{fig:"sd"}](~/Riesgo_de_Credito/stress2.png)
+![\label{fig:"sd"}](~/Riesgo_de_Credito/bookdown/stress2.png)
 
 ## Tercera sección: Indicadores contables
 
@@ -1181,7 +1180,7 @@ En esta sección se calculan indicadores contables, poniendo atención al RAROC 
 
 Dedicamos una subsección completa debido a su gran uso en las entidades financieras. Lo primero que veremos es una sección informativa:
 
-![\label{fig:"sd"}](~/Riesgo_de_Credito/cont1.png)
+![\label{fig:"sd"}](~/Riesgo_de_Credito/bookdown/cont1.png)
 
 ### RAROC
 
@@ -1189,7 +1188,7 @@ En esta pestaña, requerimos que el usuario cargue la información del balence n
 
 
 
-![\label{fig:"sd"}](~/Riesgo_de_Credito/cont2.png)
+![\label{fig:"sd"}](~/Riesgo_de_Credito/bookdown/cont2.png)
 
 
 
@@ -1199,127 +1198,4 @@ En esta pestaña, requerimos que el usuario cargue la información del balence n
 
 
 <!--chapter:end:303-ManualVisionRisk.Rmd-->
-
-\cleardoublepage 
-
-# (APPENDIX) Apéndice {-}
-
-# Software Tools
-
-For those who are not familiar with software packages required for using R Markdown, we give a brief introduction to the installation and maintenance of these packages.
-
-## R and R packages
-
-R can be downloaded and installed from any CRAN (the Comprehensive R Archive Network) mirrors, e.g., https://cran.rstudio.com. Please note that there will be a few new releases of R every year, and you may want to upgrade R occasionally.
-
-To install the **bookdown** package, you can type this in R:
-
-
-```r
-install.packages("bookdown")
-```
-
-This installs all required R packages. You can also choose to install all optional packages as well, if you do not care too much about whether these packages will actually be used to compile your book (such as **htmlwidgets**):
-
-
-```r
-install.packages("bookdown", dependencies = TRUE)
-```
-
-If you want to test the development version of **bookdown** on GitHub, you need to install **devtools** first:
-
-
-```r
-if (!requireNamespace('devtools')) install.packages('devtools')
-devtools::install_github('rstudio/bookdown')
-```
-
-R packages are also often constantly updated on CRAN or GitHub, so you may want to update them once in a while:
-
-
-```r
-update.packages(ask = FALSE)
-```
-
-Although it is not required, the RStudio IDE can make a lot of things much easier when you work on R-related projects. The RStudio IDE can be downloaded from https://www.rstudio.com.
-
-## Pandoc
-
-An R Markdown document (`*.Rmd`) is first compiled to Markdown (`*.md`) through the **knitr** package, and then Markdown is compiled to other output formats (such as LaTeX or HTML) through Pandoc.\index{Pandoc} This process is automated by the **rmarkdown** package. You do not need to install **knitr** or **rmarkdown** separately, because they are the required packages of **bookdown** and will be automatically installed when you install **bookdown**. However, Pandoc is not an R package, so it will not be automatically installed when you install **bookdown**. You can follow the installation instructions on the Pandoc homepage (http://pandoc.org) to install Pandoc, but if you use the RStudio IDE, you do not really need to install Pandoc separately, because RStudio includes a copy of Pandoc. The Pandoc version number can be obtained via:
-
-
-```r
-rmarkdown::pandoc_version()
-## [1] '1.19.2.1'
-```
-
-If you find this version too low and there are Pandoc features only in a later version, you can install the later version of Pandoc, and **rmarkdown** will call the newer version instead of its built-in version.
-
-## LaTeX
-
-LaTeX\index{LaTeX} is required only if you want to convert your book to PDF. The typical choice of the LaTeX distribution depends on your operating system. Windows users may consider MiKTeX (http://miktex.org), Mac OS X users can install MacTeX (http://www.tug.org/mactex/), and Linux users can install TeXLive (http://www.tug.org/texlive). See https://www.latex-project.org/get/ for more information about LaTeX and its installation.
-
-Most LaTeX distributions provide a minimal/basic package and a full package. You can install the basic package if you have limited disk space and know how to install LaTeX packages later. The full package is often significantly larger in size, since it contains all LaTeX packages, and you are unlikely to run into the problem of missing packages in LaTeX.
-
-LaTeX error messages may be obscure to beginners, but you may find solutions by searching for the error message online (you have good chances of ending up on [StackExchange](http://tex.stackexchange.com)). In fact, the LaTeX code converted from R Markdown should be safe enough and you should not frequently run into LaTeX problems unless you introduced raw LaTeX content in your Rmd documents. The most common LaTeX problem should be missing LaTeX packages, and the error may look like this:
-
-```latex
-! LaTeX Error: File `titling.sty' not found.
-
-Type X to quit or <RETURN> to proceed,
-or enter new name. (Default extension: sty)
-
-Enter file name: 
-! Emergency stop.
-<read *> 
-         
-l.107 ^^M
-
-pandoc: Error producing PDF
-Error: pandoc document conversion failed with error 43
-Execution halted
-```
-
-This means you used a package that contains `titling.sty`, but it was not installed. LaTeX package names are often the same as the `*.sty` filenames, so in this case, you can try to install the `titling` package. Both MiKTeX and MacTeX provide a graphical user interface to manage packages. You can find the MiKTeX package manager from the start menu, and MacTeX's package manager from the application "TeX Live Utility". Type the name of the package, or the filename to search for the package and install it. TeXLive may be a little trickier: if you use the pre-built TeXLive packages of your Linux distribution, you need to search in the package repository and your keywords may match other non-LaTeX packages. Personally, I find it frustrating to use the pre-built collections of packages on Linux, and much easier to install TeXLive from source, in which case you can manage packages using the `tlmgr` command. For example, you can search for `titling.sty` from the TeXLive package repository:
-
-```bash
-tlmgr search --global --file titling.sty
-# titling:
-#	 texmf-dist/tex/latex/titling/titling.sty
-```
-
-Once you have figured out the package name, you can install it by:
-
-```bash
-tlmgr install titling  # may require sudo
-```
-
-LaTeX distributions and packages are also updated from time to time, and you may consider updating them especially when you run into LaTeX problems. You can find out the version of your LaTeX distribution by:
-
-
-
-```r
-system('pdflatex --version')
-## pdfTeX 3.14159265-2.6-1.40.18 (TeX Live 2017)
-## kpathsea version 6.2.3
-## Copyright 2017 Han The Thanh (pdfTeX) et al.
-## There is NO warranty.  Redistribution of this software is
-## covered by the terms of both the pdfTeX copyright and
-## the Lesser GNU General Public License.
-## For more information about these matters, see the file
-## named COPYING and the pdfTeX source.
-## Primary author of pdfTeX: Han The Thanh (pdfTeX) et al.
-## Compiled with libpng 1.6.29; using libpng 1.6.29
-## Compiled with zlib 1.2.11; using zlib 1.2.11
-## Compiled with xpdf version 3.04
-```
-
-<!--chapter:end:400-apendice.Rmd-->
-
-# Referencias {-}
-
-
-
-
-<!--chapter:end:500-references.Rmd-->
 

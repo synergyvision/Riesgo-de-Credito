@@ -16,14 +16,18 @@ Sea $Y$ una variable aleatoria binaria que toma el valor 1 si ocurre el evento (
 
 Un modelo de elección binaria es un modelo de la probabilidad de ocurrencia del evento $Y_i$ condicional en el conjunto de información $\Omega_i$. 
 
-$$
 \begin{equation}
 P_i = Pr(Y_i=1|\Omega_i)
 (\#eq:ecuacion1) 
 \end{equation}
-$$
-Dado que $Y_i$ toma los valores 0 y 1, la esperanza de $Y_i$ condicional en $\Omega_i$ es: $$E(Y_i|\Omega_i)=(1*P_i)+(0*(1-P_i))=P_i=Pr(Y_i=1|\Omega_i)
-(\#eq:ecuacion2)$$
+
+
+Dado que $Y_i$ toma los valores 0 y 1, la esperanza de $Y_i$ condicional en $\Omega_i$ es: 
+
+\begin{equation}
+E(Y_i|\Omega_i)=(1*P_i)+(0*(1-P_i))=P_i=Pr(Y_i=1|\Omega_i)
+(\#eq:ecuacion2)
+\end{equation}
 
 En consecuencia, cuando la variable a explicar es binaria, su esperanza condicional es la probabilidad condicional de ocurrencia del evento. 
 
@@ -98,7 +102,7 @@ P(Y_i=1) & = P(y_i^*>0)=P(\beta^TX_i+\epsilon_i>0)= 1-P(\beta^TX_i+\epsilon_i\le
 \end{split}
 \end{equation}
 
-ya que se supone que εi tiene una distribución simétrica. Cuando $\epsilon_i ~ N(0,1)$ $F$ es $\Phi$, la función de distribución de probabilidades acumuladas normal estándar y se trata del modelo probit, mientras que si F es la función logística se trata de un modelo logit y su densidad también es simétrica alrededor de cero.
+ya que se supone que $\epsilon_i$ tiene una distribución simétrica. Cuando $\epsilon_i ~ N(0,1)$ $F$ es $\Phi$, la función de distribución de probabilidades acumuladas normal estándar y se trata del modelo probit, mientras que si F es la función logística se trata de un modelo logit y su densidad también es simétrica alrededor de cero.
 
 ###Estimación de los modelos logit y probit
 

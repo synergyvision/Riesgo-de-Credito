@@ -5,11 +5,11 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Riesgo de Crédito</title>
-  <meta name="description" content="Riesgo de Crédito">
-  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+  <title>A Software Tools | Riesgo de Crédito</title>
+  <meta name="description" content="A Software Tools | Riesgo de Crédito>
+  <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="Riesgo de Crédito" />
+  <meta property="og:title" content="A Software Tools | Riesgo de Crédito />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="http://synergy.vision/Riesgo-de-Credito/" />
   <meta property="og:image" content="http://synergy.vision/Riesgo-de-Credito/images/cover.png" />
@@ -17,7 +17,7 @@
   <meta name="github-repo" content="synergyvision/Riesgo-de-Credito/" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Riesgo de Crédito" />
+  <meta name="twitter:title" content="A Software Tools | Riesgo de Crédito />
   
   
   <meta name="twitter:image" content="http://synergy.vision/Riesgo-de-Credito/images/cover.png" />
@@ -25,7 +25,7 @@
 <meta name="author" content="Synergy Vision">
 
 
-<meta name="date" content="2019-05-06">
+<meta name="date" content="2019-09-28">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -36,6 +36,7 @@
 <link rel="next" href="referencias.html">
 <script src="libs/jquery/jquery.min.js"></script>
 <link href="libs/gitbook/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook/css/plugin-bookdown.css" rel="stylesheet" />
 <link href="libs/gitbook/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook/css/plugin-search.css" rel="stylesheet" />
@@ -51,41 +52,69 @@
 
 
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 <link rel="stylesheet" href="css/style.css" type="text/css" />
@@ -135,13 +164,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="3.7" data-path="conceptos-de-la-gestion-del-riesgo-de-credito.html"><a href="conceptos-de-la-gestion-del-riesgo-de-credito.html#matriz-de-transicion"><i class="fa fa-check"></i><b>3.7</b> Matriz de transición</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="scoring-de-credito.html"><a href="scoring-de-credito.html"><i class="fa fa-check"></i><b>4</b> Scoring de credito</a><ul>
-<li class="chapter" data-level="4.1" data-path="scoring-de-credito.html"><a href="scoring-de-credito.html#estructura-del-scoring-de-credito"><i class="fa fa-check"></i><b>4.1</b> Estructura del Scoring de Crédito</a></li>
-<li class="chapter" data-level="4.2" data-path="scoring-de-credito.html"><a href="scoring-de-credito.html#el-modelo-de-probabilidad-lineal"><i class="fa fa-check"></i><b>4.2</b> El modelo de probabilidad lineal</a><ul>
-<li class="chapter" data-level="4.2.1" data-path="scoring-de-credito.html"><a href="scoring-de-credito.html#los-modelos-probit-y-logit."><i class="fa fa-check"></i><b>4.2.1</b> Los modelos probit y logit.</a></li>
-<li class="chapter" data-level="4.2.2" data-path="scoring-de-credito.html"><a href="scoring-de-credito.html#estimacion-de-los-modelos-logit-y-probit"><i class="fa fa-check"></i><b>4.2.2</b> Estimación de los modelos logit y probit</a></li>
-<li class="chapter" data-level="4.2.3" data-path="scoring-de-credito.html"><a href="scoring-de-credito.html#interpretacion-del-modelo"><i class="fa fa-check"></i><b>4.2.3</b> Interpretación del modelo</a></li>
-<li class="chapter" data-level="4.2.4" data-path="scoring-de-credito.html"><a href="scoring-de-credito.html#relacion-entre-el-score-y-el-riesgo"><i class="fa fa-check"></i><b>4.2.4</b> Relación entre el score y el riesgo</a></li>
-<li class="chapter" data-level="4.2.5" data-path="scoring-de-credito.html"><a href="scoring-de-credito.html#uso-de-modelos-lineales-para-la-seleccion-de-variables-metodos-de-busqueda-secuencial."><i class="fa fa-check"></i><b>4.2.5</b> Uso de modelos lineales para la selección de variables (Métodos de búsqueda secuencial).</a></li>
+<li class="chapter" data-level="4.1" data-path="scoring-de-credito.html"><a href="scoring-de-credito.html#estructura-del-scoring-de-credito"><i class="fa fa-check"></i><b>4.1</b> Estructura del Scoring de Crédito</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="scoring-de-credito.html"><a href="scoring-de-credito.html#los-modelos-probit-y-logit."><i class="fa fa-check"></i><b>4.1.1</b> Los modelos probit y logit.</a></li>
+<li class="chapter" data-level="4.1.2" data-path="scoring-de-credito.html"><a href="scoring-de-credito.html#interpretacion-del-modelo"><i class="fa fa-check"></i><b>4.1.2</b> Interpretación del modelo</a></li>
+<li class="chapter" data-level="4.1.3" data-path="scoring-de-credito.html"><a href="scoring-de-credito.html#relacion-entre-el-score-y-el-riesgo"><i class="fa fa-check"></i><b>4.1.3</b> Relación entre el score y el riesgo</a></li>
+<li class="chapter" data-level="4.1.4" data-path="scoring-de-credito.html"><a href="scoring-de-credito.html#uso-de-modelos-lineales-para-la-seleccion-de-variables-metodos-de-busqueda-secuencial."><i class="fa fa-check"></i><b>4.1.4</b> Uso de modelos lineales para la selección de variables (Métodos de búsqueda secuencial).</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="creditrisk.html"><a href="creditrisk.html"><i class="fa fa-check"></i><b>5</b> CreditRisk+</a><ul>
@@ -233,21 +260,21 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h2><span class="header-section-number">A.1</span> R and R packages</h2>
 <p>R can be downloaded and installed from any CRAN (the Comprehensive R Archive Network) mirrors, e.g., <a href="https://cran.rstudio.com" class="uri">https://cran.rstudio.com</a>. Please note that there will be a few new releases of R every year, and you may want to upgrade R occasionally.</p>
 <p>To install the <strong>bookdown</strong> package, you can type this in R:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">&quot;bookdown&quot;</span>)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="software-tools.html#cb1-1"></a><span class="kw">install.packages</span>(<span class="st">&quot;bookdown&quot;</span>)</span></code></pre></div>
 <p>This installs all required R packages. You can also choose to install all optional packages as well, if you do not care too much about whether these packages will actually be used to compile your book (such as <strong>htmlwidgets</strong>):</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">&quot;bookdown&quot;</span>, <span class="dt">dependencies =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="software-tools.html#cb2-1"></a><span class="kw">install.packages</span>(<span class="st">&quot;bookdown&quot;</span>, <span class="dt">dependencies =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
 <p>If you want to test the development version of <strong>bookdown</strong> on GitHub, you need to install <strong>devtools</strong> first:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">if</span> (<span class="op">!</span><span class="kw">requireNamespace</span>(<span class="st">&#39;devtools&#39;</span>)) <span class="kw">install.packages</span>(<span class="st">&#39;devtools&#39;</span>)
-devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&#39;rstudio/bookdown&#39;</span>)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="software-tools.html#cb3-1"></a><span class="cf">if</span> (<span class="op">!</span><span class="kw">requireNamespace</span>(<span class="st">&#39;devtools&#39;</span>)) <span class="kw">install.packages</span>(<span class="st">&#39;devtools&#39;</span>)</span>
+<span id="cb3-2"><a href="software-tools.html#cb3-2"></a>devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&#39;rstudio/bookdown&#39;</span>)</span></code></pre></div>
 <p>R packages are also often constantly updated on CRAN or GitHub, so you may want to update them once in a while:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">update.packages</span>(<span class="dt">ask =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="software-tools.html#cb4-1"></a><span class="kw">update.packages</span>(<span class="dt">ask =</span> <span class="ot">FALSE</span>)</span></code></pre></div>
 <p>Although it is not required, the RStudio IDE can make a lot of things much easier when you work on R-related projects. The RStudio IDE can be downloaded from <a href="https://www.rstudio.com" class="uri">https://www.rstudio.com</a>.</p>
 </div>
 <div id="pandoc" class="section level2">
 <h2><span class="header-section-number">A.2</span> Pandoc</h2>
 <p>An R Markdown document (<code>*.Rmd</code>) is first compiled to Markdown (<code>*.md</code>) through the <strong>knitr</strong> package, and then Markdown is compiled to other output formats (such as LaTeX or HTML) through Pandoc. This process is automated by the <strong>rmarkdown</strong> package. You do not need to install <strong>knitr</strong> or <strong>rmarkdown</strong> separately, because they are the required packages of <strong>bookdown</strong> and will be automatically installed when you install <strong>bookdown</strong>. However, Pandoc is not an R package, so it will not be automatically installed when you install <strong>bookdown</strong>. You can follow the installation instructions on the Pandoc homepage (<a href="http://pandoc.org" class="uri">http://pandoc.org</a>) to install Pandoc, but if you use the RStudio IDE, you do not really need to install Pandoc separately, because RStudio includes a copy of Pandoc. The Pandoc version number can be obtained via:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">rmarkdown<span class="op">::</span><span class="kw">pandoc_version</span>()
-## [1] &#39;1.19.2.1&#39;</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="software-tools.html#cb5-1"></a>rmarkdown<span class="op">::</span><span class="kw">pandoc_version</span>()</span>
+<span id="cb5-2"><a href="software-tools.html#cb5-2"></a><span class="co">## [1] &#39;2.7.3&#39;</span></span></code></pre></div>
 <p>If you find this version too low and there are Pandoc features only in a later version, you can install the later version of Pandoc, and <strong>rmarkdown</strong> will call the newer version instead of its built-in version.</p>
 </div>
 <div id="latex" class="section level2">
@@ -255,40 +282,40 @@ devtools<span class="op">::</span><span class="kw">install_github</span>(<span c
 <p>LaTeX is required only if you want to convert your book to PDF. The typical choice of the LaTeX distribution depends on your operating system. Windows users may consider MiKTeX (<a href="http://miktex.org" class="uri">http://miktex.org</a>), Mac OS X users can install MacTeX (<a href="http://www.tug.org/mactex/" class="uri">http://www.tug.org/mactex/</a>), and Linux users can install TeXLive (<a href="http://www.tug.org/texlive" class="uri">http://www.tug.org/texlive</a>). See <a href="https://www.latex-project.org/get/" class="uri">https://www.latex-project.org/get/</a> for more information about LaTeX and its installation.</p>
 <p>Most LaTeX distributions provide a minimal/basic package and a full package. You can install the basic package if you have limited disk space and know how to install LaTeX packages later. The full package is often significantly larger in size, since it contains all LaTeX packages, and you are unlikely to run into the problem of missing packages in LaTeX.</p>
 <p>LaTeX error messages may be obscure to beginners, but you may find solutions by searching for the error message online (you have good chances of ending up on <a href="http://tex.stackexchange.com">StackExchange</a>). In fact, the LaTeX code converted from R Markdown should be safe enough and you should not frequently run into LaTeX problems unless you introduced raw LaTeX content in your Rmd documents. The most common LaTeX problem should be missing LaTeX packages, and the error may look like this:</p>
-<div class="sourceCode"><pre class="sourceCode latex"><code class="sourceCode latex">! LaTeX Error: File `titling.sty&#39; not found.
-
-Type X to quit or &lt;RETURN&gt; to proceed,
-or enter new name. (Default extension: sty)
-
-Enter file name: 
-! Emergency stop.
-&lt;read *&gt; 
-         
-l.107 ^^M
-
-pandoc: Error producing PDF
-Error: pandoc document conversion failed with error 43
-Execution halted</code></pre></div>
+<pre class="sourceCode latex"><code class="sourceCode latex"><span id="cb6-1"><a href="software-tools.html#cb6-1"></a>! LaTeX Error: File `titling.sty&#39; not found.</span>
+<span id="cb6-2"><a href="software-tools.html#cb6-2"></a></span>
+<span id="cb6-3"><a href="software-tools.html#cb6-3"></a>Type X to quit or &lt;RETURN&gt; to proceed,</span>
+<span id="cb6-4"><a href="software-tools.html#cb6-4"></a>or enter new name. (Default extension: sty)</span>
+<span id="cb6-5"><a href="software-tools.html#cb6-5"></a></span>
+<span id="cb6-6"><a href="software-tools.html#cb6-6"></a>Enter file name: </span>
+<span id="cb6-7"><a href="software-tools.html#cb6-7"></a>! Emergency stop.</span>
+<span id="cb6-8"><a href="software-tools.html#cb6-8"></a>&lt;read *&gt; </span>
+<span id="cb6-9"><a href="software-tools.html#cb6-9"></a>         </span>
+<span id="cb6-10"><a href="software-tools.html#cb6-10"></a>l.107 ^^M</span>
+<span id="cb6-11"><a href="software-tools.html#cb6-11"></a></span>
+<span id="cb6-12"><a href="software-tools.html#cb6-12"></a>pandoc: Error producing PDF</span>
+<span id="cb6-13"><a href="software-tools.html#cb6-13"></a>Error: pandoc document conversion failed with error 43</span>
+<span id="cb6-14"><a href="software-tools.html#cb6-14"></a>Execution halted</span></code></pre></div>
 <p>This means you used a package that contains <code>titling.sty</code>, but it was not installed. LaTeX package names are often the same as the <code>*.sty</code> filenames, so in this case, you can try to install the <code>titling</code> package. Both MiKTeX and MacTeX provide a graphical user interface to manage packages. You can find the MiKTeX package manager from the start menu, and MacTeX’s package manager from the application “TeX Live Utility”. Type the name of the package, or the filename to search for the package and install it. TeXLive may be a little trickier: if you use the pre-built TeXLive packages of your Linux distribution, you need to search in the package repository and your keywords may match other non-LaTeX packages. Personally, I find it frustrating to use the pre-built collections of packages on Linux, and much easier to install TeXLive from source, in which case you can manage packages using the <code>tlmgr</code> command. For example, you can search for <code>titling.sty</code> from the TeXLive package repository:</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">tlmgr</span> search --global --file titling.sty
-<span class="co"># titling:</span>
-<span class="co">#    texmf-dist/tex/latex/titling/titling.sty</span></code></pre></div>
+<pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="software-tools.html#cb7-1"></a><span class="ex">tlmgr</span> search --global --file titling.sty</span>
+<span id="cb7-2"><a href="software-tools.html#cb7-2"></a><span class="co"># titling:</span></span>
+<span id="cb7-3"><a href="software-tools.html#cb7-3"></a><span class="co">#    texmf-dist/tex/latex/titling/titling.sty</span></span></code></pre></div>
 <p>Once you have figured out the package name, you can install it by:</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">tlmgr</span> install titling  # may require sudo</code></pre></div>
+<pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="software-tools.html#cb8-1"></a><span class="ex">tlmgr</span> install titling  <span class="co"># may require sudo</span></span></code></pre></div>
 <p>LaTeX distributions and packages are also updated from time to time, and you may consider updating them especially when you run into LaTeX problems. You can find out the version of your LaTeX distribution by:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">system</span>(<span class="st">&#39;pdflatex --version&#39;</span>)
-## pdfTeX 3.14159265-2.6-1.40.18 (TeX Live 2017)
-## kpathsea version 6.2.3
-## Copyright 2017 Han The Thanh (pdfTeX) et al.
-## There is NO warranty.  Redistribution of this software is
-## covered by the terms of both the pdfTeX copyright and
-## the Lesser GNU General Public License.
-## For more information about these matters, see the file
-## named COPYING and the pdfTeX source.
-## Primary author of pdfTeX: Han The Thanh (pdfTeX) et al.
-## Compiled with libpng 1.6.29; using libpng 1.6.29
-## Compiled with zlib 1.2.11; using zlib 1.2.11
-## Compiled with xpdf version 3.04</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="software-tools.html#cb9-1"></a><span class="kw">system</span>(<span class="st">&#39;pdflatex --version&#39;</span>)</span>
+<span id="cb9-2"><a href="software-tools.html#cb9-2"></a><span class="co">## pdfTeX 3.14159265-2.6-1.40.19 (TeX Live 2018)</span></span>
+<span id="cb9-3"><a href="software-tools.html#cb9-3"></a><span class="co">## kpathsea version 6.3.0</span></span>
+<span id="cb9-4"><a href="software-tools.html#cb9-4"></a><span class="co">## Copyright 2018 Han The Thanh (pdfTeX) et al.</span></span>
+<span id="cb9-5"><a href="software-tools.html#cb9-5"></a><span class="co">## There is NO warranty.  Redistribution of this software is</span></span>
+<span id="cb9-6"><a href="software-tools.html#cb9-6"></a><span class="co">## covered by the terms of both the pdfTeX copyright and</span></span>
+<span id="cb9-7"><a href="software-tools.html#cb9-7"></a><span class="co">## the Lesser GNU General Public License.</span></span>
+<span id="cb9-8"><a href="software-tools.html#cb9-8"></a><span class="co">## For more information about these matters, see the file</span></span>
+<span id="cb9-9"><a href="software-tools.html#cb9-9"></a><span class="co">## named COPYING and the pdfTeX source.</span></span>
+<span id="cb9-10"><a href="software-tools.html#cb9-10"></a><span class="co">## Primary author of pdfTeX: Han The Thanh (pdfTeX) et al.</span></span>
+<span id="cb9-11"><a href="software-tools.html#cb9-11"></a><span class="co">## Compiled with libpng 1.6.34; using libpng 1.6.34</span></span>
+<span id="cb9-12"><a href="software-tools.html#cb9-12"></a><span class="co">## Compiled with zlib 1.2.11; using zlib 1.2.11</span></span>
+<span id="cb9-13"><a href="software-tools.html#cb9-13"></a><span class="co">## Compiled with xpdf version 4.00</span></span></code></pre></div>
 
 </div>
 </div>
@@ -324,7 +351,7 @@ gitbook.start({
 "google": false,
 "linkedin": false,
 "weibo": false,
-"instapper": false,
+"instapaper": false,
 "vk": false,
 "all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
 },
@@ -336,6 +363,10 @@ gitbook.start({
 "edit": {
 "link": "https://github.com/synergyvision/Teoria-de-Portafolio/edit/master/bookdown/400-apendice.Rmd",
 "text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
 },
 "download": ["Riesgo-de-Credito.pdf"],
 "toc": {
@@ -350,8 +381,8 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    var src = "";
-    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:" && /^https?:/.test(src))
       src = src.replace(/^https?:/, '');
     script.src = src;

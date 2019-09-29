@@ -5,11 +5,11 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Riesgo de Crédito</title>
-  <meta name="description" content="Riesgo de Crédito">
-  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+  <title>Capítulo 6 CreditMetrics | Riesgo de Crédito</title>
+  <meta name="description" content="Capítulo 6 CreditMetrics | Riesgo de Crédito>
+  <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="Riesgo de Crédito" />
+  <meta property="og:title" content="Capítulo 6 CreditMetrics | Riesgo de Crédito />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="http://synergy.vision/Riesgo-de-Credito/" />
   <meta property="og:image" content="http://synergy.vision/Riesgo-de-Credito/images/cover.png" />
@@ -17,7 +17,7 @@
   <meta name="github-repo" content="synergyvision/Riesgo-de-Credito/" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Riesgo de Crédito" />
+  <meta name="twitter:title" content="Capítulo 6 CreditMetrics | Riesgo de Crédito />
   
   
   <meta name="twitter:image" content="http://synergy.vision/Riesgo-de-Credito/images/cover.png" />
@@ -25,7 +25,7 @@
 <meta name="author" content="Synergy Vision">
 
 
-<meta name="date" content="2019-05-06">
+<meta name="date" content="2019-09-28">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -36,6 +36,7 @@
 <link rel="next" href="manual-tecnico-de-la-aplicacion-vision-creditrisk.html">
 <script src="libs/jquery/jquery.min.js"></script>
 <link href="libs/gitbook/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook/css/plugin-bookdown.css" rel="stylesheet" />
 <link href="libs/gitbook/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook/css/plugin-search.css" rel="stylesheet" />
@@ -50,43 +51,6 @@
 <script src="https://cdn.datacamp.com/datacamp-light-latest.min.js"></script>
 
 
-<style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-</style>
 
 <link rel="stylesheet" href="css/style.css" type="text/css" />
 </head>
@@ -135,13 +99,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="3.7" data-path="conceptos-de-la-gestion-del-riesgo-de-credito.html"><a href="conceptos-de-la-gestion-del-riesgo-de-credito.html#matriz-de-transicion"><i class="fa fa-check"></i><b>3.7</b> Matriz de transición</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="scoring-de-credito.html"><a href="scoring-de-credito.html"><i class="fa fa-check"></i><b>4</b> Scoring de credito</a><ul>
-<li class="chapter" data-level="4.1" data-path="scoring-de-credito.html"><a href="scoring-de-credito.html#estructura-del-scoring-de-credito"><i class="fa fa-check"></i><b>4.1</b> Estructura del Scoring de Crédito</a></li>
-<li class="chapter" data-level="4.2" data-path="scoring-de-credito.html"><a href="scoring-de-credito.html#el-modelo-de-probabilidad-lineal"><i class="fa fa-check"></i><b>4.2</b> El modelo de probabilidad lineal</a><ul>
-<li class="chapter" data-level="4.2.1" data-path="scoring-de-credito.html"><a href="scoring-de-credito.html#los-modelos-probit-y-logit."><i class="fa fa-check"></i><b>4.2.1</b> Los modelos probit y logit.</a></li>
-<li class="chapter" data-level="4.2.2" data-path="scoring-de-credito.html"><a href="scoring-de-credito.html#estimacion-de-los-modelos-logit-y-probit"><i class="fa fa-check"></i><b>4.2.2</b> Estimación de los modelos logit y probit</a></li>
-<li class="chapter" data-level="4.2.3" data-path="scoring-de-credito.html"><a href="scoring-de-credito.html#interpretacion-del-modelo"><i class="fa fa-check"></i><b>4.2.3</b> Interpretación del modelo</a></li>
-<li class="chapter" data-level="4.2.4" data-path="scoring-de-credito.html"><a href="scoring-de-credito.html#relacion-entre-el-score-y-el-riesgo"><i class="fa fa-check"></i><b>4.2.4</b> Relación entre el score y el riesgo</a></li>
-<li class="chapter" data-level="4.2.5" data-path="scoring-de-credito.html"><a href="scoring-de-credito.html#uso-de-modelos-lineales-para-la-seleccion-de-variables-metodos-de-busqueda-secuencial."><i class="fa fa-check"></i><b>4.2.5</b> Uso de modelos lineales para la selección de variables (Métodos de búsqueda secuencial).</a></li>
+<li class="chapter" data-level="4.1" data-path="scoring-de-credito.html"><a href="scoring-de-credito.html#estructura-del-scoring-de-credito"><i class="fa fa-check"></i><b>4.1</b> Estructura del Scoring de Crédito</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="scoring-de-credito.html"><a href="scoring-de-credito.html#los-modelos-probit-y-logit."><i class="fa fa-check"></i><b>4.1.1</b> Los modelos probit y logit.</a></li>
+<li class="chapter" data-level="4.1.2" data-path="scoring-de-credito.html"><a href="scoring-de-credito.html#interpretacion-del-modelo"><i class="fa fa-check"></i><b>4.1.2</b> Interpretación del modelo</a></li>
+<li class="chapter" data-level="4.1.3" data-path="scoring-de-credito.html"><a href="scoring-de-credito.html#relacion-entre-el-score-y-el-riesgo"><i class="fa fa-check"></i><b>4.1.3</b> Relación entre el score y el riesgo</a></li>
+<li class="chapter" data-level="4.1.4" data-path="scoring-de-credito.html"><a href="scoring-de-credito.html#uso-de-modelos-lineales-para-la-seleccion-de-variables-metodos-de-busqueda-secuencial."><i class="fa fa-check"></i><b>4.1.4</b> Uso de modelos lineales para la selección de variables (Métodos de búsqueda secuencial).</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="creditrisk.html"><a href="creditrisk.html"><i class="fa fa-check"></i><b>5</b> CreditRisk+</a><ul>
@@ -199,13 +161,6 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="7.14.1" data-path="manual-tecnico-de-la-aplicacion-vision-creditrisk.html"><a href="manual-tecnico-de-la-aplicacion-vision-creditrisk.html#raroc"><i class="fa fa-check"></i><b>7.14.1</b> RAROC</a></li>
 </ul></li>
 </ul></li>
-<li class="appendix"><span><b>Apéndice</b></span></li>
-<li class="chapter" data-level="A" data-path="software-tools.html"><a href="software-tools.html"><i class="fa fa-check"></i><b>A</b> Software Tools</a><ul>
-<li class="chapter" data-level="A.1" data-path="software-tools.html"><a href="software-tools.html#r-and-r-packages"><i class="fa fa-check"></i><b>A.1</b> R and R packages</a></li>
-<li class="chapter" data-level="A.2" data-path="software-tools.html"><a href="software-tools.html#pandoc"><i class="fa fa-check"></i><b>A.2</b> Pandoc</a></li>
-<li class="chapter" data-level="A.3" data-path="software-tools.html"><a href="software-tools.html#latex"><i class="fa fa-check"></i><b>A.3</b> LaTeX</a></li>
-</ul></li>
-<li class="chapter" data-level="" data-path="referencias.html"><a href="referencias.html"><i class="fa fa-check"></i>Referencias</a></li>
 <li class="divider"></li>
 <li><a href="https://bookdown.org" target="blank">Publicado con bookdown</a></li>
 
@@ -512,11 +467,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </tbody>
 </table>
 <p>De esta forma para obtener la pérdida esperada se procede a multiplicar la pérdida esperada de una calificación por la probabilidad de que el crédito caiga en la respectiva calificación y luego se realiza la suma global, de la siguiente forma:</p>
-<span class="math display">\[\begin{align*} 
+<p><span class="math display">\[\begin{align*} 
 PE = (0.25*0.04)+(7.5*0.05)&amp; \\
 &amp;+(12.5*0.09)+(22.5*0.15)+(45*0.44)&amp;\\
 &amp;+(62.5*0.18) +(100*0.05)=40.93
-\end{align*}\]</span>
+\end{align*}\]</span></p>
 <p>Así la pérdida esperada de una cartera de un solo crédito de calificación BB de una exposición de 250 es de 40.935. Ahora para calcular el VaR a un nivel de confianza en especifico por ejemplo al 5% simplemente sumamos las probabilidad de manera descendentes de las calificaciones hasta llegar 95 en el caso de que se pase se toma la calificación en la cual ocurre el exceso, en nuestro ejemplo el VaR ocurre en la calificación B, así el <span class="math inline">\(VaR_{5\%}=62.5\)</span>.</p>
 <p>En general, se suele pensar que una aproximación normal a la distribución de pérdidas puede ser idonea, pero esto es incorrecto pues suele ocurrir que las probabilidades de transición se concentren en los extremos de las calificaciones, esto se verá en el siguiente ejemplo.</p>
 </div>
@@ -610,11 +565,11 @@ PE = (0.25*0.04)+(7.5*0.05)&amp; \\
 </tbody>
 </table>
 <p>Ahora de igual forma para obtener la paérdida esperada procedemos con el siguiente cálculo.</p>
-<span class="math display">\[\begin{align*} 
+<p><span class="math display">\[\begin{align*} 
 PE = (0.3*0.15)+(9*0.48)&amp; \\
 &amp;+(15*0.15)+(27*0.12)+(54*0.05)&amp;\\
 &amp;+(75*0.04) +(120*0.01)=16.75
-\end{align*}\]</span>
+\end{align*}\]</span></p>
 <p>Para cálcular el valor en riesgo al 95% es suficiente tomar la pérdida esperada de la calificación BB, así el <span class="math inline">\(VaR_{95\%}=54\)</span>.</p>
 <p>Con este ejemplo podemos notar que la distribución normal no se ajusta de manera adecuada a la distribución de pérdidas, pues esta concentrada en un extremo de las pérdidas por calificación.</p>
 </div>
@@ -836,7 +791,7 @@ PE = (0.3*0.15)+(9*0.48)&amp; \\
 <h4><span class="header-section-number">6.4.1.2</span> Ejemplo: Gotas de lluvia para estimar <span class="math inline">\(\pi\)</span></h4>
 <p>Consideremos un círculo de radio unidad circunscrito por un cuadrado. Suponiendo una lluvia uniforme sobre el cuadrado, podemos hallar el valor de <span class="math inline">\(\pi\)</span> a partir de la probabilidad de que las gotas caigan dentro del círculo (próxima figura)</p>
 <div class="figure">
-<img src="/Users/arturocarreno/Riesgo_de_Credito/circulo.png" alt="" />
+<img src="~/Riesgo_de_Credito/bookdown/circulo.png" alt="" />
 <p class="caption"></p>
 </div>
 <p>Sea <span class="math inline">\(P\)</span> dicha probabilidad, por calculo:</p>
@@ -873,7 +828,8 @@ PE = (0.3*0.15)+(9*0.48)&amp; \\
 </div>
 <div id="obtencion-de-las-metricas-de-riesgo." class="section level4">
 <h4><span class="header-section-number">6.4.1.5</span> Obtención de las métricas de riesgo.</h4>
-<p>Una ves realizadas las simulaciones y obtenida la aproximación de la distribución de pérdidas usando la aproximación normal es facil obtener las métricas de riesgo, pues estas ya estan definidas para la distribución normal. Si la distribucion de pérdidas es como una normal de media <span class="math inline">\(\mu\)</span> y desvianción estandasr <span class="math inline">\(\sigma\)</span> las métricas de riesgo son: <span class="math display">\[\textrm{Pérdida esperada}=\mu\]</span>,<span class="math display">\[VaR_{p}=\mu+\sigma\Phi^{-1}(p)\]</span>,<span class="math display">\[TVaR_p=\mu+\sigma\frac{\phi[\Phi^{-1(p)}]}{1-p}\]</span> Donde <span class="math inline">\(\phi\)</span> y <span class="math inline">\(\Phi\)</span> representan la función de densidad de probabilidad y la función de probabilidad acumulada de una normal estandar.</p>
+<p>Una ves realizadas las simulaciones y obtenida la aproximación de la distribución de pérdidas usando la aproximación normal es facil obtener las métricas de riesgo, pues estas ya estan definidas para la distribución normal. Si la distribucion de pérdidas es como una normal de media <span class="math inline">\(\mu\)</span> y desvianción estandasr <span class="math inline">\(\sigma\)</span> las métricas de riesgo son: <span class="math display">\[\textrm{Pérdida esperada}=\mu\]</span>,<span class="math display">\[VaR_{p}=\mu+\sigma\Phi^{-1}(p)\]</span>,<span class="math display">\[TVaR_p=\mu+\sigma\frac{\phi[\Phi^{-1(p)}]}{1-p}\]</span>
+Donde <span class="math inline">\(\phi\)</span> y <span class="math inline">\(\Phi\)</span> representan la función de densidad de probabilidad y la función de probabilidad acumulada de una normal estandar.</p>
 
 
 </div>
@@ -912,7 +868,7 @@ gitbook.start({
 "google": false,
 "linkedin": false,
 "weibo": false,
-"instapper": false,
+"instapaper": false,
 "vk": false,
 "all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
 },
@@ -924,6 +880,10 @@ gitbook.start({
 "edit": {
 "link": "https://github.com/synergyvision/Teoria-de-Portafolio/edit/master/bookdown/302-creditmetrics.Rmd",
 "text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
 },
 "download": ["Riesgo-de-Credito.pdf"],
 "toc": {
@@ -938,8 +898,8 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    var src = "";
-    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:" && /^https?:/.test(src))
       src = src.replace(/^https?:/, '');
     script.src = src;

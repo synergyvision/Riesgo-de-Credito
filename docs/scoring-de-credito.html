@@ -5,11 +5,11 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Riesgo de Crédito</title>
-  <meta name="description" content="Riesgo de Crédito">
-  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+  <title>Capítulo 4 Scoring de credito | Riesgo de Crédito</title>
+  <meta name="description" content="Capítulo 4 Scoring de credito | Riesgo de Crédito>
+  <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="Riesgo de Crédito" />
+  <meta property="og:title" content="Capítulo 4 Scoring de credito | Riesgo de Crédito />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="http://synergy.vision/Riesgo-de-Credito/" />
   <meta property="og:image" content="http://synergy.vision/Riesgo-de-Credito/images/cover.png" />
@@ -17,7 +17,7 @@
   <meta name="github-repo" content="synergyvision/Riesgo-de-Credito/" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Riesgo de Crédito" />
+  <meta name="twitter:title" content="Capítulo 4 Scoring de credito | Riesgo de Crédito />
   
   
   <meta name="twitter:image" content="http://synergy.vision/Riesgo-de-Credito/images/cover.png" />
@@ -25,7 +25,7 @@
 <meta name="author" content="Synergy Vision">
 
 
-<meta name="date" content="2019-05-06">
+<meta name="date" content="2019-09-28">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -36,6 +36,7 @@
 <link rel="next" href="creditrisk.html">
 <script src="libs/jquery/jquery.min.js"></script>
 <link href="libs/gitbook/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook/css/plugin-bookdown.css" rel="stylesheet" />
 <link href="libs/gitbook/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook/css/plugin-search.css" rel="stylesheet" />
@@ -50,43 +51,6 @@
 <script src="https://cdn.datacamp.com/datacamp-light-latest.min.js"></script>
 
 
-<style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-</style>
 
 <link rel="stylesheet" href="css/style.css" type="text/css" />
 </head>
@@ -135,13 +99,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="3.7" data-path="conceptos-de-la-gestion-del-riesgo-de-credito.html"><a href="conceptos-de-la-gestion-del-riesgo-de-credito.html#matriz-de-transicion"><i class="fa fa-check"></i><b>3.7</b> Matriz de transición</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="scoring-de-credito.html"><a href="scoring-de-credito.html"><i class="fa fa-check"></i><b>4</b> Scoring de credito</a><ul>
-<li class="chapter" data-level="4.1" data-path="scoring-de-credito.html"><a href="scoring-de-credito.html#estructura-del-scoring-de-credito"><i class="fa fa-check"></i><b>4.1</b> Estructura del Scoring de Crédito</a></li>
-<li class="chapter" data-level="4.2" data-path="scoring-de-credito.html"><a href="scoring-de-credito.html#el-modelo-de-probabilidad-lineal"><i class="fa fa-check"></i><b>4.2</b> El modelo de probabilidad lineal</a><ul>
-<li class="chapter" data-level="4.2.1" data-path="scoring-de-credito.html"><a href="scoring-de-credito.html#los-modelos-probit-y-logit."><i class="fa fa-check"></i><b>4.2.1</b> Los modelos probit y logit.</a></li>
-<li class="chapter" data-level="4.2.2" data-path="scoring-de-credito.html"><a href="scoring-de-credito.html#estimacion-de-los-modelos-logit-y-probit"><i class="fa fa-check"></i><b>4.2.2</b> Estimación de los modelos logit y probit</a></li>
-<li class="chapter" data-level="4.2.3" data-path="scoring-de-credito.html"><a href="scoring-de-credito.html#interpretacion-del-modelo"><i class="fa fa-check"></i><b>4.2.3</b> Interpretación del modelo</a></li>
-<li class="chapter" data-level="4.2.4" data-path="scoring-de-credito.html"><a href="scoring-de-credito.html#relacion-entre-el-score-y-el-riesgo"><i class="fa fa-check"></i><b>4.2.4</b> Relación entre el score y el riesgo</a></li>
-<li class="chapter" data-level="4.2.5" data-path="scoring-de-credito.html"><a href="scoring-de-credito.html#uso-de-modelos-lineales-para-la-seleccion-de-variables-metodos-de-busqueda-secuencial."><i class="fa fa-check"></i><b>4.2.5</b> Uso de modelos lineales para la selección de variables (Métodos de búsqueda secuencial).</a></li>
+<li class="chapter" data-level="4.1" data-path="scoring-de-credito.html"><a href="scoring-de-credito.html#estructura-del-scoring-de-credito"><i class="fa fa-check"></i><b>4.1</b> Estructura del Scoring de Crédito</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="scoring-de-credito.html"><a href="scoring-de-credito.html#los-modelos-probit-y-logit."><i class="fa fa-check"></i><b>4.1.1</b> Los modelos probit y logit.</a></li>
+<li class="chapter" data-level="4.1.2" data-path="scoring-de-credito.html"><a href="scoring-de-credito.html#interpretacion-del-modelo"><i class="fa fa-check"></i><b>4.1.2</b> Interpretación del modelo</a></li>
+<li class="chapter" data-level="4.1.3" data-path="scoring-de-credito.html"><a href="scoring-de-credito.html#relacion-entre-el-score-y-el-riesgo"><i class="fa fa-check"></i><b>4.1.3</b> Relación entre el score y el riesgo</a></li>
+<li class="chapter" data-level="4.1.4" data-path="scoring-de-credito.html"><a href="scoring-de-credito.html#uso-de-modelos-lineales-para-la-seleccion-de-variables-metodos-de-busqueda-secuencial."><i class="fa fa-check"></i><b>4.1.4</b> Uso de modelos lineales para la selección de variables (Métodos de búsqueda secuencial).</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="creditrisk.html"><a href="creditrisk.html"><i class="fa fa-check"></i><b>5</b> CreditRisk+</a><ul>
@@ -199,13 +161,6 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="7.14.1" data-path="manual-tecnico-de-la-aplicacion-vision-creditrisk.html"><a href="manual-tecnico-de-la-aplicacion-vision-creditrisk.html#raroc"><i class="fa fa-check"></i><b>7.14.1</b> RAROC</a></li>
 </ul></li>
 </ul></li>
-<li class="appendix"><span><b>Apéndice</b></span></li>
-<li class="chapter" data-level="A" data-path="software-tools.html"><a href="software-tools.html"><i class="fa fa-check"></i><b>A</b> Software Tools</a><ul>
-<li class="chapter" data-level="A.1" data-path="software-tools.html"><a href="software-tools.html#r-and-r-packages"><i class="fa fa-check"></i><b>A.1</b> R and R packages</a></li>
-<li class="chapter" data-level="A.2" data-path="software-tools.html"><a href="software-tools.html#pandoc"><i class="fa fa-check"></i><b>A.2</b> Pandoc</a></li>
-<li class="chapter" data-level="A.3" data-path="software-tools.html"><a href="software-tools.html#latex"><i class="fa fa-check"></i><b>A.3</b> LaTeX</a></li>
-</ul></li>
-<li class="chapter" data-level="" data-path="referencias.html"><a href="referencias.html"><i class="fa fa-check"></i>Referencias</a></li>
 <li class="divider"></li>
 <li><a href="https://bookdown.org" target="blank">Publicado con bookdown</a></li>
 
@@ -241,86 +196,83 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 P_i = Pr(Y_i=1|\Omega_i)
 \tag{4.1} 
 \end{equation}
-\]</span> Dado que <span class="math inline">\(Y_i\)</span> toma los valores 0 y 1, la esperanza de <span class="math inline">\(Y_i\)</span> condicional en <span class="math inline">\(\Omega_i\)</span> es: <span class="math display" id="eq:ecuacion2">\[E(Y_i|\Omega_i)=(1*P_i)+(0*(1-P_i))=P_i=Pr(Y_i=1|\Omega_i)
-\tag{4.2}\]</span></p>
+\]</span>
+Dado que <span class="math inline">\(Y_i\)</span> toma los valores 0 y 1, la esperanza de <span class="math inline">\(Y_i\)</span> condicional en <span class="math inline">\(\Omega_i\)</span> es: <span class="math display">\[E(Y_i|\Omega_i)=(1*P_i)+(0*(1-P_i))=P_i=Pr(Y_i=1|\Omega_i)
+(\#eq:ecuacion2)\]</span></p>
 <p>En consecuencia, cuando la variable a explicar es binaria, su esperanza condicional es la probabilidad condicional de ocurrencia del evento.</p>
-</div>
-<div id="el-modelo-de-probabilidad-lineal" class="section level2">
-<h2><span class="header-section-number">4.2</span> El modelo de probabilidad lineal</h2>
+<p>##El modelo de probabilidad lineal</p>
 <p>Supóngase que <span class="math inline">\(\Omega_i\)</span> está constituido por un vector columna <span class="math inline">\(X_i\)</span> compuesto por <span class="math inline">\(k\)</span> variables explicativas, incluyendo a la ordenada al origen, <span class="math inline">\(\beta\)</span> es un vector columna que contiene los parámetros correspondientes a las variables explicativas, y que se intenta modelar a la variable <span class="math inline">\(Y_i\)</span> a través del modelo de probabilidad lineal, postulando la siguiente relación:</p>
 <p><span class="math display" id="eq:ecuacion3">\[Y_i=\beta^TX_i+\epsilon_i,\quad\textrm{donde}\quad E(\epsilon_i|X_i)=0\quad \textrm{y}\quad E(\epsilon_i)=0 
-\tag{4.3}\]</span></p>
-<p>y usando <a href="scoring-de-credito.html#eq:ecuacion2">(4.2)</a></p>
+\tag{4.2}\]</span></p>
+<p>y usando <a href="#eq:ecuacion2">(<strong>??</strong>)</a></p>
 <p><span class="math display" id="eq:ecuacion4">\[E(Y_i|X_i)=P_i=\beta^TX_i
-\tag{4.4}\]</span></p>
-<p>El modelo de probabilidad lineal, como se observa en la ecuación <a href="scoring-de-credito.html#eq:ecuacion3">(4.3)</a>, implica estimar un modelo lineal en los parámetros para <span class="math inline">\(Y_i\)</span>. Los valores predichos deberían en su mayoría ubicarse en el intervalo <span class="math inline">\([0,1]\)</span>, pudiendo ser interpretados como la probabilidad de que la variable a explicar tome alguno de estos valores.</p>
+\tag{4.3}\]</span></p>
+<p>El modelo de probabilidad lineal, como se observa en la ecuación <a href="scoring-de-credito.html#eq:ecuacion3">(4.2)</a>, implica estimar un modelo lineal en los parámetros para <span class="math inline">\(Y_i\)</span>. Los valores predichos deberían en su mayoría ubicarse en el intervalo <span class="math inline">\([0,1]\)</span>, pudiendo ser interpretados como la probabilidad de que la variable a explicar tome alguno de estos valores.</p>
 <p>Mientras que su estimación e interpretación es simple, su utilización se ha visto desalentada por dos problemas en la metodología. En primer lugar, como la esperanza condicionada de <span class="math inline">\(Y_i\)</span> es igual a la probabilidad condicionada de ocurrencia del evento (de <span class="math inline">\(Y_i=1\)</span>), ella debería estar restringida al intervalo <span class="math inline">\([0,1]\)</span>. Sin embargo, el modelo lineal no impone ninguna restricción sobre <span class="math inline">\(\beta^TX_i\)</span>i, asumiendo implícitamente que la variable dependiente puede tomar cualquier valor. Es por esto que el modelo puede estimar probabilidades negativas o mayores que uno, lo cual carece de significado económico. A su vez, el término de error de este modelo no es homocedástico, ya que la varianza condicional varía según las observaciones, por lo que las estimaciones de <span class="math inline">\(\beta\)</span> no son eficientes.</p>
 <p>Para resolver estos inconvenientes hay modelos econométricos, generalmente estimados por máxima verosimilitud, que tienen en cuenta la naturaleza discreta de la variable dependiente: se trata de los modelos de respuesta o elección binaria. Ellos utilizan ciertas funciones de distribución para la innovación, con el objetivo de limitar las probabilidades estimadas al intervalo [0,1]: las más usadas son la función de probabilidad acumulada normal estándar y la función logística. Cuando se usa la normal estándar se trata de un modelo probit, y logit cuando se usa la función logística.</p>
 <div id="los-modelos-probit-y-logit." class="section level3">
-<h3><span class="header-section-number">4.2.1</span> Los modelos probit y logit.</h3>
+<h3><span class="header-section-number">4.1.1</span> Los modelos probit y logit.</h3>
 <p>El modelo probit es una de varias alternativas para estimar modelos de respuesta binaria. La idea consiste en utilizar una función de transformación F(x) que tenga las siguientes propiedades:</p>
 <p><span class="math display" id="eq:ecuacion5">\[F(-\infty)=0, \quad F(\infty)=1\quad\textrm{y}\quad f(x)\equiv\frac{dF(x)}{dx}&gt;0
-\tag{4.5}\]</span></p>
+\tag{4.4}\]</span></p>
 <p><span class="math inline">\(F(x)\)</span> es una función monótona creciente que mapea de la línea real al intervalo [0,1]. Varias funciones de distribución acumulada tienen estas propiedades: la normal, la logística, la de Cauchy y la de Burr, entre otras. Estas distintas alternativas para los modelos de respuesta binaria consisten en una función de transformación F(x) aplicada a una función índice que depende de las variables explicativas del modelo y que tiene las propiedades de una función de regresión, pudiendo ser lineal o no lineal.</p>
 <p>La siguiente es una especificación general para cualquiera de los modelos de elección binaria:</p>
 <p><span class="math display" id="eq:ecuacion6">\[E(Y_i|\Omega_i)=F(h(X_i))
-\tag{4.6}\]</span></p>
+\tag{4.5}\]</span></p>
 <p>Donde <span class="math inline">\(h\)</span> es la función índice.</p>
 <p>Si bien <span class="math inline">\(h\)</span> puede ser cualquier función, en general se usa una función lineal, es decir:</p>
 <p><span class="math display" id="eq:ecuacion7">\[E(Y_i|\Omega_i)=F(\beta^TX_i)
-\tag{4.7}\]</span></p>
-<p>Por lo cual el modelo de elección binaria es simplemente una transformación no lineal de una regresión lineal, y si bien <span class="math inline">\(\beta^TX_i\)</span> puede tomar cualquier valor sobre la línea real, <span class="math inline">\(F(\beta^TX_i)\)</span> está limitado al intervalo [0,1]. En el modelo probit, la función de transformación <span class="math inline">\(F(x)\)</span> es la función de distribución acumulada normal estándar, y por definición satisface las condiciones impuestas en <a href="scoring-de-credito.html#eq:ecuacion5">(4.5)</a>. En este caso, el modelo de elección binaria puede escribirse de la siguiente manera:</p>
+\tag{4.6}\]</span></p>
+<p>Por lo cual el modelo de elección binaria es simplemente una transformación no lineal de una regresión lineal, y si bien <span class="math inline">\(\beta^TX_i\)</span> puede tomar cualquier valor sobre la línea real, <span class="math inline">\(F(\beta^TX_i)\)</span> está limitado al intervalo [0,1]. En el modelo probit, la función de transformación <span class="math inline">\(F(x)\)</span> es la función de distribución acumulada normal estándar, y por definición satisface las condiciones impuestas en <a href="scoring-de-credito.html#eq:ecuacion5">(4.4)</a>. En este caso, el modelo de elección binaria puede escribirse de la siguiente manera:</p>
 <p><span class="math display" id="eq:ecuacion8">\[P_i=E(Y_i|\Omega_i)=F(\beta^TX_i)=\Phi(\beta^TX_i)=\int_{-\infty}^{\frac{\beta^TX_i}{\sigma}}\frac{e^{\frac{-s^2}{2}}}{\sqrt{2\pi}}ds
-\tag{4.8}\]</span></p>
+\tag{4.7}\]</span></p>
 <p>Cuando se trata del modelo logit, <span class="math inline">\(F(x)\)</span> es la función logística y el modelo de respuesta binaria se escribe como:</p>
 <p><span class="math display" id="eq:ecuacion9">\[P_i=E(Y_i|\Omega_i)=F(\beta^TX_i)=\Phi(\beta^TX_i)=\frac{e^{\beta^TX_i}}{1+e^{\beta^TX_i}}
-\tag{4.9}\]</span></p>
+\tag{4.8}\]</span></p>
 <p>Los modelos probit y logit pueden ser derivados de otro modelo que introduce una variable no observada o latente <span class="math inline">\(y^*\)</span>, de la siguiente manera. Sea:</p>
 <p><span class="math display" id="eq:ecuacion10">\[y^*_i=\beta^TX_i+\epsilon_i, \quad \textrm{con} \quad \epsilon_i\sim iid(0,1)
-\tag{4.10}\]</span></p>
+\tag{4.9}\]</span></p>
 <p>Si bien <span class="math inline">\(y^*\)</span> no se observa, decimos que:</p>
 <p><span class="math display" id="eq:ecuacion11">\[Y_i=1\quad\quad\textrm{si} \quad y^*&gt;0 \quad \textrm{y} \quad Y_i=0\quad\quad\textrm{si} \quad y^*&lt;0
-\tag{4.11}\]</span></p>
+\tag{4.10}\]</span></p>
 <p>Luego, la probabilidad que <span class="math inline">\(Y_i=1\)</span> viene dada por:</p>
-<span class="math display">\[\begin{equation} \label{eq1}
+<p><span class="math display">\[\begin{equation} \label{eq1}
 \begin{split}
 P(Y_i=1) &amp; = P(y_i^*&gt;0)=P(\beta^TX_i+\epsilon_i&gt;0)= 1-P(\beta^TX_i+\epsilon_i\leq 0)=1-P(\epsilon_i\leq -\beta^TX_i)\\
  &amp; = 1-F(-\beta^TX_i)=F(\beta^TX_i)
 \end{split}
-\end{equation}\]</span>
+\end{equation}\]</span></p>
 <p>ya que se supone que εi tiene una distribución simétrica. Cuando <span class="math inline">\(\epsilon_i ~ N(0,1)\)</span> <span class="math inline">\(F\)</span> es <span class="math inline">\(\Phi\)</span>, la función de distribución de probabilidades acumuladas normal estándar y se trata del modelo probit, mientras que si F es la función logística se trata de un modelo logit y su densidad también es simétrica alrededor de cero.</p>
-</div>
-<div id="estimacion-de-los-modelos-logit-y-probit" class="section level3">
-<h3><span class="header-section-number">4.2.2</span> Estimación de los modelos logit y probit</h3>
+<p>###Estimación de los modelos logit y probit</p>
 <p>La estimación de estos modelos se hace por el método de máxima verosimilitud. Con métodos numéricos se buscan los valores de <span class="math inline">\(\beta\)</span> que maximizan la siguiente función logarítmica de verosimilitud:</p>
 <p><span class="math display" id="eq:ecuacion12">\[l(\beta)=\sum^{n}_{i=1}\big{(}Y_ilog\big{(}F\big{(}\beta^TX_i\big{)}\big{)}+\big{(}1-Y_i\big{)}log\big{(}1-F\big{(}\beta^TX_i\big{)}\big{)}\big{)}
-\tag{4.12}\]</span></p>
-<p>Las condiciones de primer orden para un máximo en <a href="scoring-de-credito.html#eq:ecuacion12">(4.12)</a> son:</p>
+\tag{4.11}\]</span></p>
+<p>Las condiciones de primer orden para un máximo en <a href="scoring-de-credito.html#eq:ecuacion12">(4.11)</a> son:</p>
 <p><span class="math display" id="eq:ecuacion13">\[\sum_{i=1}^n\frac{(Y_i-\hat{F_i)}\hat{f_i}X_{ij}}{\hat{F_i}(1-\hat{F_i})}=0,\quad j=1,...,k
-\tag{4.13}\]</span></p>
+\tag{4.12}\]</span></p>
 <p>donde <span class="math inline">\(\hat{F_i}\equiv F_i(b^TX_i) \quad \textrm{y} \quad \hat{f_i}\equiv f_i(b^TX_i)\)</span></p>
 <p>Los modelos probit, logit y otros tipos de modelos de respuesta binaria satisfacen las condiciones de regularidad necesarias para que las estimaciones de los parámetros sean consistentes y asintóticamente normales, con la matriz de covarianzas asintótica dada por la inversa de la matriz de información.</p>
 </div>
 <div id="interpretacion-del-modelo" class="section level3">
-<h3><span class="header-section-number">4.2.3</span> Interpretación del modelo</h3>
+<h3><span class="header-section-number">4.1.2</span> Interpretación del modelo</h3>
 <p>En el contexto de los modelos de credit scoring se puede asociar <span class="math inline">\(\beta^TX_i\)</span> a la calidad crediticia del individuo (variable latente o no observada). Cambiando su denominación por <span class="math inline">\(Z_i\)</span>, esta variable representa la calidad crediticia del individuo, que se puede suponer el resultado de una función lineal en sus parámetros, como por ejemplo:</p>
 <p><span class="math display" id="eq:ecuacion14">\[Z_i=\beta_0+\beta_1X_{1j}+\beta_2X_{2j}+...+\epsilon_i
-\tag{4.14}\]</span></p>
+\tag{4.13}\]</span></p>
 <p>Las estimaciones de los parámetros <span class="math inline">\(\beta_j\)</span> se obtienen por máxima verosimilitud como se explicó en los párrafos anteriores, y las variables <span class="math inline">\(X_j\)</span> contienen la información de los deudores. Habiendo obtenido las estimaciones <span class="math inline">\(b_j\)</span>, el modelo empírico con el que trabajará el analista de riesgo es,</p>
 <p><span class="math display" id="eq:ecuacion15">\[Z_i=\beta_0+\beta_1X_{1j}+\beta_2X_{2j}+\beta_3X_{3j}
-\tag{4.15}\]</span></p>
+\tag{4.14}\]</span></p>
 <p>cuando se trata de un modelo que emplea cinco variables (<span class="math inline">\(j=5\)</span>). La variable <span class="math inline">\(z_i\)</span> es el score estimado del deudor, una medida de su calidad crediticia obtenida a partir de los parámetros estimados y de su propia información. Este score, aplicado a las funciones de distribución de probabilidades acumuladas normal o logística, permite conocer la probabilidad de incumplimiento y en consecuencia el riesgo del deudor.</p>
 </div>
 <div id="relacion-entre-el-score-y-el-riesgo" class="section level3">
-<h3><span class="header-section-number">4.2.4</span> Relación entre el score y el riesgo</h3>
+<h3><span class="header-section-number">4.1.3</span> Relación entre el score y el riesgo</h3>
 <p>Habiendo definido al score, como <span class="math display">\[P(Y_i=1)=F(Z_i)\]</span> y <span class="math display">\[P(Y_i=0)=1-F(Z_i)\]</span></p>
 <p>donde queda claro que cambios en <span class="math inline">\(Z_i\)</span> implican cambios en la probabilidad de incumplimiento (PD) del individuo. La relación entre score y riesgo (la PD) no es lineal, por lo que el cambio en el riesgo derivado de un cambio en el score depende de los valores que este último tome. Para valores del score muy bajos, un aumento en el mismo produce una rápida subida en la probabilidad de cumplimiento y una rápida disminución de la PD, mientras que para valores del score altos, una mejora en el mismo hace que la probabilidad de incumplimiento aumente poco y genera una leve caída en el riesgo. Es decir, cuanto mayor es el score, menor es la caída en el riesgo derivada de un aumento en el primero.</p>
 </div>
 <div id="uso-de-modelos-lineales-para-la-seleccion-de-variables-metodos-de-busqueda-secuencial." class="section level3">
-<h3><span class="header-section-number">4.2.5</span> Uso de modelos lineales para la selección de variables (Métodos de búsqueda secuencial).</h3>
+<h3><span class="header-section-number">4.1.4</span> Uso de modelos lineales para la selección de variables (Métodos de búsqueda secuencial).</h3>
 <p>Los métodos de búsqueda secuencial tienen en común la aproximación general de estimación de las ecuaciones de regresión con un conjunto de variables y a continuación añadir o eliminar selectivamente variables hasta que se consiga alguna medida criterio conjunta. Esta aproximación proporciona un método objetivo de selección de variables que maximizan la predicción con el número más pequeño de variables empleadas. Existen dos tipos de aproximaciones de búsqueda secuencial: (1) la estimación por etapas, y (2) la eliminación progresiva y regresiva. En cada aproximación, se valoran las variables individualmente en función de su contribución a la predicción de la variable dependiente y se añaden o eliminan según su contribución relativa.</p>
 <div id="estimacion-por-etapas-paso-a-paso-o-stepwise" class="section level4">
-<h4><span class="header-section-number">4.2.5.1</span> Estimación por etapas (paso a paso o stepwise)</h4>
+<h4><span class="header-section-number">4.1.4.1</span> Estimación por etapas (paso a paso o stepwise)</h4>
 <p>La estimación por etapas es quizá la aproximación más popular para seleccionar variables. Esta aproximación permite examinar la contribución de cada variable predictor al modelo de regresión. Se considera la inclusión de cada variable antes de desarrollar la ecuación. Se añade primero la variable independiente con la contribución más grande. Las variables independientes se seleccionan entonces para la inclusión basada en su contribución incremental sobre la(s) variable(s) ya existente(s) en la ecuación. Las cuestiones específicas en cada etapa son:</p>
 <ol style="list-style-type: decimal">
 <li><p>Empezar con el modelo de regresión simple en el cual sólo se utiliza la única variable predictor que es la que se muestra más altamente correlacionada con la variable criterio. La ecuación sería <span class="math inline">\(Y= \beta_0 Q + \beta_1X_1\)</span>.</p></li>
@@ -330,11 +282,11 @@ P(Y_i=1) &amp; = P(y_i^*&gt;0)=P(\beta^TX_i+\epsilon_i&gt;0)= 1-P(\beta^TX_i+\ep
 </ol>
 </div>
 <div id="la-adicion-progresiva-forward-y-la-eliminacion-regresiva-backward" class="section level4">
-<h4><span class="header-section-number">4.2.5.2</span> La adición progresiva (forward) y la eliminación regresiva (backward)</h4>
+<h4><span class="header-section-number">4.1.4.2</span> La adición progresiva (forward) y la eliminación regresiva (backward)</h4>
 <p>La adición progresiva y la eliminación regresiva son fundamentalmente procesos de ensayo y error para buscar los mejores estimadores de la regresión. El modelo de adición progresiva es similar al procedimiento por etapas arriba explicada, mientras que el procedimiento de eliminación regresiva implica calcular una ecuación de regresión con todas las variables independientes, para a continuación ir eliminando las variables independientes que no contribuyan significativamente. La distinción principal de la aproximación por etapas respecto de los procedimientos de adición progresiva y eliminación regresiva es su capacidad de añadir o eliminar las variables en cada etapa. Una vez que se añade o elimina una variable en las esquemas de adición progresiva o eliminación regresiva, no existe posibilidad de revertir la acción posteriormente.</p>
 </div>
 <div id="advertencias-sobre-los-metodos-de-busqueda-secuenciales" class="section level4">
-<h4><span class="header-section-number">4.2.5.3</span> Advertencias sobre los métodos de búsqueda secuenciales</h4>
+<h4><span class="header-section-number">4.1.4.3</span> Advertencias sobre los métodos de búsqueda secuenciales</h4>
 <p>El investigador debe ser consciente de dos advertencias cuando se usa cualquier procedimiento de búsqueda secueneial. En prim er lugar, la multicolinealidad entre variables independientes puede tener un impacto sustancial sobre la especificación final del modelo. Examinemos esta situación con dos variables altamente correlacionadas que tienen similares correlaciones con la variable independiente. El criterio de inclusión o eliminación en estas aproximaciones es maximizar el incremento de potencia predictiva de la variable adicional. Si una de estas variables entra en el modelo de regresión, es muy probable que la otra variable también entre, dado que estas variables están altamente correlacionadas y existe poca varianza singular para cada variable por separado.</p>
 <p>Por esta razón, se deben evaluar los efectos de la multicolinealidad en la interpretación del modelo y examinar las correlaciones directas de todas las variables independientes potenciales. Esto ayudará a evitar concluir que las variables independientes que no entren en el modelo no sean trascendentes cuando en realidad están altamente relacionadas con la variable dependiente, pero también correlacionadas con las variables ya existentes en el modelo. Aunque las aproximaciones de búsqueda secueneial maximizarán la capacidad predictiva del modelo de regresión, el investigador debe ser cuidadoso en la interpretación del modelo. Una segunda advertencia pertenece principalmente al procedimiento por etapas. En esta aproximación, los test de significación múltiple se realizan en el proceso de estimación del modelo. Para asegurar que la tasa de error conjunto a lo largo de todos los test de significación es razonable, el investigador debería emplear umbrales muy conservadores (por ejemplo, 0,01) al añadir o sacar las variables.</p>
 
@@ -375,7 +327,7 @@ gitbook.start({
 "google": false,
 "linkedin": false,
 "weibo": false,
-"instapper": false,
+"instapaper": false,
 "vk": false,
 "all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
 },
@@ -387,6 +339,10 @@ gitbook.start({
 "edit": {
 "link": "https://github.com/synergyvision/Teoria-de-Portafolio/edit/master/bookdown/300-Scoring.Rmd",
 "text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
 },
 "download": ["Riesgo-de-Credito.pdf"],
 "toc": {
@@ -401,8 +357,8 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    var src = "";
-    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:" && /^https?:/.test(src))
       src = src.replace(/^https?:/, '');
     script.src = src;

@@ -5,11 +5,11 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Riesgo de Crédito</title>
-  <meta name="description" content="Riesgo de Crédito">
-  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+  <title>Capítulo 5 CreditRisk+ | Riesgo de Crédito</title>
+  <meta name="description" content="Capítulo 5 CreditRisk+ | Riesgo de Crédito>
+  <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="Riesgo de Crédito" />
+  <meta property="og:title" content="Capítulo 5 CreditRisk+ | Riesgo de Crédito />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="http://synergy.vision/Riesgo-de-Credito/" />
   <meta property="og:image" content="http://synergy.vision/Riesgo-de-Credito/images/cover.png" />
@@ -17,7 +17,7 @@
   <meta name="github-repo" content="synergyvision/Riesgo-de-Credito/" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Riesgo de Crédito" />
+  <meta name="twitter:title" content="Capítulo 5 CreditRisk+ | Riesgo de Crédito />
   
   
   <meta name="twitter:image" content="http://synergy.vision/Riesgo-de-Credito/images/cover.png" />
@@ -25,7 +25,7 @@
 <meta name="author" content="Synergy Vision">
 
 
-<meta name="date" content="2019-05-06">
+<meta name="date" content="2019-09-28">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -36,6 +36,7 @@
 <link rel="next" href="creditmetrics.html">
 <script src="libs/jquery/jquery.min.js"></script>
 <link href="libs/gitbook/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook/css/plugin-bookdown.css" rel="stylesheet" />
 <link href="libs/gitbook/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook/css/plugin-search.css" rel="stylesheet" />
@@ -50,43 +51,6 @@
 <script src="https://cdn.datacamp.com/datacamp-light-latest.min.js"></script>
 
 
-<style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-</style>
 
 <link rel="stylesheet" href="css/style.css" type="text/css" />
 </head>
@@ -135,13 +99,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="3.7" data-path="conceptos-de-la-gestion-del-riesgo-de-credito.html"><a href="conceptos-de-la-gestion-del-riesgo-de-credito.html#matriz-de-transicion"><i class="fa fa-check"></i><b>3.7</b> Matriz de transición</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="scoring-de-credito.html"><a href="scoring-de-credito.html"><i class="fa fa-check"></i><b>4</b> Scoring de credito</a><ul>
-<li class="chapter" data-level="4.1" data-path="scoring-de-credito.html"><a href="scoring-de-credito.html#estructura-del-scoring-de-credito"><i class="fa fa-check"></i><b>4.1</b> Estructura del Scoring de Crédito</a></li>
-<li class="chapter" data-level="4.2" data-path="scoring-de-credito.html"><a href="scoring-de-credito.html#el-modelo-de-probabilidad-lineal"><i class="fa fa-check"></i><b>4.2</b> El modelo de probabilidad lineal</a><ul>
-<li class="chapter" data-level="4.2.1" data-path="scoring-de-credito.html"><a href="scoring-de-credito.html#los-modelos-probit-y-logit."><i class="fa fa-check"></i><b>4.2.1</b> Los modelos probit y logit.</a></li>
-<li class="chapter" data-level="4.2.2" data-path="scoring-de-credito.html"><a href="scoring-de-credito.html#estimacion-de-los-modelos-logit-y-probit"><i class="fa fa-check"></i><b>4.2.2</b> Estimación de los modelos logit y probit</a></li>
-<li class="chapter" data-level="4.2.3" data-path="scoring-de-credito.html"><a href="scoring-de-credito.html#interpretacion-del-modelo"><i class="fa fa-check"></i><b>4.2.3</b> Interpretación del modelo</a></li>
-<li class="chapter" data-level="4.2.4" data-path="scoring-de-credito.html"><a href="scoring-de-credito.html#relacion-entre-el-score-y-el-riesgo"><i class="fa fa-check"></i><b>4.2.4</b> Relación entre el score y el riesgo</a></li>
-<li class="chapter" data-level="4.2.5" data-path="scoring-de-credito.html"><a href="scoring-de-credito.html#uso-de-modelos-lineales-para-la-seleccion-de-variables-metodos-de-busqueda-secuencial."><i class="fa fa-check"></i><b>4.2.5</b> Uso de modelos lineales para la selección de variables (Métodos de búsqueda secuencial).</a></li>
+<li class="chapter" data-level="4.1" data-path="scoring-de-credito.html"><a href="scoring-de-credito.html#estructura-del-scoring-de-credito"><i class="fa fa-check"></i><b>4.1</b> Estructura del Scoring de Crédito</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="scoring-de-credito.html"><a href="scoring-de-credito.html#los-modelos-probit-y-logit."><i class="fa fa-check"></i><b>4.1.1</b> Los modelos probit y logit.</a></li>
+<li class="chapter" data-level="4.1.2" data-path="scoring-de-credito.html"><a href="scoring-de-credito.html#interpretacion-del-modelo"><i class="fa fa-check"></i><b>4.1.2</b> Interpretación del modelo</a></li>
+<li class="chapter" data-level="4.1.3" data-path="scoring-de-credito.html"><a href="scoring-de-credito.html#relacion-entre-el-score-y-el-riesgo"><i class="fa fa-check"></i><b>4.1.3</b> Relación entre el score y el riesgo</a></li>
+<li class="chapter" data-level="4.1.4" data-path="scoring-de-credito.html"><a href="scoring-de-credito.html#uso-de-modelos-lineales-para-la-seleccion-de-variables-metodos-de-busqueda-secuencial."><i class="fa fa-check"></i><b>4.1.4</b> Uso de modelos lineales para la selección de variables (Métodos de búsqueda secuencial).</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="creditrisk.html"><a href="creditrisk.html"><i class="fa fa-check"></i><b>5</b> CreditRisk+</a><ul>
@@ -199,13 +161,6 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="7.14.1" data-path="manual-tecnico-de-la-aplicacion-vision-creditrisk.html"><a href="manual-tecnico-de-la-aplicacion-vision-creditrisk.html#raroc"><i class="fa fa-check"></i><b>7.14.1</b> RAROC</a></li>
 </ul></li>
 </ul></li>
-<li class="appendix"><span><b>Apéndice</b></span></li>
-<li class="chapter" data-level="A" data-path="software-tools.html"><a href="software-tools.html"><i class="fa fa-check"></i><b>A</b> Software Tools</a><ul>
-<li class="chapter" data-level="A.1" data-path="software-tools.html"><a href="software-tools.html#r-and-r-packages"><i class="fa fa-check"></i><b>A.1</b> R and R packages</a></li>
-<li class="chapter" data-level="A.2" data-path="software-tools.html"><a href="software-tools.html#pandoc"><i class="fa fa-check"></i><b>A.2</b> Pandoc</a></li>
-<li class="chapter" data-level="A.3" data-path="software-tools.html"><a href="software-tools.html#latex"><i class="fa fa-check"></i><b>A.3</b> LaTeX</a></li>
-</ul></li>
-<li class="chapter" data-level="" data-path="referencias.html"><a href="referencias.html"><i class="fa fa-check"></i>Referencias</a></li>
 <li class="divider"></li>
 <li><a href="https://bookdown.org" target="blank">Publicado con bookdown</a></li>
 
@@ -235,9 +190,14 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h2><span class="header-section-number">5.1</span> La distribución del número de incumplimientos con probabilidades de impago fijas.</h2>
 <p>La FGP de números de incumplimientos se define como: <span class="math display">\[F(s)=\sum_{n=0}^{\infty}Prob(n \textrm{ incumplimientos})\textrm{x}s^n\]</span></p>
 <p>Si la cartera tuviera un sólo deudor, lo único que puede suceder es que éste cumpla o incumpla. Por lo tanto, la FGP de incumplimientos para un sólo deudor es simplemente:<span class="math display">\[F_i(s)=(1-p_i)s^0+p_i(s-1)=1+p_i(s-1)\]</span></p>
-<p>Como se considera que los eventos de incumplimiento son independientes, la FGP de toda la cartera es el producto de las FGP individuales, es decir:<span class="math display">\[F(s)=\prod_{i=1}^NF_i(s)=\prod_{i=1}^N\big{[}1+p_i(s-1)\big{]}\]</span> Aplicando logaritmo a ambos lados de la expresión, se obtiene:<span class="math display">\[Ln(F(s))=\sum_{i=1}^NLn\big{[}1+p_i(s-1)\big{]}\]</span> Generalmente, las probabilidades de incumplimiento de obligaciones crediticias a nivel individual son pequeñas y, por lo tanto, las potencias de estas son más pequeñas y pueden ser ignoradas.</p>
-<p>Esto implica que para los valores pequeños de <span class="math inline">\(p_i\)</span>:<span class="math display">\[Ln\big{[}1+p_i(s-1)\big{]}\approx p_i(s-1)\]</span> Lo anterior es el gran supuesto de <strong>CreditRisk+</strong>, que inituitivamente dice que mientras la probabilidad de incumoplimiento se <span class="math inline">\(p_i\)</span> sea “pequeña”, se puede ignorar el hecho de que un deudor no puede incumplir más que una sola vez. Haciendo esta sustitución, se obtiene:<span class="math display">\[Ln(F(s))=\sum_{i=1}^Np_i(s-1)\]</span> Lo anterior conduce directamente a: <span class="math display">\[F(s)=e^{\sum_{i=1}^Np_i(s-1)}=e^{\mu(s-1)};\textrm{ donde } \mu=\sum_{i=1}^Np_i\]</span></p>
-<p>La FGP corresponde a la FGP de la distribución de <em>Poisson</em> con parámetro <span class="math inline">\(\mu\)</span>, a continuación se comprueba esto, usando el desarrollo de Taylor, es decir:<span class="math display">\[F(s)=\sum_{n=}^\infty\mu^ne^{-\mu}s^n\]</span> Por lo tanto, bajo el supuesto que las probabilidades de incumplimientos son bajas, obtenemos que:<span class="math display">\[Prob(\textrm{ número incumplimientos }=n)=\frac{1}{n!}\mu^ne^{-\mu}\]</span></p>
+<p>Como se considera que los eventos de incumplimiento son independientes, la FGP de toda la cartera es el producto de las FGP individuales, es decir:<span class="math display">\[F(s)=\prod_{i=1}^NF_i(s)=\prod_{i=1}^N\big{[}1+p_i(s-1)\big{]}\]</span>
+Aplicando logaritmo a ambos lados de la expresión, se obtiene:<span class="math display">\[Ln(F(s))=\sum_{i=1}^NLn\big{[}1+p_i(s-1)\big{]}\]</span>
+Generalmente, las probabilidades de incumplimiento de obligaciones crediticias a nivel individual son pequeñas y, por lo tanto, las potencias de estas son más pequeñas y pueden ser ignoradas.</p>
+<p>Esto implica que para los valores pequeños de <span class="math inline">\(p_i\)</span>:<span class="math display">\[Ln\big{[}1+p_i(s-1)\big{]}\approx p_i(s-1)\]</span>
+Lo anterior es el gran supuesto de <strong>CreditRisk+</strong>, que inituitivamente dice que mientras la probabilidad de incumoplimiento se <span class="math inline">\(p_i\)</span> sea “pequeña”, se puede ignorar el hecho de que un deudor no puede incumplir más que una sola vez. Haciendo esta sustitución, se obtiene:<span class="math display">\[Ln(F(s))=\sum_{i=1}^Np_i(s-1)\]</span>
+Lo anterior conduce directamente a: <span class="math display">\[F(s)=e^{\sum_{i=1}^Np_i(s-1)}=e^{\mu(s-1)};\textrm{ donde } \mu=\sum_{i=1}^Np_i\]</span></p>
+<p>La FGP corresponde a la FGP de la distribución de <em>Poisson</em> con parámetro <span class="math inline">\(\mu\)</span>, a continuación se comprueba esto, usando el desarrollo de Taylor, es decir:<span class="math display">\[F(s)=\sum_{n=}^\infty\mu^ne^{-\mu}s^n\]</span>
+Por lo tanto, bajo el supuesto que las probabilidades de incumplimientos son bajas, obtenemos que:<span class="math display">\[Prob(\textrm{ número incumplimientos }=n)=\frac{1}{n!}\mu^ne^{-\mu}\]</span></p>
 <p>En la expresión anterior,‘<span class="math inline">\(\mu\)</span>’ es la <em>tasa promedio de incumplimiento</em> y es el único parámetro de la distribución. Como “<span class="math inline">\(N\)</span>”, la distribución es independiente del número de deudores y de las probabilidades individuales de impago, siempre y cuando éstas sean “uniformemente pequeñas”. Sin embargo queda claro que los deudores tengan la misma probabilidad de incumplir. Es más, éstas pueden ser diferentes y el cálculo de la tasa esperado de incumplimiento, sólo depende de la existencia de esta informacíon.</p>
 <p>Para concluir con este tema, es impotante hacer hicapié en que el supuesto clave que permite llegar a la distribución Poisson es cuando un número no-negativo “<span class="math inline">\(y\)</span>” es muy pequeño (<span class="math inline">\(y\approx 0\)</span>), se puede utilizar la aproximación “<span class="math inline">\(Ln(1+y)\approx y\)</span>”. Esta forma exponencial de la FGP de la distribución de Poisson, es la clave de la facilidad de cálculo que tiene <strong>CreditRisk+</strong>.</p>
 <p>Además, es necesario señalar que en todo el análisis anterior hay implícito un período de tiempon que está relacionado con el parámetro de la distribución. Así, la distribución obtenida debe interpretarse de la misma manera, es decir:<span class="math display">\[\frac{1}{n!}\mu^ne^{-\mu}=\textrm{ Probabilidad de que ocurran } n \textrm{ incumplimientos }\]</span></p>
@@ -245,7 +205,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="la-agrupacion-por-bandas-de-exposicion-las-perdidas" class="section level2">
 <h2><span class="header-section-number">5.2</span> La agrupación por bandas de exposición las pérdidas</h2>
 <p>Dado que pueden existir varios deudores que implican niveles de pérdidas semejantes, <strong>CreditRisk+</strong> empieza por agrupar a los deudores por bandas de exposición iguales. Aunque esta agrupación introduce errores de rodondeo en la estimación de la distribución, facilita mucho el desarrollo del modelo y reduce significativamente el número de datos requeridos para realizar los cálculos. Además, si el número de niveles de exposición es grande y el ancho de las bandas es pequeño, en relación con el tamaño de exposición promedio de la cartera, se puede demostrar que el error introducido es despreciable. De hecho, en la práctica es muy difícil determinar <em>a priori</em> el nivel de exposición y, por lo tanto, éste no debe representar un elemento crítico en la estimación del riesgo total de la cartera.</p>
-<p>Así, supóngase que la pérdida esperada por deudor que cae en impago es una proporción fija “<span class="math inline">\(\lambda_i\)</span>” del monto total “<span class="math inline">\(D_i\)</span>” que debe el deudor “<span class="math inline">\(i\)</span>”. A su vez, para mantener la elegancia del modelo, supóngase que el nivel de exposición que representa el deudor para el acreedor “<span class="math inline">\(L_i\)</span>” es un múltiplo entero de una únidad fija de pérdida “<span class="math inline">\(L\)</span>”. Estos múltiplos enteros de <span class="math inline">\(L\)</span> reciben el nombre de “<em>niveles de exposición estandar</em>”. Así la pérdida que puede representar el incumplimiento del deudor “<span class="math inline">\(i\)</span>” para el acreedor, se mide en términos de múltiplos de “<span class="math inline">\(v_i\)</span>”, de la únidad fija de pérdida <span class="math inline">\(L\)</span>, y es simplemente la cantidad siguiente:<span class="math display">\[v_i=\textrm{ Redondeo }\bigg{(}\frac{\lambda D_i}{L}\bigg{)}\]</span> De esto se obtiene el nivel estándar de exposición que representa cada deudor para el acreedor, mediante la identidad siguiente:<span class="math display">\[L_i=L_{v_i}\]</span></p>
+<p>Así, supóngase que la pérdida esperada por deudor que cae en impago es una proporción fija “<span class="math inline">\(\lambda_i\)</span>” del monto total “<span class="math inline">\(D_i\)</span>” que debe el deudor “<span class="math inline">\(i\)</span>”. A su vez, para mantener la elegancia del modelo, supóngase que el nivel de exposición que representa el deudor para el acreedor “<span class="math inline">\(L_i\)</span>” es un múltiplo entero de una únidad fija de pérdida “<span class="math inline">\(L\)</span>”. Estos múltiplos enteros de <span class="math inline">\(L\)</span> reciben el nombre de “<em>niveles de exposición estandar</em>”. Así la pérdida que puede representar el incumplimiento del deudor “<span class="math inline">\(i\)</span>” para el acreedor, se mide en términos de múltiplos de “<span class="math inline">\(v_i\)</span>”, de la únidad fija de pérdida <span class="math inline">\(L\)</span>, y es simplemente la cantidad siguiente:<span class="math display">\[v_i=\textrm{ Redondeo }\bigg{(}\frac{\lambda D_i}{L}\bigg{)}\]</span>
+De esto se obtiene el nivel estándar de exposición que representa cada deudor para el acreedor, mediante la identidad siguiente:<span class="math display">\[L_i=L_{v_i}\]</span></p>
 </div>
 <div id="la-determinacion-de-la-distribucion-de-perdidas-de-la-cartera." class="section level2">
 <h2><span class="header-section-number">5.3</span> La determinación de la <em>distribución de pérdidas</em> de la cartera.</h2>
@@ -258,12 +219,16 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="obteniendo-la-distribucion-de-las-perdidas" class="section level2">
 <h2><span class="header-section-number">5.4</span> Obteniendo la distribución de las pérdidas</h2>
 <p>Aunque a diferencia de la distribución del número de incumplimientos, en el caso de las pérdidas no se sabe la forma de la distribución, la probabilidad de que se pierdan <span class="math inline">\(n\)</span> unidades de <span class="math inline">\(L\)</span> en la cartera total de créditos se puede obtener mediante la expansión de Taylor de la expresión anterior; es decir: la probabilidad de quen se pierdan <span class="math inline">\(n\)</span> unidades <span class="math inline">\(L\)</span> es el coeficiente de <span class="math inline">\(s^n\)</span> en la expansión de Taylor. El desarrollo se facilita definiendo el polinomio siguiente:<span class="math display">\[P(s)=\frac{1}{\mu}\sum_{j=1}^m\mu_js^{v_j}=\frac{\sum_{j=1}^m\frac{\epsilon_j}{{v_j}}s^{v_j}}{\sum_{j=1}^m\frac{\epsilon_j}{{v_j}}}\]</span> donde <span class="math inline">\(\epsilon_j\)</span> es la pardida esperada de la banda <span class="math inline">\(j\)</span> y <span class="math inline">\(v_j\)</span> es la exposición común que comparten los deudores de la banda <span class="math inline">\(j\)</span>.</p>
-<p>Con esto, la FGP de pérdidas se puede expresar de la forma siguiente:<span class="math display">\[G(s)=e^{\sum_{j=1}^m\mu_j(s^{v_j}-1)}=e^{\mu[P(s)-1]}=F[P(s)]\]</span> La función generadora de probabilidades de las pérdidas comprende dos fuentes de incertidumbre, a saber: el comportamiento <em>Poisson</em> del número de incumplimiemntos y la aleatoriedad de las pérdidas dado incumplimiento, que esta asociado a los distintos niveles de exposición del acreedor a los diferentes deudores. Notese que la única información requerida para obtener la distribución de pérdidas es <span class="math inline">\(\epsilon_j\)</span> y <span class="math inline">\(v_j\)</span>, estas parejas representan un número de datos significativamente menor, que si tuviera que manejar información semejante por cada deudor, aun para carteras con un número muy grandes de créditos. Para encontrar la distribución de pérdidas, se parte de la expresión:<span class="math display">\[G(s)=\sum_n\textrm{ Prob(pérdidas acumuladas}=n\times L)S^n \]</span>.</p>
-<p>Tomando la expansión de Taylor para <span class="math inline">\(G(s)\)</span>, la probabilidad de pérdida de <span class="math inline">\(nL\)</span> unidades es<span class="math display">\[P_n(L)=\frac{1}{n!}\frac{d^nG(s)}{ds^n}\bigg{|}_{s=0}\]</span>. En el apéndice A 4.1 del manual de CreditRisk+ se deduce una fórmula recursiva sencilla para obtener estas probabilidades, las cuales es:<span class="math display">\[P_n(L)=\sum_{j|v_j\le n}\frac{\epsilon_j}{n}P_{n-v_j}(L)=\frac{1}{n}\sum_{j|v_j\le n}\epsilon_jP_{n-v_j}(L)\]</span> donde <span class="math inline">\(P_0(L)=e^{-\mu}\)</span> donde <span class="math inline">\(\mu=\sum_{j=1}^m\mu_j\)</span></p>
+<p>Con esto, la FGP de pérdidas se puede expresar de la forma siguiente:<span class="math display">\[G(s)=e^{\sum_{j=1}^m\mu_j(s^{v_j}-1)}=e^{\mu[P(s)-1]}=F[P(s)]\]</span>
+La función generadora de probabilidades de las pérdidas comprende dos fuentes de incertidumbre, a saber: el comportamiento <em>Poisson</em> del número de incumplimiemntos y la aleatoriedad de las pérdidas dado incumplimiento, que esta asociado a los distintos niveles de exposición del acreedor a los diferentes deudores. Notese que la única información requerida para obtener la distribución de pérdidas es <span class="math inline">\(\epsilon_j\)</span> y <span class="math inline">\(v_j\)</span>, estas parejas representan un número de datos significativamente menor, que si tuviera que manejar información semejante por cada deudor, aun para carteras con un número muy grandes de créditos.
+Para encontrar la distribución de pérdidas, se parte de la expresión:<span class="math display">\[G(s)=\sum_n\textrm{ Prob(pérdidas acumuladas}=n\times L)S^n \]</span>.</p>
+<p>Tomando la expansión de Taylor para <span class="math inline">\(G(s)\)</span>, la probabilidad de pérdida de <span class="math inline">\(nL\)</span> unidades es<span class="math display">\[P_n(L)=\frac{1}{n!}\frac{d^nG(s)}{ds^n}\bigg{|}_{s=0}\]</span>. En el apéndice A 4.1 del manual de CreditRisk+ se deduce una fórmula recursiva sencilla para obtener estas probabilidades, las cuales es:<span class="math display">\[P_n(L)=\sum_{j|v_j\le n}\frac{\epsilon_j}{n}P_{n-v_j}(L)=\frac{1}{n}\sum_{j|v_j\le n}\epsilon_jP_{n-v_j}(L)\]</span>
+donde <span class="math inline">\(P_0(L)=e^{-\mu}\)</span> donde <span class="math inline">\(\mu=\sum_{j=1}^m\mu_j\)</span></p>
 </div>
 <div id="obtencion-del-var" class="section level2">
 <h2><span class="header-section-number">5.5</span> Obtención del VaR</h2>
-<p>Para obtener el VaR de una cartera de créditos bajo el esquema de CreditRisk+, simplemente se obtiene la distribución de probabilidad acumulada de las pérdidas y, una vez decidido el nivel de confianza <span class="math inline">\(\alpha\)</span> con el que se quiere trabajar se lee de la tabla el número de unidades estándar de pérdidas que corresponden a una probabilidad acumulada de de pérdida <span class="math inline">\(1-\alpha\)</span>. El paso final es convertir las unidades estándar de pérdida a unidades manetarias, multiplicando las unidades de pérdidas correspondientes al nivel de confianza escogido, por la unidas de pérdida <span class="math inline">\(L\)</span>.</p>
+<p>Para obtener el VaR de una cartera de créditos bajo el esquema de CreditRisk+, simplemente se obtiene la distribución
+de probabilidad acumulada de las pérdidas y, una vez decidido el nivel de confianza <span class="math inline">\(\alpha\)</span> con el que se quiere trabajar se lee de la tabla el número de unidades estándar de pérdidas que corresponden a una probabilidad acumulada de de pérdida <span class="math inline">\(1-\alpha\)</span>. El paso final es convertir las unidades estándar de pérdida a unidades manetarias, multiplicando las unidades de pérdidas correspondientes al nivel de confianza escogido, por la unidas de pérdida <span class="math inline">\(L\)</span>.</p>
 
 
 </div>
@@ -300,7 +265,7 @@ gitbook.start({
 "google": false,
 "linkedin": false,
 "weibo": false,
-"instapper": false,
+"instapaper": false,
 "vk": false,
 "all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
 },
@@ -312,6 +277,10 @@ gitbook.start({
 "edit": {
 "link": "https://github.com/synergyvision/Teoria-de-Portafolio/edit/master/bookdown/301-creditrisk+.Rmd",
 "text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
 },
 "download": ["Riesgo-de-Credito.pdf"],
 "toc": {
@@ -326,8 +295,8 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    var src = "";
-    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:" && /^https?:/.test(src))
       src = src.replace(/^https?:/, '');
     script.src = src;
