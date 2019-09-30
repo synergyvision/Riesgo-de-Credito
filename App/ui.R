@@ -34,7 +34,9 @@ shinyUI(
                            menuSubItem("Matriz de Transición", tabName = "subitem3", icon = icon("circle-o")),
                            menuSubItem("CreditRisk+", tabName = "datini", icon = icon("circle-o")),
                            menuSubItem("CreditMetrics", tabName = "CRED", icon = icon("circle-o")),
-                           menuSubItem("Indicadores Contables", tabName = "RAROC", icon = icon("circle-o")) ),
+                           menuSubItem("Indicadores Contables", tabName = "RAROC", icon = icon("circle-o")),
+                           menuSubItem("BackTesting", tabName = "BTTD", icon = icon("circle-o"))
+                           ),
                   
                   menuItem("Scoring y Rating", tabName = "S_R", icon = icon("fal fa-database"),
                            menuSubItem("Estadísticos", tabName = "stat", icon = icon("circle-o")),
@@ -71,6 +73,12 @@ shinyUI(
                           
                            menuSubItem("Simulación y Resultados", tabName = "RES", icon = icon("circle-o")),
                            menuSubItem("Stress Testing", tabName = "ST2", icon = icon("circle-o"))
+                           
+                  ),
+                  menuItem("BackTesting", icon = icon("th"), tabName = "BTT",
+                           
+                           menuSubItem("Resultados", tabName = "RES", icon = icon("circle-o"))
+                           
                            
                   ),
                   
@@ -384,7 +392,7 @@ shinyUI(
                                        )
                                        ,
                                        
-                                       tabPanel( title = tagList(shiny::icon("gear"), strong('Matriz de transición')),
+                                       tabPanel( title = tagList(shiny::icon("gear"), strong('Matriz de Transición')),
                                                  
                                                  box(width = 120, h2("Matriz de Probabilidades de Transición")),
                                                  fluidRow( column(width=6,box(background="yellow",width = 200, checkboxInput("datasetcrm", strong("Matriz de Transición Calculada"), FALSE))),column(width=6,box(background="yellow",width = 200, checkboxInput('userFilecrm', strong("Matriz de Transición Propia"), FALSE)))),
@@ -422,7 +430,7 @@ shinyUI(
                                                  
                                                  
                                        ),
-                                       tabPanel( title = tagList(shiny::icon("gear"), strong('Pérdida por clase')),
+                                       tabPanel( title = tagList(shiny::icon("gear"), strong('Pérdida por Clase')),
                                                  
                                                  fluidRow(
                                                    fluidRow(column(6,box(width = 11,background="yellow", checkboxInput("dataset_Cla_Cr", strong("Pérdida por Clase Calculada"), FALSE))),column(6,box(width = 12,background="yellow", checkboxInput('userFile_Cla_Cr', strong('Datos Propios'), FALSE))))
@@ -841,7 +849,7 @@ shinyUI(
                                      
                                        fluidRow(box(title =h3("Escoga Nivel de Confianza Para el VaR"),solidHeader = T,width=12,status = "warning",radioButtons("conf", "",
                                                                                                                 choices = list("90%" = 90, "95%" = 95,
-                                                                                                                               "99%" = 99),selected = 95)),   
+                                                                                                                               "99%" = 99),selected = 95), actionButton("goButtonvar", "Calcular")),   
                                                
                                                
                                                fluidRow(column(4,box(width=12,status = "warning",h3("Pérdida Esperada"), h2(textOutput("pe")) )),column( 4,box(width=12,status = "warning",h3("Valor en Riesgo"), h2(textOutput("var"))  )),column(4,box(width=12,status = "warning",h3("TVaR"), h2(textOutput("tvar"))))),
@@ -852,9 +860,9 @@ shinyUI(
                                                           )))),
                     tabItem(tabName = "ST1",
                             
-                            fluidRow(column(6,box(width=12,title = h2("StressTesting"),solidHeader = T,status = "warning",radioButtons("estres2", h3("Nivel de Estrés de la Prueba"),
+                            fluidRow(column(6,box(height = "300px",width=12,title = h2("StressTesting"),solidHeader = T,status = "warning",radioButtons("estres2", h3("Nivel de Estrés de la Prueba"),
                                                                                                                               choices = list("1 %" = 0.01, "5 %" = 0.05,
-                                                                                                                                             "10 %" = 0.1),selected = 0.01))),column(6,box(width=12,title = h2("Resultado"),solidHeader = T,status = "warning",h3("El Valor de la Prueba"),h1(textOutput("Stress")))))
+                                                                                                                                             "10 %" = 0.1),selected = 0.01),actionButton("goButtonstre", "Calcular"))),column(6,box(height = "300px",width=12,title = h2("Resultado"),solidHeader = T,status = "warning",h3("El Valor de la Prueba"),h1(textOutput("Stress")))))
                             
                             
                     )

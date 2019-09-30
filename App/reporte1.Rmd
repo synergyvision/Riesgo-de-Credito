@@ -5,177 +5,92 @@ output:
     includes:
       in_header: /Users/arturocarreno/Riesgo_de_Credito/App/preambulo.tex
 params:
-  titulo2: NA
-  titulo3: NA
-  titulo4: NA
-  titulo5: NA
-  titulo6: NA
-  titulo7: NA
-  titulo8: NA
-  titulo9: NA
-  titulo10: NA
-  titulo11: NA
-  raroc: NA
-  rorac: NA
-  rarorac: NA
-  morosidad: NA
-  cobertura: NA
-  rar: NA
-  
-  
-  
-  
+  var1: NA
+  var2: NA
+  var3: NA
+  var4: NA
+  var5: NA
+  var6: NA
+  var7: NA
+  var8: NA
   
   
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
-
-##  Informe de Riesgo de Credito
-
-Este docuemento es un reporte de riesgo de credito, basado en la metodología CrediRisk+. En el presente informe observamos métricas que cuantifican el riesgo de credito (VaR, Perdida Esperada, TVaR).
-
 ```{r, include=FALSE}
-signi <- params$titulo11
+unidad <- params$var1
 ```
 
-Para la selección de variables categóricas se realizó un análisis de independencia el cual consiste en analizar las tablas de contigencia de las variables categoricas relacionada con la variable mora para luego realizar una prueba chicuadrado con `r signi`, un ejemplo de las tablas de contigencia es:
+# Reporte CreditRisk+
 
+Se implemento la metodológía *CreditRisk+* para hallar las métricas de riesgo de crédito asociada a la cartera de clientes de la institución. Se inicio la metodología agrupando los créditos por una únidad fija, la cual fu preestablecida en `r unidad`. A continuación se presentan los resultados:
 
+## Incumplimientos
 
+La distribución de incumplimientos calculada es
 
-```{r pressure, echo=FALSE,  out.width = '50%',fig.align = "center"}
-knitr::include_graphics("~/Riesgo_de_Credito/App/www/img/conti.png")
+```{r, echo=FALSE, fig.width = 6,fig.height=2.5,fig.align = "center"}
+
+params$var2
 ```
 
-Para la selección de variables cualitativas se uso la prueba chicuadrado con un nivel de significancia `r signi` para comparar si las variables segmentadas por la variable mora provenian de distintas distribuciones.
+```{r, echo=FALSE, fig.width = 6,fig.height=3,fig.align = "center"}
 
-```{r, echo=FALSE,  out.width = '50%',fig.align = "center"}
-knitr::include_graphics("~/Riesgo_de_Credito/App/www/img/dist.png")
+ic <- round(as.numeric(params$var3),0)
 ```
 
-Las variables usadas para la creacion del score de la cartera de clientes fueron:
+Por la cual se espera un numéro de `r ic` incumplimientos.
+
+## Pérdidas
+La distribución de pérdidas calculada es
+
+
+```{r, echo=FALSE, fig.width = 6,fig.height=2.5,fig.align = "center"}
+
+params$var4
+```
+
+```{r, echo=FALSE, fig.width = 6,fig.height=3,fig.align = "center"}
+options(scipen=999)
+
+pe <- round(params$var5[[1]]*unidad,0)
+```
+
+```{r, echo=FALSE, fig.width = 6,fig.height=3,fig.align = "center"}
+
+
+con <- params$var6
+```
+
+Por la cual se espera una pérdida de `r pe` 
+
+\newpage
+
+## Métricas de Riesgo
+
+A continuación se presentan las métricas de riesgo correspondientes a la metodología CreditRisk+, las cuales son: perdida esperada, valor en riesgo y valor en riesgo condicionado, con un nivel de confianza del `r con`% 
 
 ```{r, echo=FALSE, results='asis'}
 library(knitr)
-mod <- params$titulo5
-modn <- as.data.frame(names(mod$coefficients)[2:length(names(mod$coefficients))])
-names(modn) <- c("Variables")
-kable(modn)
-```
-
-```{r, include=FALSE}
-parame <- params$titulo7
-unidper <- params$titulo8
-juni <- params$titulo9
-```
+metr <- c(params$var5[[1]],params$var5[[2]],params$var5[[3]])*unidad
 
 
+names(metr) <- c("Pérdida Esperada","Valor en Riesgo","Valor en Riesgo Condicional")
+metr <- as.data.frame(metr)
+colnames(metr) <- ""
 
-Para realizar este modelo se uso un análisis de *Regresión Lineal Generalizada* donde el enlace que se escogio fue *`r parame`*.
-
-El grafico acontinuación conocido como ROC, el cual es una representación gráfica de la sensibilidad frente a la especificidad para un sistema clasificador binario según se varía el umbral de discriminación, proporciona herramientas para seleccionar los modelos posiblemente óptimos y descartar modelos subóptimos independientemente de (y antes de especificar) el coste de la distribución de las dos clases sobre las que se decide.
-
-```{r, echo=FALSE, fig.width = 4,fig.height=3,fig.align = "center"}
-ggroc(params$titulo6)
-```
-
-El gráfico acontinuación conocido como QQplot o gráfico Cuantil-Cuantil es un indicador de la independencia de los residuos del modelo, su uso principal es  observar cuan cerca está la
-distribución de un conjunto de datos a alguna distribución ideal ó comparar la distribución de dos conjuntos de datos.
-
-```{r, echo=FALSE, fig.width = 5,fig.height=4,fig.align = "center"}
-d1 <- params$titulo5
-d <- d1[[2]]
-
-df <- data.frame(y = d)
-
-p <- ggplot(df,aes(sample = y))
-p + stat_qq() + stat_qq_line()
+kable(metr)
 
 ```
 
-El resumen estadístico del modelo que indican los coeficientes de cada variable es::
+## Prueba de Estres
 
-```{r, echo=FALSE, results='asis'}
-library(knitr)
-coef <- params$titulo5
-
-coef <- coef[[1]]
-
-coef <- as.data.frame(coef)
-
-nom <- row.names(coef)
-nom[1] <- "Corte con el eje y"
-coe <- coef[,1]
-
-coef <- data.frame(nom,coe) 
-colnames(coef) <- c("Variables","Coeficientes")
+```{r, echo=FALSE, fig.width = 6,fig.height=3,fig.align = "center"}
 
 
-kable(coef)
-
+stress <- as.numeric(params$var7)*100
+pe <- round(as.numeric(params$var8),0)*unidad
 ```
 
-Los criterios de información aportan:
-
-```{r, echo=FALSE, results='asis'}
-library(knitr)
-reduccion <- params$titulo5
-
-inf <- data.frame(Criterios = c("Desviación","Desviación Nula","ACC"), Valor=c(reduccion[[10]],reduccion[[12]],reduccion[[11]]))
-
-kable(inf)
-
-```
-
-
-Los resultados del modelo sobre la data de entrenamiento se podran apreciar en la siguiente cuadro, conocido como matriz de confusión
-
-```{r, echo=FALSE, results='asis'}
-library(knitr)
-w<-as.data.frame(params$titulo10)
-
-kable(w)
-
-```
-
-
-
-
-
-Para el desarrollo de la metología CreditRisk+ se usaron los siguientes parametros: 
-
-* Como únidad de perdida se considero como `r unidper`
-* Como porcentaje de recuperación en caso de incumplimiento se considero como el  `r juni` %
-
-
-
-
-
-```{r, echo=FALSE, results='asis'}
-library(knitr)
-w<-data.frame(c("Perdida Esperada","VaR", "TVaR"),c(params$titulo3,params$titulo2,params$titulo4))
-
-colnames(w) <- c("Metrica","Valor")
-
-kable(w)
-
-```
-
-
-Acontinuación se presentan algunos indicadores contables que son calculados a partir de los datos obtenidos del balance de la institución.
-
-
-```{r, echo=FALSE, results='asis'}
-library(knitr)
-
-IndC <- data.frame(c("RAROC","RORAC","RARORAC","Morosidad","Cobertura","RAR"),c(params$raroc,round(params$rorac,3),params$rarorac,params$morosidad,params$cobertura,params$rar))
-
-colnames(IndC) = c("Indicador","Valor")
-
-kable(IndC)
-```
-
+Se procedio a realizar una prueba de estres sobre la metodología CreditRisk+ con un nivel de estres del `r stress`% obteniendo una perdída esperada de `r pe`Bs.
 

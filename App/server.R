@@ -1567,7 +1567,7 @@ shinyServer(function(input, output, session) {
    colnames(final) <- c("Incumplimientos","Probabilidad")
    
    
-   return(ggplotly(ggplot(final, aes(y=Probabilidad,x=Incumplimientos)) + geom_point()))
+   return(list(ggplot(final, aes(y=Probabilidad,x=Incumplimientos)) + geom_point(),sum(probinc()[1:1000,2]*num)))
    
    
    
@@ -1578,7 +1578,7 @@ shinyServer(function(input, output, session) {
  
  output$comparacion1 <- renderPlotly({
    
-   disn()
+   ggplotly(disn()[[1]])
    
  })
  
@@ -1695,7 +1695,7 @@ shinyServer(function(input, output, session) {
    colnames(final) <- c("Pérdida","Probabilidad")
    
    
-   return(list(acum,ggplotly(ggplot(final, aes(y=Probabilidad,x=Pérdida)) + geom_point())))
+   return(list(acum,ggplot(final, aes(y=Probabilidad,x=Pérdida)) + geom_point()))
    
    
    
@@ -1706,14 +1706,14 @@ shinyServer(function(input, output, session) {
  
  output$comparacion2 <- renderPlotly({
    
-   disn2()[[2]]
+   ggplotly(disn2()[[2]])
    
  })
 ### METRICAS DE RIESGO CREDITRISK +
  
  
  
- metr <- reactive({
+ metr <- eventReactive(input$goButtonvar,{
    
    pro <- percar()
    n <- 0:(length(pro)-1)
@@ -1862,21 +1862,23 @@ shinyServer(function(input, output, session) {
    
  })
  
- Stress <-reactive({
+ Stress <-eventReactive(input$goButtonstre,{
    
    
    
    
-   pro <- percar()
+   pro <- percarSt()
+   
    n <- 0:(length(pro)-1)
    
+   pe <- sum(pro*n)*input$uniper
    
  
   
-   varS <-  min(which(disn2St() > (as.numeric(input$conf)/100)))*input$uniper
+   #varS <-  min(which(disn2St() > (as.numeric(input$conf)/100)))*input$uniper
    
    
-   return(varS)
+   return(pe)
    
    
     
@@ -2131,12 +2133,9 @@ shinyServer(function(input, output, session) {
    content = function(file){
      tempReport <- file.path(tempdir(),"reporte1.Rmd")
      file.copy("reporte1.Rmd", tempReport, overwrite = TRUE)
-     params <- list(titulo2=c(CrediTR()[2]),titulo3=c(CrediTR()[1]),titulo4=c(CrediTR()[3]),
-                    titulo5=c(modprueba(data1(),data1org(),input$columns,input$radio1)) ,titulo6=calroc(data1(),data1org(),input$columns,modprueba(data1(),data1org(),input$columns,input$radio1)),titulo7=input$radio1, titulo8=input$uniper, titulo9=input$uni,
-                    titulo10 = calaccur(), titulo11 = input$significancia, raroc = raroc1333(),
-                    rorac = rorac1(), rarorac = rarorac1(), morosidad = (as.numeric(datasetInputindices()[1,2])/as.numeric(datasetInputindices()[2,2])), cobertura=(as.numeric(datasetInputindices()[1,2])/as.numeric(datasetInputindices()[3,2])),
-                    rar = rar1()
-                              )
+     params <- list(var1= input$uniper, var2=disn()[[1]],var3=disn()[[2]],
+                    var4=disn2()[[2]],var5=metr(),var6=input$conf1, var7=input$estres2,
+                    var8=Stress())
      
      
      
