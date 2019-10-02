@@ -5,105 +5,82 @@ output:
     includes:
       in_header: /Users/arturocarreno/Riesgo_de_Credito/App/preambulo.tex
 params:
-  vari1: NA
-  vari2: NA
-  vari3: NA
-  vari4: NA
-  raroc: NA
-  rorac: NA
-  rarorac: NA
-  morosidad: NA
-  cobertura: NA
-  rar: NA
-  
+  var1: NA  
+  var2: NA
+  var3: NA
+  var4: NA
+  var5: NA
 ---
+# Reporte CreditMetrics
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
+Se implemento la metodológía *CreditRisk+* para hallar las métricas de riesgo de crédito asociada a la cartera de clientes de la institución. A continuación se presentan las variables y resultados:
 
-##  Informe de Riesgo de Crédito
+## Exposición por Clase
 
-Este docuemento es un reporte de riesgo de crédito, basado en la metodología CrediMetrics. En el presente informe observamos métricas que cuantifican el riesgo de crédito (VaR, Pérdida Esperada, TVaR).
-
-La cartera de clientes esta dividida por las siguientes calificaciones crediticias:
-
+La exposición por por clase de la cartera de clientes de la institución es:
 
 ```{r, echo=FALSE, results='asis'}
 library(knitr)
-mt <- params$vari1
-calif <- colnames(mt)
-calif <- t(as.data.frame(calif))
-row.names(calif) <- c("Calificaciones")
-kable(calif)
+options(scipen=999)
 
+by_cla <- group_by(params$var3, calif)
+
+l3 <- as.data.frame(summarise(by_cla, sum(creditos)))
+
+colnames(l3) <- c("Calificación","Monto")
+
+kable(l3)
 ```
 
 
-Para el cálculo se uso la siguiente matriz de transición, la cual representa las probabilidad de migración entre calificaciones crediticias (en porcentaje)
+## Matriz de Transición
 
-
+La matriz de transición que modela las probabilidades de cambio entre categorias de la institución fue: 
 
 ```{r, echo=FALSE, results='asis'}
 library(knitr)
-mt <- params$vari1
-row.names(mt) <- colnames(mt)
-kable(mt)
+
+l <- params$var1
+l <- l[,-c(1)]
+
+kable(l)
 
 ```
 
-Las pérdidas esperadas por clases calculadas son:
+## Pérdida por clase
+
+La pérdida por clase esperada en porcentaje usadas son:
 
 ```{r, echo=FALSE, results='asis'}
 library(knitr)
-mt <- params$vari2
-mt["Perdida"] <- round(mt["Perdida"]*100,2)
-nam <- colnames(mt)
 
+l2 <- params$var2
 
-  
-D <- mt[rev(nam)]
-
-kable(D)
+kable(l2)
 
 ```
 
-```{r, include=FALSE}
-sim<- params$vari4
+\newpage
+
+```{r, echo=FALSE, fig.width = 6,fig.height=3,fig.align = "center"}
+
+
+sim <- params$var4
 ```
 
-Para la estimación de la métricas de riesgo de uso el método de **Simulación de Monte Carlo** con `r sim` simulaciones. El histograma de las pérdidas luego de la simulación es:
+## Simulación de Pérdidas
 
-```{r, echo=FALSE, fig.width = 4,fig.height=3,fig.align = "center"}
-
-sim<- params$vari4
-media <- params$vari3[[2]]
-varian <- params$vari3[[1]]
+Se procedio a simular escenarios de pérdida para poder estimar las métricas de riesgo. El número de simulaciones fue de `r sim`, obteniendo un histograma de perdidas:
 
 
+```{r, echo=FALSE, fig.width = 6,fig.height=2.5,fig.align = "center"}
 
-hist( params$vari3[[3]], xlab = "Pérdidas por simulación",ylab = "Frequecia",main = "Histograma de pérdidas por simulación")
+gra <- params$var5
+gra[[5]]
 ```
 
 
 
-```{r, echo=FALSE, results='asis'}
-library(knitr)
-w<-data.frame(c("Pérdida Esperada","VaR","TVaR"),c(params$vari3[[2]],params$vari3[[1]],params$vari3[[4]]))
 
-colnames(w) <- c("Métrica","Valor")
 
-kable(w)
 
-```
-
-Acontinuación se presentan algunos indicadores contables que son calculados a partir de los datos obtenidos del balance de la institución.
-```{r, echo=FALSE, results='asis'}
-library(knitr)
-
-IndC <- data.frame(c("RAROC","RORAC","RARORAC","Morosidad","Cobertura","RAR"),c(round(params$raroc,3),round(params$rorac,3),round(params$rarorac,3),round(params$morosidad,3),round(params$cobertura,3),round(params$rar,3)))
-
-colnames(IndC) = c("Indicador","Valor")
-
-kable(IndC)
-```

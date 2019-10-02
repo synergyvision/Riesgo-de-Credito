@@ -1893,7 +1893,7 @@ shinyServer(function(input, output, session) {
      
      "Cargue datos"
      
-   }else{ca18}
+   }else{paste(round(ca18*input$uniper,0),"Bs")}
    
    
  })
@@ -2086,7 +2086,7 @@ shinyServer(function(input, output, session) {
    if (class(ca)=="try-error") {
      
      "Cargue datos y seleccione parametros"
-   }else{ca}
+   }else{paste(round(ca*input$uniper,0),"Bs")}
    
    
    
@@ -2102,7 +2102,7 @@ shinyServer(function(input, output, session) {
    if (class(ca1)=="try-error") {
      
      "Cargue datos y seleccione parametros"
-   }else{ca1}
+   }else{paste(round(ca1*input$uniper,0),"Bs")}
    
  
  })
@@ -2117,7 +2117,7 @@ shinyServer(function(input, output, session) {
    if (class(ca2)=="try-error") {
      
      "Cargue datos y seleccione parametros"
-   }else{ca2}
+   }else{paste(round(ca2*input$uniper,0),"Bs")}
    
    
    
@@ -2419,9 +2419,11 @@ shinyServer(function(input, output, session) {
  
 ### Se muestra la matris de transicion calculada
  
+ mattrans <- reactive({ MTR(data10())})
+ 
  output$datatableMTR<-renderDataTable({
    
-   MTR(data10())
+   mattrans()
    
  },options = list(scrollX=T,scrollY=300))
  
@@ -2448,7 +2450,7 @@ shinyServer(function(input, output, session) {
    if(input$datasetcrm){
      
      
-     MTR(data10())
+     mattrans()
      
      
    }
@@ -2829,9 +2831,8 @@ shinyServer(function(input, output, session) {
    content = function(file){
      tempReport <- file.path(tempdir(),"reporte2.Rmd")
      file.copy("reporte2.Rmd", tempReport, overwrite = TRUE)
-     params <- list(vari1 =data4(),vari2=data5(),vari3=calvar(),vari4 = input$simcrm, raroc = raroc1333(),
-                    rorac = rorac1(), rarorac = rarorac1(), morosidad = (as.numeric(datasetInputindices()[1,2])/as.numeric(datasetInputindices()[2,2])), cobertura=(as.numeric(datasetInputindices()[1,2])/as.numeric(datasetInputindices()[3,2])),
-                    rar = rar1())
+     params <- list(var1 = mattrans(), var2 = data_Cla_Cr(), var3 = data6(),
+                    var4 = input$simcrm, var5 = calvar())
      
      
      
@@ -3129,6 +3130,253 @@ shinyServer(function(input, output, session) {
   
   
   
+  
+  ###############################################################################
+  ###############################################################################
+  
+  
+  data_back <- reactive({
+    # input$file1 will be NULL initially. After the user selects
+    # and uploads a file, it will be a data frame with 'name',
+    # 'size', 'type', and 'datapath' columns. The 'datapath'
+    # column will contain the local filenames where the data can
+    # be found.
+    
+    inFile <- input$file_data_back
+    
+    if (is.null(inFile))
+      return(NULL)
+    
+    # read.table(inFile$datapath, header = input$header,
+    #            sep = input$sep, quote = input$quote)
+    a <- read.delim2(inFile$datapath, header = input$header_back,
+                     sep = input$sep_back, quote = input$quote_back)
+    
+    return(a)
+    
+  })
+  
+  
+  output$datatable_back<-renderDataTable({
+    if(is.null(data_back())){return()}
+    #datatable(data()) %>% formatCurrency(1:3, 'Bs. ', mark = '.', dec.mark = ',')
+    datatable(data_back())
+  })
+  
+  #PORCENTAJE DEL VAR
+  output$back_porcentaje <- renderPrint({as.numeric(sub(",",".",input$porback))})
+  
+  
+  #funcion auxiliar Backtesting
+  source(paste(getwd(),"script","kup1.R",sep = "/"))
+  
+  #muestro resultado Backtesting
+  output$result_back <- renderPrint({
+    data <- data_back()
+    
+    if(length(data[,1])!=0){
+      
+      #convierto a fecha
+      data[,1] <- as.Date(as.character(data[,1]),format="%d/%m/%Y")
+      #convierto en numero
+      data[,2] <- as.numeric(as.character(data[,2]))
+      data[,3] <- as.numeric(as.character(data[,3]))
+      
+      #diseño data frame para usarlo en kup1
+      #numero de observaciones
+      data$obs <- seq(1,nrow(data))
+      
+      #VaR -
+      data$var_menos <- rep(0,nrow(data))
+      for(i in 1:(nrow(data)-1)){
+        data$var_menos[i] <- data[i+1,3]-data[i+1,2]
+      }
+      
+      
+      #VaR +
+      data$var_mas <- rep(0,nrow(data))
+      for(i in 1:(nrow(data)-1)){
+        data$var_mas[i] <- data[i+1,3]+data[i+1,2]
+      }
+      
+      #ordeno data
+      data <- data[,c(4,1,2,5,3,6)]
+      #names(data) <- c("obs","fecha","var","var_menos","posicion","var_mas")
+      names(data) <- c("V1","V2","V3","V4","V5","V6")
+      
+      
+      #uso funcion kup1
+      #a <- kup1(data,0.05)
+      a <- kup1(data,(1-as.numeric(sub(",",".",input$porback))))
+      #return(a)
+    }else{}
+  })
+  
+  #GRAFICO BACKTESTING
+  output$grafico_back <- renderPlotly({
+    if(is.null(data_back())){return()}
+    data <- data_back()
+    
+    if(length(data[,1])!=0){
+      
+      #convierto a fecha
+      data[,1] <- as.Date(as.character(data[,1]),format="%d/%m/%Y")
+      #convierto en numero
+      data[,2] <- as.numeric(as.character(data[,2]))
+      data[,3] <- as.numeric(as.character(data[,3]))
+      
+      #diseño data frame para usarlo en kup1
+      #numero de observaciones
+      data$obs <- seq(1,nrow(data))
+      
+      #VaR -
+      data$var_menos <- rep(0,nrow(data))
+      for(i in 1:(nrow(data)-1)){
+        data$var_menos[i] <- data[i+1,3]-data[i+1,2]
+      }
+      
+      
+      #VaR +
+      data$var_mas <- rep(0,nrow(data))
+      for(i in 1:(nrow(data)-1)){
+        data$var_mas[i] <- data[i+1,3]+data[i+1,2]
+      }
+      
+      #ordeno data
+      data <- data[,c(4,1,2,5,3,6)]
+      #names(data) <- c("obs","fecha","var","var_menos","posicion","var_mas")
+      names(data) <- c("V1","V2","V3","V4","V5","V6")
+      
+      
+      #uso funcion kup1
+      #a <- kup1(data,0.05)
+      a <- kup1(data,(1-as.numeric(sub(",",".",input$porback))))
+      #return(a)
+    }else{}
+    
+    par <- a[[2]]
+    #df2 <- data.frame(supp=rep(c("VC", "OJ"), each=3),
+    #                                     dose=rep(c("D0.5", "D1", "D2"),2),
+    #                                     len=c(6.8, 15, 33, 4.2, 10, 29.5))
+    df2 <- data.frame(Valores=rep(c("Estadísticos", "Valores críticos"), each=3),
+                      Test=rep(c("Test Kupiec", "Test de Haas", "Test mixto"),2),
+                      Valor=c(as.numeric(par[1,]),as.numeric(par[2,])))
+    
+    p <- ggplot(data=df2, aes(x=Test, y=Valor, fill=Valores)) +
+      geom_bar(stat="identity")+scale_fill_brewer(palette="Paired")
+    
+    p
+  })
+  
+  #funcion auxiliar para reporte
+  back <- reactive({
+    data <- data_back()
+    
+    if(length(data[,1])!=0){
+      
+      #convierto a fecha
+      data[,1] <- as.Date(as.character(data[,1]),format="%d/%m/%Y")
+      #convierto en numero
+      data[,2] <- as.numeric(as.character(data[,2]))
+      data[,3] <- as.numeric(as.character(data[,3]))
+      
+      #diseño data frame para usarlo en kup1
+      #numero de observaciones
+      data$obs <- seq(1,nrow(data))
+      
+      #VaR -
+      data$var_menos <- rep(0,nrow(data))
+      for(i in 1:(nrow(data)-1)){
+        data$var_menos[i] <- data[i+1,3]-data[i+1,2]
+      }
+      
+      
+      #VaR +
+      data$var_mas <- rep(0,nrow(data))
+      for(i in 1:(nrow(data)-1)){
+        data$var_mas[i] <- data[i+1,3]+data[i+1,2]
+      }
+      
+      #ordeno data
+      data <- data[,c(4,1,2,5,3,6)]
+      #names(data) <- c("obs","fecha","var","var_menos","posicion","var_mas")
+      names(data) <- c("V1","V2","V3","V4","V5","V6")
+      
+      
+      #uso funcion kup1
+      #kup1(data,0.05)
+      kup1(data,(1-as.numeric(sub(",",".",input$porback))))
+      
+    }else{}
+    
+  })
+  ###############################################################################
+  ###############################################################################
+  #################################    BACKTESTING    ###########################
+  ###############################################################################
+  ###############################################################################
+  
+  
+  data_back <- reactive({
+    # input$file1 will be NULL initially. After the user selects
+    # and uploads a file, it will be a data frame with 'name',
+    # 'size', 'type', and 'datapath' columns. The 'datapath'
+    # column will contain the local filenames where the data can
+    # be found.
+    
+    inFile <- input$file_data_back
+    
+    if (is.null(inFile))
+      return(NULL)
+    
+    # read.table(inFile$datapath, header = input$header,
+    #            sep = input$sep, quote = input$quote)
+    a <- read.delim2(inFile$datapath, header = input$header_back,
+                     sep = input$sep_back, quote = input$quote_back)
+    
+    return(a)
+    
+  })
+  
+  
+  output$datatable_back<-renderDataTable({
+    if(is.null(data_back())){return()}
+    #datatable(data()) %>% formatCurrency(1:3, 'Bs. ', mark = '.', dec.mark = ',')
+    datatable(data_back())
+  })
+  
+  # REPORTE BACKTESTING 
+  
+  output$report_back <- downloadHandler(
+    filename = "reporte_back.pdf",
+    content = function(file) {
+      tempReport <- file.path(tempdir(), "reporte_back.Rmd")
+      #tempReport <- file.path(getwd(), "reporte1.Rmd")
+      
+      file.copy("reporte_back.Rmd", tempReport, overwrite = TRUE)
+      
+      # Configuración de parámetros pasados a documento Rmd
+      params <- list(resultados = back()
+                     
+                     
+                     # data2 = data()$corriente,
+                     # data3 = data()$corriente.rem,
+                     # dist1 = input$distVarA,
+                     # dist2 = input$distVarC,
+                     # dist3 = input$distVarCR,
+                     # pconf = input$porVar,
+                     # reali = input$reali,
+                     # revi = input$revi
+      )
+      
+      # Knit the document, passing in the `params` list, and eval it in a
+      # child of the global environment (this isolates the code in the document
+      # from the code in this app).
+      rmarkdown::render(tempReport, output_file = file,
+                        params = params,
+                        envir = new.env(parent = globalenv())
+      )
+    })
   
   
 

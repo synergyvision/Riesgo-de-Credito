@@ -23,7 +23,7 @@ unidad <- params$var1
 
 # Reporte CreditRisk+
 
-Se implemento la metodológía *CreditRisk+* para hallar las métricas de riesgo de crédito asociada a la cartera de clientes de la institución. Se inicio la metodología agrupando los créditos por una únidad fija, la cual fu preestablecida en `r unidad`. A continuación se presentan los resultados:
+Se implemento la metodológía *CreditRisk+* para hallar las métricas de riesgo de crédito asociada a la cartera de clientes de la institución. Se inicio la metodología agrupando los créditos por una únidad fija, la cual fue preestablecida en `r unidad`. A continuación se presentan los resultados:
 
 ## Incumplimientos
 
@@ -62,7 +62,7 @@ pe <- round(params$var5[[1]]*unidad,0)
 con <- params$var6
 ```
 
-Por la cual se espera una pérdida de `r pe` 
+Por la cual se espera una pérdida de `r pe` Bs
 
 \newpage
 
@@ -72,7 +72,7 @@ A continuación se presentan las métricas de riesgo correspondientes a la metod
 
 ```{r, echo=FALSE, results='asis'}
 library(knitr)
-metr <- c(params$var5[[1]],params$var5[[2]],params$var5[[3]])*unidad
+metr <- c(paste(round(params$var5[[1]]*unidad,0),"Bs"),paste(round(params$var5[[2]]*unidad,0),"Bs"),paste(round(params$var5[[3]]*unidad,0),"Bs"))
 
 
 names(metr) <- c("Pérdida Esperada","Valor en Riesgo","Valor en Riesgo Condicional")

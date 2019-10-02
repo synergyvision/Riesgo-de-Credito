@@ -34,8 +34,8 @@ shinyUI(
                            menuSubItem("Matriz de Transición", tabName = "subitem3", icon = icon("circle-o")),
                            menuSubItem("CreditRisk+", tabName = "datini", icon = icon("circle-o")),
                            menuSubItem("CreditMetrics", tabName = "CRED", icon = icon("circle-o")),
-                           menuSubItem("Indicadores Contables", tabName = "RAROC", icon = icon("circle-o")),
-                           menuSubItem("BackTesting", tabName = "BTTD", icon = icon("circle-o"))
+                           menuSubItem("Backtesting", tabName = "datos_back", icon = icon("folder-open")),
+                           menuSubItem("Indicadores Contables", tabName = "RAROC", icon = icon("circle-o"))
                            ),
                   
                   menuItem("Scoring y Rating", tabName = "S_R", icon = icon("fal fa-database"),
@@ -75,11 +75,9 @@ shinyUI(
                            menuSubItem("Stress Testing", tabName = "ST2", icon = icon("circle-o"))
                            
                   ),
-                  menuItem("BackTesting", icon = icon("th"), tabName = "BTT",
+                  menuItem("Backtesting", icon = icon("angle-double-left"), 
                            
-                           menuSubItem("Resultados", tabName = "RES", icon = icon("circle-o"))
-                           
-                           
+                           menuSubItem("Resultados", tabName = "resultados_back", icon = icon("file-alt"))
                   ),
                   
                   menuItem("Indicadores Contables", icon = icon("exclamation-circle"), tabName = "raroc",
@@ -1016,6 +1014,50 @@ shinyUI(
                     )
                     )),
                     
+                   #BACKTESTING
+                   tabItem(tabName = "datos_back",
+                           h2(" Seleccionar archivo"),
+                           fluidRow(
+                             box(width = 12, title = h3(UPLOADDATA_TEXT),
+                                 box( width=12,background = "navy",
+                                      fileInput('file_data_back', SELECTFILE_TEXT, accept = UPLOADFILETYPE_CONF,
+                                                placeholder = FILESELEC_TEXT, buttonLabel = BUTTSELEC_TEXT )
+                                 ),
+                                 fluidRow(
+                                   box(width=4,background="olive",strong(ENCABEZADO_TEXT),
+                                       checkboxInput( width="100%", 'header_back', WITHHEADER_TEXT, TRUE)),
+                                   box(width=4,background="olive",
+                                       radioButtons( width="40%", 'sep_back', SEPARATOR_TEXT, UPLOADFILESEP_CONF, ';')),
+                                   box(width=4,background="olive",
+                                       radioButtons( width="40%", 'quote_back', COMILLAS_TEXT, UPLOADCOMILLAS_CONF, ''))
+                                 )
+                             )
+                           ),
+                           fluidRow(
+                             box(width=12,style="overflow-x:scroll",status = "success",dataTableOutput('datatable_back'))
+                           )
+                           
+                           
+                   ),#final tabitem Backtesting
+                   tabItem(tabName = "resultados_back",
+                           h3(" Elegir porcentaje del Backtesting:"),
+                           box(width = 12, background = "navy",
+                               selectInput( inputId = "porback", "Seleccione Porcentaje del VaR", choices = c(.90, .95, .99), selected = .95)
+                           ),
+                           verbatimTextOutput("back_porcentaje"),
+                           h2("Resultados"),
+                           fluidRow(
+                             box(width=12,style="overflow-x:scroll",status = "success",verbatimTextOutput('result_back'))
+                           ),
+                           h2(" Valores críticos"),
+                           plotlyOutput("grafico_back"),
+                           h2("Reporte"),
+                           downloadButton("report_back", "Descargar")
+                           
+                           
+                   ),
+                   
+                   
                    tabItem( tabName = "Mor" ,
                             fluidRow(column(4,box(width=12,status = "warning",solidHeader = T,title = h3("RAROC"),h3(textOutput("raro")))),column(4,box(width=12,solidHeader = T,status = "warning",title = h3("RORAC"),h3(textOutput("roracc")))),column(4, box(width=12,solidHeader = T,status = "warning",title = h3("RARORAC"),h3(textOutput("raroracc"))))),
                             fluidRow(column(4,box(width=12,solidHeader = T,status = "warning",title = h3("Indice de Morósidad"),h3(textOutput("morosidad")))),column(4,box(width=12,solidHeader = T,status = "warning",title = h3("Indice de Cobertura"),h3(textOutput("cobertura")))),column(4, box(width=12,solidHeader = T,status = "warning",title = h3("RAR"),h3(textOutput("rar")))))
