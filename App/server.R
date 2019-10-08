@@ -237,7 +237,7 @@ shinyServer(function(input, output, session) {
     
     if (class(ca8)=="try-error") {
       
-      "Cargue datos"
+      c()
       
     }else{ca8}
     
@@ -349,7 +349,7 @@ shinyServer(function(input, output, session) {
     ca10 <- try(isolate(pvalor()))
     if (class(ca10)=="try-error") {
       
-      "Cargue datos y seleccione parametros"
+     c()
     }else{ca10}
     
     
@@ -465,7 +465,7 @@ shinyServer(function(input, output, session) {
     ca11 <- try(isolate(pvalor1()))
     if (class(ca11)=="try-error") {
       
-      "Cargue datos y seleccione parametros"
+      c()
     }else{ca11}
     
   })
@@ -1026,13 +1026,12 @@ shinyServer(function(input, output, session) {
  
  output$coefglm <- renderDataTable({
    
-   
-   
+
    
    ca134 <- try(coefglm(GlmModel()))
    if (class(ca134)=="try-error") {
      
-     "Cargue datos"
+     c()
    }else{ca134}
    
    
@@ -1065,7 +1064,7 @@ shinyServer(function(input, output, session) {
    ca139 <- try(estglm(GlmModel()))
    if (class(ca139)=="try-error") {
      
-     "Cargue datos"
+     c()
    }else{ca139}
    
    
@@ -1108,7 +1107,7 @@ shinyServer(function(input, output, session) {
    ca16 <- try(scor())
    if (class(ca16)=="try-error") {
      
-     "Cargue datos"
+     c()
    }else{ca16}
 
    
@@ -1511,12 +1510,17 @@ shinyServer(function(input, output, session) {
  
  output$perclien <- renderDataTable({
    
-   perclienv()
+   ca18 <- try( perclienv())
    
- },options = list(scrollX=T,scrollY=300)
- )
-
- 
+   
+   if (class(ca18)=="try-error") {
+     
+     c()
+     
+   }else{ ca18}
+   
+   
+ },options = list(scrollX=T,scrollY=300))
  
  
  
@@ -1611,11 +1615,23 @@ shinyServer(function(input, output, session) {
    
  })
  
- output$Perd23 <- renderDataTable({
+ output$Perd23<-renderDataTable({
    
-   perd23v()
+   ca22 <- try(perd23v())
+   
+   
+   if (class(ca22)=="try-error") {
+     
+     c()
+     
+   }else{ca22}
+   
+   
+   
+   
    
  },options = list(scrollX=T,scrollY=300))
+ 
  
  #### Distribución de perdida de la cartera
  
@@ -1704,11 +1720,28 @@ shinyServer(function(input, output, session) {
  })
  
  
+
+ 
  output$comparacion2 <- renderPlotly({
    
-   ggplotly(disn2()[[2]])
+   
+   
+   ca7 <- try(ggplotly(disn2()[[2]]))
+   
+   
+   if (class(ca7)=="try-error") {
+     
+     df <- data.frame()
+     ggplot(df) + geom_point() + xlim(0, 10) + ylim(0, 100)
+     
+   }else{ca7}
+   
+   
    
  })
+ 
+ 
+ 
 ### METRICAS DE RIESGO CREDITRISK +
  
  
@@ -2421,11 +2454,25 @@ shinyServer(function(input, output, session) {
  
  mattrans <- reactive({ MTR(data10())})
  
+ 
  output$datatableMTR<-renderDataTable({
    
-   mattrans()
+   ca22 <- try( mattrans())
+   
+   
+   if (class(ca22)=="try-error") {
+     
+     c()
+     
+   }else{ca22}
+   
+   
+   
+   
    
  },options = list(scrollX=T,scrollY=300))
+ 
+ 
  
  
  
@@ -2627,12 +2674,26 @@ shinyServer(function(input, output, session) {
    d
  })
  
- output$datatablecrm2 <- renderDataTable({
+ 
+ 
+ 
+ output$datatablecrm2<-renderDataTable({
    
-   clasecrm()
+   ca22 <- try(clasecrm())
+   
+   
+   if (class(ca22)=="try-error") {
+     
+     c()
+     
+   }else{ca22}
+   
+   
+   
+   
    
  })
- 
+
 ### Se muestra la perdida por clases a usar para la metodologuia
  
  output$datatablecrm1<-renderDataTable({
@@ -2642,7 +2703,7 @@ shinyServer(function(input, output, session) {
    
    if (class(ca22)=="try-error") {
      
-     "Cargue datos"
+     c()
      
    }else{ca22}
    
@@ -2736,7 +2797,7 @@ shinyServer(function(input, output, session) {
       
       tvar <- mean(Total)+((sd(Total)*dnorm(qnorm(as.numeric(input$conf1)/100)))/(1-(as.numeric(input$conf1)/100)))
       
-      strescr <- (mean(Total)+(mean(Total)*as.numeric(input$stress3)))+((sd(Total)+sd(Total)*as.numeric(input$stress3))*qnorm(as.numeric(input$conf1)/100))
+      strescr <- mean(Total)*(as.numeric(input$stress3)+1)
        
       total1 <- as.data.frame(Total)
       num <- 1:input$simcrm
@@ -2832,7 +2893,8 @@ shinyServer(function(input, output, session) {
      tempReport <- file.path(tempdir(),"reporte2.Rmd")
      file.copy("reporte2.Rmd", tempReport, overwrite = TRUE)
      params <- list(var1 = mattrans(), var2 = data_Cla_Cr(), var3 = data6(),
-                    var4 = input$simcrm, var5 = calvar())
+                    var4 = input$simcrm, var5 = calvar(), var6=input$conf1,
+                    var7 = calvar(), var8=input$stress3)
      
      
      

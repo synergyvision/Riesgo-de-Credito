@@ -942,11 +942,11 @@ shinyUI(
                              
                              fluidRow(
                                
-                               
-                             box(h1('Simulación y Resultados'),width=8, status = "warning",numericInput("simcrm","Número de Simulaciones",value = 2),actionButton("goButtonSim", "Iniciar Simulación") ),
-                             box(title = h3("Escoga Nivel de Confianza Para el VaR"),width=12,solidHeader = T,status = "warning",radioButtons("conf1","", 
-                                                                                          choices = list("90%" = 90, "95%" = 95,
-                                                                                                         "99%" = 99),selected = 95)),
+                               box(title = h3("Escoga Nivel de Confianza Para el VaR"),width=12,solidHeader = T,status = "warning",radioButtons("conf1","", 
+                                                                                                                                                choices = list("90%" = 90, "95%" = 95,
+                                                                                                                                                               "99%" = 99),selected = 95)),
+                             box(width=8, status = "warning",numericInput("simcrm","Número de Simulaciones",value = 2),actionButton("goButtonSim", "Iniciar Simulación") ),
+                            
                              
                              
                              box(width=12,status = "warning", plotlyOutput("credime")),
@@ -1019,35 +1019,35 @@ shinyUI(
                            h2(" Seleccionar archivo"),
                            fluidRow(
                              box(width = 12, title = h3(UPLOADDATA_TEXT),
-                                 box( width=12,background = "navy",
+                                 box( width=12,background = "yellow",
                                       fileInput('file_data_back', SELECTFILE_TEXT, accept = UPLOADFILETYPE_CONF,
                                                 placeholder = FILESELEC_TEXT, buttonLabel = BUTTSELEC_TEXT )
                                  ),
                                  fluidRow(
-                                   box(width=4,background="olive",strong(ENCABEZADO_TEXT),
+                                   box(width=4,background="yellow",strong(ENCABEZADO_TEXT),
                                        checkboxInput( width="100%", 'header_back', WITHHEADER_TEXT, TRUE)),
-                                   box(width=4,background="olive",
+                                   box(width=4,background="yellow",
                                        radioButtons( width="40%", 'sep_back', SEPARATOR_TEXT, UPLOADFILESEP_CONF, ';')),
-                                   box(width=4,background="olive",
+                                   box(width=4,background="yellow",
                                        radioButtons( width="40%", 'quote_back', COMILLAS_TEXT, UPLOADCOMILLAS_CONF, ''))
                                  )
                              )
                            ),
                            fluidRow(
-                             box(width=12,style="overflow-x:scroll",status = "success",dataTableOutput('datatable_back'))
+                             box(width=12,style="overflow-x:scroll",status = "warning",dataTableOutput('datatable_back'))
                            )
                            
                            
                    ),#final tabitem Backtesting
                    tabItem(tabName = "resultados_back",
                            h3(" Elegir porcentaje del Backtesting:"),
-                           box(width = 12, background = "navy",
+                           box(width = 12, background = "yellow",
                                selectInput( inputId = "porback", "Seleccione Porcentaje del VaR", choices = c(.90, .95, .99), selected = .95)
                            ),
                            verbatimTextOutput("back_porcentaje"),
                            h2("Resultados"),
                            fluidRow(
-                             box(width=12,style="overflow-x:scroll",status = "success",verbatimTextOutput('result_back'))
+                             box(width=12,style="overflow-x:scroll",status = "warning",verbatimTextOutput('result_back'))
                            ),
                            h2(" Valores críticos"),
                            plotlyOutput("grafico_back"),
