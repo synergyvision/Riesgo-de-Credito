@@ -101,10 +101,25 @@ shinyServer(function(input, output, session) {
   ####Se muestran los datos
   
   
-  output$datatable_Cla_Cr<-renderDataTable({
-    data_Cla_Cr()
-  },options = list(scrollX=T,scrollY=300))
+ 
   
+  
+  output$datatable_Cla_Cr<-renderDataTable({
+    
+    ca22 <- try( data_Cla_Cr())
+    
+    
+    if (class(ca22)=="try-error") {
+      
+      c()
+      
+    }else{ca22}
+    
+    
+    
+    
+    
+  },options = list(scrollX=T,scrollY=300))
   
   
   
@@ -1411,11 +1426,28 @@ shinyServer(function(input, output, session) {
  
  ###Se muestran los datos
  
- 
  output$datatablePro<-renderDataTable({
- Proba()
+   
+   ca22 <- try( Proba())
+   
+   
+   if (class(ca22)=="try-error") {
+     
+     c()
+     
+   }else{ca22}
+   
+   
+   
+   
    
  },options = list(scrollX=T,scrollY=300))
+ 
+ 
+ 
+ 
+ 
+ 
  ### Baandas
  
  
@@ -2509,8 +2541,22 @@ shinyServer(function(input, output, session) {
  
  ###SE muestra a matriz de transicion
  
+ 
  output$datatablecrm<-renderDataTable({
-   data4()
+   
+   ca22 <- try( data4())
+   
+   
+   if (class(ca22)=="try-error") {
+     
+     c()
+     
+   }else{ca22}
+   
+   
+   
+   
+   
  },options = list(scrollX=T,scrollY=300))
  
  
