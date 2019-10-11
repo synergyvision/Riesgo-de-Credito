@@ -2738,7 +2738,7 @@ shinyServer(function(input, output, session) {
    de <- l-j
    final <- cbind(l,iz,de)
    
-   colnames(final) <- c("Pérdida Esperada","Mínimo Esperado","Máximo Esperado")
+   colnames(final) <- c("Pérdida","Mínimo","Máximo")
    
    d <- cbind(clasescal()[[3]],round(final,2))
    colnames(d)[1] <- "Clase" 
@@ -2799,7 +2799,7 @@ shinyServer(function(input, output, session) {
      MT <- data4()
      ## Perdida por clase
      
-     RP <- clasecrm()
+     RP <- data_Cla_Cr()
      # 
      #clasificaciones  
     clasi <- colnames(MT)[2:ncol(MT)]
@@ -2849,7 +2849,7 @@ shinyServer(function(input, output, session) {
         
         for (k in 1:length(trans)) {
           
-          per[k] <- l[k,"creditos"]*as.numeric(RP[which(RP[,"Clase"]==trans[k]),"Pérdida Esperada"])/100
+          per[k] <- l[k,"creditos"]*as.numeric(RP[which(RP[,"Clase"]==trans[k]),"Pérdida"])/100
           
         }
         

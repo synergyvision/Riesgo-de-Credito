@@ -127,8 +127,14 @@ Es importante mencionar que el archivo debe contener 252 observaciones
 
 Archivo con extensión *.csv* ó *.txt* el cual debe  poseer los siguientes 2 campos:
 
++ concepto: Nombre de los diferentes indicadores:
+    - Saldo de la Cartera de Crédito vencida al cierre del periodo
+    - Saldo de la Cartera de Crédito total al cierre del periodo
+    - Saldo de la estimación preventiva para riesgos crediticios al cierre del periodo
+    - Resultado contable de los activos financieros
 
 
++ Valor: Variable numérica que refleja el valor contable.
 
 
 
