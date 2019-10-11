@@ -222,7 +222,10 @@ shinyUI(
                                                                   radioButtons( width="40%", 'quoteRatN', COMILLAS_TEXT, UPLOADCOMILLAS_CONF, ''))
                                                             )
                                                         )
-                                                      ))
+                                                      )),conditionalPanel(condition = "input.datasetRatN == true|| input.userFileRatN == true",
+                                                                          fluidRow(
+                                                                            box( style = "overflow-x:scroll",width=12,status = "warning",dataTableOutput('datatableRatinf'))
+                                                                          ))
                                      
                                      
                                      )
@@ -1059,7 +1062,7 @@ shinyUI(
                    
                    
                    tabItem( tabName = "Mor" ,
-                            fluidRow(column(4,box(width=12,status = "warning",solidHeader = T,title = h3("RAROC"),h3(textOutput("raro")))),column(4,box(width=12,solidHeader = T,status = "warning",title = h3("RORAC"),h3(textOutput("roracc")))),column(4, box(width=12,solidHeader = T,status = "warning",title = h3("RARORAC"),h3(textOutput("raroracc"))))),
+                            fluidRow(column(4,box(width=12,status = "warning",solidHeader = T,title = h3("RAROC"),h3(textOutput("raroc1")))),column(4,box(width=12,solidHeader = T,status = "warning",title = h3("RORAC"),h3(textOutput("roracc")))),column(4, box(width=12,solidHeader = T,status = "warning",title = h3("RARORAC"),h3(textOutput("raroracc"))))),
                             fluidRow(column(4,box(width=12,solidHeader = T,status = "warning",title = h3("Indice de Morósidad"),h3(textOutput("morosidad")))),column(4,box(width=12,solidHeader = T,status = "warning",title = h3("Indice de Cobertura"),h3(textOutput("cobertura")))),column(4, box(width=12,solidHeader = T,status = "warning",title = h3("RAR"),h3(textOutput("rar")))))
                               
                             

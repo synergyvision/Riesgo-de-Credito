@@ -871,6 +871,10 @@ shinyServer(function(input, output, session) {
    
  }
  
+ 
+ 
+ 
+ 
  proyrat <- reactive({
    
    l1 <- as.data.frame(dataRatN()[,3])
@@ -884,6 +888,27 @@ shinyServer(function(input, output, session) {
    l3
    
  })
+ 
+ 
+ 
+ output$datatableRatinf <- renderDataTable({
+   
+   ca14 <- try(as.data.frame(dataRatN()[,3]))
+   
+   if (class(ca14)=="try-error") {
+     
+     c()
+     
+   }else{ 
+     colnames(ca14) <- c("Probabilidad de incumplimiento")
+     ca14
+     }
+   
+   
+   
+   
+ })
+ 
  
  output$datatableRatNCF <- renderDataTable({
 
@@ -2972,190 +2997,158 @@ shinyServer(function(input, output, session) {
   
 ################### Indicadores contables#################
  
-  
-  
-  calraroc <- reactive({
-    varr <- NULL
-    per <- NULL
-    ing <- NULL
-    
-      
-    if (input$meto==2) {
-        varr = as.numeric(calvar()[[1]])
-        per <- as.numeric(calvar()[[2]])
-        ing <- 138519.4
-        
-        raroc <- (ing-per)/varr
-    }else{
-      
-      varr <-  CrediTR()[2]
-      per <- CrediTR()[1]
-      ing <- 1385190.4
-      raroc <- (ing-per)/varr
-      }
-      
-      
-    
-    
-    return(raroc)
-  })
-  
-  
  
+ ### Return On Assets
  
-  rar1 <- reactive({
-    
-    per <- NULL
-    
-    
-   valor <-  try(
-    if (input$meto==2) {
-      
-      per <- as.numeric(calvar()[[2]])
-      
-      
-      rar <- as.numeric(datasetInputindices()[4,2])-per
-    }else{
-      
-      
-      per <- CrediTR()[1]
-      
-      rar <- as.numeric(datasetInputindices()[4,2])-per
-    })
-    
-    
+ Roa <- reactive({
    
-   if (class(valor)=="try-error") {
+   
+   ## R es el resultado contable de los activos financieros
+   ## A es el valor contable de los activos financieros
+   R <- as.numeric(datasetInputindices()[4,2])
+   A <- as.numeric(datasetInputindices()[5,2])
+   
+   return(R/A)
+   
+ })
+ 
+ 
+ 
+ ### RAR  Resultado ajustado al riesgo
+ 
+ RAR <- reactive({
+   
+   ## R es el resultado contable de los activos financieros
+   R <- as.numeric(datasetInputindices()[4,2])
+   
+   if (input$meto==2) {
      
-     retorno <- " "
+     per <- as.numeric(calvar()[[1]])
+
+   }else if(input$meto==1){
      
-   }else{retorno <- rar }
+     
+     per <- metr()[[1]]
+     
+   }
+   
+   return(R-per)
+   
+   
+   
+ })
+ 
+ 
+ ##Raroc risk adjusted return on capital
+ 
+ raroc <- reactive({
+   
+   
+   if (input$meto==2) {
+     
+     varr <- as.numeric(calvar()[[2]])
+     
+     
+     
+   }else if(input$meto==1){
+     
+     varr <-  metr()[[2]]
+  
+   }
+   
+   return(RAR()/varr)
+   
+   
+ })
+ 
+ 
+ ## RORAC
+ 
+ rorac <- reactive({
+   
+   
+   if (input$meto==2) {
+     
+     ## tvar
+     tarr <- as.numeric(calvar()[[3]])
+     
+     
+     
+   }else if(input$meto==1){
+     
+     ## tvar 
+     tarr <-  metr()[[3]]
+     
+   }
+   
+   
+    # r es resultado contable de los activos financieros
+   
+   
+   r <- as.numeric(datasetInputindices()[4,2])
+   return(r/tarr)
+   
+   
+ })
+ 
+ ## rarorac –Risk Adjusted Return On Risk Adjusted Capital 
+ 
+ rarorac <-reactive({
+   
+   
+   
+   if (input$meto==2) {
+     
+     ## tvar
+     tarr <- as.numeric(calvar()[[3]])
+     
+     
+     
+   }else if(input$meto==1){
+     
+     ## tvar 
+     tarr <-  metr()[[3]]
+     
+   }
+   
+   
+   return(RAR()/tarr)
+   
+ })
+ 
+  
+  
+ 
+ 
+ 
+  output$raroc1 <- renderText ({
+    
+    ca23 <- try(raroc())
     
     
-    return(retorno)
+    if (class(ca23)=="try-error") {
+      
+      "Cargue datos"
+      
+    }else{ca23}
+    
+    
+    
   })
   
   
-  rorac1 <- reactive({
+  output$roracc <- renderText ({
     
-    valor <- try(
-    if (input$meto==2) {
-      
-      
-      a <- as.numeric(datasetInputindices()[4,2])
-      
-      rac <- calvar()[[4]]
-      
-      rorac<- a/rac
-      
-    }else{
-      
-      a <- as.numeric(datasetInputindices()[4,2])
-      
-      rac <- CrediTR()[3]
-      
-      rorac<- a/rac
-      
-    })    
-    
-    if (class(valor)=="try-error") {
-      
-      retorno <- " "
-      
-    }else{retorno <- rorac }
+    ca23 <- try(rorac())
     
     
-    return(retorno)
-  })
-  
-  
-  rarorac1 <- reactive({
+    if (class(ca23)=="try-error") {
+      
+      "Cargue datos"
+      
+    }else{ca23}
     
     
-    
-    
-    
-      
-      rar <- rar1()
-      valor =try(
-    
-    if (input$meto==2) {
-      
-      
-      a <- as.numeric(datasetInputindices()[4,2])
-      
-      rac <- calvar()[[4]]
-      
-      
-      
-      rarora <- rar/rac
-      
-    }else{
-      
-      a <- as.numeric(datasetInputindices()[4,2])
-      
-      rac <-  CrediTR()[3]
-      
-      
-      rarora <- rar/rac
-      
-    }    
-    
-    )
-    
-    
-      
-      if (class(valor)=="try-error") {
-        
-        retorno <- " "
-        
-      }else{retorno <- rarora }
-      
-    return(retorno)
-  })
-  
-  
-  
-  raroc1333 <- reactive({
-    
-    rar <- rar1()
-    
-    
-    valor <- try(
-    
-    if (input$meto==2) {
-      
-      a <- as.numeric(datasetInputindices()[4,2])
-      
-      var <- calvar()[[1]]
-      
-      raroc <- rar/var
-      
-    }else{
-      
-      
-      var <-  CrediTR()[2]
-      
-      
-      raroc <- rar/var
-    }    )
-    
-    if (class(valor)=="try-error") {
-      
-      retorno <- " "
-      
-    }else{retorno <- raroc }
-    
-    
-    
-    return(retorno)
-  })
-  
-  output$Raroc1 <- renderText ({
-    
-    
-    
-  calraroc()
     
   })
   
@@ -3165,33 +3158,39 @@ shinyServer(function(input, output, session) {
   output$rar <- renderText ({
     
     
+    ca23 <- try(RAR())
     
-    rar1()
+    
+    if (class(ca23)=="try-error") {
+      
+      "Cargue datos"
+      
+    }else{ca23}
+    
+    
+    
     
   })
-  output$roracc <- renderText ({
-    
-    
-    
-    rorac1()
-    
-  })
+  
   
   
   output$raroracc <- renderText ({
     
+    ca23 <- try(rarorac())
     
     
-    rarorac1()
+    if (class(ca23)=="try-error") {
+      
+      "Cargue datos"
+      
+    }else{ca23}
+    
+    
+    
     
   })
   
-  output$raro <- renderText ({
- 
-    
-    raroc1333()
-    
-  })
+
   
   
   
