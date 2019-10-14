@@ -27,7 +27,7 @@ En esta sección se realizan predicciones a partir del modelo Score calculado. L
 
 Archivo con extensión *.csv* ó *.txt* el cual debe estar conformado por dos campos:
 
-- pd: Campo numerico indicando probabilidad de incumplimiento
+- pd: Campo numérico indicando probabilidad de incumplimiento
 - r: Campo categórico que indica rating del cliente
 
 ### Proyección Rating
@@ -40,7 +40,7 @@ Archivo con extensión *.csv* ó *.txt* el cual debe tener una única entrada nu
 
 ### Pérdida por cliente
 
-Archivo con extensión *.csv* ó *.txt* el cual debe tener una única data númerica entre 0 y 1 correspondiente al porcentaje de pérdida luego del Default.
+Archivo con extensión *.csv* ó *.txt* el cual debe tener una única data numérica entre 0 y 1 correspondiente al porcentaje de pérdida luego del Default.
 
 ### Pérdida por cliente
 
@@ -48,7 +48,7 @@ Archivo con extensión *.csv* ó *.txt* el cual debe tener dos campos
 
 + clases: Variable categórica correspondiente a las clases crediticias
 
-+ perdida: variable numérica entre 0 y 100 correspondiente a la perdida por clase
++ perdida: variable numérica entre 0 y 100 correspondiente a la pérdida por clase
 
 
 ## Matriz de transición
@@ -65,16 +65,16 @@ Archivo con extensión *.csv* ó *.txt* el cual debe tener dos campos
 
 ### Exposición
 
-Archivo con extensión *.csv* ó *.txt* el cual debe tener una única data númerica correspondiente al valor deudor del credito.
+Archivo con extensión *.csv* ó *.txt* el cual debe tener una única data numérica correspondiente al valor deudor del crédito.
 
 ### Probabilidad de incumplimiento
 
-Archivo con extensión *.csv* ó *.txt* el cual debe tener una única data númerica correspondiente a la probabilidad de incumplimiento de cada cliente.
+Archivo con extensión *.csv* ó *.txt* el cual debe tener una única data numérica correspondiente a la probabilidad de incumplimiento de cada cliente.
 
 
 ### Pérdidas dado el incumplimiento
 
-Archivo con extensión *.csv* ó *.txt* el cual debe tener una única data númerica correspondiente a la pérdida esperada por cliente en pocentaje de 0 a 1.
+Archivo con extensión *.csv* ó *.txt* el cual debe tener una única data numérica correspondiente a la pérdida esperada por cliente en pocentaje de 0 a 1.
 
 ## CreditMetrics
 
