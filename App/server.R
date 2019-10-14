@@ -37,10 +37,10 @@ shinyServer(function(input, output, session) {
               ###### Cargando datos con que se trabajara: entre los de ejemplo y los propios
         
   data1org <- reactive({
-    if(input$dataset){
+    if(input$dataset && !input$userFile){
       data <- datasetSelect()}
     
-    else {
+    else if(!input$dataset && input$userFile){
       data <- datasetInput()
     }
   })
@@ -89,12 +89,12 @@ shinyServer(function(input, output, session) {
   ###### Cargando datos con que se trabajara: entre los de ejemplo y los propios
   
   data_Cla_Cr <- reactive({
-    if(input$dataset_Cla_Cr){
+    if(input$dataset_Cla_Cr && !input$userFile_Cla_Cr){
       data <- datasetSelect_Cla_Cr()}
     
-    else {
+    else if(!input$dataset_Cla_Cr && input$userFile_Cla_Cr){
       data <- datasetInput_Cla_Cr()
-    }
+    }else{data.frame()}
   })
   
   
@@ -543,12 +543,12 @@ shinyServer(function(input, output, session) {
  })
  
  data7 <- reactive({
-   if(input$datasetrl){
+   if(input$datasetrl && !input$userFilerl){
      data <- datasetSelectrl()}
    
-   else {
+   else if(!input$datasetrl && input$userFilerl){
      data <- datasetInputrl()
-   }
+   }else{data.frame()}
  })
  
  ### esta parte se encarga de mostrar los datos
@@ -756,10 +756,10 @@ shinyServer(function(input, output, session) {
  ###### Cargando datos con que se trabajara: entre los de ejemplo y los propios
  
  dataRat <- reactive({
-   if(input$datasetRat){
+   if(input$datasetRat && !input$userFileRat){
      data <- datasetSelectRat()}
    
-   else {
+   else if(!input$datasetRat && input$userFileRat){
      data <- datasetInputRat()
    }
  })
@@ -847,14 +847,18 @@ shinyServer(function(input, output, session) {
  ###### Cargando datos con que se trabajara: entre los de ejemplo y los propios
  
  dataRatN <- reactive({
-   if(input$datasetRatN){
+   if(input$datasetRatN && !input$userFileRatN){
      data <- datasetSelectRatN()}
    
-   else {
+   else if(!input$datasetRatN && input$userFileRatN){
      data <- datasetInputRatN()
    }
  })
  
+ output$datos_proyect <- renderDataTable({
+   dataRatN()
+   
+ })
  
  
  #### Funcion que calcula el rating a partir  del  modelo
@@ -1184,12 +1188,12 @@ shinyServer(function(input, output, session) {
  
  
  dataaa2 <- reactive({
-   if(input$datasetr){
+   if(input$datasetr && !input$userFiler){
      data <- datasetSelectr()
      
      }
    
-   else if(input$userFiler) {
+   else if(!input$datasetr && input$userFiler) {
      
      data <- datasetInputproy()
    }
@@ -1208,53 +1212,22 @@ shinyServer(function(input, output, session) {
  
  
    proyec <- reactive({
-     if(input$datasetr ){
      
      
-     s1 <- dataaa2()
-     nombres <- colnames(data1org())
      
-     nombre <- input$columns
-     
-     posi <- which(nombres == nombre)
      
      
      reduccion = GlmModel()
      
      
-     Score <- predict(reduccion, newdata = s1, type = "link")
-     PD <- predict(reduccion, newdata = s1, type = "response")
+     Score <- predict(reduccion, newdata = dataaa2(), type = "link")
+     PD <- predict(reduccion, newdata = dataaa2(), type = "response")
      n <- length(PD)
      ress <- cbind(1:n,Score,PD)
      colnames(ress) <- c("Posición","Score","Probabilidad de incumplimiento") 
      return(ress)
      
-     }else if(input$userFiler & !is.null(input$file_dataproy)){
-       
-       
-       s1 <- dataaa2()
-       nombres <- colnames(data1org())
-       
-       nombre <- input$columns
-       
-       posi <- which(nombres == nombre)
-       
-       
-       reduccion = modprueba(data1(),data1org(),input$columns,input$radio1)
-       
-       
-       Score <- predict(reduccion, newdata = s1, type = "link")
-       PD <- predict(reduccion, newdata = s1, type = "response")
-       n <- length(PD)
-       ress <- cbind(1:n,Score,PD)
-       colnames(ress) <- c("Posición","Score","Probabilidad de incumplimiento") 
-       return(ress)
-       
-       
-     }
-       
-       
-       
+     
      
    
  })
@@ -1438,15 +1411,15 @@ shinyServer(function(input, output, session) {
  
  
  Proba <- reactive({
-   if(input$datasetPro){
+   if(input$datasetPro && !input$userFilePro){
      data <- datasetSelectPro()
      data <- as.data.frame(data)
      data <- data[3]
      }
    
-   else {
+   else if(!input$datasetPro && input$userFilePro){
      data <- datasetInputPro()
-   }
+   }else{data.frame()}
  })
  
  ###Se muestran los datos
@@ -1513,10 +1486,18 @@ shinyServer(function(input, output, session) {
  
  
  ####Se muestran los datos
- 
+ perdi_crrisk <- reactive({
+   
+   if(!input$PerdiGene && input$userFilePerd){
+     
+     datasetInputPer()
+   }else{data.frame()}
+   
+   
+ })
  
  output$PerdidaPropia<-renderDataTable({
-   datasetInputPer()
+   perdi_crrisk()
  },options = list(scrollX=T,scrollY=300))
  
  
@@ -2423,12 +2404,12 @@ shinyServer(function(input, output, session) {
  
  
  data6 <- reactive({
-   if(input$dataset0){
+   if(input$dataset0 && !input$userFile0){
      data <- datasetSelect0()}
    
-   else {
+   else if(!input$dataset0 && input$userFile0){
      data <- datasetInput0()
-   }
+   }else(data.frame())
  })
  
 
@@ -2472,12 +2453,12 @@ shinyServer(function(input, output, session) {
  
  
  data10 <- reactive({
-   if(input$datasetMT){
+   if(input$datasetMT && !input$userFileMT){
      data <- datasetSelectMT()}
    
-   else {
+   else if(!input$datasetMT && input$userFileMT){
      data <- datasetInputMT()
-   }
+   }else{data.frame()}
  })
  output$datatableMT<-renderDataTable({
    data10()
@@ -2551,7 +2532,7 @@ shinyServer(function(input, output, session) {
  #### data4 contiene ka matriz de seleccion calculada
  
  data4 <- reactive({
-   if(input$datasetcrm){
+   if(input$datasetcrm && !input$userFilecrm){
      
      
      mattrans()
@@ -2559,9 +2540,9 @@ shinyServer(function(input, output, session) {
      
    }
    
-   else {
+   else if(!input$datasetcrm && input$userFilecrm){
      data <- MatrizPropias()
-   }
+   }else{data.frame()}
  })
  
  ###SE muestra a matriz de transicion
@@ -2615,11 +2596,14 @@ shinyServer(function(input, output, session) {
  
  
  data11 <- reactive({
-   if(input$datasetC){
+   if(input$datasetC && !input$userFileC){
      data <- datasetSelectC()}
    
-   else {
+   else if(!input$datasetC && input$userFileC){
      data <- datasetInputC()
+   }else{
+     data.frame()
+     
    }
  })
  
