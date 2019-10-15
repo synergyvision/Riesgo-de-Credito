@@ -1240,7 +1240,7 @@ shinyServer(function(input, output, session) {
    pro <- try(proyec())
    if (class(pro)=="try-error") {
      
-     "Cargue datos"
+     c()
    }else{pro}
    
    
@@ -1585,7 +1585,18 @@ shinyServer(function(input, output, session) {
  
  
  output$numincum <- renderDataTable({
-   probinc()
+   
+   ca18 <- try( probinc())
+   
+   
+   if (class(ca18)=="try-error") {
+     
+     c()
+     
+   }else{ ca18}
+   
+   
+   
  
  },options = list(scrollX=T,scrollY=300))
  
@@ -1620,7 +1631,20 @@ shinyServer(function(input, output, session) {
  
  output$comparacion1 <- renderPlotly({
    
-   ggplotly(disn()[[1]])
+   
+   
+   ca7 <- try(ggplotly(disn()[[1]]))
+   
+   
+   if (class(ca7)=="try-error") {
+     
+     df <- data.frame()
+     ggplot(df) + geom_point() + xlim(0, 10) + ylim(0, 100)
+     
+   }else{ca7}
+   
+   
+   
    
  })
  
@@ -1964,8 +1988,8 @@ shinyServer(function(input, output, session) {
      
      "Cargue datos"
      
-   }else{paste(round(ca18*input$uniper,0),"Bs")}
-   
+   }else{paste(format(ca18*input$uniper,big.mark=".",scientific = FALSE),"Bs")}
+  
    
  })
  
@@ -2157,7 +2181,7 @@ shinyServer(function(input, output, session) {
    if (class(ca)=="try-error") {
      
      "Cargue datos y seleccione parametros"
-   }else{paste(round(ca*input$uniper,0),"Bs")}
+   }else{paste(format(ca*input$uniper,big.mark=".",scientific = FALSE),"Bs")}
    
    
    
@@ -2173,7 +2197,7 @@ shinyServer(function(input, output, session) {
    if (class(ca1)=="try-error") {
      
      "Cargue datos y seleccione parametros"
-   }else{paste(round(ca1*input$uniper,0),"Bs")}
+   }else{paste(format(ca1*input$uniper,big.mark=".",scientific = FALSE),"Bs")}
    
  
  })
@@ -2188,7 +2212,7 @@ shinyServer(function(input, output, session) {
    if (class(ca2)=="try-error") {
      
      "Cargue datos y seleccione parametros"
-   }else{paste(round(ca2*input$uniper,0),"Bs")}
+   }else{paste(format(ca2*input$uniper,big.mark=".",scientific = FALSE),"Bs")}
    
    
    
@@ -2898,7 +2922,7 @@ shinyServer(function(input, output, session) {
    if (class(ca4)=="try-error") {
 
      "Cargue datos y seleccione parametros"
-   }else{ca4} })
+   }else{paste(format(ca4, big.mark=".",scientific = FALSE),"bs",sep = " ")} })
 
    
    
@@ -2915,7 +2939,7 @@ shinyServer(function(input, output, session) {
    if (class(ca5)=="try-error") {
 
      "Cargue datos y seleccione parametros"
-   }else{ca5}
+   }else{paste(format(ca5,big.mark=".",scientific = FALSE),"Bs",sep = " ")}
 
  })
 
@@ -2931,8 +2955,8 @@ shinyServer(function(input, output, session) {
    if (class(ca6)=="try-error") {
 
      "Cargue datos y seleccione parametros"
-   }else{ca6}
-
+   }else{paste(format(ca6,big.mark=".",scientific = FALSE),"Bs",sep = " ")}
+   
  })
   
  
@@ -2947,9 +2971,15 @@ shinyServer(function(input, output, session) {
    content = function(file){
      tempReport <- file.path(tempdir(),"reporte2.Rmd")
      file.copy("reporte2.Rmd", tempReport, overwrite = TRUE)
-     params <- list(var1 = mattrans(), var2 = data_Cla_Cr(), var3 = data6(),
-                    var4 = input$simcrm, var5 = calvar(), var6=input$conf1,
-                    var7 = calvar(), var8=input$stress3)
+     params <- list(var1 = data4(),
+                    var2 = data_Cla_Cr(),
+                    var3 = data6(),
+                    var4 = input$simcrm,
+                    var5 = calvar(), 
+                    var6=input$conf1,
+                    var7 = calvar(),
+                    var8=input$stress3
+                    )
      
      
      
@@ -2973,7 +3003,7 @@ shinyServer(function(input, output, session) {
 
      "Cargue datos"
 
-   }else{ca23}
+   }else{paste(format(ca23,big.mark=".",scientific = FALSE),"Bs",sep = " ")}
 
  })
  #  

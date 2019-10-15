@@ -18,6 +18,8 @@ library(plotly)
 library(plyr)
 library(DT)
 
+options("scipen"=100, "digits"=4) 
+
 # Encabezado Vision
 VisionHeader <- function(){tags$head(
   tags$link(rel = "stylesheet", type = "text/css", href = "app.css"),

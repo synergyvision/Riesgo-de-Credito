@@ -16,7 +16,7 @@ params:
 ---
 # Reporte CreditMetrics
 
-Se implemento la metodológía *CreditRisk+* para hallar las métricas de riesgo de crédito asociada a la cartera de clientes de la institución. A continuación se presentan las variables y resultados:
+Se implemento la metodológía *CreditMetrics* para hallar las métricas de riesgo de crédito asociada a la cartera de clientes de la institución. A continuación se presentan las variables y resultados:
 
 ## Exposición por Clase
 
@@ -28,9 +28,13 @@ options(scipen=999)
 
 by_cla <- group_by(params$var3, calif)
 
-l3 <- as.data.frame(summarise(by_cla, sum(creditos)))
 
-colnames(l3) <- c("Calificación","Monto")
+ l3 <- as.data.frame(summarise(by_cla, sum(creditos)))
+# 
+ colnames(l3) <- c("Calificación","Monto")
+ 
+ l3["Monto"] <- suppressWarnings(format(l3["Monto"], big.mark=".", scientific = FALSE))
+ 
 
 kable(l3)
 ```
@@ -38,13 +42,13 @@ kable(l3)
 
 ## Matriz de Transición
 
-La matriz de transición que modela las probabilidades de cambio entre categorias de la institución fue: 
+La matriz de transición que modela las probabilidades de cambio entre categorias de la institución fue:
 
 ```{r, echo=FALSE, results='asis'}
 library(knitr)
 
 l <- params$var1
-l <- l[,-c(1)]
+
 
 kable(l)
 
@@ -92,7 +96,7 @@ gra[[5]]
 con <- params$var6
 ```
 
-A continuación se presentan las métricas de riesgo correspondientes a la metodología CreditMetrics, las cuales son: perdida esperada, valor en riesgo y valor en riesgo condicionado, con un nivel de confianza del `r con`% 
+A continuación se presentan las métricas de riesgo correspondientes a la metodología CreditMetrics, las cuales son: perdida esperada, valor en riesgo y valor en riesgo condicionado, con un nivel de confianza del `r con`%
 
 ```{r, echo=FALSE, results='asis'}
 library(knitr)
