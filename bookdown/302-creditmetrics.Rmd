@@ -4,18 +4,18 @@
 
 Mientras que en el caso de **CredictRisk+** se usa un enfoque actuarial mediante el cual se llega ha obtener una forma explícita de la distribución de pérdidas a través de la función generadora de probabilidades, en el  caso de **CredictMetrics**, aunque en teoría existe una representación explícita de la distribución de pérdidas, su obtención supera la capacidad de cálculo disponible en un computador convencional, y por lo tanto, está se estima a través de un proceso de simulación de *MonteCarlo*, otra caractéristica importante es que **CreditMetric** hace referencia, y utiliza extensamente, información que solo esta disponible en los mercados en desarrollo, aunque esto no impide que se aplique en los mercados emergentes si se hacen las edecuaciones correspondientes.
 
-Para la explicación de esta metodología usamos como guía el documento técnico de **CreditMetrics**. Iniciaremos con el caso más sencillo en el cual nuestrea cartera de créditos esta integrada por un único credito para luego generalizar el procedimiento a una cartera que puede incluir cualquier número $N$ de créditos. Pero primero establescamos los elementos básicos que usaremos en esta metodología.
+Para la explicación de esta metodología usamos como guía el documento técnico de **CreditMetrics**. Iniciaremos con el caso más sencillo en el cual nuestrea cartera de créditos esta integrada por un único crédito para luego generalizar el procedimiento a una cartera que puede incluir cualquier número $N$ de créditos. Pero primero establescamos los elementos básicos que usaremos en esta metodología.
 
-## Elementos que usa **Credimetrics**
+## Elementos de **Credimetrics**
 
 + *Conceptos relevantes al riesgo de crédito*: probabilidades de incumplimiento, patrones de migración entre los distintas clasificaciones que posean los clientes, umbrales que separen las calificaciones, el valor de los créditos, la tasa de recuperación en caso de incumplimiento de las calificaciones crediticia.
 
 + Información del mercado en general: Tales como datos sobre las calificaciones e indicadores sobre su calidad.
 
-+ Información generada internamente por las intituciones que se pueda mapear a los estandares del mercado.
++ Información generada internamente por las instituciones que se pueda mapear a los estándares del mercado.
 
 
-Historicamente Credimetrics fue desarrollado para abordar el problema de medir el riesgo de credito de que los emisores que colocan papel que se negocia en el mercado de los Estados Unidos incumplan sus compromisos. En general, los elementos que son necesastios en esta metodología estan disponibles en mercados desarrollados, pero las intituciones financieras pueden crear procedimientos y metodologias internas para lograr suplir la falta de información. Los elementos clave del sistema son:
+Históricamente Credimetrics fue desarrollado para abordar el problema de medir el riesgo de crédito de que los emisores que colocan papel que se negocia en el mercado de los Estados Unidos incumplan sus compromisos. En general, los elementos que son necesarios en esta metodología están disponibles en mercados desarrollados, pero las intituciones financieras pueden crear procedimientos y metodologías internas para lograr suplir la falta de información. Los elementos clave del sistema son:
 
 + Las calificaciones que otorgan las instituciones financieras a los distintos elementos que conforman su portafolio.
 
@@ -25,13 +25,13 @@ Historicamente Credimetrics fue desarrollado para abordar el problema de medir e
 
 Una característica importante de las calificaciones emitidas es que ellas aportan de manera implícita piezas clave para la evaluación del riesgo de crédito, como por ejemplo:
 
-+ Probabilidades de incumplimiento históricas asociadas a cada calificación, así como las probabilidades de transición entre las categorias.
++ Probabilidades de incumplimiento históricas asociadas a cada calificación, así como las probabilidades de transición entre las categorías.
 
-+ Las distintas tasas de interes asociadas a cada categoría.
++ Las distintas tasas de interés asociadas a cada categoría.
 
-Otra parte fundamental del análisis es la cantidad que se espera recuperar en caso de que el crédito caiga en la cartera de vencidos. Aunque si el sistema de calificación es robusto raramente se espera que un crédito que halla pasado a la cartera de vencido este en una calificación alta. Pero al final, la calificación no solo depende del sistema interno de la institución, sino tambien de la garantias que ofresca el crédito.
+Otra parte fundamental del análisis es la cantidad que se espera recuperar en caso de que el crédito caiga en la cartera de vencidos. Aunque si el sistema de calificación es robusto raramente se espera que un crédito que halla pasado a la cartera de vencido este en una calificación alta. Pero al final, la calificación no solo depende del sistema interno de la institución, sino también de la garantías que ofresca el crédito.
 
-En general, todos los requerimientos estan entrelazados, por ejemplo las calificaciones que se otorgan dependen de cosas como: historial de incumplimiento, garantias, utilidades de los créditos en los últimos años, el pais de origen, entre otros.
+En general, todos los requerimientos están entrelazados, por ejemplo las calificaciones que se otorgan dependen de cosas como: historial de incumplimiento, garantías, utilidades de los créditos en los últimos años, el país de origen, entre otros.
 
 A manera de ilustración se presenta una matriz de transición publicada por Standard & Poor's en Abril de 1966. En ella se aprecian las probabilidades de transición de que un bono que se encuentra en una calificación dada migre a otra calificación, por ejemplo en la tabla se aprecia que la probabilidad de que un bono que esta en la calificación BB migre a una calificación C es de un 1%.
 
@@ -47,7 +47,7 @@ A manera de ilustración se presenta una matriz de transición publicada por Sta
 
 
 
-Las tasas de recuperación de los créditos como ya se menciono son fundamentales, y no son únicamente proporcionadas por las instituciones financieras, estas pueden recurrir a terceros por las calificaciones de los créditos. Acontinuación se presenta una tabla que muestra las tasas de recuperación de créditos elaboradsas por Moody's y otros académicos.
+Las tasas de recuperación de los créditos como ya se menciono son fundamentales, y no son únicamente proporcionadas por las instituciones financieras, estas pueden recurrir a terceros por las calificaciones de los créditos. A continuación se presenta una tabla que muestra las tasas de recuperación de créditos elaboradas por Moody's y otros académicos.
 
 |      Prelación      | Media (%) | Desv. Std (%) |
 |:-------------------:|:---------:|:-------------:|
@@ -57,21 +57,21 @@ Las tasas de recuperación de los créditos como ya se menciono son fundamentale
 | Subordinada         |   32.74   |     20.18     |
 | Junior Subordinada  |   17.09   |     10.90     |
 
-Una acotación interesante, es que originalmente credimetrics esta direccionada a medir el riesgo de crédito de una cartera de bonos. Sin embargo puede ser aplicado a distintos tipos de posiciones que involucren riesgo de crédito, como por ejemplo: posiciones cortas en divisas, futuros, opciones o como es el caso de interes, créditos tradicionales. Ahora, daremos el ejemplo de credimetrics usando un único crédito.
+Una acotación interesante, es que originalmente credimetrics esta direccionada a medir el riesgo de crédito de una cartera de bonos. Sin embargo puede ser aplicado a distintos tipos de posiciones que involucren riesgo de crédito, como por ejemplo: posiciones cortas en divisas, futuros, opciones o como es el caso de interés, créditos tradicionales. Ahora, daremos el ejemplo de credimetrics usando un único crédito.
 
 ## El caso de un solo crédito 
 
-Una vez descrito los elementos necesarios para esta metodología vamos a empezar por realizar los pasos que son necesarios para la medición del riesgo de crédito de una cartera de un solo activo. Utilizaremos un ejemplo parecido al que procede del documento de Credimetrics con la diferencia que ellos usan un bono y nosotros un credito personal. Los tres pasos a realizar son:
+Una vez descrito los elementos necesarios para esta metodología vamos a empezar por realizar los pasos que son necesarios para la medición del riesgo de crédito de una cartera de un solo activo. Utilizaremos un ejemplo parecido al que procede del documento de Credimetrics con la diferencia que ellos usan un bono y nosotros un crédito personal. Los tres pasos a realizar son:
 
 + Dependiendo de la calificación del bono, se obtiene la probabilidad de que migre hacia un estado de migración diferente.
 
 + Se calcula el saldo o la exposición de los créditos.
 
-+ Se aplican las probabilidades de migración a la expoción que posee el crédito para obtener la distribución de probabilidad de pérdida o perfil de riesgo del instrumento y las estadísticas que corresponden, es decir, la pérdida esperada, su varianza o desviación estandar, su VaR con un nivel de confianza deseado, entre otros.
++ Se aplican las probabilidades de migración a la expoción que posee el crédito para obtener la distribución de probabilidad de pérdida o perfil de riesgo del instrumento y las estadísticas que corresponden, es decir, la pérdida esperada, su varianza o desviación estándar, su VaR con un nivel de confianza deseado, entre otros.
 
 ### Ejemplo 1
 
-Supongamos que tenemos un crédito con calificación BB con exposición de 250, la institución financiera posee la siguiente información sobre las probabilidades calificación de los créditos que estan en una calificación BB:
+Supongamos que tenemos un crédito con calificación BB con exposición de 250, la institución financiera posee la siguiente información sobre las probabilidades calificación de los créditos que están en una calificación BB:
 
 | Calificación | Probabilidad de transición (%) |
 |:------------:|:------------------------------:|
@@ -83,7 +83,7 @@ Supongamos que tenemos un crédito con calificación BB con exposición de 250, 
 |       B      |               18               |
 |      CCC     |                5               |
 
-Tambien la institución cuenta con las perdidad esperadas por calificación (las cuales representan la inversa aritmética de las tasas de recuperación  en caso de que el crédito caiga en default o mora)
+También la institución cuenta con las pérdidas esperadas por calificación (las cuales representan la inversa aritmética de las tasas de recuperación  en caso de que el crédito caiga en default o mora)
 
 | Calificación | Pérdida esperada (%) |
 |:------------:|:--------------------:|
@@ -116,7 +116,7 @@ PE = (0.25*0.04)+(7.5*0.05)& \\
 &+(62.5*0.18) +(100*0.05)=40.93
 \end{align*}
 
-Así la pérdida esperada de una cartera de un solo crédito de calificación BB de una exposición de 250 es de 40.935. Ahora para calcular el VaR a un nivel de confianza en especifico por ejemplo al 5% simplemente sumamos las probabilidad de manera descendentes de las calificaciones hasta llegar 95 en el caso de que se pase se toma la calificación en la cual ocurre el exceso, en nuestro ejemplo el VaR ocurre en la calificación B, así el $VaR_{5\%}=62.5$.
+Así la pérdida esperada de una cartera de un solo crédito de calificación BB de una exposición de 250 es de 40.935. Ahora para calcular el VaR a un nivel de confianza en especifico por ejemplo al 5% simplemente sumamos las probabilidad de manera descendentes de las calificaciones hasta llegar 95 en el caso de que se pase se toma la calificación en la cual ocurre el exceso, en nuestro ejemplo el VaR ocurre en la calificación B, así el $VaR_{95\%}=62.5$.
 
 En general, se suele pensar que una aproximación normal a la distribución de pérdidas puede ser idonea, pero esto es incorrecto pues suele ocurrir que las probabilidades de transición se concentren en los extremos de las calificaciones, esto se verá en el siguiente ejemplo.
 
@@ -149,7 +149,7 @@ Ya con esta información podemos establecer una tabla con la pérdida esperada d
 |       B      |             75               |       4       |
 |      CCC     |             120              |       1       |
 
-Ahora de igual forma para obtener la paérdida esperada procedemos con el siguiente cálculo.
+Ahora de igual forma para obtener la pérdida esperada procedemos con el siguiente cálculo.
 
 
 \begin{align*} 
@@ -164,7 +164,7 @@ Con este ejemplo podemos notar que la distribución normal no se ajusta de maner
 
 ## Cartera de dos de créditos con probabilidades de transición independientes.
 
-Como en realidad el caso de un solo instrumento no es de interes, pues una cartera de créditos de una institución financiera puede estar conformada por millones de créditos daremos un ejemplo ilustrativo con una cartera de dos créditos, con esto se pretende mostrar como aumenta el nivel de dificultad, mas adelante veremos que en general, no calcularemos la distribución de pérdidas explícitamente, sino realizaremos una aproximación por el método de simulación de Montecarlo.
+Como en realidad el caso de un solo instrumento no es de interés, pues una cartera de créditos de una institución financiera puede estar conformada por millones de créditos daremos un ejemplo ilustrativo con una cartera de dos créditos, con esto se pretende mostrar como aumenta el nivel de dificultad, mas adelante veremos que en general, no calcularemos la distribución de pérdidas explícitamente, sino realizaremos una aproximación por el método de simulación de Montecarlo.
 
 ### Ejemplo 3
 
@@ -200,11 +200,11 @@ Ahora realizando todas las correspondientes multiplicaciones de las pérdidas po
 
 ## Aproximación de la distribución de pérdidas de una cartera con $n$ créditos.
 
-En el ejemplo anterior notamos como una cartera con 2 créditos con 7 posibles calificaciones existen $7^2$ combinaciones, si tuvieramos 50 créditos  en nuestra cartera hubiera $7^{50}$ combinaciones posibles, es decir, el coste computacional aumenta exponencialmente, por lo tanto, una cartera realista com miles e incluso millones de créditos se vuelve inviable si queremos realizar el cálculo de la misma forma que el ejemplo anterior, por lo tanto nos vemos obligados a realizar una aproximación a la distribución de pérdidas.
+En el ejemplo anterior notamos como una cartera con 2 créditos con 7 posibles calificaciones existen $7^2$ combinaciones, si tuviéramos 50 créditos  en nuestra cartera hubiera $7^{50}$ combinaciones posibles, es decir, el coste computacional aumenta exponencialmente, por lo tanto, una cartera realista con miles e incluso millones de créditos se vuelve inviable si queremos realizar el cálculo de la misma forma que el ejemplo anterior, por lo tanto nos vemos obligados a realizar una aproximación a la distribución de pérdidas.
 
 ### Simulación de MonteCarlo
 
-Ahora veremos como aproximar la distribución de pérdidad con el método más común, conocido como método de aproximación por simulación de MonteCarlo. Antes de describir el método debemos acotar que en general los eventos de migración crediticia pueden ser supuestos independientes o no entre las migraciones de otros créditos. Sin embargo en mercados poco desarrollodos  o donde la información es limitada se tiende a suponer la independencia entre los créditos de una cartera.
+Ahora veremos como aproximar la distribución de pérdidas con el método más común, conocido como método de aproximación por simulación de MonteCarlo. Antes de describir el método debemos acotar que en general los eventos de migración crediticia pueden ser supuestos independientes o no entre las migraciones de otros créditos. Sin embargo en mercados poco desarrollodos  o donde la información es limitada se tiende a suponer la independencia entre los créditos de una cartera.
 
 
 #### ¿Que es un Método de Montecarlo?
@@ -261,12 +261,12 @@ Ahora para comprobar la eficiencia del método de generación de números pseudo
 
 Ahora una vez se pretenda usar un método algorítmico de generación de números aleatorios, se usa este metódo para generar eventos probabilísticos en los cuales se consideren todos los posibles eventos de transición entre las distintas calificaciones. Cada evento se considera como una simulación de un evento particular, por cada simulación los créditos se encuentran en una calificación determinada por la probabilidad de transición respectiva, este calificación trae con si una pérdida esperada por crédito, asi por cada simulación se obtiene una pérdida. 
 
-Ahora si nuestra cartera de crédito posee 1000 créditos, y existen 5 calificaciones, en la sección vimos que existen $5^{1000}$ posibles eventos, para imaginarnos esta cantidad basta saber que este número es mayor que un billón, por lo tanto debemos realizar un gran número de simulaciones para poder captar información verídica de la pérdida esperada. Una de las bondades de estimar la pérdida esperada de esta forma es que la distribución tendera asintóticamente a una normal donde su media tendera la pérdida esperada de la cartera.
+Ahora si nuestra cartera de crédito posee 1000 créditos, y existen 5 calificaciones, en la sección vimos que existen $5^{1000}$ posibles eventos, para imaginarnos esta cantidad basta saber que este número es mayor que un billón, por lo tanto debemos realizar un gran número de simulaciones para poder captar información verídica de la pérdida esperada. Una de las bondades de estimar la pérdida esperada de esta forma es que la distribución tenderá asintóticamente a una normal donde su media tenderá la pérdida esperada de la cartera.
 
 #### Obtención de las métricas de riesgo.
 
-Una ves realizadas las simulaciones y obtenida la aproximación de la distribución de pérdidas usando la aproximación normal es facil obtener las métricas de riesgo, pues estas ya estan definidas para la distribución normal. Si la distribucion de pérdidas es como una normal de media $\mu$ y desvianción estandasr $\sigma$ las métricas de riesgo son: $$\textrm{Pérdida esperada}=\mu$$,$$VaR_{p}=\mu+\sigma\Phi^{-1}(p)$$,$$TVaR_p=\mu+\sigma\frac{\phi[\Phi^{-1(p)}]}{1-p}$$
-Donde $\phi$ y $\Phi$ representan la función de densidad de probabilidad y la función de probabilidad acumulada de una normal estandar.
+Una ves realizadas las simulaciones y obtenida la aproximación de la distribución de pérdidas usando la aproximación normal es facil obtener las métricas de riesgo, pues estas ya están definidas para la distribución normal. Si la distribucion de pérdidas es como una normal de media $\mu$ y desvianción estándar $\sigma$ las métricas de riesgo son: $$\textrm{Pérdida esperada}=\mu$$,$$VaR_{p}=\mu+\sigma\Phi^{-1}(p)$$,$$TVaR_p=\mu+\sigma\frac{\phi[\Phi^{-1(p)}]}{1-p}$$
+Donde $\phi$ y $\Phi$ representan la función de densidad de probabilidad y la función de probabilidad acumulada de una normal estándar.
 
 
 
