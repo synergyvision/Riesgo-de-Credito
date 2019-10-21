@@ -3,198 +3,370 @@
 # Manual técnico de la aplicación Vision CreditRisk
 
 
-En el presente capítulo, presentaremos el manual técnico de la aplicación Vision CreditRisk, el cual utiliza las nociones teóricas vistas anteriormente para lograr de una forma agradable y de facil entendimiento permtir que el usuario encargado del área de crédito de su institución maneje de forma precisa y adecuada las métricas de riesgo.  
+En el presente capítulo, presentaremos el manual técnico de la aplicación Vision CreditRisk, el cual utiliza las nociones teóricas vistas anteriormente para lograr de una forma agradable y de facíl entendimiento permtir que el usuario encargado del área de crédito de su institución maneje de forma precisa y adecuada las métricas de riesgo.  
 
 ## Presentación de la aplicación.
 
 
-La aplicación esta compuesta de tres secciones, la primera referente a la metodología CreditRisk+, la segunda correspondiente a la metodología Credimetrics y la tercera sección referente a indicadores técnicos.
+La aplicación esta compuesta de ocho secciones, la primera una sección donde se cargan los datos que necesitara la aplicación, la segunda correspondiente a la sección **Scoring y  Rating**, la tercera sección correspondiente a la **Pérdida por Incumplimiento**, la cuarta correspondiente a la **Matriz de transición**, la quinta correspondiente a la metodología **CreditRisk+**, la sexta a la metología **CreditMetrics**, la septima correspondiente al **BackTesting** y la octava a correspondiente a los **Indicadores contables**.
 
-![\label{fig:"sd"}](images/portada.png)
+![\label{fig:"sd"}](images/1.png)
 
 
 
-## Primera sección: CreditRisk+
+## Primera sección: Datos
 
-En la primera sección que se observa en la columna izquierda, consta de las siguientes secciones: Datos, Estadísticos, Pérdida por incumplimiento, Score de crédito, parámetros y resultados, stressting.
+En esta sección se cargan los datos de las diferentes metodologías
 
-![\label{fig:"sd"}](images/datos.png)
 
-### Datos
+![\label{fig:"sd"}](images/2.png)
 
-En esta sección se cargan los datos con los que se alimentara la costrucción del score de crédito y parte de la metología, al iniciar veremos la siguiente pantalla:
+### Scoring y Rating
 
-![\label{fig:"sd"}](images/datos1.png)
+En esta sección se cargan los datos con los cuales serán construidos el **Score y Rating** de crédito.
 
-Tendremos dos opciones, una a manera de ejemplo para entender como debe ser el formato de los datos, al seleccionarla se nos desplegara la siguiente pantalla. 
 
-![\label{fig:"sd"}](images/datos2.png)
+#### Scoring
 
-Ahora del lado que debemos seleccionar, se nos desplagara:
+En esta sección se tendrá dos opciones, la primera será de datos de ejemplo, la cual se muestra a continuación
 
-![\label{fig:"sd"}](images/datos3.png)
+![\label{fig:"sd"}](images/4.png)
 
-Debemos hacer click en buscar los datos a seleccionar, estos datos deberan estar conformados por la lista de los clientes, similar a los datos de ejemplo, una de la columnas debe tener el nombre de "Creditability" (la cual indica si el cliente esta en mora, valor de $1$ o no valor de $0$)
+La segunda *Datos Propios* la cual debemos cargar los datos de la aplicación.
 
-### Estadísticos:
+![\label{fig:"sd"}](images/5.png)
 
-En esta seccion tendremos dos pestañas:
+
+#### Proyección Scoring
+En Proyección Scoring cargamos datos para hacer predicciones de nuevos clientes.
+
+![\label{fig:"sd"}](images/6.png)
+
+
+#### Rating
+
+En Rating cargamos los datos como se muestra a continuación
+
+![\label{fig:"sd"}](images/7.png)
+
+
+
+#### Proyección Rating 
+
+En *proyrección rating* tenemos dos opciones, en la primera usamos datos provenientes del Score o datos propios.
+
+![\label{fig:"sd"}](images/8.png)
+
+
+### Pérdida por Incumplimiento
+
+En esta sección cargaremos los datos para estimar las perdida esperada de los clientes.
+
+#### Pérdida por clientes
+
+Se cargan los datos de pérdidas históricas por clientes.
+
+![\label{fig:"sd"}](images/9.png)
+
+
+#### Pérdida por clase
+
+Se cargan los datos de pérdidas históricas por clientes y sus categorías crediticias.
+
+![\label{fig:"sd"}](images/10.png)
+
+### Matriz de transición
+
+En esta sección solo tendremos una pestaña en la cual se cargarán los datos de las transiciones históricas entre categorías.
+
+
+![\label{fig:"sd"}](images/11.png)
+
+
+### CreditRisk+
+
+En esta sección cargaremos los datos de la primera metodología de riesgo de crédito.
+
+#### Exposición
+
+Primero cargamos los datos correspondientes a la exposición crediticia de cada cliente.
+
+![\label{fig:"sd"}](images/14.png)
+
+
+
+#### Probabilidad de incumplimiento
+
+Se cargan las probabilidades de incumplimiento de cada cliente, en este caso podemos seleccionar un conjunto de datos propios o los provenientes de la sección Score
+
+![\label{fig:"sd"}](images/13.png)
+
+
+
+#### Pérdidas dado el incumplimiento
+
+Se cargan las pérdidas asociadas a cada cliente o seleccionamos la opción *Pérdidas por Clientes* para asociar una única pérdida a todos por igual.
+
+![\label{fig:"sd"}](images/12.png)
+
+
+### CreditMetric
+
+En esta sección se cargaran los datos correspondientes a la segunda metodología de riesgo de crédito.
+
+#### Exposición
+
+Cargamos los datos de las exposiciones de cada cliente y sus calificaciones crediticias.
+
+![\label{fig:"sd"}](images/15.png)
+
+
+#### Matriz de transición
+
+Cargamos la matriz de transición, tendremos la opción de cargar la calculada en la sección *Matriz de transición*
+
+
+![\label{fig:"sd"}](images/16.png)
+
+
+#### Pérdidas dado el incumplimiento
+
+Cargamos las pérdidas esperadas por categoría, de igual forma tenemos la opción de usar la calculada en la sección *Pérdida por incumplimiento*
+
+![\label{fig:"sd"}](images/17.png)
+
+### BackTesting
+
+En esta sección cargamos los datos para realizar puebas al VaR
+
+![\label{fig:"sd"}](images/19.png)
+
+
+### Indicadores Contables
+
+En esta sección se calcularán algunos indicadores contables, primero debemos seleccionar que metodología se usará y luego cargar el archivo con ciertos datos contables.
+
+![\label{fig:"sd"}](images/18.png)
+
+
+## Score y rating
+
+Esta sección esta conformada por tres pestañas, estadísticos, Score de crédito y Rating de crédito
+
+![\label{fig:"sd"}](images/20.png)
+
+### Estadísticos
+
+Em esta sección veremos un pequeño resumen estadísticos y criterios para la selección de variables
 
 #### Relación de las variables independientes
 
-En esta pestaña, veremos el gráfico estadístico de boxplot para ver el comportamiento de la variable al segmentarla en deudores o no, ademas en la parte inferior tendremos un resumen estadístico de la variable seleccionada.
+Se tendrá la opción de ver el gráfico de caja y bigote de la variable independiente seleccionada y la variable Default. Además se tendra un resumen estadístico de la variable seleccionada.
+
+![\label{fig:"sd"}](images/21.png)
+
+#### Selección de variables
+
+Tendremos dos opciones, las cuales corresponden a la selección de variables cualitativas y cuantitativas, una vez seleccionada la opción podremos escoger el nivel de significancia de la prueba.
 
 
-![\label{fig:"sd"}](images/esta1.png)
+![\label{fig:"sd"}](images/22.png)
+![\label{fig:"sd"}](images/23.png)
 
-### Selección de variables
+### Score de Crédito
 
-En esta sección el usuario podrá colocar el significancia para escoger las variables cualitativas y cuantitativas que se usaran en el modelo, la pestaña se divide en 2, una para cada tipo de variable.
+En esta sección contruiremos el *Score* de crédito el cual esta basado en un modelo lineal generalizado.
 
-![\label{fig:"sd"}](images/esta2.png)
+#### Selección y Resultado del modelo
 
+Primero debemos seleccionar el link del modelo lineal generalizado.
+
+![\label{fig:"sd"}](images/24.png)
+
+Una vez escogido el link se muestrán los coeficientes del modelos por variable.
+
+![\label{fig:"sd"}](images/25.png)
+
+Luego se muestra información del modelo en general.
+
+
+![\label{fig:"sd"}](images/26.png)
+
+Finalizando con información de las métricas de bondad del modelo.
+![\label{fig:"sd"}](images/27.png)
+
+#### Score de la cartera de crédito de entrenamiento
+
+En esta sección se muestra el Score y probabilidad deincumplimiento de los clientes con los cuales se 
+
+![\label{fig:"sd"}](images/28.png)
+
+#### Proyección a nuevos clientes
+
+
+En esta sección podemos usar el score para calcular la probabilidad de incumplimiento de nuevos clientes.
+
+![\label{fig:"sd"}](images/29.png)
+
+### Rating de Crédito
+
+En esta sección crearemos el sistema de rating para clasificar a los clientes.
+
+#### Construcción del Modelo de Rating
+
+En esta sección se muestra la información estadística del modelo rating usando análisis de discriminante.
+
+![\label{fig:"sd"}](images/30.png)
+
+#### Rating de Nuevos clientes
+
+Una vez creado el modelo de rating en esta sección se muestra la proyección a nuevos clientes.
+
+![\label{fig:"sd"}](images/31.png)
 
 
 ## Pérdida por incumplimiento
 
-En esta sección podra calcular la pérdida histórica por incumplimiento. El usuario podrá ver graficamente lo que espera recuprar en caso de incumplimiento, mientras transcurre el tiempo.
-
-![\label{fig:"sd"}](images/perdida.png)
+En esta sección calcularemos las pérdidas esperadas por cliente, tendremos dos opciones: perdida de la cartera en general y pérdida por clasificación.
 
 
-## Score de Crédito.
+![\label{fig:"sd"}](images/32.png)
 
-En esta sección se calculara la probabilidad de incumplimiento, score o pontuja crediticio por cliente, y se haran proyecciones a nuevos clientes.
+### Perdida por Cliente
 
-### Selección y resultados del modelo
+#### Datos
 
-En esta sección el usuario seleccionara el modelo que mejor se ajuste a los datos, una vez seleccionado se deplegara la matriz con los resultados del modelo y el grafico ROC para mostrar el nivel de acierto del modelo.
+En esta sección veremos un histograma de las pérdidas históricas
 
-![\label{fig:"sd"}](images/score1.png)
+![\label{fig:"sd"}](images/33.png)
 
-### Score de la cartera de crédito.
+#### Pérdidas usando bootstrap
 
-Una vez selecionado el modelo, en esta pestaña el usuario podra ver la probabilidad de incumplimiento y el score o puntaje crediticio de los clientes.
-
-![\label{fig:"sd"}](images/score2.png)
+La técnica bootstrap consiste en simular usando la data muchas submuestras, para obtener estadísticos fáciles de calcular, tendremos dos opciones para iniciar la simulación: Número de sub-muestras y Tamaños de las sub-muestras
 
 
-### Proyección a nuevos clientes.
+![\label{fig:"sd"}](images/34.png)
+
+### Pérdida por Clases
 
 
+#### Pérdidas Promedios
 
-## Parametros y resultados.
+En esta sección se calculan las pérdidas promedios por clase o categoría.
 
-En esta sección se pediran los valores de los parámetros básicos y se mostraran los resultados de las principales métricas de riesgo para la metodología CreditRisk+.
+![\label{fig:"sd"}](images/35.png)
 
-![\label{fig:"sd"}](images/par1.png)
+#### Pérdidas usando bootstrap
+
+De igual manera se usa bootstrap, pero en este caso se usa por categoría.
 
 
+![\label{fig:"sd"}](images/36.png)
 
-### Parámetros iniciales
 
-En esta sección, deberemos establecer la unidad de pérdida, que no es mas que la unidad de medida que inteta cuantificar la pérdida de una forma mas compacta. Deberemos ingresar el porcentaje de recuperación que se espera recuperar luego que un crédito esta en mora. Debemos cargar las probabilidades de incumplimiento de la cartera de clientes, podemos cargar una data propia generada por mecanismos internos o podemos cargar la proveniente de la sección de Score de crédito, en ambos casos la data debe tener la siguiente estructura:
+## Matriz de trnasición
 
-![\label{fig:"sd"}](images/par2.png)
+En esta sección se calcula la matriz de transición crediticia.
+
+![\label{fig:"sd"}](images/37.png)
+
+
+###  Matriz de transición
+
+Una vez cargados los datos, se calcula la matriz de transición, usando tasas ponderadas históricas.
+
+![\label{fig:"sd"}](images/38.png)
+
+## CreditRisk+
+
+Ene sta sección se mostraron los resultados de usar la metodología de riesgo de crédito CreditRisk+, la cual está conformada por dos pestañas.
+
+
+![\label{fig:"sd"}](images/39.png)
 
 ### Resultados
 
-En la sección resultados, podremos escoger el nivel de significancia deseado, para mostrar las metrícas usuales de riesgo, tendremos tambien la opción para descargar el roporte proveniente de esta metodología
+En esta sección se mostrarán los resultados correspondiente a la metodología
 
-![\label{fig:"sd"}](images/par3.png)
+#### Pérdida esperada por cliente
 
+En esta sección se muestra una tabla estadística de la información sobre la pérdida de los clientes.
 
-## Stress Testing
+![\label{fig:"sd"}](images/40.png)
 
-En esta sección de una manera controlada porcentualmente simularemos resultados extremos de pérdida, para luego mostrar la pérdida esperada tras esto.  
+#### Incumplimientos
 
-![\label{fig:"sd"}](images/stre.png)
+En esta sección se muestra la probabilidad de que ocurran $n$ incumplimientos en la cartera de clientes
 
+![\label{fig:"sd"}](images/41.png)
 
-## Segunda sección: Credimetrics
+Luego se presenta la distribución acumulada del número de incumplimientos
 
-En la segunda sección que se observa en la columna izquierda, consta de las siguientes secciones: créditos, matriz de transición, Pérdida por clase, simulación y resultados, stressting.
+![\label{fig:"sd"}](images/42.png)
 
-![\label{fig:"sd"}](images/sec2.png)
+#### Pérdida
 
-## Créditos
+En esta sección se muestra la probabilidad de perder $n$ unidades de pérdida
 
-En esta sección, deberemos cargar las exposiciones de los créditos y sus respectivas calificaciones:
+![\label{fig:"sd"}](images/43.png)
 
-![\label{fig:"sd"}](images/exp.png)
+Luego se presenta la función de distribución de las pérdidas.
 
+![\label{fig:"sd"}](images/44.png)
 
-## Matriz de trancición
+#### Resultados
 
-En esta sección cargaremos los datos para el cálculo de la matriz de transición crediticia
+En esta sección se muestran las métricas de riesgo de la metodología.
 
-### Cálculo de la matriz de transición
+![\label{fig:"sd"}](images/45.png)
 
-En esta sección debemos cargar los datos históricos de migraciones crediticias en periodos de tiempo especificos, es decir, con que calificación inicio el crédito y con cual finalizo.
+### StresTesting
 
-![\label{fig:"sd"}](images/mtr.png)
- Una vez cargados los datos en la parte inferior se mostrara la matriz de transición cálculada:
- 
-![\label{fig:"sd"}](images/mtr2.png)
+En esta sección se muestra el valor de una prueba de estres en la metodología.
 
-### Selecección de la matriz de transición
-
-En esta sección se debera seleccionar la matriz de transición, se puede escoger la ya calculada o en caso de que el banco no posea los datos históricos necesarios, podra cargar su matriz de transición propia, pero debe tener el siguiente formato.
-
-
-![\label{fig:"sd"}](images/mtr3.png)
-
-## Pérdida por clase.
-
-En esta sección se calcula o solicita las pérdidas esperadas por calificación crediticia.
-
-### Cálculo de pérdida esperada
-
-En esta pestaña el usuario debe cargar los datos históricos de las pérdidad ocacionadas por clientes dado su calificación.
-
-![\label{fig:"sd"}](images/perd1.png)
-
-### Pérdida esperada
-
-Al igual que en la sección de la matriz de transición, el usuario podra seleccionar la matriz calculada o introducir una propia:
-
-![\label{fig:"sd"}](images/perd2.png)
-
-##  Simulación y resultados.
-
-En esta sección el usuario indicara el número de simulaciones para la simulación de MonteCarlo, la aplicación realizara los cálculos y nos presentara las métricas de riesgo y la opción de descargar el reporte.
-
-![\label{fig:"sd"}](images/var2.png)
-
-
-
-## Stress Testing.
-
-Una vez llevado a cabo todos los pasos requeridos para la metodología, el usuario podrá realizar una prueba de estres sobre los parámetros del modelo.
-
-![\label{fig:"sd"}](images/stress2.png)
-
-## Tercera sección: Indicadores contables
-
-En esta sección se calculan indicadores contables, poniendo atención al RAROC de crédito, y otros que dependen exclusimamente del balence de la entidad financiera.
-
-## Cálculo del RAROC
-
-Dedicamos una subsección completa debido a su gran uso en las entidades financieras. Lo primero que veremos es una sección informativa:
-
-![\label{fig:"sd"}](images/cont1.png)
-
-### RAROC
-
-En esta pestaña, requerimos que el usuario cargue la información del balence necesaria para el cálculo del RAROC y la metodología de riesgo de crédito que uso
-
-
-
-![\label{fig:"sd"}](images/cont2.png)
+![\label{fig:"sd"}](images/46.png)
 
 
 
 
+## CreditMetric
 
+En esta sección se presenta la segunda metodología de riesgo de crédito.
+
+
+![\label{fig:"sd"}](images/47.png)
+
+### Simulación y Resultados
+
+En esta sección debemos seleccionar el número de simulaciones para iniciar el cálculo de la metodología.
+
+![\label{fig:"sd"}](images/48.png)
+
+Una vez iniciada la simulación obtendremos el histograma de las pérdidas simuladas y las métricas de riesgo.
+
+
+![\label{fig:"sd"}](images/49.png)
+
+### StressTesting
+
+En esta sección realizaremos una prueba de estres a la metodología CreditMetrics.
+
+![\label{fig:"sd"}](images/50.png)
+
+
+## BackTesting
+
+En esta sección se harán pruebas sobre el VaR, usando el test de Haas, Kupiec y el mixto
+
+![\label{fig:"sd"}](images/51.png)
+
+
+
+## Indicadores Contables
+
+En esta última sección se calcularán ciertos indicadores contables, algunos basados únicamente en los datos contables y otros basados en las métricas de riesgo.
+
+
+![\label{fig:"sd"}](images/52.png)
 
 
