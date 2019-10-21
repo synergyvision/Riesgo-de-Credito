@@ -34,7 +34,7 @@ shinyUI(
                            menuSubItem("Matriz de Transición", tabName = "subitem3", icon = icon("circle-o")),
                            menuSubItem("CreditRisk+", tabName = "datini", icon = icon("circle-o")),
                            menuSubItem("CreditMetrics", tabName = "CRED", icon = icon("circle-o")),
-                           menuSubItem("Backtesting", tabName = "datos_back", icon = icon("folder-open")),
+                           menuSubItem("Backtesting", tabName = "datos_back", icon = icon("circle-o")),
                            menuSubItem("Indicadores Contables", tabName = "RAROC", icon = icon("circle-o"))
                            ),
                   
@@ -69,15 +69,15 @@ shinyUI(
                   ),
                   
                   
-                  menuItem("Creditmetrics", icon = icon("th"), tabName = "crm",
+                  menuItem("Creditmetrics", icon = icon("fal fa-database"), tabName = "crm",
                           
                            menuSubItem("Simulación y Resultados", tabName = "RES", icon = icon("circle-o")),
                            menuSubItem("Stress Testing", tabName = "ST2", icon = icon("circle-o"))
                            
                   ),
-                  menuItem("Backtesting", icon = icon("angle-double-left"), 
+                  menuItem("Backtesting", icon = icon("fal fa-database"), 
                            
-                           menuSubItem("Resultados", tabName = "resultados_back", icon = icon("file-alt"))
+                           menuSubItem("Resultados", tabName = "resultados_back", icon = icon("circle-o"))
                   ),
                   
                   menuItem("Indicadores Contables", icon = icon("exclamation-circle"), tabName = "raroc",
@@ -163,9 +163,10 @@ shinyUI(
                                                             ))
                                                       )),
                                      
-                                     fluidRow(
+                                     conditionalPanel(condition = "input.userFiler == true|| input.datasetr == true",
+                                                      fluidRow(
                                        box(width=12,style = "overflow-x:scroll",status = "warning",dataTableOutput('datatabler'))
-                                     )
+                                     ))
                                      
                                      
                                      ),
@@ -271,9 +272,10 @@ shinyUI(
                                                                         )
                                                                     )
                                                                   )),
-                                                 fluidRow(
+                                                 
+                                                 conditionalPanel(condition = "input.userFilerl == true|| input.datasetrl == true",fluidRow(
                                                    box(style = "overflow-x:scroll",width = 12,status = "warning",dataTableOutput('datatablerl'))
-                                                 )
+                                                 ))
                                                  
                                        ),
                                        
@@ -299,9 +301,11 @@ shinyUI(
                                                                   )
                                                  )
                                                  ,
-                                                 fluidRow(
+                                                 
+                                                 
+                                                 conditionalPanel(condition = "input.userFileC == true|| input.datasetC == true",fluidRow(
                                                    box(style = "overflow-x:scroll",width=12,status = "warning",dataTableOutput('datatableC'))
-                                                 )
+                                                 ))
                                                  
                                        )
                                        
@@ -332,7 +336,8 @@ shinyUI(
                                                                )
                                                            )
                                           ),
-                                         fluidRow( box(style = "overflow-x:scroll",width=12,status = "warning",dataTableOutput('datatableMT')))
+                                          
+                                          conditionalPanel(condition = "input.userFileMT == true|| input.datasetMT == true",fluidRow( box(style = "overflow-x:scroll",width=12,status = "warning",dataTableOutput('datatableMT'))))
                                           
                                           
                                           
@@ -353,7 +358,7 @@ shinyUI(
                                                  ,
                                                  
                                                  fluidRow(
-                                                   box(width = 15, title = h3("Cargar el archivo con las exposiciines crediticias"),
+                                                   box(width = 15, title = h3("Cargar el archivo con las exposiciones crediticias"),
                                                        box( width=15,background = "yellow",
                                                             fileInput('file_dataEXP', 'Seleccione el archivo', accept = c('text/csv',
                                                                                                                           'text/comma-separated-values',
@@ -379,7 +384,7 @@ shinyUI(
                                                    )
                                                  ),
                                                  
-                                                 fluidRow(
+                                             fluidRow(
                                                    box(width=12,status = "warning",dataTableOutput('datatableEXP'))
                                                  )
                                                  
@@ -516,9 +521,9 @@ shinyUI(
                                                                     )
                                                                   )
                                                  ),
-                                                 fluidRow(
+                                                 conditionalPanel(condition = "input.userFile0 == true|| input.dataset0 == true", fluidRow(
                                                    box(style = "overflow-x:scroll",width=12,status = "warning",dataTableOutput('datatable0'))
-                                                 )   
+                                                 )   )
                                                  
                                                  
                                        )
@@ -556,8 +561,8 @@ shinyUI(
                                                                   )
                                                                   
                                                                   
-                                                 ),fluidRow(
-                                                   box(width=12,status = "warning",dataTableOutput('datatablecrm')))
+                                                 ),conditionalPanel(condition = "input.userFilecrm == true|| input.datasetcrm == true", fluidRow(
+                                                   box(width=12,status = "warning",dataTableOutput('datatablecrm'))))
                                                  
                                                  
                                                  
@@ -608,16 +613,16 @@ shinyUI(
                                        fileInput('file_data_back', SELECTFILE_TEXT, accept = UPLOADFILETYPE_CONF,
                                                  placeholder = FILESELEC_TEXT, buttonLabel = BUTTSELEC_TEXT )
                                   ),
-                                  fluidRow(
+                                  
                                     box(width=4,background="yellow",strong(ENCABEZADO_TEXT),
                                         checkboxInput( width="100%", 'header_back', WITHHEADER_TEXT, TRUE)),
                                     box(width=4,background="yellow",
                                         radioButtons( width="40%", 'sep_back', SEPARATOR_TEXT, UPLOADFILESEP_CONF, ';')),
                                     box(width=4,background="yellow",
                                         radioButtons( width="40%", 'quote_back', COMILLAS_TEXT, UPLOADCOMILLAS_CONF, ''))
-                                  )
-                              )
-                            ),
+                                  
+                              ))
+                            ,
                             fluidRow(
                               box(width=12,style="overflow-x:scroll",status = "warning",dataTableOutput('datatable_back'))
                             )
@@ -1005,7 +1010,8 @@ shinyUI(
                              fluidRow(column(4, box(title = h3("Pérdida Esperada:"),width=12,status = "warning", h3(textOutput("pe122")) )),
                                       column(4,box(title = h3("Valor en Riesgo:"),width=12,status = "warning", h3(textOutput("var122")) )),
                                       column(4, box(title = h3("TVaR:"),width=12,status = "warning",h3(textOutput("tvar122")) 
-                                                  ))),downloadButton("reporte2","Descargar")
+                                                  ))),
+                             fluidRow( column( 12,box(width=12,h2("Reporte"), status = "warning",downloadButton("reporte2","Descargar"))))
                              
                              
                             
