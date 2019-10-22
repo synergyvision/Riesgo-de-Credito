@@ -8,7 +8,7 @@ En el presente capítulo, presentaremos el manual técnico de la aplicación Vis
 ## Presentación de la aplicación.
 
 
-La aplicación esta compuesta de ocho secciones, la primera una sección donde se cargan los datos que necesitara la aplicación, la segunda correspondiente a la sección **Scoring y  Rating**, la tercera sección correspondiente a la **Pérdida por Incumplimiento**, la cuarta correspondiente a la **Matriz de transición**, la quinta correspondiente a la metodología **CreditRisk+**, la sexta a la metología **CreditMetrics**, la septima correspondiente al **BackTesting** y la octava a correspondiente a los **Indicadores contables**.
+La aplicación esta compuesta de ocho secciones, la primera una sección donde se cargan los datos que necesitará la aplicación, la segunda correspondiente a la sección **Scoring y  Rating**, la tercera sección correspondiente a la **Pérdida por Incumplimiento**, la cuarta correspondiente a la **Matriz de transición**, la quinta correspondiente a la metodología **CreditRisk+**, la sexta a la metología **CreditMetrics**, la septima correspondiente al **BackTesting** y la octava a correspondiente a los **Indicadores contables**.
 
 ![\label{fig:"sd"}](images/1.png)
 
@@ -60,7 +60,7 @@ En *proyrección rating* tenemos dos opciones, en la primera usamos datos proven
 
 ### Pérdida por Incumplimiento
 
-En esta sección cargaremos los datos para estimar las perdida esperada de los clientes.
+En esta sección cargaremos los datos para estimar las pérdida esperada de los clientes.
 
 #### Pérdida por clientes
 
@@ -161,7 +161,7 @@ Em esta sección veremos un pequeño resumen estadísticos y criterios para la s
 
 #### Relación de las variables independientes
 
-Se tendrá la opción de ver el gráfico de caja y bigote de la variable independiente seleccionada y la variable Default. Además se tendra un resumen estadístico de la variable seleccionada.
+Se tendrá la opción de ver el gráfico de caja y bigote de la variable independiente seleccionada y la variable Default. Además se tendrá un resumen estadístico de la variable seleccionada.
 
 ![\label{fig:"sd"}](images/21.png)
 
@@ -175,7 +175,7 @@ Tendremos dos opciones, las cuales corresponden a la selección de variables cua
 
 ### Score de Crédito
 
-En esta sección contruiremos el *Score* de crédito el cual esta basado en un modelo lineal generalizado.
+En esta sección contruiremos el *Score* de crédito el cual está basado en un modelo lineal generalizado.
 
 #### Selección y Resultado del modelo
 
@@ -197,7 +197,7 @@ Finalizando con información de las métricas de bondad del modelo.
 
 #### Score de la cartera de crédito de entrenamiento
 
-En esta sección se muestra el Score y probabilidad deincumplimiento de los clientes con los cuales se 
+En esta sección se muestra el Score y probabilidad de incumplimiento de los clientes con los cuales se construyó el modelo. 
 
 ![\label{fig:"sd"}](images/28.png)
 
@@ -227,12 +227,12 @@ Una vez creado el modelo de rating en esta sección se muestra la proyección a 
 
 ## Pérdida por incumplimiento
 
-En esta sección calcularemos las pérdidas esperadas por cliente, tendremos dos opciones: perdida de la cartera en general y pérdida por clasificación.
+En esta sección calcularemos las pérdidas esperadas por cliente, tendremos dos opciones: pérdida de la cartera en general y pérdida por clasificación.
 
 
 ![\label{fig:"sd"}](images/32.png)
 
-### Perdida por Cliente
+### Pérdida por Cliente
 
 #### Datos
 
