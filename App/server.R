@@ -1,13 +1,13 @@
 shinyServer(function(input, output, session) {
   
   
- 
-  ####### CrediRisk+#######################
+ ####### Seccion datos
   
-        ############ Primera seccion (Datos )############
+      #############Scoring y rating
   
- 
-        ############# Parte que se encarga de leer los datos cargados por el usuario
+            ########Scoring
+  
+                    ###### Se cargan los datos entre los de ejemplo y los propios
   
   datasetInput <- reactive({
     # input$file1 will be NULL initially. After the user selects
@@ -56,7 +56,485 @@ shinyServer(function(input, output, session) {
   
   
   
+  ############ Proyeccion score
   
+  datasetSelectr <- reactive({
+    datasetSelectr <- reg
+  })
+  
+  
+  
+  datasetInputproy <- reactive({
+    
+    inFiler <- input$file_dataproy
+    
+    if (is.null(inFiler))
+      return(NULL)
+    read.table(inFiler$datapath, header = input$headerproy,
+               sep = input$sepproy, quote = input$quoteproy)
+    
+  })
+  
+  
+  
+  dataaa2 <- reactive({
+    if(input$datasetr && !input$userFiler){
+      data <- datasetSelectr()
+      
+    }
+    
+    else if(!input$datasetr && input$userFiler) {
+      
+      data <- datasetInputproy()
+    }
+  })
+  
+  
+
+  
+  
+  ### Se muestran los datos
+  
+  
+  output$datatabler<-renderDataTable({
+    dataaa2()
+  })
+  
+  
+  #########Rating
+  
+  ############# Parte que se encarga de leer los datos cargados por el usuario
+  
+  datasetInputRat <- reactive({
+    # input$file1 will be NULL initially. After the user selects
+    # and uploads a file, it will be a data frame with 'name',
+    # 'size', 'type', and 'datapath' columns. The 'datapath'
+    # column will contain the local filenames where the data can
+    # be found.
+    
+    inFile <- input$file_dataRat
+    
+    if (is.null(inFile))
+      return(NULL)
+    read.table(inFile$datapath, header = input$headerRat,
+               sep = input$sepRat, quote = input$quoteRat)
+    
+  })
+  
+  
+  
+  
+  datasetSelectRat <- reactive({
+    datasetSelect <- rat
+  })
+  
+  
+  ###### Cargando datos con que se trabajara: entre los de ejemplo y los propios
+  
+  dataRat <- reactive({
+    if(input$datasetRat && !input$userFileRat){
+      data <- datasetSelectRat()}
+    
+    else if(!input$datasetRat && input$userFileRat){
+      data <- datasetInputRat()
+    }
+  })
+  
+  ####Se muestran los datos
+  
+  
+  output$datatableRat<-renderDataTable({
+    dataRat()
+  },options = list(scrollX=T,scrollY=300))
+  
+  
+  
+  ################### Proyeccion rating
+  
+  ############# Aqui se calcula el rating de nuevos clientes
+  
+  
+  ############# Parte que se encarga de leer los datos cargados por el usuario
+  
+  datasetInputRatN <- reactive({
+    # input$file1 will be NULL initially. After the user selects
+    # and uploads a file, it will be a data frame with 'name',
+    # 'size', 'type', and 'datapath' columns. The 'datapath'
+    # column will contain the local filenames where the data can
+    # be found.
+    
+    inFile <- input$file_dataRatN
+    
+    if (is.null(inFile))
+      return(NULL)
+    read.table(inFile$datapath, header = input$headerRatN,
+               sep = input$sepRatN, quote = input$quoteRatN)
+    
+  })
+  
+  
+  
+  ####### Datos del score###
+  
+  datasetSelectRatN <- reactive({
+    datasetSelect <- proyec()
+    
+  })
+  
+  
+  ###### Cargando datos con que se trabajara: entre los de ejemplo y los propios
+  
+  dataRatN <- reactive({
+    if(input$datasetRatN && !input$userFileRatN){
+      data <- datasetSelectRatN()}
+    
+    else if(!input$datasetRatN && input$userFileRatN){
+      data <- datasetInputRatN()
+    }
+  })
+  
+  output$datos_proyect <- renderDataTable({
+    dataRatN()
+    
+  })
+  
+  
+  
+  ######################## Datos perdida por clientes
+  
+
+  
+  datasetSelectrl <- reactive({
+    datasetSelectrl <- perdidas
+  })
+  
+  datasetInputrl <- reactive({
+    
+    inFilerl <- input$file_datarl
+    
+    if (is.null(inFilerl))
+      return(NULL)
+    read.table(inFilerl$datapath, header = input$headerrl,
+               sep = input$seprl, quote = input$quoterl)
+    
+  })
+  
+  
+  
+  
+  
+  data7 <- reactive({
+    if(input$datasetrl && !input$userFilerl){
+      data <- datasetSelectrl()}
+    
+    else if(!input$datasetrl && input$userFilerl){
+      data <- datasetInputrl()
+    }else{data.frame()}
+  })
+  
+  
+  ### esta parte se encarga de mostrar los datos
+  
+  output$datatablerl<-renderDataTable({
+    data7()
+  },options = list(scrollX=T,scrollY=300))
+  
+  
+  
+  ######################## Datos perdida por clases
+  
+  datasetSelectC <- reactive({
+    datasetSelect <- clases1
+  })
+  
+  
+  
+  
+  
+  datasetInputC <- reactive({
+    
+    inFile <- input$file_dataC
+    
+    if (is.null(inFile))
+      return(NULL)
+    read.table(inFile$datapath, header = input$headerMT,
+               sep = input$sepMT, quote = input$quoteMT)
+    
+  })
+  
+  
+  
+  data11 <- reactive({
+    if(input$datasetC && !input$userFileC){
+      data <- datasetSelectC()}
+    
+    else if(!input$datasetC && input$userFileC){
+      data <- datasetInputC()
+    }else{
+      data.frame()
+      
+    }
+  })
+  
+  ### Se muestran los datos
+  
+  output$datatableC<-renderDataTable({
+    data11()
+  },options = list(scrollX=T,scrollY=300))
+  
+  
+  
+  ######### seccion matriz de transicion
+  
+  
+  
+  
+  datasetSelectMT <- reactive({
+    datasetSelect <- transic
+  })
+  
+  
+  
+  
+  
+  datasetInputMT <- reactive({
+    
+    inFile <- input$file_dataMT
+    
+    if (is.null(inFile))
+      return(NULL)
+    read.table(inFile$datapath, header = input$headerMT,
+               sep = input$sepMT, quote = input$quoteMT)
+    
+  })
+  
+  
+  
+  data10 <- reactive({
+    if(input$datasetMT && !input$userFileMT){
+      data <- datasetSelectMT()}
+    
+    else if(!input$datasetMT && input$userFileMT){
+      data <- datasetInputMT()
+    }else{data.frame()}
+  })
+  
+  output$datatableMT<-renderDataTable({
+    data10()
+  },options = list(scrollX=T,scrollY=300))
+  
+  
+  ########## Datos creditrisk+
+  
+  ####################exposiciones
+  
+  datasetInputEXP <- reactive({
+    # input$file1 will be NULL initially. After the user selects
+    # and uploads a file, it will be a data frame with 'name',
+    # 'size', 'type', and 'datapath' columns. The 'datapath'
+    # column will contain the local filenames where the data can
+    # be found.
+    
+    inFile <- input$file_dataEXP
+    
+    if (is.null(inFile))
+      return(NULL)
+    read.table(inFile$datapath, header = input$headerEXP,
+               sep = input$sepEXP, quote = input$quoteEXP)
+    
+  })
+  
+  output$datatableEXP<-renderDataTable({
+    datasetInputEXP()
+  },options = list(scrollX=T,scrollY=300))
+  
+  
+  
+  ### probabilidades
+  
+  
+  
+  datasetInputPro <- reactive({
+    # input$file1 will be NULL initially. After the user selects
+    # and uploads a file, it will be a data frame with 'name',
+    # 'size', 'type', and 'datapath' columns. The 'datapath'
+    # column will contain the local filenames where the data can
+    # be found.
+    
+    inFile <- input$file_dataPro
+    
+    if (is.null(inFile))
+      return(NULL)
+    read.table(inFile$datapath, header = input$headerPro,
+               sep = input$sepPro, quote = input$quotePro)
+    
+  })
+  
+  datasetSelectPro <- reactive({
+    datasetSelect <- proyec() 
+  })
+  
+  
+  Proba <- reactive({
+    if(input$datasetPro && !input$userFilePro){
+      data <- datasetSelectPro()
+      data <- as.data.frame(data)
+      data <- data[3]
+    }
+    
+    else if(!input$datasetPro && input$userFilePro){
+      data <- datasetInputPro()
+    }else{data.frame()}
+  })
+  
+  ###Se muestran los datos
+  
+  output$datatablePro<-renderDataTable({
+    
+    ca22 <- try( Proba())
+    
+    
+    if (class(ca22)=="try-error") {
+      
+      c()
+      
+    }else{ca22}
+    
+    
+    
+    
+    
+  },options = list(scrollX=T,scrollY=300))
+  
+  
+  #######Probabilidades
+  
+  
+  datasetInputPer <- reactive({
+    # input$file1 will be NULL initially. After the user selects
+    # and uploads a file, it will be a data frame with 'name',
+    # 'size', 'type', and 'datapath' columns. The 'datapath'
+    # column will contain the local filenames where the data can
+    # be found.
+    
+    inFile <- input$file_dataPer
+    
+    if (is.null(inFile))
+      return(NULL)
+    read.table(inFile$datapath, header = input$headerPer,
+               sep = input$sepPer, quote = input$quotePer)
+    
+  })
+  
+  
+  
+  ####Se muestran los datos
+  perdi_crrisk <- reactive({
+    
+    if(!input$PerdiGene && input$userFilePerd){
+      
+      datasetInputPer()
+    }else{data.frame()}
+    
+    
+  })
+  
+  output$PerdidaPropia<-renderDataTable({
+    perdi_crrisk()
+  },options = list(scrollX=T,scrollY=300))
+  
+  
+  
+  ####### CreditMetrics#######################
+  
+  
+  #########Exposiciones
+  ### Se cargan y se muestran los datos de la manera usual
+  
+  datasetSelect0 <- reactive({
+    datasetSelect0 <- creditos
+  })
+  
+  
+  datasetInput0 <- reactive({
+    
+    inFiler <- input$file_datacrm0
+    
+    if (is.null(inFiler))
+      return(NULL)
+    read.table(inFiler$datapath, header = input$headecrm0,
+               sep = input$sepcrm0, quote = input$quotecrm0)
+    
+  })
+  
+  
+  data6 <- reactive({
+    if(input$dataset0 && !input$userFile0){
+      data <- datasetSelect0()}
+    
+    else if(!input$dataset0 && input$userFile0){
+      data <- datasetInput0()
+    }else(data.frame())
+  })
+  
+  
+  output$datatable0<-renderDataTable({
+    data6()
+  },options = list(scrollX=T,scrollY=300))
+  
+  
+  ####  matriz de transicion
+  
+  
+  MatrizPropias <- reactive({
+    
+    inFiler <- input$file_datacrm
+    
+    if (is.null(inFiler))
+      return(NULL)
+    read.table(inFiler$datapath, header = input$headecrm,
+               sep = input$sepcrm, quote = input$quotecrm)
+    
+  })
+  
+  
+  #### data4 contiene ka matriz de seleccion calculada
+  
+  data4 <- reactive({
+    if(input$datasetcrm && !input$userFilecrm){
+      
+      
+      mattrans()
+      
+      
+    }
+    
+    else if(!input$datasetcrm && input$userFilecrm){
+      data <- MatrizPropias()
+    }else{data.frame()}
+  })
+  
+  ###SE muestra a matriz de transicion
+  
+  
+  output$datatablecrm<-renderDataTable({
+    
+    ca22 <- try( data4())
+    
+    
+    if (class(ca22)=="try-error") {
+      
+      c()
+      
+    }else{ca22}
+    
+    
+    
+    
+    
+  },options = list(scrollX=T,scrollY=300))
+  
+  ####### Perdidas por clases
   
   
   ############# Parte que se encarga de leer los datos cargados por el usuario
@@ -79,7 +557,6 @@ shinyServer(function(input, output, session) {
   
   
   
-  ####### Datos de ejemplo de una institucion financiera alemana###
   
   datasetSelect_Cla_Cr <- reactive({
     datasetSelect <- clasecrm()
@@ -101,7 +578,7 @@ shinyServer(function(input, output, session) {
   ####Se muestran los datos
   
   
- 
+  
   
   
   output$datatable_Cla_Cr<-renderDataTable({
@@ -123,6 +600,121 @@ shinyServer(function(input, output, session) {
   
   
   
+  
+  ####### backstesting
+  
+  
+  
+  data_back <- reactive({
+    # input$file1 will be NULL initially. After the user selects
+    # and uploads a file, it will be a data frame with 'name',
+    # 'size', 'type', and 'datapath' columns. The 'datapath'
+    # column will contain the local filenames where the data can
+    # be found.
+    
+    inFile <- input$file_data_back
+    
+    if (is.null(inFile))
+      return(NULL)
+    
+    # read.table(inFile$datapath, header = input$header,
+    #            sep = input$sep, quote = input$quote)
+    a <- read.delim2(inFile$datapath, header = input$header_back,
+                     sep = input$sep_back, quote = input$quote_back)
+    
+    return(a)
+    
+  })
+  
+  
+  output$datatable_back<-renderDataTable({
+    if(is.null(data_back())){return()}
+    datatable(data_back())
+  })
+  
+  
+  
+  
+  ########## datos indicadores contables
+  
+  
+  datasetInputindices <- reactive({
+    # input$file1 will be NULL initially. After the user selects
+    # and uploads a file, it will be a data frame with 'name',
+    # 'size', 'type', and 'datapath' columns. The 'datapath'
+    # column will contain the local filenames where the data can
+    # be found.
+    
+    inFile <- input$indices
+    
+    if (is.null(inFile))
+      return(NULL)
+    read.table(inFile$datapath, header = input$headerind,
+               sep = input$sepind, quote = input$quoteind)
+    
+  })
+  
+  output$datatableind<-renderDataTable({
+    datasetInputindices()
+  },options = list(scrollX=T,scrollY=300))
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+ 
   
   
   
@@ -218,7 +810,7 @@ shinyServer(function(input, output, session) {
     ca7 <- try(isolate(ggplotly(grafica(data1org(),input$columns,input$columns1))))
     
     
-    if (class(ca7)=="try-error") {
+    if (class(ca7)[1]=="try-error") {
       
       df <- data.frame()
       ggplot(df) + geom_point() + xlim(0, 10) + ylim(0, 100)
@@ -526,38 +1118,12 @@ shinyServer(function(input, output, session) {
  
  ####Se cargan los datos de la manera usual
  
- datasetSelectrl <- reactive({
-   datasetSelectrl <- perdidas
- })
  
  
- datasetInputrl <- reactive({
-   
-   inFilerl <- input$file_datarl
-   
-   if (is.null(inFilerl))
-     return(NULL)
-   read.table(inFilerl$datapath, header = input$headerrl,
-              sep = input$seprl, quote = input$quoterl)
-   
- })
- 
- data7 <- reactive({
-   if(input$datasetrl && !input$userFilerl){
-     data <- datasetSelectrl()}
-   
-   else if(!input$datasetrl && input$userFilerl){
-     data <- datasetInputrl()
-   }else{data.frame()}
- })
- 
- ### esta parte se encarga de mostrar los datos
- 
- output$datatablerl<-renderDataTable({
-   data7()
- },options = list(scrollX=T,scrollY=300))
+
  
  
+
  
  ######## lgdq se encarga de hacer la grafica
  
@@ -581,7 +1147,7 @@ shinyServer(function(input, output, session) {
    ca13 <- try(lgd1())
    
    
-   if (class(ca13)=="try-error") {
+   if (class(ca13)[1]=="try-error") {
      
      df <- data.frame()
      ggplot(df) + geom_point() + xlim(0, 10) + ylim(0, 100)
@@ -643,7 +1209,7 @@ shinyServer(function(input, output, session) {
    ca9879 <- try(bot()[[1]])
    
    
-   if (class(ca9879)=="try-error") {
+   if (class(ca9879)[1]=="try-error") {
      
      df <- data.frame()
      ggplot(df) + geom_point() + xlim(0, 10) + ylim(0, 100)
@@ -724,52 +1290,7 @@ shinyServer(function(input, output, session) {
    )
  
  
- #########Rating
  
- ############# Parte que se encarga de leer los datos cargados por el usuario
- 
- datasetInputRat <- reactive({
-   # input$file1 will be NULL initially. After the user selects
-   # and uploads a file, it will be a data frame with 'name',
-   # 'size', 'type', and 'datapath' columns. The 'datapath'
-   # column will contain the local filenames where the data can
-   # be found.
-   
-   inFile <- input$file_dataRat
-   
-   if (is.null(inFile))
-     return(NULL)
-   read.table(inFile$datapath, header = input$headerRat,
-              sep = input$sepRat, quote = input$quoteRat)
-   
- })
- 
- 
- 
- ####### Datos de ejemplo de una institucion financiera alemana###
- 
- datasetSelectRat <- reactive({
-   datasetSelect <- rat
- })
- 
- 
- ###### Cargando datos con que se trabajara: entre los de ejemplo y los propios
- 
- dataRat <- reactive({
-   if(input$datasetRat && !input$userFileRat){
-     data <- datasetSelectRat()}
-   
-   else if(!input$datasetRat && input$userFileRat){
-     data <- datasetInputRat()
-   }
- })
- 
- ####Se muestran los datos
- 
- 
- output$datatableRat<-renderDataTable({
-   dataRat()
- },options = list(scrollX=T,scrollY=300))
  
  
  ####### función para calcular el modelo de Rating
@@ -812,53 +1333,6 @@ shinyServer(function(input, output, session) {
    }else{ca1342}
  })
  
- 
- ############# Aqui se calcula el rating de nuevos clientes
- 
- 
- ############# Parte que se encarga de leer los datos cargados por el usuario
- 
- datasetInputRatN <- reactive({
-   # input$file1 will be NULL initially. After the user selects
-   # and uploads a file, it will be a data frame with 'name',
-   # 'size', 'type', and 'datapath' columns. The 'datapath'
-   # column will contain the local filenames where the data can
-   # be found.
-   
-   inFile <- input$file_dataRatN
-   
-   if (is.null(inFile))
-     return(NULL)
-   read.table(inFile$datapath, header = input$headerRatN,
-              sep = input$sepRatN, quote = input$quoteRatN)
-   
- })
- 
- 
- 
- ####### Datos del score###
- 
- datasetSelectRatN <- reactive({
-   datasetSelect <- proyec()
-   
- })
- 
- 
- ###### Cargando datos con que se trabajara: entre los de ejemplo y los propios
- 
- dataRatN <- reactive({
-   if(input$datasetRatN && !input$userFileRatN){
-     data <- datasetSelectRatN()}
-   
-   else if(!input$datasetRatN && input$userFileRatN){
-     data <- datasetInputRatN()
-   }
- })
- 
- output$datos_proyect <- renderDataTable({
-   dataRatN()
-   
- })
  
  
  #### Funcion que calcula el rating a partir  del  modelo
@@ -1040,7 +1514,7 @@ shinyServer(function(input, output, session) {
    ca15 <- try(ggroc(calroc(data1(),data1org(),input$columns,modprueba(data1(),data1org(),input$columns,input$radio1)),legacy.axes=T))
    
    
-   if (class(ca15)=="try-error") {
+   if (class(ca15)[1]=="try-error") {
      
      df <- data.frame()
      ggplot(df) + geom_point() + xlim(0, 10) + ylim(0, 100)
@@ -1169,44 +1643,13 @@ shinyServer(function(input, output, session) {
  #### Se cargan los datos de la manera usual
  
  
- datasetSelectr <- reactive({
-   datasetSelectr <- reg
- })
+
  
  
  
- datasetInputproy <- reactive({
-   
-   inFiler <- input$file_dataproy
-   
-   if (is.null(inFiler))
-     return(NULL)
-   read.table(inFiler$datapath, header = input$headerproy,
-              sep = input$sepproy, quote = input$quoteproy)
-   
- })
  
  
- dataaa2 <- reactive({
-   if(input$datasetr && !input$userFiler){
-     data <- datasetSelectr()
-     
-     }
-   
-   else if(!input$datasetr && input$userFiler) {
-     
-     data <- datasetInputproy()
-   }
- })
- 
- 
- ### Se muestran los datos
- 
- 
- output$datatabler<-renderDataTable({
-   dataaa2()
- })
- 
+
  
  
  
@@ -1363,85 +1806,10 @@ shinyServer(function(input, output, session) {
  
  ### exp
  
- datasetInputEXP <- reactive({
-   # input$file1 will be NULL initially. After the user selects
-   # and uploads a file, it will be a data frame with 'name',
-   # 'size', 'type', and 'datapath' columns. The 'datapath'
-   # column will contain the local filenames where the data can
-   # be found.
-   
-   inFile <- input$file_dataEXP
-   
-   if (is.null(inFile))
-     return(NULL)
-   read.table(inFile$datapath, header = input$headerEXP,
-              sep = input$sepEXP, quote = input$quoteEXP)
-   
- })
- 
- output$datatableEXP<-renderDataTable({
-   datasetInputEXP()
- },options = list(scrollX=T,scrollY=300))
+
  
  
- 
- ### probabilidades
- 
- 
- 
- datasetInputPro <- reactive({
-   # input$file1 will be NULL initially. After the user selects
-   # and uploads a file, it will be a data frame with 'name',
-   # 'size', 'type', and 'datapath' columns. The 'datapath'
-   # column will contain the local filenames where the data can
-   # be found.
-   
-   inFile <- input$file_dataPro
-   
-   if (is.null(inFile))
-     return(NULL)
-   read.table(inFile$datapath, header = input$headerPro,
-              sep = input$sepPro, quote = input$quotePro)
-   
- })
- 
- datasetSelectPro <- reactive({
-   datasetSelect <- proyec() 
- })
- 
- 
- Proba <- reactive({
-   if(input$datasetPro && !input$userFilePro){
-     data <- datasetSelectPro()
-     data <- as.data.frame(data)
-     data <- data[3]
-     }
-   
-   else if(!input$datasetPro && input$userFilePro){
-     data <- datasetInputPro()
-   }else{data.frame()}
- })
- 
- ###Se muestran los datos
- 
- output$datatablePro<-renderDataTable({
-   
-   ca22 <- try( Proba())
-   
-   
-   if (class(ca22)=="try-error") {
-     
-     c()
-     
-   }else{ca22}
-   
-   
-   
-   
-   
- },options = list(scrollX=T,scrollY=300))
- 
- 
+
  
  
  
@@ -1466,39 +1834,6 @@ shinyServer(function(input, output, session) {
  
  ######### perididas
  
- 
- datasetInputPer <- reactive({
-   # input$file1 will be NULL initially. After the user selects
-   # and uploads a file, it will be a data frame with 'name',
-   # 'size', 'type', and 'datapath' columns. The 'datapath'
-   # column will contain the local filenames where the data can
-   # be found.
-   
-   inFile <- input$file_dataPer
-   
-   if (is.null(inFile))
-     return(NULL)
-   read.table(inFile$datapath, header = input$headerPer,
-              sep = input$sepPer, quote = input$quotePer)
-   
- })
- 
- 
- 
- ####Se muestran los datos
- perdi_crrisk <- reactive({
-   
-   if(!input$PerdiGene && input$userFilePerd){
-     
-     datasetInputPer()
-   }else{data.frame()}
-   
-   
- })
- 
- output$PerdidaPropia<-renderDataTable({
-   perdi_crrisk()
- },options = list(scrollX=T,scrollY=300))
  
  
  
@@ -1636,7 +1971,7 @@ shinyServer(function(input, output, session) {
    ca7 <- try(ggplotly(disn()[[1]]))
    
    
-   if (class(ca7)=="try-error") {
+   if (class(ca7)[1]=="try-error") {
      
      df <- data.frame()
      ggplot(df) + geom_point() + xlim(0, 10) + ylim(0, 100)
@@ -1708,7 +2043,7 @@ shinyServer(function(input, output, session) {
    bandas <- cbind(l1,l2)
    
    
-   for(i in 2:dim(perd23v()[1])) {
+   for(i in 2:(dim(perd23v())[1])) {
      
      n = perd23v()[i,1]
      
@@ -1791,7 +2126,7 @@ shinyServer(function(input, output, session) {
    ca7 <- try(ggplotly(disn2()[[2]]))
    
    
-   if (class(ca7)=="try-error") {
+   if (class(ca7)[1]=="try-error") {
      
      df <- data.frame()
      ggplot(df) + geom_point() + xlim(0, 10) + ylim(0, 100)
@@ -2403,44 +2738,6 @@ shinyServer(function(input, output, session) {
  
 
  
- ####### CreditMetrics#######################
- 
- 
- ### Seccion Creditos  
- 
- ### Se cargan y se muestran los datos de la manera usual
- 
- datasetSelect0 <- reactive({
-   datasetSelect0 <- creditos
- })
- 
- 
- datasetInput0 <- reactive({
-   
-   inFiler <- input$file_datacrm0
-   
-   if (is.null(inFiler))
-     return(NULL)
-   read.table(inFiler$datapath, header = input$headecrm0,
-              sep = input$sepcrm0, quote = input$quotecrm0)
-   
- })
- 
- 
- data6 <- reactive({
-   if(input$dataset0 && !input$userFile0){
-     data <- datasetSelect0()}
-   
-   else if(!input$dataset0 && input$userFile0){
-     data <- datasetInput0()
-   }else(data.frame())
- })
- 
-
- output$datatable0<-renderDataTable({
-   data6()
- },options = list(scrollX=T,scrollY=300))
- 
  
  
  
@@ -2454,39 +2751,6 @@ shinyServer(function(input, output, session) {
  
  
  
- 
- datasetSelectMT <- reactive({
-   datasetSelect <- transic
- })
- 
- 
- 
- 
- 
- datasetInputMT <- reactive({
-   
-   inFile <- input$file_dataMT
-   
-   if (is.null(inFile))
-     return(NULL)
-   read.table(inFile$datapath, header = input$headerMT,
-              sep = input$sepMT, quote = input$quoteMT)
-   
- })
- 
- 
- 
- data10 <- reactive({
-   if(input$datasetMT && !input$userFileMT){
-     data <- datasetSelectMT()}
-   
-   else if(!input$datasetMT && input$userFileMT){
-     data <- datasetInputMT()
-   }else{data.frame()}
- })
- output$datatableMT<-renderDataTable({
-   data10()
- },options = list(scrollX=T,scrollY=300))
  
  
  
@@ -2538,56 +2802,6 @@ shinyServer(function(input, output, session) {
  
  
  
- #### subseccion seleccion de la matriz de transicion
- 
- 
- MatrizPropias <- reactive({
-   
-   inFiler <- input$file_datacrm
-   
-   if (is.null(inFiler))
-     return(NULL)
-   read.table(inFiler$datapath, header = input$headecrm,
-              sep = input$sepcrm, quote = input$quotecrm)
-   
- })
- 
- 
- #### data4 contiene ka matriz de seleccion calculada
- 
- data4 <- reactive({
-   if(input$datasetcrm && !input$userFilecrm){
-     
-     
-     mattrans()
-     
-     
-   }
-   
-   else if(!input$datasetcrm && input$userFilecrm){
-     data <- MatrizPropias()
-   }else{data.frame()}
- })
- 
- ###SE muestra a matriz de transicion
- 
- 
- output$datatablecrm<-renderDataTable({
-   
-   ca22 <- try( data4())
-   
-   
-   if (class(ca22)=="try-error") {
-     
-     c()
-     
-   }else{ca22}
-   
-   
-   
-   
-   
- },options = list(scrollX=T,scrollY=300))
  
  
  
@@ -2598,44 +2812,6 @@ shinyServer(function(input, output, session) {
  
  ### Se cargan los datos
  
- datasetSelectC <- reactive({
-   datasetSelect <- clases1
- })
- 
- 
- 
- 
- 
- datasetInputC <- reactive({
-   
-   inFile <- input$file_dataC
-   
-   if (is.null(inFile))
-     return(NULL)
-   read.table(inFile$datapath, header = input$headerMT,
-              sep = input$sepMT, quote = input$quoteMT)
-   
- })
- 
- 
- 
- data11 <- reactive({
-   if(input$datasetC && !input$userFileC){
-     data <- datasetSelectC()}
-   
-   else if(!input$datasetC && input$userFileC){
-     data <- datasetInputC()
-   }else{
-     data.frame()
-     
-   }
- })
- 
- ### Se muestran los datos
- 
- output$datatableC<-renderDataTable({
-   data11()
- },options = list(scrollX=T,scrollY=300))
  
  #####
  
@@ -2903,7 +3079,7 @@ shinyServer(function(input, output, session) {
    ca7 <- try(calvar()[[5]])
    
    
-   if (class(ca7)=="try-error") {
+   if (class(ca7)[1]=="try-error") {
      
      df <- data.frame()
      ggplot(df) + geom_point() + xlim(0, 10) + ylim(0, 100)
@@ -3216,25 +3392,6 @@ shinyServer(function(input, output, session) {
   
   
   
-  datasetInputindices <- reactive({
-    # input$file1 will be NULL initially. After the user selects
-    # and uploads a file, it will be a data frame with 'name',
-    # 'size', 'type', and 'datapath' columns. The 'datapath'
-    # column will contain the local filenames where the data can
-    # be found.
-    
-    inFile <- input$indices
-    
-    if (is.null(inFile))
-      return(NULL)
-    read.table(inFile$datapath, header = input$headerind,
-               sep = input$sepind, quote = input$quoteind)
-    
-  })
-  
-  output$datatableind<-renderDataTable({
-    datasetInputindices()
-  },options = list(scrollX=T,scrollY=300))
   
   output$morosidad <- renderText({ 
     a <- as.numeric(datasetInputindices()[1,2])
@@ -3255,35 +3412,7 @@ shinyServer(function(input, output, session) {
   ###############################################################################
   ###############################################################################
   
-  
-  data_back <- reactive({
-    # input$file1 will be NULL initially. After the user selects
-    # and uploads a file, it will be a data frame with 'name',
-    # 'size', 'type', and 'datapath' columns. The 'datapath'
-    # column will contain the local filenames where the data can
-    # be found.
-    
-    inFile <- input$file_data_back
-    
-    if (is.null(inFile))
-      return(NULL)
-    
-    # read.table(inFile$datapath, header = input$header,
-    #            sep = input$sep, quote = input$quote)
-    a <- read.delim2(inFile$datapath, header = input$header_back,
-                     sep = input$sep_back, quote = input$quote_back)
-    
-    return(a)
-    
-  })
-  
-  
-  output$datatable_back<-renderDataTable({
-    if(is.null(data_back())){return()}
-    #datatable(data()) %>% formatCurrency(1:3, 'Bs. ', mark = '.', dec.mark = ',')
-    datatable(data_back())
-  })
-  
+ 
   #PORCENTAJE DEL VAR
   output$back_porcentaje <- renderPrint({as.numeric(sub(",",".",input$porback))})
   
