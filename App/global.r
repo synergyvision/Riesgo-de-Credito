@@ -56,6 +56,9 @@ reg <- read.csv("data/reg.csv")
 creditos <- read.csv("data/creditos.csv")
 attach(mydata)
 
+#source(paste(getwd(),"funciones.R",sep = "/"))
+
+
 ############################################# DATA TEXTO###############################################
 
 UPLOADDATA_TEXT<-"Cargar el Archivo con los Datos"

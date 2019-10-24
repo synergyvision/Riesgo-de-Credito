@@ -974,8 +974,8 @@ shinyUI(
                                                                                                                                "99%" = 99),selected = 95), actionButton("goButtonvar", "Calcular")),   
                                                
                                                
-                                               fluidRow(column(4,box(width=12,status = "warning",h3("Pérdida Esperada"), h2(textOutput("pe")) )),column( 4,box(width=12,status = "warning",h3("Valor en Riesgo"), h2(textOutput("var"))  )),column(4,box(width=12,status = "warning",h3("TVaR"), h2(textOutput("tvar"))))),
-                                               fluidRow( column( 12,box(width=12,h2("Reporte"), status = "warning",downloadButton("reporte1","Descargar")))))
+                                               fluidRow(column(4,box(width=12,status = "warning",h3("Pérdida Esperada"), h2(textOutput("pe")) )),column( 4,box(width=12,status = "warning",h3("Valor en Riesgo"), h2(textOutput("var"))  )),column(4,box(width=12,status = "warning",h3("TVaR"), h2(textOutput("tvar")))))
+                                               )
                                       
                                       
                                       
@@ -985,7 +985,8 @@ shinyUI(
                             
                             fluidRow(column(6,box(height = "300px",width=12,title = h2("StressTesting"),solidHeader = T,status = "warning",radioButtons("estres2", h3("Nivel de Estrés de la Prueba"),
                                                                                                                               choices = list("1 %" = 0.01, "5 %" = 0.05,
-                                                                                                                                             "10 %" = 0.1),selected = 0.01),actionButton("goButtonstre", "Calcular"))),column(6,box(height = "300px",width=12,title = h2("Resultado"),solidHeader = T,status = "warning",h3("El Valor de la Prueba"),h1(textOutput("Stress")))))
+                                                                                                                                             "10 %" = 0.1),selected = 0.01),actionButton("goButtonstre", "Calcular"))),column(6,box(height = "300px",width=12,title = h2("Resultado"),solidHeader = T,status = "warning",h3("El Valor de la Prueba"),h1(textOutput("Stress"))))),
+                            fluidRow( column( 12,box(width=12,h2("Reporte"), status = "warning",downloadButton("reporte1","Descargar"))))
                             
                             
                     )
@@ -1010,8 +1011,8 @@ shinyUI(
                              fluidRow(column(4, box(title = h3("Pérdida Esperada:"),width=12,status = "warning", h3(textOutput("pe122")) )),
                                       column(4,box(title = h3("Valor en Riesgo:"),width=12,status = "warning", h3(textOutput("var122")) )),
                                       column(4, box(title = h3("TVaR:"),width=12,status = "warning",h3(textOutput("tvar122")) 
-                                                  ))),
-                             fluidRow( column( 12,box(width=12,h2("Reporte"), status = "warning",downloadButton("reporte2","Descargar"))))
+                                                  )))
+                             
                              
                              
                             
@@ -1027,7 +1028,8 @@ shinyUI(
                            
                            fluidRow(column(6,box(width=12,title = h2("StressTesting"),solidHeader = T,status = "warning",radioButtons("stress3", h3("Nivel de Estrés de la Prueba"),
                                                                                   choices = list("1 %" = 0.01, "5 %" = 0.05,
-                                                                                                 "10 %" = 0.1),selected = 0.1))),column(6,box(width=12,title = h2("Resultado"),solidHeader = T,status = "warning",h3("El Valor de la Prueba"),h1(textOutput("Stres45")))))
+                                                                                                 "10 %" = 0.1),selected = 0.1))),column(6,box(width=12,title = h2("Resultado"),solidHeader = T,status = "warning",h3("El Valor de la Prueba"),h1(textOutput("Stres45"))))),
+                           fluidRow( column( 12,box(width=12,h2("Reporte"), status = "warning",downloadButton("reporte2","Descargar"))))
                            
                            
                            ),
