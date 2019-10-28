@@ -1,13 +1,18 @@
 shinyServer(function(input, output, session) {
   
   
- ####### Seccion datos
   
-      #############Scoring y rating
   
-            ########Scoring
   
-                    ###### Se cargan los datos entre los de ejemplo y los propios
+  
+  ##### Scoring y reting
+  
+  
+  
+##### Scoring  
+  
+  
+  
   
   datasetInput <- reactive({
     # input$file1 will be NULL initially. After the user selects
@@ -27,15 +32,15 @@ shinyServer(function(input, output, session) {
   
   
   
-   ####### Datos de ejemplo de una institucion financiera alemana###
+  ####### Datos de ejemplo de una institucion financiera alemana###
   
   datasetSelect <- reactive({
     datasetSelect <- mydata
   })
   
   
-              ###### Cargando datos con que se trabajara: entre los de ejemplo y los propios
-        
+  ###### Cargando datos con que se trabajara: entre los de ejemplo y los propios
+  
   data1org <- reactive({
     if(input$dataset && !input$userFile){
       data <- datasetSelect()}
@@ -56,7 +61,681 @@ shinyServer(function(input, output, session) {
   
   
   
-  ############ Proyeccion score
+  outVar1 = reactive({
+    
+    nombres <- colnames(data1org())
+    
+    nombre <- input$columns
+    
+    posi <- which(nombres == nombre)
+    
+    mydata = data1org()
+    
+    c <- names(mydata)
+    
+    c[-posi]
+    
+    
+  })  
+  
+  
+  
+  ### Se actuliza el input column1 con la variable anterior
+  observe({
+    updateSelectInput(session, "columns1",
+                      choices = outVar1()
+    )})
+  
+  ################# grafica que compara las variables
+  
+  
+  
+  ### funcion que se encarga de graficar
+  grafica <- function(datos,nom,nom2){
+    
+    s1 <- datos
+    nombres <- colnames(datos)
+    
+    nombre <- nom
+    
+    posi <- which(nombres == nombre)
+    
+    nombre1 <- nom2
+    
+    posi1 <- which(nombres == nombre1)
+    
+    s1[,posi]<-  as.factor(s1[,posi])
+    
+    
+    
+    
+    p10 <- ggplot(s1, aes(x = s1[[nombre]], y = s1[[nombre1]])) +
+      geom_boxplot(fill = "#56B4E9") +
+      scale_y_continuous(name = "Escala de valores") +  scale_x_discrete(name = "Categorias") +
+      ggtitle("Comparación entre las categorias de la variable seleccionada") 
+    return(p10)
+    
+    
+    
+  }
+  
+  
+  # Aplicando la funcion anterior
+  output$comparacion <- renderPlotly({
+    
+    input$goButton
+    
+    ca7 <- try(isolate(ggplotly(grafica(data1org(),input$columns,input$columns1))))
+    
+    
+    if (class(ca7)[1]=="try-error") {
+      
+      df <- data.frame()
+      ggplot(df) + geom_point() + xlim(0, 10) + ylim(0, 100)
+      
+    }else{ca7}
+    
+    
+    
+  })
+  
+  ####### Funcion que recibe los datos y muestra la informacion etadistica
+  
+  estadf<-function(datos,nomb){
+    
+    s1 <- datos
+    
+    
+    
+    s2 <- rbind(summary(s1[[nomb]]))
+    colnames(s2) <- c("Mínimo","Primer Quartil", "Mediana","Media", "Tercer Quartil", "Máximo")
+    
+    return(s2)
+    
+  }
+  
+  #### Aplicando la funcion anterioe para mostrar la informacion de la variable seleccionada
+  
+  output$estad1 <- renderDataTable({ 
+    
+    ca8 <- try(estadf(data1org(),input$columns1))
+    
+    if (class(ca8)=="try-error") {
+      
+      c()
+      
+    }else{ca8}
+    
+    
+    
+    
+    
+  })
+  
+  
+  
+  
+  
+  
+  
+  
+  ### funcion que calcula los pvalores de las variables cuanlitativas
+  
+  pval <- function(datos){
+    
+    
+    D<- datos
+    M <- c()
+    
+    
+    for (i in 2:length(names(datos))) {
+      
+      if(length(summary(as.factor(D[[i]])))<=10){
+        M[length(M)+1] <- i
+        
+      }
+      
+    }
+    
+    
+    D1 <- D[,c(1,M)]
+    
+    
+    pval <- NULL
+    est <- NULL
+    rec <- NULL
+    nomb <- colnames(D1)
+    
+    for (i in 2:length(colnames(D1))) {
+      
+      df <- D1[,c(1,i)]
+      df1 <- dummy_cols(df,select_columns = nomb[i])
+      
+      d0 <- subset(df1,Creditability==0)
+      d1 <- subset(df1,Creditability==1)
+      
+      d0 <- apply(d0, 2, sum)
+      d1 <- apply(d1, 2, sum)
+      
+      d <- data.frame(t(data.frame(d0,d1)))
+      
+      d <-d[,-2]
+      
+      
+      d$Creditability[2] <- 1
+      
+      d$Creditability[2] <- "buenos"
+      d$Creditability[1] <- "malos"
+      
+      
+      nombre <- d$Creditability
+      rownames(d) <- nombre
+      d <- d[,-1]
+      
+      pr <- chisq.test(d)
+      pval[i] <- round(pr$p.value,4)
+      est[i] <-round(pr$statistic,4)
+      rec[i] <- round(qchisq(1-as.numeric(input$significancia),pr$parameter),4)
+    }
+    
+    
+    pval <- t(pval)
+    est <- t(est)
+    rec[i]
+    
+    vd <- nomb[which(pval > 0.05)]
+    
+    
+    j <- colnames(datos)
+    
+    
+    
+    inf <- rbind(pval,est,rec)
+    inf[1,1] <- "P-valor"
+    inf[2,1] <- "Estadistico"
+    inf[3,1] <- "Valor Crítico"
+    
+    colnames(inf) <- nomb
+    colnames(inf)[1] <- ""
+    return(inf)
+  }
+  
+  ## se calculan los pvalores
+  
+  pvalor <- reactive({pval(data1org())})
+  
+  
+  
+  ## seccion que muestra los p-valores de las variables cualitativas
+  
+  
+  output$datatablecu <- renderDataTable({
+    
+    input$goButton1
+    
+    ca10 <- try(isolate(pvalor()))
+    if (class(ca10)=="try-error") {
+      
+      c()
+    }else{ca10}
+    
+    
+  })
+  
+  
+  ### Se calculan los p-valores de las variables cuantitativas con la funcion pval.
+  
+  pval. <- function(datos){
+    
+    
+    D<- datos
+    M <- c()
+    
+    
+    for (i in 2:length(names(datos))) {
+      
+      if(length(summary(as.factor(D[[i]])))<=10){
+        M[length(M)+1] <- i
+        
+      }
+      
+    }
+    
+    D1 <- as.data.frame(D[,-M])
+    pval <- NULL
+    est <- NULL
+    rec <- NULL
+    
+    nomb <- colnames(D1)
+    
+    
+    for (i in 2:length(nomb)) {
+      
+      df1 <- D1[,c(1,i)]
+      
+      d0 <- subset(df1, Creditability==0)
+      d1 <- subset(df1, Creditability==1)
+      
+      p1 <- d0[[2]]
+      p2 <- d1[[2]]
+      
+      
+      w <-  ks.test(p1,p2)
+      
+      pval[i] <- round(w$p.value,4)
+      est[i] <- round(w$statistic,4)
+      
+      
+    }
+    
+    pval <- t(pval)
+    est <- t(est)
+    rec <- pval
+    
+    
+    inf <- rbind(pval,est,rec)
+    colnames(inf)<-nomb
+    inf[1,1] <- "P-valor"
+    inf[2,1] <- "Estadistico"
+    inf[3,1] <- "Valor Crítico"
+    colnames(inf)[1] <- ""
+    return(inf)
+    
+    
+  }
+  
+  
+  #### En la variable data1. se eliminan las variables cualitativas que tengan 
+  #### un nivel de significancia mayor al del deseado por el usuarios el nivel esta en la variable input$significancia
+  
+  data1. <- reactive({
+    
+    
+    datos <- data1org()
+    
+    pvalores <- pvalor()[1,]
+    
+    pvalores <- pvalores[-1]
+    
+    pvalores1 <- as.matrix(pvalores)
+    
+    pvalores1 <- as.vector(pvalores1)
+    
+    names(pvalores1) <- names(pvalores)
+    
+    filtro <- pvalores1[which(pvalores1 > as.numeric(input$significancia))]
+    
+    vd <- names(filtro)
+    
+    j <- colnames(datos)
+    
+    
+    
+    final <- datos[, !(j %in% vd)]
+    return(final)
+    
+  })
+  
+  
+  #####Calculo de pvalores de la variable cuantitativa
+  pvalor1 <- reactive({pval.(data1.())})
+  
+  
+  ## seccion que muestra los p-valores de las variables cuantitativas
+  
+  
+  
+  output$datatablecu1 <- renderDataTable({
+    
+    input$goButton2
+    
+    ca11 <- try(isolate(pvalor1()))
+    if (class(ca11)=="try-error") {
+      
+      c()
+    }else{ca11}
+    
+  })
+  
+  
+  
+  ### Se eliminan las variables cuantitativas con un nivel de significancia mayor al del requerido por el usuario
+  
+  
+  
+  
+  data1 <- reactive({
+    
+    datos <- data1.()
+    
+    pvalores <- pvalor1()[1,]
+    
+    pvalores <- pvalores[-1]
+    
+    pvalores1 <- as.matrix(pvalores)
+    
+    pvalores1 <- as.vector(pvalores1)
+    
+    names(pvalores1) <- names(pvalores)
+    
+    filtro <- pvalores1[which(pvalores1 > as.numeric(input$significancia1))]
+    
+    vd <- names(filtro)
+    
+    j <- colnames(datos)
+    
+    
+    
+    final <- datos[, !(j %in% vd)]
+    return(final)
+    
+  })
+  
+  
+  
+  
+  ###############Funcion que crea el modelo para el score
+  
+  modprueba <- function(datos,datos2,nom,linkm)  {
+    
+    s1 <- datos
+    
+    nombres <- colnames(datos2)
+    
+    nombre <- nom
+    
+    posi <- which(nombres == nombre)
+    
+    
+    ceros <- subset(s1, s1[,posi]==0)
+    unos <- subset(s1, s1[,posi]==1)
+    
+    
+    indices0 <- sample( 1:nrow( ceros ), nrow(ceros)*0.7 )
+    ceros.muestreado <- ceros[ indices0, ]
+    ceros.test <- ceros[-indices0,]
+    
+    indices1 <- sample( 1:nrow( unos ), nrow(unos)*0.7 )
+    unos.muestreado <- unos[ indices1, ]
+    unos.test <- unos[-indices1,]
+    
+    train <- rbind(ceros.muestreado,unos.muestreado)
+    test <- rbind(ceros.test,unos.test)
+    
+    colnames(train)[posi] <- "dependiente"
+    colnames(test)[posi] <- "dependiente"
+    
+    modelo <- glm(dependiente ~. , data = train, family = binomial(link = linkm))
+    
+    
+    reduccion = step(modelo)
+    
+    return(reduccion)
+    
+  }
+  
+  
+  ### modelo
+  GlmModel <- reactive({
+    
+    input$goButton3
+    
+    isolate(modprueba(data1(),data1org(),input$columns,input$radio1))
+    
+  }
+  )
+  
+  
+  
+  
+  
+  ###########funcion que muestra los parametros de la regresión
+  coefglm <- function(modelo){
+    
+    l1 <- modelo$coefficients
+    
+    l2 <-names(modelo$coefficients)
+    
+    res <- t(rbind(l2,l1))
+    
+    res[1,1] <- "Punto de corte con el eje Y"
+    colnames(res) <- c("Variables","Coeficientes")
+    
+    return(res)
+    
+  }
+  
+  #### Se muestran los coeficientes del modelo
+  
+  
+  
+  output$coefglm <- renderDataTable({
+    
+    
+    
+    ca134 <- try(coefglm(GlmModel()))
+    if (class(ca134)=="try-error") {
+      
+      c()
+    }else{ca134}
+    
+    
+  })
+  
+  
+  #####Se muestra información estadistica del modelo
+  
+  ### funcion que la ordena
+  estglm <- function(modelo){
+    
+    aic <- round(modelo$aic,2)
+    
+    ND <- round(modelo$null.deviance,2)
+    
+    RD <- round(modelo$deviance,2)
+    
+    fis <- modelo$iter
+    
+    Est <- c(aic,RD,ND,round(fis,1))
+    
+    inf <- data.frame(c("Criterio de información de Akaike","Desviación de los residuos","Desviación Nula","Número de iteraciones de Fischer"),Est)
+    colnames(inf) <- c("Estadísticos","Resultado")
+    
+    return(inf)
+    
+  }
+  
+  
+  ### aqui se muesrtra
+  
+  output$estglm <- renderDataTable({
+    
+    ca139 <- try(estglm(GlmModel()))
+    if (class(ca139)=="try-error") {
+      
+      c()
+    }else{ca139}
+    
+    
+  })
+  
+  
+  
+  
+  #####Aque se calcula la matriz de confusion del modelo
+  
+  calaccur <- reactive(
+    {
+      s1 <- data1()
+      
+      nombres <- colnames(data1org())
+      
+      nombre <- input$columns
+      
+      posi <- which(nombres == nombre)
+      
+      
+      
+      ceros <- subset(s1, s1[,posi]==0)
+      unos <- subset(s1, s1[,posi]==1)
+      
+      indices0 <- sample( 1:nrow( ceros ), nrow(ceros)*0.7 )
+      ceros.muestreado <- ceros[ indices0, ]
+      ceros.test <- ceros[-indices0,]
+      
+      indices1 <- sample( 1:nrow( unos ), nrow(unos)*0.7 )
+      unos.muestreado <- unos[ indices1, ]
+      unos.test <- unos[-indices1,]
+      
+      train <- rbind(ceros.muestreado,unos.muestreado)
+      test <- rbind(ceros.test,unos.test)
+      
+      colnames(train)[posi] <- "dependiente"
+      colnames(test)[posi] <- "dependiente"
+      
+      pdata <- predict(modprueba(data1(),data1org(),input$columns,input$radio1), newdata = test, type = "response")
+      
+      pred <- confusionMatrix(data = as.factor(as.numeric(pdata>0.5)), reference = as.factor(test$dependiente))
+      
+      conf <- pred$table
+      Valores <- c("Prediccion",0,1)
+      Positivos <- c(0,conf[1,1],conf[1,2])
+      Negativos  <- c(1,conf[2,1],conf[2,2])
+      
+      return(cbind(Valores,Positivos, Negativos))
+      
+    }
+  )
+  
+  
+  #######Se muestra la matriz de confusion.
+  
+  
+  output$accur <- renderTable({
+    
+    ca14 <- try(calaccur())
+    
+    if (class(ca14)=="try-error") {
+      
+      "Cargue datos"
+      
+    }else{ca14}
+    
+    
+    
+    
+  })
+  
+  
+  
+  ############# Funcion que calcula la curva roc
+  
+  calroc <-function(dat,dat1,colum,modelos){
+    
+    s1 <- dat
+    nombres <- colnames(dat1)
+    
+    nombre <- colum
+    
+    posi <- which(nombres == nombre)
+    
+    ceros <- subset(s1, s1[,posi]==0)
+    unos <- subset(s1, s1[,posi]==1)
+    
+    
+    indices0 <- sample( 1:nrow( ceros ), nrow(ceros)*0.7 )
+    ceros.muestreado <- ceros[ indices0, ]
+    ceros.test <- ceros[-indices0,]
+    
+    indices1 <- sample( 1:nrow( unos ), nrow(unos)*0.7 )
+    unos.muestreado <- unos[ indices1, ]
+    unos.test <- unos[-indices1,]
+    
+    train <- rbind(ceros.muestreado,unos.muestreado)
+    test <- rbind(ceros.test,unos.test)
+    
+    colnames(train)[posi] <- "dependiente"
+    colnames(test)[posi] <- "dependiente"
+    
+    
+    reduccion <- modelos
+    
+    l <- roc(train$dependiente  ~ reduccion$fitted.values)
+    return(l)
+  }
+  
+  
+  
+  #### Donde se muetra la curva ROC
+  
+  output$roc <- renderPlot({
+    
+    ca15 <- try(ggroc(calroc(data1(),data1org(),input$columns,modprueba(data1(),data1org(),input$columns,input$radio1)),legacy.axes=T))
+    
+    
+    if (class(ca15)[1]=="try-error") {
+      
+      df <- data.frame()
+      ggplot(df) + geom_point() + xlim(0, 10) + ylim(0, 100)
+      
+    }else{ca15}
+    
+    
+    
+    
+  })
+  
+  
+  ###########Funcion que calcula el score y pd de toda la cartera
+  
+  scor <- function() {
+    
+    
+    s1 <- data1()
+    nombres <- colnames(data1org())
+    
+    nombre <- input$columns
+    
+    posi <- which(nombres == nombre)
+    
+    
+    reduccion = modprueba(data1(),data1org(),input$columns,input$radio1)
+    
+    
+    Score <- predict(reduccion, newdata = s1, type = "link")
+    PD <- predict(reduccion, newdata = s1, type = "response")
+    n <- length(PD)
+    ress <- cbind(1:n,Score,PD)
+    colnames(ress) <- c("Posición","Score","Probabilidad de incumplimiento") 
+    return(ress)
+    
+  }
+  
+  ######Se muestra el score de toda la cartera
+  
+  
+  
+  output$score <- renderDataTable({
+    
+    ca16 <- try(scor())
+    if (class(ca16)=="try-error") {
+      
+      c()
+    }else{ca16}
+    
+    
+  },options = list(scrollX=T,scrollY=300))
+  
+  
+  output$download <- downloadHandler(
+    filename = function(){"score.csv"}, 
+    content = function(fname){
+      write.csv(scor(), fname)
+    }
+  )
+  
+  ### Preyeccion a nuevos clientes
+  
   
   datasetSelectr <- reactive({
     datasetSelectr <- reg
@@ -90,7 +769,7 @@ shinyServer(function(input, output, session) {
   })
   
   
-
+  
   
   
   ### Se muestran los datos
@@ -101,7 +780,55 @@ shinyServer(function(input, output, session) {
   })
   
   
-  #########Rating
+  proyec <- reactive({
+    
+    
+    
+    
+    
+    reduccion = GlmModel()
+    
+    
+    Score <- predict(reduccion, newdata = dataaa2(), type = "link")
+    PD <- predict(reduccion, newdata = dataaa2(), type = "response")
+    n <- length(PD)
+    ress <- cbind(1:n,Score,PD)
+    colnames(ress) <- c("Posición","Score","Probabilidad de incumplimiento") 
+    return(ress)
+    
+    
+    
+    
+  })
+  
+  
+  
+  
+  output$proy <- renderDataTable({
+    
+    pro <- try(proyec())
+    if (class(pro)=="try-error") {
+      
+      c()
+    }else{pro}
+    
+    
+  },options = list(scrollX=T,scrollY=300))
+  
+  
+  
+  output$download1 <- downloadHandler(
+    filename = function(){"score.csv"}, 
+    content = function(fname){
+      write.csv(proyec(), fname)
+    }
+  )
+  
+  
+  ######## rating
+  
+  
+  
   
   ############# Parte que se encarga de leer los datos cargados por el usuario
   
@@ -123,7 +850,7 @@ shinyServer(function(input, output, session) {
   
   
   
-  
+
   datasetSelectRat <- reactive({
     datasetSelect <- rat
   })
@@ -140,7 +867,11 @@ shinyServer(function(input, output, session) {
     }
   })
   
+  
   ####Se muestran los datos
+  
+  
+  
   
   
   output$datatableRat<-renderDataTable({
@@ -148,10 +879,49 @@ shinyServer(function(input, output, session) {
   },options = list(scrollX=T,scrollY=300))
   
   
+  ####### función para calcular el modelo de Rating
   
-  ################### Proyeccion rating
+  lda_mo <- function(dat){
+    
+    ind <- as.data.frame(as.numeric(dat[,1]))
+    colnames(ind)<- c("PD") 
+    
+    d <- lda(dat[,2]~ .,data = ind)
+    return(d)
+    
+  }
   
-  ############# Aqui se calcula el rating de nuevos clientes
+  
+  ## se calcula el modelo
+  mod_rat <- reactive(lda_mo(dataRat()))
+  
+  
+  ###########Funcion que calcula la informacion del modelo
+  
+  infLda <- function(lda){
+    
+    prior <- round(lda$prior,4)
+    mea <- t(round(lda$means,4))
+    inf <- rbind(prior,mea)
+    inf <- cbind(c("Probabilidades a Priori","Valores Medio de los Grupos"),inf)
+    return(inf)
+  }
+  
+  ### Se muestra la informacion del modelo
+  
+  output$datatableRatInf <- renderDataTable({
+    
+    ca1342 <- try(infLda(mod_rat()))
+    
+    if (class(ca1342)=="try-error") {
+      
+      "Cargue datos"
+      
+    }else{ca1342}
+  })
+  
+  ## Se proyectan a nuevos clientes
+  
   
   
   ############# Parte que se encarga de leer los datos cargados por el usuario
@@ -182,7 +952,7 @@ shinyServer(function(input, output, session) {
   })
   
   
-  ###### Cargando datos con que se trabajara: entre los de ejemplo y los propios
+  ###### Cargando datos con que se trabajara: entre los del score y los propios
   
   dataRatN <- reactive({
     if(input$datasetRatN && !input$userFileRatN){
@@ -198,11 +968,75 @@ shinyServer(function(input, output, session) {
     
   })
   
+  #### Funcion que calcula el rating a partir  del  modelo
   
+  
+  Rat_Cli <- function(d,df){
+    
+    pd <- as.data.frame(as.numeric(df[,1]))
+    colnames(pd) <- c("PD")
+    rat <- predict(d,pd)
+    rat_cli <- as.data.frame(rat$class)
+    colnames(rat_cli) <- c("Rating")
+    return(rat_cli)
+    
+  }
+  
+  ## la proyeccion
+  
+  proyrat <- reactive({
+    
+    l1 <- as.data.frame(dataRatN()[,3])
+    colnames(l1) <- c("Probabilidad de incumplimiento")
+    
+    
+    l2 <- Rat_Cli(mod_rat(),as.data.frame(dataRatN()[,3]))
+    
+    
+    l3 <- cbind(l1,l2)
+    l3
+    
+  })
+  
+  
+  
+  #### Se muestra la proyeccion
+  
+  
+  output$datatableRatNCF <- renderDataTable({
+    
+    proyrat()
+    
+    
+    
+  },options = list(scrollX=T,scrollY=300))
+  
+  ## Se descarga la proyeccion
+  
+  output$download2 <- downloadHandler(
+    filename = function(){"score.csv"}, 
+    content = function(fname){
+      write.csv(proyrat(), fname)
+    }
+  )
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  ##### Perdida por incumplimiento
+  
+  #### Perdida por cliente
+  
+ 
   
   ######################## Datos perdida por clientes
   
-
+  
   
   datasetSelectrl <- reactive({
     datasetSelectrl <- perdidas
@@ -240,6 +1074,118 @@ shinyServer(function(input, output, session) {
   },options = list(scrollX=T,scrollY=300))
   
   
+  ######## lgd1 se encarga de hacer la grafica
+  
+  lgd1 <- reactive({
+    
+    lgd <-data7()["Perdidas"]
+    
+    p7 <- ggplot(lgd, aes(x = Perdidas)) +
+      geom_histogram()+labs(x = "Pérdida",y = "Frecuencia")
+    
+    
+    
+    return( ggplotly(p7))
+    
+  })
+  
+  ### aqui se muestra la grafica.
+  
+  output$curvalgd <- renderPlotly({
+    
+    ca13 <- try(lgd1())
+    
+    
+    if (class(ca13)[1]=="try-error") {
+      
+      df <- data.frame()
+      ggplot(df) + geom_point() + xlim(0, 10) + ylim(0, 100)
+      
+    }else{ca13}
+    
+    
+  })
+  
+  
+  
+  ### Lgd con bootstrap
+  
+  
+  bootL <- function(datos,n){
+    
+    
+    medias <- NULL
+    
+    for ( i  in 1:n) {
+      muestra <- sample(datos$Perdidas,ceiling((as.numeric(input$bootT)/100)*length(datos$Perdidas)),replace = T)
+      
+      medias[i] <- mean(muestra)
+      
+    }
+    
+    medias <- as.data.frame(medias)
+    
+    colnames(medias) <- c("Perdidas")
+    
+    
+    p7 <- ggplot(medias, aes(x = Perdidas)) +
+      geom_histogram()+labs(x = "Pérdida",y = "Frecuencia")
+    
+    
+    p7 <- ggplotly(p7)
+    promedio <- mean(medias[,1])
+    desv <- sd(medias[,1])
+    lista <- list(p7,promedio,desv)
+    return(lista)
+    
+    
+  }
+  
+  
+  ### aqui se muestra la grafica.
+  
+  bot <- reactive({
+    
+    input$goButton5
+    
+    isolate(bootL(data7(),input$boot))
+  })
+  
+  ############
+  
+  output$booot1 <- renderPlotly({
+    
+    
+    
+    ca9879 <- try(bot()[[1]])
+    
+    
+    if (class(ca9879)[1]=="try-error") {
+      
+      df <- data.frame()
+      ggplot(df) + geom_point() + xlim(0, 10) + ylim(0, 100)
+      
+    }else{ca9879}
+    
+    
+  })
+  
+  ## Informcaion de bootstrap
+  
+  
+  output$boots3 <- renderUI({
+    my_calculated_value <- round(as.numeric(bot()[[2]])*100,2)
+    withMathJax(paste0("El valor promerdio de perdida cuando un cliente esta Default es: $$", my_calculated_value,"$$"))
+  })
+  
+  output$boots4 <- renderUI({
+    media <- round(as.numeric(bot()[[2]])*100,2)
+    des <- round(as.numeric(bot()[[3]])*100,2)
+    
+    withMathJax(paste0("El intevalo de confianza al " ,input$boot23,"% para este valor : $$(", round(media+(qnorm((1-(as.numeric( input$boot23)/100 ))/2))*des/sqrt(as.numeric(input$boot)),2),",", round(media-(qnorm((1-(as.numeric( input$boot23)/100 ))/2)*des/sqrt(as.numeric(input$boot))),2),")$$"))
+  }) 
+  
+  #### datos perdidas por clases
   
   ######################## Datos perdida por clases
   
@@ -283,6 +1229,215 @@ shinyServer(function(input, output, session) {
   },options = list(scrollX=T,scrollY=300))
   
   
+  ## Funcion que calcula la perdida promedio por clase
+  CR <- function(histo){
+    
+    
+    
+    N <- NULL
+    
+    
+    clases <- levels(histo[,1])
+    
+    for (i in 1:length(clases)) {
+      
+      s <- which(histo[,1]==clases[i])
+      
+      s1 <- histo[,2]
+      
+      N[i] <- mean(s1[s])
+      
+    }
+    
+    N <- paste(round(N,2),"%",sep ="" ) 
+    
+    
+    result <- data.frame(N,clases)
+    
+    colnames(result) <- c("Perdida" , "Calif")
+    
+    return(result)
+    
+    
+    
+  }
+  
+  ### Se muestra la perdida por clases promedio
+  
+  datasetInputcrm1 <- reactive({
+    datasetInputcrm1 <-CR(data11())
+  })
+  
+
+  output$datatablecrm1<-renderDataTable({
+    
+    ca22 <- try(datasetInputcrm1())
+    
+    
+    if (class(ca22)=="try-error") {
+      
+      c()
+      
+    }else{ca22}
+    
+    
+    
+    
+    
+  })
+  
+  
+  
+### Perdida por clases usando botstrap
+  
+  bostCL <- function(cla, n ,tam){
+    
+    clases <- names(table(cla["clases"]))
+    
+    medias <- NULL
+    desviacion <- NULL
+    
+    
+    
+    for (i in 1:length(clases)) {
+      
+      pos <- which(cla[,1]==clases[i])
+      
+      filtro <- cla[pos,2]
+      
+      mediabost <- NULL
+      for ( j  in 1:n) {
+        muestra <- sample(filtro,ceiling((tam/100)*length(filtro)),replace = T)
+        mediabost[j] <- mean(muestra)
+      }
+      
+      medias[i] <- mean(mediabost)
+      desviacion[i] <- sd(mediabost)
+      
+      
+    }
+    
+    
+    return(list(medias,desviacion,clases))
+    
+  }
+  
+  clasescal <- reactive({
+    
+    bostCL(data11(), as.integer(input$bootC) , as.integer(input$bootTC)) 
+    
+    
+  })
+  
+  clasecrm <- reactive({
+    
+    l <- as.data.frame(clasescal()[[1]])
+    k <- as.data.frame(clasescal()[[2]])
+    
+    j <- k*qnorm((1-(as.numeric(input$boot2312)/100 ))/2)/sqrt(as.numeric(input$bootC))
+    
+    
+    iz <- l+j
+    de <- l-j
+    final <- cbind(l,iz,de)
+    
+    colnames(final) <- c("Pérdida","Mínimo","Máximo")
+    
+    d <- cbind(clasescal()[[3]],round(final,2))
+    colnames(d)[1] <- "Clase" 
+    d
+  })
+  
+  
+  
+  
+  output$datatablecrm2<-renderDataTable({
+    
+    ca22 <- try(clasecrm())
+    
+    
+    if (class(ca22)=="try-error") {
+      
+      c()
+      
+    }else{ca22}
+    
+    
+    
+    
+    
+  })
+  
+  
+  
+  
+  
+  
+ 
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+ ####### Seccion datos
+  
+      #############Scoring y rating
+  
+            ########Scoring
+  
+                    ###### Se cargan los datos entre los de ejemplo y los propios
+
+  
+  
+  
+  ############ Proyeccion score
+  
+ 
+  
+  #########Rating
+  
+
+  
+
+  
+  ################### Proyeccion rating
+  
+  ############# Aqui se calcula el rating de nuevos clientes
+  
+  
+
+  
+  
+ 
+  
+
   
   ######### seccion matriz de transicion
   
@@ -743,116 +1898,7 @@ shinyServer(function(input, output, session) {
   
         ##### OutVar1 Se encarga de obtener los nombres de la variables menos la variable de estudio
         
-  outVar1 = reactive({
-    
-    nombres <- colnames(data1org())
-    
-    nombre <- input$columns
-    
-    posi <- which(nombres == nombre)
-    
-    mydata = data1org()
-    
-    c <- names(mydata)
-    
-    c[-posi]
-    
-    
-  })  
   
-  
-      
-      ### Se actuliza el input column1 con la variable anterior
-  observe({
-    updateSelectInput(session, "columns1",
-                      choices = outVar1()
-    )})
-  
-        ################# grafica que compara las variables
-  
-      
-  
-                            ### funcion que se encarga de graficar
-  grafica <- function(datos,nom,nom2){
-    
-    s1 <- datos
-    nombres <- colnames(datos)
-    
-    nombre <- nom
-    
-    posi <- which(nombres == nombre)
-    
-    nombre1 <- nom2
-    
-    posi1 <- which(nombres == nombre1)
-    
-    s1[,posi]<-  as.factor(s1[,posi])
-    
-    
-    
-    
-    p10 <- ggplot(s1, aes(x = s1[[nombre]], y = s1[[nombre1]])) +
-      geom_boxplot(fill = "#56B4E9") +
-      scale_y_continuous(name = "Escala de valores") +  scale_x_discrete(name = "Categorias") +
-      ggtitle("Comparación entre las categorias de la variable seleccionada") 
-    return(p10)
-    
-    
-    
-  }
-  
-  
-                        # Aplicando la funcion anterior
-  output$comparacion <- renderPlotly({
-    
-    input$goButton
-    
-    ca7 <- try(isolate(ggplotly(grafica(data1org(),input$columns,input$columns1))))
-    
-    
-    if (class(ca7)[1]=="try-error") {
-      
-      df <- data.frame()
-      ggplot(df) + geom_point() + xlim(0, 10) + ylim(0, 100)
-      
-    }else{ca7}
-    
-    
-    
-  })
-  
-                ####### Funcion que recibe los datos y muestra la informacion etadistica
-  
-  estadf<-function(datos,nomb){
-    
-    s1 <- datos
-    
-    
-    
-    s2 <- rbind(summary(s1[[nomb]]))
-    colnames(s2) <- c("Mínimo","Primer Quartil", "Mediana","Media", "Tercer Quartil", "Máximo")
-    
-    return(s2)
-    
-  }
-  
-  #### Aplicando la funcion anterioe para mostrar la informacion de la variable seleccionada
-  
-  output$estad1 <- renderDataTable({ 
-    
-    ca8 <- try(estadf(data1org(),input$columns1))
-    
-    if (class(ca8)=="try-error") {
-      
-      c()
-      
-    }else{ca8}
-    
-    
-    
-    
-    
-  })
     
         ####  subseccion Seleccion de variables
   
@@ -861,258 +1907,7 @@ shinyServer(function(input, output, session) {
  
    
    
-  pval <- function(datos){
-    
-    
-    D<- datos
-    M <- c()
-    
-    
-    for (i in 2:length(names(datos))) {
-      
-      if(length(summary(as.factor(D[[i]])))<=10){
-        M[length(M)+1] <- i
-        
-      }
-      
-    }
-    
-    
-    D1 <- D[,c(1,M)]
-    
-    
-    pval <- NULL
-    est <- NULL
-    rec <- NULL
-    nomb <- colnames(D1)
-    
-    for (i in 2:length(colnames(D1))) {
-      
-      df <- D1[,c(1,i)]
-      df1 <- dummy_cols(df,select_columns = nomb[i])
-      
-      d0 <- subset(df1,Creditability==0)
-      d1 <- subset(df1,Creditability==1)
-      
-      d0 <- apply(d0, 2, sum)
-      d1 <- apply(d1, 2, sum)
-      
-      d <- data.frame(t(data.frame(d0,d1)))
-      
-      d <-d[,-2]
-      
-      
-      d$Creditability[2] <- 1
-      
-      d$Creditability[2] <- "buenos"
-      d$Creditability[1] <- "malos"
-      
-      
-      nombre <- d$Creditability
-      rownames(d) <- nombre
-      d <- d[,-1]
-      
-      pr <- chisq.test(d)
-      pval[i] <- round(pr$p.value,4)
-      est[i] <-round(pr$statistic,4)
-      rec[i] <- round(qchisq(1-as.numeric(input$significancia),pr$parameter),4)
-    }
-    
-    
-    pval <- t(pval)
-    est <- t(est)
-    rec[i]
-    
-    vd <- nomb[which(pval > 0.05)]
-    
-    
-    j <- colnames(datos)
-    
-    
-    
-    inf <- rbind(pval,est,rec)
-    inf[1,1] <- "P-valor"
-    inf[2,1] <- "Estadistico"
-    inf[3,1] <- "Valor Crítico"
-    
-    colnames(inf) <- nomb
-    colnames(inf)[1] <- ""
-    return(inf)
-  }
   
-  ## se calculan los pvalores
-   
-  pvalor <- reactive({pval(data1org())})
-   
-  
-   
-  ## seccion que muestra los p-valores de las variables cualitativas
-   
-   
-  output$datatablecu <- renderDataTable({
-    
-    input$goButton1
-    
-    ca10 <- try(isolate(pvalor()))
-    if (class(ca10)=="try-error") {
-      
-     c()
-    }else{ca10}
-    
-    
-  })
-  
-  
-  ### Se calculan los p-valores de las variables cuantitativas con la funcion pval.
-  
-  pval. <- function(datos){
-    
-    
-    D<- datos
-    M <- c()
-    
-    
-    for (i in 2:length(names(datos))) {
-      
-      if(length(summary(as.factor(D[[i]])))<=10){
-        M[length(M)+1] <- i
-        
-      }
-      
-    }
-    
-    D1 <- as.data.frame(D[,-M])
-    pval <- NULL
-    est <- NULL
-    rec <- NULL
-    
-    nomb <- colnames(D1)
-    
-    
-    for (i in 2:length(nomb)) {
-      
-      df1 <- D1[,c(1,i)]
-      
-      d0 <- subset(df1, Creditability==0)
-      d1 <- subset(df1, Creditability==1)
-      
-      p1 <- d0[[2]]
-      p2 <- d1[[2]]
-      
-      
-      w <-  ks.test(p1,p2)
-      
-      pval[i] <- round(w$p.value,4)
-      est[i] <- round(w$statistic,4)
-      
-      
-    }
-    
-    pval <- t(pval)
-    est <- t(est)
-    rec <- pval
-    
-    
-    inf <- rbind(pval,est,rec)
-    colnames(inf)<-nomb
-    inf[1,1] <- "P-valor"
-    inf[2,1] <- "Estadistico"
-    inf[3,1] <- "Valor Crítico"
-    colnames(inf)[1] <- ""
-    return(inf)
-    
-    
-  }
-  
-  
-  #### En la variable data1. se eliminan las variables cualitativas que tengan 
-  #### un nivel de significancia mayor al del deseado por el usuarios el nivel esta en la variable input$significancia
-  
-  data1. <- reactive({
-    
-    
-    datos <- data1org()
-    
-    pvalores <- pvalor()[1,]
-    
-    pvalores <- pvalores[-1]
-    
-    pvalores1 <- as.matrix(pvalores)
-    
-    pvalores1 <- as.vector(pvalores1)
-    
-    names(pvalores1) <- names(pvalores)
-    
-    filtro <- pvalores1[which(pvalores1 > as.numeric(input$significancia))]
-    
-    vd <- names(filtro)
-    
-    j <- colnames(datos)
-    
-    
-    
-    final <- datos[, !(j %in% vd)]
-    return(final)
-    
-  })
-  
-  
-  #####Calculo de pvalores de la variable cuantitativa
-  pvalor1 <- reactive({pval.(data1.())})
-  
-  
-  ## seccion que muestra los p-valores de las variables cuantitativas
-  
-  
-  
-  output$datatablecu1 <- renderDataTable({
-    
-    input$goButton2
-    
-    ca11 <- try(isolate(pvalor1()))
-    if (class(ca11)=="try-error") {
-      
-      c()
-    }else{ca11}
-    
-  })
- 
-   
-  
-  ### Se eliminan las variables cuantitativas con un nivel de significancia mayor al del requerido por el usuario
-  
-  
-
-  
- data1 <- reactive({
-   
-   datos <- data1.()
-   
-   pvalores <- pvalor1()[1,]
-   
-   pvalores <- pvalores[-1]
-   
-   pvalores1 <- as.matrix(pvalores)
-   
-   pvalores1 <- as.vector(pvalores1)
-   
-   names(pvalores1) <- names(pvalores)
-   
-   filtro <- pvalores1[which(pvalores1 > as.numeric(input$significancia1))]
-   
-   vd <- names(filtro)
-   
-   j <- colnames(datos)
-   
-   
-   
-   final <- datos[, !(j %in% vd)]
-   return(final)
-
-    })
- 
- 
- 
  ########### Seccion perdida por incumplimiento.
  
  
@@ -1125,114 +1920,9 @@ shinyServer(function(input, output, session) {
  
 
  
- ######## lgdq se encarga de hacer la grafica
  
- lgd1 <- reactive({
-   
-   lgd <-data7()["Perdidas"]
-   
-   p7 <- ggplot(lgd, aes(x = Perdidas)) +
-     geom_histogram()+labs(x = "Pérdida",y = "Frecuencia")
-   
+ 
 
-   
-   return( ggplotly(p7))
-   
- })
- 
- ### aqui se muestra la grafica.
- 
- output$curvalgd <- renderPlotly({
-   
-   ca13 <- try(lgd1())
-   
-   
-   if (class(ca13)[1]=="try-error") {
-     
-     df <- data.frame()
-     ggplot(df) + geom_point() + xlim(0, 10) + ylim(0, 100)
-     
-   }else{ca13}
- 
-   
- })
- 
- ### Lgd con bootstrap
- 
- 
- bootL <- function(datos,n){
-   
-   
-   medias <- NULL
-   
-   for ( i  in 1:n) {
-     muestra <- sample(datos$Perdidas,ceiling((as.numeric(input$bootT)/100)*length(datos$Perdidas)),replace = T)
-     
-     medias[i] <- mean(muestra)
-     
-   }
-   
-   medias <- as.data.frame(medias)
-   
-   colnames(medias) <- c("Perdidas")
-   
-   
-   p7 <- ggplot(medias, aes(x = Perdidas)) +
-     geom_histogram()+labs(x = "Pérdida",y = "Frecuencia")
-   
-   
-   p7 <- ggplotly(p7)
-   promedio <- mean(medias[,1])
-   desv <- sd(medias[,1])
-   lista <- list(p7,promedio,desv)
-   return(lista)
-   
-
- }
- 
- 
- ### aqui se muestra la grafica.
- 
- bot <- reactive({
-   
-   input$goButton5
-   
-   isolate(bootL(data7(),input$boot))
-           })
- 
- ############
- 
- output$booot1 <- renderPlotly({
-   
-  
-   
-   ca9879 <- try(bot()[[1]])
-   
-   
-   if (class(ca9879)[1]=="try-error") {
-     
-     df <- data.frame()
-     ggplot(df) + geom_point() + xlim(0, 10) + ylim(0, 100)
-     
-   }else{ca9879}
-   
-   
- })
- 
- 
- 
- output$boots3 <- renderUI({
-   my_calculated_value <- round(as.numeric(bot()[[2]])*100,2)
-   withMathJax(paste0("El valor promerdio de perdida cuando un cliente esta Default es: $$", my_calculated_value,"$$"))
- })
- 
- output$boots4 <- renderUI({
-   media <- round(as.numeric(bot()[[2]])*100,2)
-   des <- round(as.numeric(bot()[[3]])*100,2)
-   
-   withMathJax(paste0("El intevalo de confianza al " ,input$boot23,"% para este valor : $$(", round(media+(qnorm((1-(as.numeric( input$boot23)/100 ))/2))*des/sqrt(as.numeric(input$boot)),2),",", round(media-(qnorm((1-(as.numeric( input$boot23)/100 ))/2)*des/sqrt(as.numeric(input$boot))),2),")$$"))
- }) 
- 
 ###### Seccion score de credito
  
  
@@ -1240,404 +1930,22 @@ shinyServer(function(input, output, session) {
  
  
  
- ###############Funcion que crea el modelo para el score
  
- modprueba <- function(datos,datos2,nom,linkm)  {
-   
-   s1 <- datos
-   
-   nombres <- colnames(datos2)
-   
-   nombre <- nom
-   
-   posi <- which(nombres == nombre)
-   
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
 
-   ceros <- subset(s1, s1[,posi]==0)
-   unos <- subset(s1, s1[,posi]==1)
-   
-   
-   indices0 <- sample( 1:nrow( ceros ), nrow(ceros)*0.7 )
-   ceros.muestreado <- ceros[ indices0, ]
-   ceros.test <- ceros[-indices0,]
-   
-   indices1 <- sample( 1:nrow( unos ), nrow(unos)*0.7 )
-   unos.muestreado <- unos[ indices1, ]
-   unos.test <- unos[-indices1,]
-   
-   train <- rbind(ceros.muestreado,unos.muestreado)
-   test <- rbind(ceros.test,unos.test)
-   
-   colnames(train)[posi] <- "dependiente"
-   colnames(test)[posi] <- "dependiente"
-   
-   modelo <- glm(dependiente ~. , data = train, family = binomial(link = linkm))
-   
-   
-   reduccion = step(modelo)
-   
-   return(reduccion)
-   
- }
- 
- GlmModel <- reactive({
-   
-   input$goButton3
-   
-   isolate(modprueba(data1(),data1org(),input$columns,input$radio1))
-   
- }
-   )
- 
- 
- 
- 
- 
- ####### función para calcular el modelo de Rating
- 
- lda_mo <- function(dat){
-   
-   ind <- as.data.frame(as.numeric(dat[,1]))
-   colnames(ind)<- c("PD") 
-   
-   d <- lda(dat[,2]~ .,data = ind)
-   return(d)
-   
- }
- 
- ###########Funcion que calcula la informacion del modelo
- 
- infLda <- function(lda){
-   
-   prior <- round(lda$prior,4)
-   mea <- t(round(lda$means,4))
-   inf <- rbind(prior,mea)
-   inf <- cbind(c("Probabilidades a Priori","Valores Medio de los Grupos"),inf)
-   return(inf)
- }
- 
-##### Se calcula el modelo
- 
- mod_rat <- reactive(lda_mo(dataRat()))
- 
- ### Se muestra la informa del modelo
- 
- output$datatableRatInf <- renderDataTable({
-   
-   ca1342 <- try(infLda(mod_rat()))
-   
-   if (class(ca1342)=="try-error") {
-     
-     "Cargue datos"
-     
-   }else{ca1342}
- })
- 
- 
- 
- #### Funcion que calcula el rating a partir  del  modelo
- 
- 
- Rat_Cli <- function(d,df){
-   
-   pd <- as.data.frame(as.numeric(df[,1]))
-   colnames(pd) <- c("PD")
-   rat <- predict(d,pd)
-   rat_cli <- as.data.frame(rat$class)
-   colnames(rat_cli) <- c("Rating")
-   return(rat_cli)
-   
- }
- 
- 
- 
- 
- 
- proyrat <- reactive({
-   
-   l1 <- as.data.frame(dataRatN()[,3])
-   colnames(l1) <- c("Probabilidad de incumplimiento")
-   
-   
-   l2 <- Rat_Cli(mod_rat(),as.data.frame(dataRatN()[,3]))
-   
-   
-   l3 <- cbind(l1,l2)
-   l3
-   
- })
- 
- 
- 
- output$datatableRatinf <- renderDataTable({
-   
-   ca14 <- try(as.data.frame(dataRatN()[,3]))
-   
-   if (class(ca14)=="try-error") {
-     
-     c()
-     
-   }else{ 
-     colnames(ca14) <- c("Probabilidad de incumplimiento")
-     ca14
-     }
-   
-   
-   
-   
- })
- 
- 
- output$datatableRatNCF <- renderDataTable({
 
-   proyrat()
-   
-   
-   
- },options = list(scrollX=T,scrollY=300))
- 
- 
- output$download2 <- downloadHandler(
-   filename = function(){"score.csv"}, 
-   content = function(fname){
-     write.csv(proyrat(), fname)
-   }
- )
- 
- #####Aque se calcula la matriz de confusion del modelo
- 
- calaccur <- reactive(
-   {
-     s1 <- data1()
-     
-     nombres <- colnames(data1org())
-     
-     nombre <- input$columns
-     
-     posi <- which(nombres == nombre)
-     
-  
-     
-     ceros <- subset(s1, s1[,posi]==0)
-     unos <- subset(s1, s1[,posi]==1)
-     
-     indices0 <- sample( 1:nrow( ceros ), nrow(ceros)*0.7 )
-     ceros.muestreado <- ceros[ indices0, ]
-     ceros.test <- ceros[-indices0,]
-     
-     indices1 <- sample( 1:nrow( unos ), nrow(unos)*0.7 )
-     unos.muestreado <- unos[ indices1, ]
-     unos.test <- unos[-indices1,]
-     
-     train <- rbind(ceros.muestreado,unos.muestreado)
-     test <- rbind(ceros.test,unos.test)
-     
-     colnames(train)[posi] <- "dependiente"
-     colnames(test)[posi] <- "dependiente"
-     
-     pdata <- predict(modprueba(data1(),data1org(),input$columns,input$radio1), newdata = test, type = "response")
-     
-     pred <- confusionMatrix(data = as.factor(as.numeric(pdata>0.5)), reference = as.factor(test$dependiente))
-     
-     conf <- pred$table
-     Valores <- c("Prediccion",0,1)
-     Positivos <- c(0,conf[1,1],conf[1,2])
-     Negativos  <- c(1,conf[2,1],conf[2,2])
-     
-     return(cbind(Valores,Positivos, Negativos))
-     
-   }
- )
- 
- 
- #######Se muestra la matriz de confusion.
- 
- 
- output$accur <- renderTable({
-   
-   ca14 <- try(calaccur())
-   
-   if (class(ca14)=="try-error") {
-     
-     "Cargue datos"
-     
-   }else{ca14}
-   
-   
-   
-   
- })
- 
- 
- ############# Funcion que calcula la curva roc
- 
- calroc <-function(dat,dat1,colum,modelos){
-   
-   s1 <- dat
-   nombres <- colnames(dat1)
-   
-   nombre <- colum
-   
-   posi <- which(nombres == nombre)
-   
-   ceros <- subset(s1, s1[,posi]==0)
-   unos <- subset(s1, s1[,posi]==1)
-   
-   
-   indices0 <- sample( 1:nrow( ceros ), nrow(ceros)*0.7 )
-   ceros.muestreado <- ceros[ indices0, ]
-   ceros.test <- ceros[-indices0,]
-   
-   indices1 <- sample( 1:nrow( unos ), nrow(unos)*0.7 )
-   unos.muestreado <- unos[ indices1, ]
-   unos.test <- unos[-indices1,]
-   
-   train <- rbind(ceros.muestreado,unos.muestreado)
-   test <- rbind(ceros.test,unos.test)
-   
-   colnames(train)[posi] <- "dependiente"
-   colnames(test)[posi] <- "dependiente"
-   
-   
-   reduccion <- modelos
-   
-   l <- roc(train$dependiente  ~ reduccion$fitted.values)
-   return(l)
- }
- 
- 
- 
- #### Donde se muetra la curva ROC
- 
- output$roc <- renderPlot({
-   
-   ca15 <- try(ggroc(calroc(data1(),data1org(),input$columns,modprueba(data1(),data1org(),input$columns,input$radio1)),legacy.axes=T))
-   
-   
-   if (class(ca15)[1]=="try-error") {
-     
-     df <- data.frame()
-     ggplot(df) + geom_point() + xlim(0, 10) + ylim(0, 100)
-     
-   }else{ca15}
-   
-   
-   
-   
- })
- 
- ###########Se muestran los parametros de la regresión
- coefglm <- function(modelo){
-   
-   l1 <- modelo$coefficients
-   
-   l2 <-names(modelo$coefficients)
-   
-   res <- t(rbind(l2,l1))
-   
-   res[1,1] <- "Punto de corte con el eje Y"
-   colnames(res) <- c("Variables","Coeficientes")
-   
-   return(res)
-   
- }
- 
- output$coefglm <- renderDataTable({
-   
-
-   
-   ca134 <- try(coefglm(GlmModel()))
-   if (class(ca134)=="try-error") {
-     
-     c()
-   }else{ca134}
-   
-   
- })
- #####Se muestra información estadistica del modelo
- 
- 
- estglm <- function(modelo){
-   
-   aic <- round(modelo$aic,2)
-   
-   ND <- round(modelo$null.deviance,2)
-   
-   RD <- round(modelo$deviance,2)
-   
-   fis <- modelo$iter
-   
-   Est <- c(aic,RD,ND,round(fis,1))
-   
-   inf <- data.frame(c("Criterio de información de Akaike","Desviación de los residuos","Desviación Nula","Número de iteraciones de Fischer"),Est)
-   colnames(inf) <- c("Estadísticos","Resultado")
-   
-   return(inf)
-   
- }
- 
- 
- output$estglm <- renderDataTable({
-   
-   ca139 <- try(estglm(GlmModel()))
-   if (class(ca139)=="try-error") {
-     
-     c()
-   }else{ca139}
-   
-   
- })
  
 
  ############### Subseccion Score de la cartera de credito de entrenamento
  
- ###########Funcion que calcula el score y pd de toda la cartera
  
- scor <- function() {
-   
-   
-   s1 <- data1()
-   nombres <- colnames(data1org())
-   
-   nombre <- input$columns
-   
-   posi <- which(nombres == nombre)
-   
-   
-   reduccion = modprueba(data1(),data1org(),input$columns,input$radio1)
-   
-   
-   Score <- predict(reduccion, newdata = s1, type = "link")
-   PD <- predict(reduccion, newdata = s1, type = "response")
-   n <- length(PD)
-   ress <- cbind(1:n,Score,PD)
-   colnames(ress) <- c("Posición","Score","Probabilidad de incumplimiento") 
-   return(ress)
-   
- }
- 
- ######Se muestra el score de toda la cartera
- 
- 
- 
- output$score <- renderDataTable({
-   
-   ca16 <- try(scor())
-   if (class(ca16)=="try-error") {
-     
-     c()
-   }else{ca16}
-
-   
- },options = list(scrollX=T,scrollY=300))
- 
-
- output$download <- downloadHandler(
-   filename = function(){"score.csv"}, 
-   content = function(fname){
-     write.csv(scor(), fname)
-   }
- )
  ######## subcesion Proyeccion a nuevos clientes
  
  #### Se cargan los datos de la manera usual
@@ -1654,50 +1962,7 @@ shinyServer(function(input, output, session) {
  
  
  
-   proyec <- reactive({
-     
-     
-     
-     
-     
-     reduccion = GlmModel()
-     
-     
-     Score <- predict(reduccion, newdata = dataaa2(), type = "link")
-     PD <- predict(reduccion, newdata = dataaa2(), type = "response")
-     n <- length(PD)
-     ress <- cbind(1:n,Score,PD)
-     colnames(ress) <- c("Posición","Score","Probabilidad de incumplimiento") 
-     return(ress)
-     
-     
-     
    
- })
- 
- 
- 
- 
- output$proy <- renderDataTable({
-   
-   pro <- try(proyec())
-   if (class(pro)=="try-error") {
-     
-     c()
-   }else{pro}
-   
-   
- },options = list(scrollX=T,scrollY=300))
- 
- 
- 
- output$download1 <- downloadHandler(
-   filename = function(){"score.csv"}, 
-   content = function(fname){
-     write.csv(proyec(), fname)
-   }
- )
-  
   ###### Seccion Parametros y resultados
  
  
@@ -2817,37 +3082,7 @@ shinyServer(function(input, output, session) {
  
  
  
- CR <- function(histo){
-   
 
-   
-   N <- NULL
-   
-   
-   clases <- levels(histo[,1])
-   
-   for (i in 1:length(clases)) {
-     
-     s <- which(histo[,1]==clases[i])
-     
-     s1 <- histo[,2]
-     
-     N[i] <- mean(s1[s])
-     
-   }
-   
-   N <- paste(round(N,2),"%",sep ="" ) 
-   
-   
-   result <- data.frame(N,clases)
-   
-   colnames(result) <- c("Perdida" , "Calif")
-   
-   return(result)
-   
-   
-   
- }
  
  
  
@@ -2857,116 +3092,12 @@ shinyServer(function(input, output, session) {
  
   
 
- datasetInputcrm1 <- reactive({
-   datasetInputcrm1 <-CR(data11())
- })
- 
- 
- data5 <- reactive({
-  
-     datasetInputcrm1() 
-   
-  
- })
- 
- 
- 
- bostCL <- function(cla, n ,tam){
-   
-   clases <- names(table(cla["clases"]))
-   
-   medias <- NULL
-   desviacion <- NULL
-   
-   
-   
-   for (i in 1:length(clases)) {
-     
-     pos <- which(cla[,1]==clases[i])
-     
-     filtro <- cla[pos,2]
-     
-     mediabost <- NULL
-     for ( j  in 1:n) {
-       muestra <- sample(filtro,ceiling((tam/100)*length(filtro)),replace = T)
-       mediabost[j] <- mean(muestra)
-     }
-     
-     medias[i] <- mean(mediabost)
-     desviacion[i] <- sd(mediabost)
-     
-     
-   }
-   
-   
-   return(list(medias,desviacion,clases))
-   
- }
- 
- clasescal <- reactive({
-   
-   bostCL(data11(), as.integer(input$bootC) , as.integer(input$bootTC)) 
-   
-   
- })
- 
- clasecrm <- reactive({
-   
-   l <- as.data.frame(clasescal()[[1]])
-   k <- as.data.frame(clasescal()[[2]])
-   
-   j <- k*qnorm((1-(as.numeric(input$boot2312)/100 ))/2)/sqrt(as.numeric(input$bootC))
-   
-   
-   iz <- l+j
-   de <- l-j
-   final <- cbind(l,iz,de)
-   
-   colnames(final) <- c("Pérdida","Mínimo","Máximo")
-   
-   d <- cbind(clasescal()[[3]],round(final,2))
-   colnames(d)[1] <- "Clase" 
-   d
- })
- 
- 
- 
- 
- output$datatablecrm2<-renderDataTable({
-   
-   ca22 <- try(clasecrm())
-   
-   
-   if (class(ca22)=="try-error") {
-     
-     c()
-     
-   }else{ca22}
-   
-   
-   
-   
-   
- })
 
-### Se muestra la perdida por clases a usar para la metodologuia
  
- output$datatablecrm1<-renderDataTable({
-   
-   ca22 <- try(data5())
-   
-   
-   if (class(ca22)=="try-error") {
-     
-     c()
-     
-   }else{ca22}
-   
-   
-   
-   
-   
- })
+ 
+ 
+ 
+
   
   ############# Seccion simulacion y resultados
  
