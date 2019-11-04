@@ -37,13 +37,15 @@
 \contentsline {section}{\numberline {3.7}Matriz de transici\IeC {\'o}n}{6}{section.3.7}
 \contentsline {chapter}{\numberline {4}Scoring de cr\IeC {\'e}dito}{1}{chapter.4}
 \contentsline {section}{\numberline {4.1}Estructura del Scoring de Cr\IeC {\'e}dito}{2}{section.4.1}
-\contentsline {subsection}{\numberline {4.1.1}Los modelos probit y logit.}{4}{subsection.4.1.1}
-\contentsline {subsection}{\numberline {4.1.2}Interpretaci\IeC {\'o}n del modelo}{6}{subsection.4.1.2}
-\contentsline {subsection}{\numberline {4.1.3}Relaci\IeC {\'o}n entre el score y el riesgo}{7}{subsection.4.1.3}
-\contentsline {subsection}{\numberline {4.1.4}Uso de modelos lineales para la selecci\IeC {\'o}n de variables (M\IeC {\'e}todos de b\IeC {\'u}squeda secuencial).}{8}{subsection.4.1.4}
-\contentsline {subsubsection}{\numberline {4.1.4.1}Estimaci\IeC {\'o}n por etapas (paso a paso o stepwise)}{8}{subsubsection.4.1.4.1}
-\contentsline {subsubsection}{\numberline {4.1.4.2}La adici\IeC {\'o}n progresiva (forward) y la eliminaci\IeC {\'o}n regresiva (backward)}{9}{subsubsection.4.1.4.2}
-\contentsline {subsubsection}{\numberline {4.1.4.3}Advertencias sobre los m\IeC {\'e}todos de b\IeC {\'u}squeda secuenciales}{10}{subsubsection.4.1.4.3}
+\contentsline {section}{\numberline {4.2}El modelo de probabilidad lineal}{3}{section.4.2}
+\contentsline {subsection}{\numberline {4.2.1}Los modelos probit y logit.}{4}{subsection.4.2.1}
+\contentsline {subsection}{\numberline {4.2.2}Estimaci\IeC {\'o}n de los modelos logit y probit}{6}{subsection.4.2.2}
+\contentsline {subsection}{\numberline {4.2.3}Interpretaci\IeC {\'o}n del modelo}{7}{subsection.4.2.3}
+\contentsline {subsection}{\numberline {4.2.4}Relaci\IeC {\'o}n entre el score y el riesgo}{7}{subsection.4.2.4}
+\contentsline {subsection}{\numberline {4.2.5}Uso de modelos lineales para la selecci\IeC {\'o}n de variables (M\IeC {\'e}todos de b\IeC {\'u}squeda secuencial).}{8}{subsection.4.2.5}
+\contentsline {subsubsection}{\numberline {4.2.5.1}Estimaci\IeC {\'o}n por etapas (paso a paso o stepwise)}{8}{subsubsection.4.2.5.1}
+\contentsline {subsubsection}{\numberline {4.2.5.2}La adici\IeC {\'o}n progresiva (forward) y la eliminaci\IeC {\'o}n regresiva (backward)}{10}{subsubsection.4.2.5.2}
+\contentsline {subsubsection}{\numberline {4.2.5.3}Advertencias sobre los m\IeC {\'e}todos de b\IeC {\'u}squeda secuenciales}{10}{subsubsection.4.2.5.3}
 \contentsline {chapter}{\numberline {5}CreditRisk+}{1}{chapter.5}
 \contentsline {section}{\numberline {5.1}La distribuci\IeC {\'o}n del n\IeC {\'u}mero de incumplimientos con probabilidades de impago fijas.}{2}{section.5.1}
 \contentsline {section}{\numberline {5.2}La agrupaci\IeC {\'o}n por bandas de exposici\IeC {\'o}n de las p\IeC {\'e}rdidas}{4}{section.5.2}

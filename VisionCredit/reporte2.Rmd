@@ -1,0 +1,126 @@
+---
+#title: "Reporte CrediMetrics"
+output: 
+  pdf_document:
+    includes:
+      in_header: /Users/arturocarreno/Riesgo_de_Credito/App/preambulo.tex
+params:
+  var1: NA  
+  var2: NA
+  var3: NA
+  var4: NA
+  var5: NA
+  var6: NA
+  var7: NA
+  var8: NA
+---
+# Reporte CreditMetrics
+
+Se implemento la metodológía *CreditMetrics* para hallar las métricas de riesgo de crédito asociada a la cartera de clientes de la institución. A continuación se presentan las variables y resultados:
+
+## Exposición por Clase
+
+La exposición por por clase de la cartera de clientes de la institución es:
+
+```{r, echo=FALSE, results='asis'}
+library(knitr)
+options(scipen=999)
+
+by_cla <- group_by(params$var3, calif)
+
+
+ l3 <- as.data.frame(summarise(by_cla, sum(creditos)))
+# 
+ colnames(l3) <- c("Calificación","Monto")
+ 
+ l3["Monto"] <- suppressWarnings(format(l3["Monto"], big.mark=".", scientific = FALSE))
+ 
+
+kable(l3)
+```
+
+
+## Matriz de Transición
+
+La matriz de transición que modela las probabilidades de cambio entre categorias de la institución fue:
+
+```{r, echo=FALSE, results='asis'}
+library(knitr)
+
+l <- params$var1
+
+
+kable(l)
+
+```
+
+## Pérdida por clase
+
+La pérdida por clase esperada en porcentaje usadas son:
+
+```{r, echo=FALSE, results='asis'}
+library(knitr)
+
+l2 <- params$var2
+
+kable(l2)
+
+```
+
+\newpage
+
+```{r, echo=FALSE, fig.width = 6,fig.height=3,fig.align = "center"}
+
+
+sim <- params$var4
+```
+
+## Simulación de Pérdidas
+
+Se procedio a simular escenarios de pérdida para poder estimar las métricas de riesgo. El número de simulaciones fue de `r sim`, obteniendo un histograma de perdidas:
+
+
+```{r, echo=FALSE, fig.width = 6,fig.height=2.5,fig.align = "center"}
+
+gra <- params$var5
+gra[[5]]
+```
+
+
+
+## Métricas de Riesgo
+
+```{r, echo=FALSE, fig.width = 6,fig.height=3,fig.align = "center"}
+
+
+con <- params$var6
+```
+
+A continuación se presentan las métricas de riesgo correspondientes a la metodología CreditMetrics, las cuales son: perdida esperada, valor en riesgo y valor en riesgo condicionado, con un nivel de confianza del `r con`%
+
+```{r, echo=FALSE, results='asis'}
+library(knitr)
+metr <- c(paste(round(params$var7[[1]],0),"Bs"),paste(round(params$var7[[2]],0),"Bs"),paste(round(params$var7[[3]],0),"Bs"))
+
+
+names(metr) <- c("Pérdida Esperada","Valor en Riesgo","Valor en Riesgo Condicional")
+metr <- as.data.frame(metr)
+colnames(metr) <- ""
+
+kable(metr)
+
+```
+
+
+## Prueba de Estres
+
+```{r, echo=FALSE, fig.width = 6,fig.height=3,fig.align = "center"}
+
+
+stress <- as.numeric(params$var8)*100
+pe <- round(as.numeric(params$var7[[4]]),0)
+```
+
+Se procedio a realizar una prueba de estres sobre la metodología CreditRisk+ con un nivel de estres del `r stress`% obteniendo una perdída esperada de `r pe`Bs.
+
+

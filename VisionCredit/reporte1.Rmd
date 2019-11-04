@@ -1,0 +1,103 @@
+---
+#title: "Reporte CreditRisk+"
+output: 
+  pdf_document:
+    includes:
+      in_header: /Users/arturocarreno/Riesgo_de_Credito/App/preambulo.tex
+params:
+  var1: NA
+  var2: NA
+  var3: NA
+  var4: NA
+  var5: NA
+  var6: NA
+  var7: NA
+  var8: NA
+  
+  
+---
+
+```{r, include=FALSE}
+unidad <- params$var1
+```
+
+# Reporte CreditRisk+
+
+Se implemento la metodológía *CreditRisk+* para hallar las métricas de riesgo de crédito asociada a la cartera de clientes de la institución. Se inicio la metodología agrupando los créditos por una únidad fija, la cual fue preestablecida en `r unidad`. A continuación se presentan los resultados:
+
+## Incumplimientos
+
+La distribución de incumplimientos calculada es
+
+```{r, echo=FALSE, fig.width = 6,fig.height=2.5,fig.align = "center",message=FALSE}
+
+params$var2
+```
+
+```{r, echo=FALSE, fig.width = 6,fig.height=3,fig.align = "center",incluide=FALSE}
+
+ic <-suppressWarnings( format(as.numeric(params$var3),big.mark=".",scientific = FALSE))
+```
+
+Por la cual se espera un numéro de `r ic` incumplimientos.
+
+## Pérdidas
+La distribución de pérdidas calculada es
+
+
+```{r, echo=FALSE, fig.width = 6,fig.height=2.5,fig.align = "center",message=FALSE}
+
+params$var4
+```
+
+```{r, echo=FALSE, fig.width = 6,fig.height=3,fig.align = "center",incluide=FALSE}
+options(scipen=999)
+
+pe <- suppressWarnings(format(params$var5[[1]]*unidad,big.mark=".",scientific = FALSE))
+```
+
+```{r, echo=FALSE, fig.width = 6,fig.height=3,fig.align = "center",incluide=FALSE}
+
+
+con <- params$var6
+```
+
+Por la cual se espera una pérdida de `r suppressWarnings(pe)` Bs
+
+\newpage
+
+## Métricas de Riesgo
+
+A continuación se presentan las métricas de riesgo correspondientes a la metodología CreditRisk+, las cuales son: perdida esperada, valor en riesgo y valor en riesgo condicionado, con un nivel de confianza del `r con`% 
+
+```{r, echo=FALSE, results='asis',include=FALSE}
+library(knitr)
+
+metr <- suppressWarnings(c(paste(format(params$var5[[1]]*unidad,big.mark=".",scientific = FALSE),"Bs"),paste(format(params$var5[[2]]*unidad,big.mark=".",scientific = FALSE),"Bs"),paste(format(params$var5[[3]]*unidad,big.mark=".",scientific = FALSE),"Bs")))
+
+
+names(metr) <- c("Pérdida Esperada","Valor en Riesgo","Valor en Riesgo Condicional")
+metr <- as.data.frame(metr)
+colnames(metr) <- ""
+
+
+
+```
+
+```{r, echo=FALSE, results='asis'}
+suppressWarnings(kable(metr))
+
+```
+
+
+## Prueba de Estres
+
+```{r, echo=FALSE, fig.width = 6,fig.height=3,fig.align = "center",incluide=FALSE}
+
+
+stress <- as.numeric(params$var7)*100
+pe <- suppressWarnings(format(as.numeric(params$var8)*unidad, big.mark=".", scientific = FALSE))
+```
+
+Se procedio a realizar una prueba de estres sobre la metodología CreditRisk+ con un nivel de estres del `r suppressWarnings(stress)`% obteniendo una perdída esperada de `r suppressWarnings(pe)`Bs.
+

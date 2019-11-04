@@ -626,7 +626,8 @@ E(Y_i|\Omega_i)=(1*P_i)+(0*(1-P_i))=P_i=Pr(Y_i=1|\Omega_i)
 
 En consecuencia, cuando la variable a explicar es binaria, su esperanza condicional es la probabilidad condicional de ocurrencia del evento.
 
-\#\#El modelo de probabilidad lineal
+\hypertarget{el-modelo-de-probabilidad-lineal}{%
+\section{El modelo de probabilidad lineal}\label{el-modelo-de-probabilidad-lineal}}
 
 Supóngase que \(\Omega_i\) está constituido por un vector columna \(X_i\) compuesto por \(k\) variables explicativas, incluyendo a la ordenada al origen, \(\beta\) es un vector columna que contiene los parámetros correspondientes a las variables explicativas, y que se intenta modelar a la variable \(Y_i\) a través del modelo de probabilidad lineal, postulando la siguiente relación:
 
@@ -690,14 +691,16 @@ Luego, la probabilidad que \(Y_i=1\) viene dada por:
 
 \begin{equation} \label{eq1}
 \begin{split}
-P(Y_i=1) & = P(y_i^*>0)=P(\beta^TX_i+\epsilon_i>0)= 1-P(\beta^TX_i+\epsilon_i\leq 0)=1-P(\epsilon_i\leq -\beta^TX_i)\\
+P(Y_i=1) & = P(y_i^*>0)=P(\beta^TX_i+\epsilon_i>0)= 1-P(\beta^TX_i+\epsilon_i\leq 0)\\
+& =1-P(\epsilon_i\leq -\beta^TX_i)\\
  & = 1-F(-\beta^TX_i)=F(\beta^TX_i)
 \end{split}
 \end{equation}
 
 ya que se supone que \(\epsilon_i\) tiene una distribución simétrica. Cuando \(\epsilon_i \sim N(0,1)\) y \(F\) es \(\Phi\), la función de distribución de probabilidades acumuladas normal estándar y se trata del modelo probit, mientras que si F es la función logística se trata de un modelo logit y su densidad también es simétrica alrededor de cero.
 
-\#\#\#Estimación de los modelos logit y probit
+\hypertarget{estimacion-de-los-modelos-logit-y-probit}{%
+\subsection{Estimación de los modelos logit y probit}\label{estimacion-de-los-modelos-logit-y-probit}}
 
 La estimación de estos modelos se hace por el método de máxima verosimilitud. Con métodos numéricos se buscan los valores de \(\beta\) que maximizan la siguiente función logarítmica de verosimilitud:
 
@@ -993,8 +996,8 @@ CCC & 100 & 5\tabularnewline
 De esta forma para obtener la pérdida esperada se procede a multiplicar la pérdida esperada de una calificación por la probabilidad de que el crédito caiga en la respectiva calificación y luego se realiza la suma global, de la siguiente forma:
 
 \begin{align*} 
-PE = (0.25*0.04)+(7.5*0.05)& \\
-&+(12.5*0.09)+(22.5*0.15)+(45*0.44)&\\
+PE =& (0.25*0.04)+(7.5*0.05)& \\
+&+(12.5*0.09)+(22.5*0.15)+(45*0.44)\\
 &+(62.5*0.18) +(100*0.05)=40.93
 \end{align*}
 
@@ -1044,7 +1047,7 @@ CCC & 120 & 1\tabularnewline
 Ahora de igual forma para obtener la pérdida esperada procedemos con el siguiente cálculo.
 
 \begin{align*} 
-PE = (0.3*0.15)+(9*0.48)& \\
+PE = & (0.3*0.15)+(9*0.48)& \\
 &+(15*0.15)+(27*0.12)+(54*0.05)&\\
 &+(75*0.04) +(120*0.01)=16.75
 \end{align*}
