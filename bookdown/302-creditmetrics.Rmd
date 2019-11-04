@@ -107,12 +107,12 @@ Ya con esta información podemos establecer una tabla con la pérdida esperada d
 |       B      |             62.5             |       18      |
 |      CCC     |              100             |       5       |
 
-De esta forma para obtener la pérdida esperada se procede a multiplicar la pérdida esperada de una calificación por la probabilidad de que el crédito caiga en la respectiva calificación y luego se realiza la suma global, de la siguiente  forma:
+De esta forma para obtener la pérdida esperada se procede a multiplicar la pérdida esperada de una calificación por la probabilidad de que el crédito caiga en la respectiva calificación y luego se realiza la suma global, de la siguiente forma:
 
 
 \begin{align*} 
-PE = (0.25*0.04)+(7.5*0.05)& \\
-&+(12.5*0.09)+(22.5*0.15)+(45*0.44)&\\
+PE =& (0.25*0.04)+(7.5*0.05)& \\
+&+(12.5*0.09)+(22.5*0.15)+(45*0.44)\\
 &+(62.5*0.18) +(100*0.05)=40.93
 \end{align*}
 
@@ -153,7 +153,7 @@ Ahora de igual forma para obtener la pérdida esperada procedemos con el siguien
 
 
 \begin{align*} 
-PE = (0.3*0.15)+(9*0.48)& \\
+PE = & (0.3*0.15)+(9*0.48)& \\
 &+(15*0.15)+(27*0.12)+(54*0.05)&\\
 &+(75*0.04) +(120*0.01)=16.75
 \end{align*}
