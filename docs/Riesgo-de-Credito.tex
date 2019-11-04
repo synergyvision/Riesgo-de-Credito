@@ -47,46 +47,6 @@
   urlcolor=Blue,
   pdfcreator={LaTeX via pandoc}}
 \urlstyle{same} % disable monospaced font for URLs
-\usepackage{color}
-\usepackage{fancyvrb}
-\newcommand{\VerbBar}{|}
-\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
-\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
-% Add ',fontsize=\small' for more characters per line
-\usepackage{framed}
-\definecolor{shadecolor}{RGB}{248,248,248}
-\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
-\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
-\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
-\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
-\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
-\newcommand{\BuiltInTok}[1]{#1}
-\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
-\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
-\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
-\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
-\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
-\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
-\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
-\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
-\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
-\newcommand{\ExtensionTok}[1]{#1}
-\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
-\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
-\newcommand{\ImportTok}[1]{#1}
-\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
-\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
-\newcommand{\NormalTok}[1]{#1}
-\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
-\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
-\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
-\newcommand{\RegionMarkerTok}[1]{#1}
-\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
-\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
-\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
-\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
-\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
-\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
 \usepackage{longtable,booktabs}
 % Correct order of tables after \paragraph or \subparagraph
 \usepackage{etoolbox}
@@ -168,8 +128,6 @@
  \at@end@of@kframe}
 \makeatother
 
-\renewenvironment{Shaded}{\begin{kframe}}{\end{kframe}}
-
 \newenvironment{rmdblock}[1]
   {
   \begin{itemize}
@@ -228,7 +186,7 @@
 \makeatother
 \subtitle{Ciencia de los Datos Financieros}
 \author{Synergy Vision}
-\date{2019-09-28}
+\date{2019-11-04}
 
 \usepackage{amsthm}
 \newtheorem{theorem}{Teorema}[chapter]
@@ -322,13 +280,13 @@ Nuestra cuenta de Twitter es (\url{https://twitter.com/bysynergyvision}) y nuest
 \hypertarget{introduccion}{%
 \chapter{Introducción}\label{introduccion}}
 
-En este texto estudiaremos las metodologías mas usados para medir el riesgo créditicio. A lo largo de la historia la necesidad de las instituciones financieras de tener una medida que permita tomar previsiones en momentos de crisis ha ido evolucionando a la mano con el desarrollo de las teorías y modelos estadísticos. Esta necesidad es natural, debido a que cuando se realiza un prestamo, el banco esta corriendo el riesgo de que en cualquier instante de tiempo el cliente deje de cumplir sus compromisos, este incumplimiento puede ocurrir desde el primer momento en que deba empezar a pagarse el prestamo o al final del mismo, por lo que el banco esta expuesto independientemente de la confianza que tenga en el cliente a perder el 100\% del monto dado (a menos que hayan garantias). Un banco puede tener una cartera de miles inclusive millones de clientes, por lo tanto esta expuesto constantemente a sufrir pequeñas pérdidas que ocasionen los incumplimientos, por lo que la institución debe contar con fondos para poder cubrir dichos riesgos, es ridiculo pensar que la institución deba guardar la misma cantidad de fondos de lo que presta, por lo tanto debe crear mecanismos estadisticos o contables que permitan medir de manera objetiva los fondos que deben poseerse para el resguardo del banco y permitir superar posibles crisis económicas. En este texto hacemon una descripción de las principales metodologías que se de este problema, mas precisamente las metodologías CreditRisk+ y Credimetrics.
+En este texto estudiaremos las metodologías más usados para medir el riesgo crediticio. A lo largo de la historia la necesidad de las instituciones financieras de tener una medida que permita tomar previsiones en momentos de crisis ha ido evolucionando a la mano con el desarrollo de las teorías y modelos estadísticos. Esta necesidad es natural, debido a que cuando se realiza un prestamo, el banco esta corriendo el riesgo de que en cualquier instante de tiempo el cliente deje de cumplir sus compromisos, este incumplimiento puede ocurrir desde el primer momento en que deba empezar a pagarse el prestamo o al final del mismo, por lo que el banco esta expuesto independientemente de la confianza que tenga en el cliente a perder el 100\% del monto dado (a menos que existan garantías). Un banco puede tener una cartera de miles inclusive millones de clientes, por lo tanto esta expuesto constantemente a sufrir pequeñas pérdidas que ocasionen los incumplimientos, por lo que la institución debe contar con fondos para poder cubrir dichos riesgos, es ridiculo pensar que la institución deba guardar la misma cantidad de fondos de lo que presta, por lo tanto debe crear mecanismos estadísticos o contables que permitan medir de manera objetiva los fondos que deben poseerse para el resguardo del banco y permitir superar posibles crisis económicas. En este texto hacemon una descripción de las principales metodologías que estudian este problema, más precisamente las metodologías CreditRisk+ y Credimetrics.
 
 Como hemos mencionado, las herramientas provenientes de la estadística y matemáticas son fundamentales para la construcción de las metodologías, por lo que en el primer capítulo realizaremos un recuento de las principales definiciones de la probabilidad y estadística que serán usadas a lo largo de todo el texto.
 
 Mencionamos que los bancos estan propensos a que los clientes incumplan, por lo cual es natural asignarle a cada cliente una probabilidad de que caiga en mora, aunque a primera instancia pareciera facil dicha asignación, esta puede ser tan complicada como queramos, pues una población puede estar compuesta por varios sectores, los cuales pueden ser tan heterogeneos como queramos. Los bancos contruyen herramientas para asignar un valor o score a los clientes y a través del puntaje hallar la probabilidad de que los clientes incumplan sus compromisos. Este tipo de metodologías suelen recibir el nombre de CreditScore o Scoring de crédito. En el capítulo 4 damos una descripción de uno de los CreditScore mas populares usando modelos lineales generalizados.
 
-En el capítulo 5 y 6 daremos una descripción de las metologías CreditRisk+ y Creditmetrics, la primera mucho mas estadística y propensa a crear errores de aproximacón grandes si no se cuenta con una buena herramienta de Score, ádemas tiene supuestos fuertes relacionados con la independencia entre los prestamos y pide que las probabilidades de incumplimiento sean bajas, en caso contrario no será ideal su uso, la segunda credimetrics es una herramienta mas precisa y mas facil de implementar pero con la desventaja de que necesita para sus cálculos, información que solo esta disponible en mercados desarrollodos, por lo que usarla en mercados emergentes, suele ser complicado por la falta de datos históricos y de registros.
+En el capítulo 5 y 6 daremos una descripción de las metologías CreditRisk+ y Creditmetrics, la primera mucho más estadística y propensa a crear errores de aproximacón grandes si no se cuenta con una buena herramienta de Score, además tiene supuestos fuertes relacionados con la independencia entre los prestamos y pide que las probabilidades de incumplimiento sean bajas, en caso contrario no será ideal su uso, la segunda credimetrics es una herramienta más precisa y facil de implementar pero con la desventaja de que necesita para sus cálculos, información que solo esta disponible en mercados desarrollodos, por lo que usarla en mercados emergentes, suele ser complicado por la falta de datos históricos y de registros.
 
 Una vez presentado este texto se espera que el personal encargado de la áreas de crédito pueda adaptar la información disponible y poder realizar una buena aproximación de las métricas de riesgo y así lograr que la institución financiera sea capaz de tomar previsiones para los momentos de crisis, que suelen ser imprevistos y algunas veces aleatorios.
 
@@ -359,7 +317,7 @@ El enorme interés de la Teoría de la Probabilidad reside en que, aparte de ten
 
 \BeginKnitrBlock{definition}
 \protect\hypertarget{def:defi-sigma-algebra}{}{\label{def:defi-sigma-algebra} }Una \(\sigma\)-\emph{algebra} de sucesos, \(S\), es un subconjunto de partes
-de \(\Omega\) que verifíca:
+de \(\Omega\) que verifica:
 
 Si \(A \in S\) , entonces \(A^c \in S\) (\(c\) denota el coplemento de un conjunto).
 
@@ -369,12 +327,12 @@ Si \(A_1,A_2,...,A_n,...\in S\), entonces \(\cup _n A_n \in S\)
 La idea de una \(\sigma\)-algebra es que contenga todos los sucesos en los que
 podemos estar interesados en un fenómenos aleatorio.
 
-Ejemplo: Cuando el espacio muestral,\(\Omega\), es fínito o numerable, la \(\sigma\)-algebra habitualmente utilizada es partes de \(\Omega\). Es decir, consideramos que cualquier subconjunto de \(\Omega\) puede ser un suceso de interés. Esta elección es la más sencilla y no ofrece ningún problema.
+Ejemplo: Cuando el espacio muestral,\(\Omega\), es finito o numerable, la \(\sigma\)-algebra habitualmente utilizada es partes de \(\Omega\). Es decir, consideramos que cualquier subconjunto de \(\Omega\) puede ser un suceso de interés. Esta elección es la más sencilla y no ofrece ningún problema.
 
 Con este par de definiciones podemos definir lo que es una medida de probabilidad.
 
 \BeginKnitrBlock{definition}
-\protect\hypertarget{def:defi-probabilidad}{}{\label{def:defi-probabilidad} }Consideramos un espacio muestral \(\Omega\) y una \(\sigma\)-algebra \(S\). Una \emph{función de probabilidad} o \emph{medida de probabilidad} es una función \(P : S \rightarrow [0, 1]\), que verifíca:
+\protect\hypertarget{def:defi-probabilidad}{}{\label{def:defi-probabilidad} }Consideramos un espacio muestral \(\Omega\) y una \(\sigma\)-algebra \(S\). Una \emph{función de probabilidad} o \emph{medida de probabilidad} es una función \(P : S \rightarrow [0, 1]\), que verifica:
 
 \(P(\Omega)=1\)
 
@@ -419,7 +377,7 @@ Las variables aleatorias se clasifican en discretas y continuas:
 
 \begin{itemize}
 \item
-  \emph{Discreta}: La variable aleatoria \(X\) se dice que es discreta si los números asignados a los sucesos elementales de \(\Omega\) son puntos aislados. Sus posibles valores constituyen un conjunto finito o infinito numerable. Por ejemplo, supongamos el experimento consistente en lanzar tres veces una moneda no truncada; si consideramos la variable aleatoria \(X\)=``número de caras obtenidas en los tres lanzamientos''``, los valores que puede tomar esta variable aleatoria son finitos''(0,1,2,3)".
+  \emph{Discreta}: La variable aleatoria \(X\) se dice que es discreta si los números asignados a los sucesos elementales de \(\Omega\) son puntos aislados. Sus posibles valores constituyen un conjunto finito o infinito numerable. Por ejemplo, supongamos el experimento consistente en lanzar tres veces una moneda no truncada; si consideramos la variable aleatoria \(X\)=``número de caras obtenidas en los tres lanzamientos'', los valores que puede tomar esta variable aleatoria son finitos ``(0,1,2,3)''.
 \item
   \emph{Continua}: La variable aleatoria \(X\) será continua si los valores asignados pueden ser cualesquiera, dentro de ciertos intervalos, es decir, puede tomar cualquier valor real. Por ejemplo, si consideramos el experimento aleatoria consistente en medir el nivel de agua en un embalse y tomamos la variable aleatoria \(X\)=``nivel de agua'', esta puede tomar cualquier valor positivo.
 \end{itemize}
@@ -432,7 +390,7 @@ Es un modelo teórico que describe la forma en que varían los resultados de un 
 \hypertarget{distribucion-de-probabilidad-discreta}{%
 \subsubsection{Distribución de probabilidad discreta}\label{distribucion-de-probabilidad-discreta}}
 
-Sea \(X\) una variable aleatoria discreta que toma como posibles valores \(x_1,x_2,.....x_n\), se define la distribución de probabilidad de X como el conjunto de pares (xi, pi) que a cada valor de la variable le asocia una probabilidad, donde \(p_i= P(X=x_i)\), tal que la suma de todas las probabilidades es igual a uno.
+Sea \(X\) una variable aleatoria discreta que toma como posibles valores \(x_1,x_2,.....x_n\), se define la distribución de probabilidad de \(X\) como el conjunto de pares \((x_i, p_i)\) que a cada valor de la variable le asocia una probabilidad, donde \(p_i= P(X=x_i)\), tal que la suma de todas las probabilidades es igual a uno.
 
 Por ejemplo, en el experimento del dado la distribución de probabilidad biene dado por: (1;1/6),(2;1/6),(3;1/6),(4;1/6),(5;1/6),(6;1/6)
 
@@ -466,7 +424,7 @@ Sea \(X\) una variable aleatoria continua con función de densidad \(f(x)\), se 
 \hypertarget{bernoulli}{%
 \subsubsection{Bernoulli}\label{bernoulli}}
 
-Es un experimento en el cual solo existen dos eventos, en general éxito(1) y fracaso(0), y ádemas tiene asociada un parámetro \(p\) el cual es la probabilidad de éxito, es decir, \[P(X=1)=p \quad \textrm{y} \quad P(X=0)=1-p\]
+Es un experimento en el cual solo existen dos eventos, en general éxito(1) y fracaso(0), y además tiene asociada un parámetro \(p\) el cual es la probabilidad de éxito, es decir, \[P(X=1)=p \quad \textrm{y} \quad P(X=0)=1-p\]
 
 \hypertarget{binomial}{%
 \subsubsection{Binomial}\label{binomial}}
@@ -480,14 +438,14 @@ La distribución de probabilidad discreta más usada es la distribución binomia
   Cada experimento es independiente de los anteriores
 \end{itemize}
 
-La variable aleatoria de Bernulli es la que expresa el número de éxitos, por lo tanto esta variable aleatoria tiene asociada dos parametros: un parámetro \(p\) que nos indica la probabilidad de éxito de cada evento, y un numero natural \(n\) que nos indica la cantidad de veces que se realizó el experimento.
+La variable aleatoria de Bernulli es la que expresa el número de éxitos, por lo tanto esta variable aleatoria tiene asociada dos parámetros: un parámetro \(p\) que nos indica la probabilidad de éxito de cada evento, y un número natural \(n\) que nos indica la cantidad de veces que se realizó el experimento.
 
 \hypertarget{poisson}{%
 \subsubsection{Poisson}\label{poisson}}
 
 Esta distribución es una de las más importantes distribuciones de variable discreta. Sus principales aplicaciones hacen referencia a la modelización de situaciones en las que nos interesa determinar el número de hechos de cierto tipo que se pueden producir en un intervalo de tiempo o de espacio, bajo supuestos de aleatoriedad y ciertas circunstancias restrictivas. Otro de sus usos frecuentes es la consideración límite de procesos dicotómicos reiterados un gran número de veces si la probabilidad de obtener un éxito es muy pequeña .
 
-La distribución de Poisson tiene ajustado un parámetro positivo \(\lambda\) que representa el número de veces que se espera que ocurra el fenomeno durante un intervalo dado. La probabilidad de que un experimento de Poisson tenga \(k\) ocurrencias es \[\frac{e^{-\lambda}\lambda^k}{k!}\]
+La distribución de Poisson tiene ajustado un parámetro positivo \(\lambda\) que representa el número de veces que se espera que ocurra el fenómeno durante un intervalo dado. La probabilidad de que un experimento de Poisson tenga \(k\) ocurrencias es \[\frac{e^{-\lambda}\lambda^k}{k!}\]
 
 \hypertarget{distribucion-uniforme}{%
 \subsubsection{Distribución uniforme}\label{distribucion-uniforme}}
@@ -510,7 +468,7 @@ Es usada muchas veces para modelizar el comportamiento de variables aleatorias d
 \hypertarget{distribucion-normal}{%
 \subsubsection{Distribución normal}\label{distribucion-normal}}
 
-La distribución normal o gaussiana es muy importante puesto que se utiliza para modelar muchísimos fenómenos aleatorios; además incluso para aproximar otras distribuciones. La distribución normal aproxima lo observado en muchos procesos de medición sin errores sistemáticos, por ejemplo medidas fisicas del cuerpo humano, medidas en la calidad de ciertos procesos industriales, entre otros.
+La distribución normal o gaussiana es muy importante puesto que se utiliza para modelar muchísimos fenómenos aleatorios; además incluso para aproximar otras distribuciones. La distribución normal aproxima lo observado en muchos procesos de medición sin errores sistemáticos, por ejemplo medidas físicas del cuerpo humano, medidas en la calidad de ciertos procesos industriales, entre otros.
 
 Esta distribución depende de dos parámetros: un parámetro \(\mu\) que es un indicador de la promedio del experimento que se esta estudiando y un parámetro positivo \(\sigma\) que es un indicador de la volatilidad del mismo. Su función de densidad es \[f(x)=\frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{(x-\mu)^2}{2\sigma^2}}\]
 
@@ -549,12 +507,12 @@ A la hora de aplicar o construir cualquier modelo matemático debemos conocer lo
 \hypertarget{perdida-esperada}{%
 \section{Pérdida esperada}\label{perdida-esperada}}
 
-En general las instituciones financieras se encuentran bajo distintos escenarios en los cuales se ven comprometidas, esto se debe a que dependen de que sus clientes cumplan sus compromisos adquiridos. Debido a la necesidad de tener que controlada la incertidumbre e intentar cuantificar los posibles riesgos de la insolvencia de las contrapartes, las instituciones usan herramientas estadísticas para lograr lo anterior. La idea es que la institución asigne una probabilidad de incumplimiento (DP), una fracción de pérdida llamada pérdida en caso de incumplimiento (\(LGD\)), la cantodad que esta en riesgo, llamada exposición en caso de impago (\(EAD\)). Así, podemos definar la pérdida de un deudor, como la variable de pérdida:\[\tilde{L}=EAD*LGD*L\]
+En general las instituciones financieras se encuentran bajo distintos escenarios en los cuales se ven comprometidas, esto se debe a que dependen de que sus clientes cumplan sus compromisos adquiridos. Debido a la necesidad de tener que controlada la incertidumbre e intentar cuantificar los posibles riesgos de la insolvencia de las contrapartes, las instituciones usan herramientas estadísticas para lograr lo anterior. La idea es que la institución asigne una probabilidad de incumplimiento (DP), una fracción de pérdida llamada pérdida en caso de incumplimiento (\(LGD\)), la cantidad que esta en riesgo, llamada exposición en caso de impago (\(EAD\)). Así, podemos definar la pérdida de un deudor, como la variable de pérdida:\[\tilde{L}=EAD*LGD*L\]
 donde \(L\) una variable aleatoria Bernoulli, que es 1 si el deudor incumple 0 si no, el parametro de esta variable Bernoulli es \(P(D)=DP\) donde \(D\) denota el evento de incumplir.
 
-Ahora, estamos interados no tanto en la pérdida, si no en el valor medio que se espera perder, es decir, \(\mathbb{E}(\tilde{L})\) que denotarmeos por \(EL\) y es la pérdida esperada. Para calcular, veamos que:\[\mathbb{E}(\tilde{L})=\mathbb{E}(EAD*LGD*L)=EAD*LGD*\mathbb{E}(L)=EAD*LGD*DP\]
+Ahora, estamos interados no tanto en la pérdida, si no en el valor medio que se espera perder, es decir, \(\mathbb{E}(\tilde{L})\) que denotarmos por \(EL\) y es la pérdida esperada. Para calcular, veamos que:\[\mathbb{E}(\tilde{L})=\mathbb{E}(EAD*LGD*L)=EAD*LGD*\mathbb{E}(L)=EAD*LGD*DP\]
 
-Este modelo, tienes algunos detalles, por ejemplo, estamos suponiendo que las variables \(EAD\) y \(LGD\) son constantes, pero puede haber situaciones en que estas variables sean aleatorios, esto impide el cálculo anterior, pero en general, \(EAD\) se considera constante, y si se toma \(LGD\) como variable aleatoria, definimos por severidad su esperanza, es decir: \(SEV=\mathbb{E}(LGD)\)
+Este modelo, tiene algunos detalles, por ejemplo, estamos suponiendo que las variables \(EAD\) y \(LGD\) son constantes, pero puede haber situaciones en que estas variables sean aleatorias, esto impide el cálculo anterior, pero en general, \(EAD\) se considera constante, y si se toma \(LGD\) como variable aleatoria, definimos por severidad su esperanza, es decir: \(SEV=\mathbb{E}(LGD)\)
 
 \hypertarget{probabilidad-de-incumplimiento-dp}{%
 \section{Probabilidad de incumplimiento (DP)}\label{probabilidad-de-incumplimiento-dp}}
@@ -583,26 +541,26 @@ En esta aproximación, la probabilidad de incumplimiento esta asociada con ratin
 \section{\texorpdfstring{Exposición (\(EAD\))}{Exposición (EAD)}}\label{exposicion-ead}}
 
 El \(EAD\) es la cantidad que representa la exposición que tiene el deudor sobre la intitución. En general, la exposición consta de dos partes principales, los valores en circulación y los compromisos. Los valores en circulación se refieren a la parte de la exposición que ya ha sido tomada por el deudor. En caso de incumplimiento del prestatario, el banco está expuesto a la importe total de los valores en circulación.
-Los compromisos se pueden dividir en dos porciones, retirados y no retirados, en el tiempo anterior al incumplimiento. El total el importe de los compromisos es la exposición que el banco ha prometido prestar al deudor a petición de éste. La experiencia histórica predeterminada muestra que los deudores tienden a recurrir a líneas de crédito comprometidas en épocas de crisis financiera. La angustia. Por lo tanto, el compromiso también está sujeto a pérdidas en en el caso de incumplimiento del deudor, pero sólo el importe retirado (anterior al incumplimiento).
+Los compromisos se pueden dividir en dos porciones, retirados y no retirados, en el tiempo anterior al incumplimiento. El total de importe de los compromisos es la exposición que el banco ha prometido prestar al deudor a petición de este. La experiencia histórica predeterminada muestra que los deudores tienden a recurrir a líneas de crédito comprometidas en épocas de crisis financiera. Por lo tanto, el compromiso también está sujeto a pérdidas en en el caso de incumplimiento del deudor, pero solo el importe retirado (anterior al incumplimiento).
 
-La fracción que describe la descomposición de los compromisos en partes retiradas y no retiradas es una variable aleatoria debido al carácter opcional que tienen los compromisos (el deudor tiene el derecho, pero no la obligación, de utilizar líneas de crédito comprometidas). Entonces es natural definir la \(EAD\) por : \[EAD=OUTST+(\gamma  COMM)\] donde \(OUTST\) denota los valores en circulación y \(COMM\) los compromisos y \(\gamma\) es la proporción que se espera el deudor use, \(\gamma\) toma valores entre 0 y 1, si asumimos que \(EAD\) es deterministica, entoces \(\gamma\) tambien, en caso contrario, \(\gamma\) es una variable aleatoria.
+La fracción que describe la descomposición de los compromisos en partes retiradas y no retiradas es una variable aleatoria debido al carácter opcional que tienen los compromisos (el deudor tiene el derecho, pero no la obligación, de utilizar líneas de crédito comprometidas). Entonces es natural definir la \(EAD\) por : \[EAD=OUTST+(\gamma  COMM)\] donde \(OUTST\) denota los valores en circulación y \(COMM\) los compromisos y \(\gamma\) es la proporción que se espera el deudor use, \(\gamma\) toma valores entre 0 y 1, si supongamos que \(EAD\) es deterministica, entoces \(\gamma\) tambien, en caso contrario, \(\gamma\) es una variable aleatoria.
 
 \hypertarget{perdida-dado-el-incumplimiento-lgd}{%
 \section{\texorpdfstring{Pérdida dado el incumplimiento (\(LGD\))}{Pérdida dado el incumplimiento (LGD)}}\label{perdida-dado-el-incumplimiento-lgd}}
 
 El \(LGD\) de una operación está más o menos determinada por ``1 menos la tasa de recuperación'', es decir, el \(LGD\) cuantifica la parte de la pérdida que el banco realmente sufrirá en caso de incumplimiento. La estimación de estas cotizaciones de pérdidas dista mucho de ser sencilla, ya que los tipos de recuperación dependen de muchos factores determinantes, por ejemplo, de la calidad de las garantías (valores, hipotecas, etc.) y de la antigüedad del crédito del banco sobre los activos del prestatario. Esta es la razón detrás de nuestra convención para considerar la pérdida por incumplimiento como una variable aleatoria que describe la gravedad de la pérdida. La noción \(LGD\) se refiere entonces a la expectativa de la severidad. Una fuente externa del banco para determinar la tasa de recuperación proviene de las agencias de calificación. Por ejemplo, Moody's proporciona los valores de recuperación de los bonos impagados, distinguiendo así entre distintas antigüedades.
 
-Desafortunadamente, muchos bancos no tienen buenos datos internos para estimar las tasas de recuperación. De hecho, aunque la severidad es un factor clave de la pérdida espersda, en comparación con otros factores de riesgo como la DP, se ha avanzado poco en el camino hacia una calibración sofisticada.
+Desafortunadamente, muchos bancos no tienen buenos datos internos para estimar las tasas de recuperación. De hecho, aunque la severidad es un factor clave de la pérdida esperada, en comparación con otros factores de riesgo como la DP, se ha avanzado poco en el camino hacia una calibración sofisticada.
 
 \hypertarget{perdida-inesperada-ul}{%
 \section{\texorpdfstring{Pérdida inesperada (\(UL\))}{Pérdida inesperada (UL)}}\label{perdida-inesperada-ul}}
 
-Al principio de este capítulo presentamos el \(EL\) de una transacción como un seguro o reserva para pérdidas con el fin de cubrir las pérdidas que el banco espera de la experiencia histórica de los incumplimientos. Pero no basta con tener capital como colchón frente a las pérdidas esperadas. De hecho, el banco deberá, además de la reserva para pérdidas esperadas, ahorrar dinero para cubrir pérdidas inesperadas que excedan el promedio de pérdidas experimentadas en el pasado. Una medida de magnitud de la desviación de las pérdidad esperadas, es la desviacion estandar de la variable \(\tilde{L}\), por esta razon, se define la perdida inesperada por: \[UL=\sqrt{\mathbb{V}(\tilde{L})}=\sqrt{\mathbb{V}(EAD\times SEV\times L)}\]
+Al principio de este capítulo presentamos el \(EL\) de una transacción como un seguro o reserva para pérdidas con el fin de cubrir las pérdidas que el banco espera de la experiencia histórica de los incumplimientos. Pero no basta con tener capital como colchón frente a las pérdidas esperadas. De hecho, el banco deberá, además de la reserva para pérdidas esperadas, ahorrar dinero para cubrir pérdidas inesperadas que excedan el promedio de pérdidas experimentadas en el pasado. Una medida de magnitud de la desviación de las pérdidas esperadas, es la desviación estándar de la variable \(\tilde{L}\), por esta razón, se define la pérdida inesperada por: \[UL=\sqrt{\mathbb{V}(\tilde{L})}=\sqrt{\mathbb{V}(EAD\times SEV\times L)}\]
 
 \hypertarget{capital-economico-o-valor-en-riesgo}{%
 \section{Capital económico o valor en riesgo}\label{capital-economico-o-valor-en-riesgo}}
 
-Hasta ahora hemos aprendido que los bancos deberían tener algún tipo de colchón de capital contra pérdidas inesperadas. Sin embargo, definir la \(UL\) de una cartera como el capital de riesgo ahorrado para casos de dificultades financieras no es la mejor opción, porque podría haber una probabilidad significativa de que las pérdidas superen la pérdida esperada de la cartera en más de una desviación estándar de la pérdida de la cartera. Por lo tanto, se buscan otras formas de cuantificar el capital riesgo, teniendo en cuenta un nivel objetivo de confianza estadística. La forma más común de cuantificar el capital riesgo es el concepto de capital económico o valor en riesgo (\(VaR\)). Para un un nivel de confiaza especifico \(\alpha\), donde \(\alpha\) representa el nivel de confianza de la pérdida esperada, es decir: \[VaR_{\alpha}= q_\alpha - EL\] donde \(q_\alpha\) es el quantil \(\alpha\) de la distribución anterior mencionada:\[q_{\alpha}=inf\{q>0 |P[\tilde{L}\leq q]\geq \alpha\}\] Un ejemplo grafico de lo que esta ocurriendo es presentado a continuación:
+Hasta ahora hemos aprendido que los bancos deberían tener algún tipo de colchón de capital contra pérdidas inesperadas. Sin embargo, definir la \(UL\) de una cartera como el capital de riesgo ahorrado para casos de dificultades financieras no es la mejor opción, porque podría haber una probabilidad significativa de que las pérdidas superen la pérdida esperada de la cartera en más de una desviación estándar de la pérdida de la cartera. Por lo tanto, se buscan otras formas de cuantificar el capital en riesgo, teniendo en cuenta un nivel objetivo de confianza estadística. La forma más común de cuantificar el capital en riesgo es el concepto de capital económico o valor en riesgo (\(VaR\)). Para un nivel de confiaza especifico \(\alpha\), donde \(\alpha\) representa el nivel de confianza de la pérdida esperada, es decir: \[VaR_{\alpha}= q_\alpha - EL\] donde \(q_\alpha\) es el quantil \(\alpha\) de la distribución anterior mencionada:\[q_{\alpha}=inf\{q>0 |P[\tilde{L}\leq q]\geq \alpha\}\] Un ejemplo gráfico de lo que esta ocurriendo es presentado a continuación:
 
 \begin{figure}
 \centering
@@ -621,9 +579,9 @@ La matriz de transición es un instrumento que se usa de manera fundamental en l
 \caption{\label{fig:"sd"}}
 \end{figure}
 
-Ahora, la matriz de calificación indica proporciona la probabilidad de que un crédito con una calificación específica migre a otra calificación detrerminada, por ejemplo, por la imagen anterior, la probabilidad de que un crédito con calificación BB migre a una calificación B es de 0.188, es decir, se espera que el 18,8 \% de los créditos con calificación BB migren a la calificación B.
+Ahora, la matriz de calificación indica la probabilidad de que un crédito con una calificación específica migre a otra calificación determinada, por ejemplo, por la imagen anterior, la probabilidad de que un crédito con calificación BB migre a una calificación B es de 0.188, es decir, se espera que el 18,8 \% de los créditos con calificación BB migren a la calificación B.
 
-La matriz de trancición tambien es conocida con el nombre de matris de transición de probabilidad. Para que una matriz sea considerada como una matriz de transición crediticia, debe cumplir las siguientes propiedades:
+La matriz de transición también es conocida con el nombre de matriz de transición de probabilidad. Para que una matriz sea considerada como una matriz de transición crediticia, debe cumplir las siguientes propiedades:
 
 \begin{itemize}
 \item
@@ -637,7 +595,7 @@ En general las matrices de transición esta intimamente relacionadas con las pol
 \mainmatter
 
 \hypertarget{scoring-de-credito}{%
-\chapter{Scoring de credito}\label{scoring-de-credito}}
+\chapter{Scoring de crédito}\label{scoring-de-credito}}
 
 Los métodos o modelos de credit scoring, a veces denominados score-cards o classifiers, son algoritmos que de manera automática evalúan el riesgo de crédito de un solicitante de financiamiento o de alguien que ya es cliente de la entidad. Tienen una dimensión individual, ya que se enfocan en el riesgo de incumplimiento del individuo o empresa, independientemente de lo que ocurra con el resto de la cartera de préstamos. Este es uno de los aspectos en los que se diferencian de otras herramientas de medición del riesgo de crédito, como son los modelos de cartera y los VaR marginales, que tienen en cuenta la correlación de la calidad crediticia de los deudores de una cartera de préstamos.
 
@@ -682,9 +640,9 @@ y usando \eqref{eq:ecuacion2}
 
 El modelo de probabilidad lineal, como se observa en la ecuación \eqref{eq:ecuacion3}, implica estimar un modelo lineal en los parámetros para \(Y_i\). Los valores predichos deberían en su mayoría ubicarse en el intervalo \([0,1]\), pudiendo ser interpretados como la probabilidad de que la variable a explicar tome alguno de estos valores.
 
-Mientras que su estimación e interpretación es simple, su utilización se ha visto desalentada por dos problemas en la metodología. En primer lugar, como la esperanza condicionada de \(Y_i\) es igual a la probabilidad condicionada de ocurrencia del evento (de \(Y_i=1\)), ella debería estar restringida al intervalo \([0,1]\). Sin embargo, el modelo lineal no impone ninguna restricción sobre \(\beta^TX_i\)i, asumiendo implícitamente que la variable dependiente puede tomar cualquier valor. Es por esto que el modelo puede estimar probabilidades negativas o mayores que uno, lo cual carece de significado económico. A su vez, el término de error de este modelo no es homocedástico, ya que la varianza condicional varía según las observaciones, por lo que las estimaciones de \(\beta\) no son eficientes.
+Mientras que su estimación e interpretación es simple, su utilización se ha visto desalentada por dos problemas en la metodología. En primer lugar, como la esperanza condicionada de \(Y_i\) es igual a la probabilidad condicionada de ocurrencia del evento (de \(Y_i=1\)), ella debería estar restringida al intervalo \([0,1]\). Sin embargo, el modelo lineal no impone ninguna restricción sobre \(\beta^TX_i\), suponiendo implícitamente que la variable dependiente puede tomar cualquier valor. Es por esto que el modelo puede estimar probabilidades negativas o mayores que uno, lo cual carece de significado económico. A su vez, el término de error de este modelo no es homocedástico, ya que la varianza condicional varía según las observaciones, por lo que las estimaciones de \(\beta\) no son eficientes.
 
-Para resolver estos inconvenientes hay modelos econométricos, generalmente estimados por máxima verosimilitud, que tienen en cuenta la naturaleza discreta de la variable dependiente: se trata de los modelos de respuesta o elección binaria. Ellos utilizan ciertas funciones de distribución para la innovación, con el objetivo de limitar las probabilidades estimadas al intervalo {[}0,1{]}: las más usadas son la función de probabilidad acumulada normal estándar y la función logística. Cuando se usa la normal estándar se trata de un modelo probit, y logit cuando se usa la función logística.
+Para resolver estos inconvenientes hay modelos econométricos, generalmente estimados por máxima verosimilitud, que tienen en cuenta la naturaleza discreta de la variable dependiente: se trata de los modelos de respuesta o elección binaria. Ellos utilizan ciertas funciones de distribución para la innovación, con el objetivo de limitar las probabilidades estimadas al intervalo {[}0,1{]}, las más usadas son la función de probabilidad acumulada normal estándar y la función logística. Cuando se usa la normal estándar se trata de un modelo probit, y logit cuando se usa la función logística.
 
 \hypertarget{los-modelos-probit-y-logit.}{%
 \subsection{Los modelos probit y logit.}\label{los-modelos-probit-y-logit.}}
@@ -737,7 +695,7 @@ P(Y_i=1) & = P(y_i^*>0)=P(\beta^TX_i+\epsilon_i>0)= 1-P(\beta^TX_i+\epsilon_i\le
 \end{split}
 \end{equation}
 
-ya que se supone que \(\epsilon_i\) tiene una distribución simétrica. Cuando \(\epsilon_i ~ N(0,1)\) \(F\) es \(\Phi\), la función de distribución de probabilidades acumuladas normal estándar y se trata del modelo probit, mientras que si F es la función logística se trata de un modelo logit y su densidad también es simétrica alrededor de cero.
+ya que se supone que \(\epsilon_i\) tiene una distribución simétrica. Cuando \(\epsilon_i \sim N(0,1)\) y \(F\) es \(\Phi\), la función de distribución de probabilidades acumuladas normal estándar y se trata del modelo probit, mientras que si F es la función logística se trata de un modelo logit y su densidad también es simétrica alrededor de cero.
 
 \#\#\#Estimación de los modelos logit y probit
 
@@ -780,7 +738,7 @@ donde queda claro que cambios en \(Z_i\) implican cambios en la probabilidad de 
 \hypertarget{uso-de-modelos-lineales-para-la-seleccion-de-variables-metodos-de-busqueda-secuencial.}{%
 \subsection{Uso de modelos lineales para la selección de variables (Métodos de búsqueda secuencial).}\label{uso-de-modelos-lineales-para-la-seleccion-de-variables-metodos-de-busqueda-secuencial.}}
 
-Los métodos de búsqueda secuencial tienen en común la aproximación general de estimación de las ecuaciones de regresión con un conjunto de variables y a continuación añadir o eliminar selectivamente variables hasta que se consiga alguna medida criterio conjunta. Esta aproximación proporciona un método objetivo de selección de variables que maximizan la predicción con el número más pequeño de variables empleadas. Existen dos tipos de aproximaciones de búsqueda secuencial: (1) la estimación por etapas, y (2) la eliminación progresiva y regresiva. En cada aproximación, se valoran las variables individualmente en función de su contribución a la predicción de la variable dependiente y se añaden o eliminan según su contribución relativa.
+Los métodos de búsqueda secuencial tienen en común la aproximación general de estimación de las ecuaciones de regresión con un conjunto de variables y a continuación añadir o eliminar selectivamente variables hasta que se consiga alguna medida ó criterio. Esta aproximación proporciona un método objetivo de selección de variables que maximizan la predicción con el número más pequeño de variables empleadas. Existen dos tipos de aproximaciones de búsqueda secuencial: (1) la estimación por etapas, y (2) la eliminación progresiva y regresiva. En cada aproximación, se valoran las variables individualmente en función de su contribución a la predicción de la variable dependiente y se añaden o eliminan según su contribución relativa.
 
 \hypertarget{estimacion-por-etapas-paso-a-paso-o-stepwise}{%
 \subsubsection{Estimación por etapas (paso a paso o stepwise)}\label{estimacion-por-etapas-paso-a-paso-o-stepwise}}
@@ -796,18 +754,18 @@ La estimación por etapas es quizá la aproximación más popular para seleccion
 \item
   Recalcular la ecuación de regresión utilizando las dos variables predictor, y examinar el valor parcial \(F\) de la variable original del modelo para ver si todavía realiza una contribución significativa, dada la presencia de la nueva variable predictor. Si no lo hace, eliminamos la variable. Esta capacidad de eliminar variables presentes en el modelo distingue el modelo por etapas de los modelos de adición progresiva/eliminación regresiva. Si las variables originales todavía representan una contribución significativa, la ecuación sería \(Y = \beta_0 + \beta_1X_1 + \beta_2X_2\).
 \item
-  Continúa este procedimiento examinando todos las variables independientes no presentes en el modelo para determinar si deberían incluirse en la ecuación. Si se incluye una nueva variable independiente, hay que examinar todos los predictores previamente incluidos en el modelo para juzgar si se deben mantener. Existe un sesgo potencial en el procedimiento por etapas que resulta de considerar sólo una variable a seleccionar cada vez. Supongamos que las variables \(X_3\) y \(X_4\) explicaran conjuntamente una parte significativa de la varianza (cada una considerando la presencia de la otra), pero no son significativas por sí solas. En esta situación, ninguna debería ser considerada para el modelo final.
+  Continúa este procedimiento examinando todos las variables independientes no presentes en el modelo para determinar si deberían incluirse en la ecuación. Si se incluye una nueva variable independiente, hay que examinar todos los predictores previamente incluidos en el modelo para juzgar si se deben mantener. Existe un sesgo potencial en el procedimiento por etapas que resulta de considerar solo una variable a seleccionar cada vez. Supongamos que las variables \(X_3\) y \(X_4\) explicaran conjuntamente una parte significativa de la varianza (cada una considerando la presencia de la otra), pero no son significativas por sí solas. En esta situación, ninguna debería ser considerada para el modelo final.
 \end{enumerate}
 
 \hypertarget{la-adicion-progresiva-forward-y-la-eliminacion-regresiva-backward}{%
 \subsubsection{La adición progresiva (forward) y la eliminación regresiva (backward)}\label{la-adicion-progresiva-forward-y-la-eliminacion-regresiva-backward}}
 
-La adición progresiva y la eliminación regresiva son fundamentalmente procesos de ensayo y error para buscar los mejores estimadores de la regresión. El modelo de adición progresiva es similar al procedimiento por etapas arriba explicada, mientras que el procedimiento de eliminación regresiva implica calcular una ecuación de regresión con todas las variables independientes, para a continuación ir eliminando las variables independientes que no contribuyan significativamente. La distinción principal de la aproximación por etapas respecto de los procedimientos de adición progresiva y eliminación regresiva es su capacidad de añadir o eliminar las variables en cada etapa. Una vez que se añade o elimina una variable en las esquemas de adición progresiva o eliminación regresiva, no existe posibilidad de revertir la acción posteriormente.
+La adición progresiva y la eliminación regresiva son fundamentalmente procesos de ensayo y error para buscar los mejores estimadores de la regresión. El modelo de adición progresiva es similar al procedimiento por etapas arriba explicada, mientras que el procedimiento de eliminación regresiva implica calcular una ecuación de regresión con todas las variables independientes, para a continuación ir eliminando las variables independientes que no contribuyan significativamente. La distinción principal de la aproximación por etapas respecto de los procedimientos de adición progresiva y eliminación regresiva es su capacidad de añadir o eliminar las variables en cada etapa. Una vez que se añade o elimina una variable en los esquemas de adición progresiva o eliminación regresiva, no existe posibilidad de revertir la acción posteriormente.
 
 \hypertarget{advertencias-sobre-los-metodos-de-busqueda-secuenciales}{%
 \subsubsection{Advertencias sobre los métodos de búsqueda secuenciales}\label{advertencias-sobre-los-metodos-de-busqueda-secuenciales}}
 
-El investigador debe ser consciente de dos advertencias cuando se usa cualquier procedimiento de búsqueda secueneial. En prim er lugar, la multicolinealidad entre variables independientes puede tener un impacto sustancial sobre la especificación final del modelo. Examinemos esta situación con dos variables altamente correlacionadas que tienen similares correlaciones con la variable independiente. El criterio de inclusión o eliminación en estas aproximaciones es maximizar el incremento de potencia predictiva de la variable adicional. Si una de estas variables entra en el modelo de regresión, es muy probable que la otra variable también entre, dado que estas variables están altamente correlacionadas y existe poca varianza singular para cada variable por separado.
+El investigador debe ser consciente de dos advertencias cuando se usa cualquier procedimiento de búsqueda secueneial. En primer lugar, la multicolinealidad entre variables independientes puede tener un impacto sustancial sobre la especificación final del modelo. Examinemos esta situación con dos variables altamente correlacionadas que tienen similares correlaciones con la variable independiente. El criterio de inclusión o eliminación en estas aproximaciones es maximizar el incremento de potencia predictiva de la variable adicional. Si una de estas variables entra en el modelo de regresión, es muy probable que la otra variable también entre, dado que estas variables están altamente correlacionadas y existe poca varianza singular para cada variable por separado.
 
 Por esta razón, se deben evaluar los efectos de la multicolinealidad en la interpretación del modelo y examinar las correlaciones directas de todas las variables independientes potenciales. Esto ayudará a evitar concluir que las variables independientes que no entren en el modelo no sean trascendentes cuando en realidad están altamente relacionadas con la variable dependiente, pero también correlacionadas con las variables ya existentes en el modelo. Aunque las aproximaciones de búsqueda secueneial maximizarán la capacidad predictiva del modelo de regresión, el investigador debe ser cuidadoso en la interpretación del modelo. Una segunda advertencia pertenece principalmente al procedimiento por etapas. En esta aproximación, los test de significación múltiple se realizan en el proceso de estimación del modelo. Para asegurar que la tasa de error conjunto a lo largo de todos los test de significación es razonable, el investigador debería emplear umbrales muy conservadores (por ejemplo, 0,01) al añadir o sacar las variables.
 
@@ -816,42 +774,42 @@ Por esta razón, se deben evaluar los efectos de la multicolinealidad en la inte
 \hypertarget{creditrisk}{%
 \chapter{CreditRisk+}\label{creditrisk}}
 
-\textbf{CreditRisk+} es un modelo de impago en el que se parte de la idea de que los eventos de incumplimiento de los diferentes deudores son eventos \emph{Bernoulli independientes}. Sin embargo, es importante tener en cuenta que los eventos de incumplimiento de deudores ocurren de manera causística en el tiempo y es imposible pronosticar el momento preciso en el que ocurrirán dichos eventos y el numero de eventos que sucederan en un cierto intervalo de tiempo.
+\textbf{CreditRisk+} es un modelo de impago en el que se parte de la idea de que los eventos de incumplimiento de los diferentes deudores son eventos \emph{Bernoulli independientes}. Sin embargo, es importante tener en cuenta que los eventos de incumplimiento de deudores ocurren de manera causística en el tiempo y es imposible pronosticar el momento preciso en el que ocurrirán dichos eventos y el número de eventos que sucederán en un cierto intervalo de tiempo.
 
-El desarrollo de una teoría estadística que explique estos procesos,dentro del contexto de riesgo crediticio, comienza considerando el caso simple de una caertera de créditos que incluye a \(N\) deudores, a cada uno de los cuales se les puede asociar una \emph{probabilidad fija de incumplimiento}; es decir, se conoce: \[p_i=\textrm{Probabilidad de incumplimiento del deudor } i\]
+El desarrollo de una teoría estadística que explique estos procesos, dentro del contexto de riesgo crediticio, comienza considerando el caso simple de una cartera de créditos que incluye a \(N\) deudores, a cada uno de los cuales se les puede asociar una \emph{probabilidad fija de incumplimiento}; es decir, se conoce: \[p_i=\textrm{Probabilidad de incumplimiento del deudor } i\]
 
-La distribuciíon de pérdidad que puede resultar del incumplimiento de los deudores de todo el portafolio la obtiene \textbf{CreditRisk} de manera indirecta, a través de las funciones de probabilidad, y procede en dos pasos. Primero, obtenemos la función generadora de probabilidad (FGP) del numero de incumplimientos y después, haciendo un supuesto sobre el nivel de pérdidas asociadas al incumplimiento de cada deudor, obtiene la FGP las pérdidas que puede ceder la cartera. A continuación se obtiene la primera para el caso simple bajo consideración.
+La distribución de pérdidad que puede resultar del incumplimiento de los deudores de todo el portafolio la obtiene \textbf{CreditRisk+} de manera indirecta, a través de las funciones de probabilidad, y procede en dos pasos. Primero, obtenemos la función generadora de probabilidad (FGP) del número de incumplimientos y después, haciendo un supuesto sobre el nivel de pérdidas asociadas al incumplimiento de cada deudor, obtiene la FGP las pérdidas que puede ceder la cartera. A continuación se obtiene la primera para el caso simple bajo consideración.
 
 \hypertarget{la-distribucion-del-numero-de-incumplimientos-con-probabilidades-de-impago-fijas.}{%
 \section{La distribución del número de incumplimientos con probabilidades de impago fijas.}\label{la-distribucion-del-numero-de-incumplimientos-con-probabilidades-de-impago-fijas.}}
 
 La FGP de números de incumplimientos se define como: \[F(s)=\sum_{n=0}^{\infty}Prob(n \textrm{ incumplimientos})\textrm{x}s^n\]
 
-Si la cartera tuviera un sólo deudor, lo único que puede suceder es que éste cumpla o incumpla. Por lo tanto, la FGP de incumplimientos para un sólo deudor es simplemente:\[F_i(s)=(1-p_i)s^0+p_i(s-1)=1+p_i(s-1)\]
+Si la cartera tuviera un solo deudor, lo único que puede suceder es que él cumpla o incumpla. Por lo tanto, la FGP de incumplimientos para un solo deudor es simplemente:\[F_i(s)=(1-p_i)s^0+p_i(s-1)=1+p_i(s-1)\]
 
 Como se considera que los eventos de incumplimiento son independientes, la FGP de toda la cartera es el producto de las FGP individuales, es decir:\[F(s)=\prod_{i=1}^NF_i(s)=\prod_{i=1}^N\big{[}1+p_i(s-1)\big{]}\]
 Aplicando logaritmo a ambos lados de la expresión, se obtiene:\[Ln(F(s))=\sum_{i=1}^NLn\big{[}1+p_i(s-1)\big{]}\]
 Generalmente, las probabilidades de incumplimiento de obligaciones crediticias a nivel individual son pequeñas y, por lo tanto, las potencias de estas son más pequeñas y pueden ser ignoradas.
 
 Esto implica que para los valores pequeños de \(p_i\):\[Ln\big{[}1+p_i(s-1)\big{]}\approx p_i(s-1)\]
-Lo anterior es el gran supuesto de \textbf{CreditRisk+}, que inituitivamente dice que mientras la probabilidad de incumoplimiento se \(p_i\) sea ``pequeña'', se puede ignorar el hecho de que un deudor no puede incumplir más que una sola vez. Haciendo esta sustitución, se obtiene:\[Ln(F(s))=\sum_{i=1}^Np_i(s-1)\]
+Lo anterior es el gran supuesto de \textbf{CreditRisk+}, que inituitivamente dice que mientras la probabilidad de incumplimiento se \(p_i\) sea ``pequeña'', se puede ignorar el hecho de que un deudor no puede incumplir más que una sola vez. Haciendo esta sustitución, se obtiene:\[Ln(F(s))=\sum_{i=1}^Np_i(s-1)\]
 Lo anterior conduce directamente a: \[F(s)=e^{\sum_{i=1}^Np_i(s-1)}=e^{\mu(s-1)};\textrm{ donde } \mu=\sum_{i=1}^Np_i\]
 
 La FGP corresponde a la FGP de la distribución de \emph{Poisson} con parámetro \(\mu\), a continuación se comprueba esto, usando el desarrollo de Taylor, es decir:\[F(s)=\sum_{n=}^\infty\mu^ne^{-\mu}s^n\]
-Por lo tanto, bajo el supuesto que las probabilidades de incumplimientos son bajas, obtenemos que:\[Prob(\textrm{ número incumplimientos }=n)=\frac{1}{n!}\mu^ne^{-\mu}\]
+Por lo tanto, bajo el supuesto de que las probabilidades de incumplimientos son bajas, obtenemos que:\[Prob(\textrm{ número incumplimientos }=n)=\frac{1}{n!}\mu^ne^{-\mu}\]
 
-En la expresión anterior,`\(\mu\)' es la \emph{tasa promedio de incumplimiento} y es el único parámetro de la distribución. Como ``\(N\)'', la distribución es independiente del número de deudores y de las probabilidades individuales de impago, siempre y cuando éstas sean ``uniformemente pequeñas''. Sin embargo queda claro que los deudores tengan la misma probabilidad de incumplir. Es más, éstas pueden ser diferentes y el cálculo de la tasa esperado de incumplimiento, sólo depende de la existencia de esta informacíon.
+En la expresión anterior, `\(\mu\)' es la \emph{tasa promedio de incumplimiento} y es el único parámetro de la distribución. Como ``\(N\)'', la distribución es independiente del número de deudores y de las probabilidades individuales de impago, siempre y cuando sean ``uniformemente pequeñas''.
 
 Para concluir con este tema, es impotante hacer hicapié en que el supuesto clave que permite llegar a la distribución Poisson es cuando un número no-negativo ``\(y\)'' es muy pequeño (\(y\approx 0\)), se puede utilizar la aproximación ``\(Ln(1+y)\approx y\)''. Esta forma exponencial de la FGP de la distribución de Poisson, es la clave de la facilidad de cálculo que tiene \textbf{CreditRisk+}.
 
-Además, es necesario señalar que en todo el análisis anterior hay implícito un período de tiempon que está relacionado con el parámetro de la distribución. Así, la distribución obtenida debe interpretarse de la misma manera, es decir:\[\frac{1}{n!}\mu^ne^{-\mu}=\textrm{ Probabilidad de que ocurran } n \textrm{ incumplimientos }\]
+Además, es necesario señalar que en todo el análisis anterior hay implícito un período de tiempo que está relacionado con el parámetro de la distribución. Así, la distribución obtenida debe interpretarse de la misma manera, es decir:\[\frac{1}{n!}\mu^ne^{-\mu}=\textrm{ Probabilidad de que ocurran } n \textrm{ incumplimientos }\]
 
-\hypertarget{la-agrupacion-por-bandas-de-exposicion-las-perdidas}{%
-\section{La agrupación por bandas de exposición las pérdidas}\label{la-agrupacion-por-bandas-de-exposicion-las-perdidas}}
+\hypertarget{la-agrupacion-por-bandas-de-exposicion-de-las-perdidas}{%
+\section{La agrupación por bandas de exposición de las pérdidas}\label{la-agrupacion-por-bandas-de-exposicion-de-las-perdidas}}
 
-Dado que pueden existir varios deudores que implican niveles de pérdidas semejantes, \textbf{CreditRisk+} empieza por agrupar a los deudores por bandas de exposición iguales. Aunque esta agrupación introduce errores de rodondeo en la estimación de la distribución, facilita mucho el desarrollo del modelo y reduce significativamente el número de datos requeridos para realizar los cálculos. Además, si el número de niveles de exposición es grande y el ancho de las bandas es pequeño, en relación con el tamaño de exposición promedio de la cartera, se puede demostrar que el error introducido es despreciable. De hecho, en la práctica es muy difícil determinar \emph{a priori} el nivel de exposición y, por lo tanto, éste no debe representar un elemento crítico en la estimación del riesgo total de la cartera.
+Dado que pueden existir varios deudores que implican niveles de pérdidas semejantes, \textbf{CreditRisk+} empieza por agrupar a los deudores por bandas de exposición iguales. Aunque esta agrupación introduce errores de rodondeo en la estimación de la distribución, facilita mucho el desarrollo del modelo y reduce significativamente el número de datos requeridos para realizar los cálculos. Además, si el número de niveles de exposición es grande y el ancho de las bandas es pequeño, en relación con el tamaño de exposición promedio de la cartera, se puede demostrar que el error introducido es despreciable. De hecho, en la práctica es muy difícil determinar \emph{a priori} el nivel de exposición y, por lo tanto, este no debe representar un elemento crítico en la estimación del riesgo total de la cartera.
 
-Así, supóngase que la pérdida esperada por deudor que cae en impago es una proporción fija ``\(\lambda_i\)'' del monto total ``\(D_i\)'' que debe el deudor ``\(i\)''. A su vez, para mantener la elegancia del modelo, supóngase que el nivel de exposición que representa el deudor para el acreedor ``\(L_i\)'' es un múltiplo entero de una únidad fija de pérdida ``\(L\)''. Estos múltiplos enteros de \(L\) reciben el nombre de ``\emph{niveles de exposición estandar}''. Así la pérdida que puede representar el incumplimiento del deudor ``\(i\)'' para el acreedor, se mide en términos de múltiplos de ``\(v_i\)'', de la únidad fija de pérdida \(L\), y es simplemente la cantidad siguiente:\[v_i=\textrm{ Redondeo }\bigg{(}\frac{\lambda D_i}{L}\bigg{)}\]
+Así, supóngase que la pérdida esperada por deudor que cae en impago es una proporción fija ``\(\lambda_i\)'' del monto total ``\(D_i\)'' que debe el deudor ``\(i\)''. A su vez, para mantener la elegancia del modelo, supóngase que el nivel de exposición que representa el deudor para el acreedor ``\(L_i\)'' es un múltiplo entero de una únidad fija de pérdida ``\(L\)''. Estos múltiplos enteros de \(L\) reciben el nombre de ``\emph{niveles de exposición estándar}''. Así la pérdida que puede representar el incumplimiento del deudor ``\(i\)'' para el acreedor, se mide en términos de múltiplos de ``\(v_i\)'', de la únidad fija de pérdida \(L\), y es simplemente la cantidad siguiente:\[v_i=\textrm{ Redondeo }\bigg{(}\frac{\lambda D_i}{L}\bigg{)}\]
 De esto se obtiene el nivel estándar de exposición que representa cada deudor para el acreedor, mediante la identidad siguiente:\[L_i=L_{v_i}\]
 
 \hypertarget{la-determinacion-de-la-distribucion-de-perdidas-de-la-cartera.}{%
@@ -870,10 +828,10 @@ Suponiendo independencia de eventos de incumplimientos, las pérdidas asociadas 
 \hypertarget{obteniendo-la-distribucion-de-las-perdidas}{%
 \section{Obteniendo la distribución de las pérdidas}\label{obteniendo-la-distribucion-de-las-perdidas}}
 
-Aunque a diferencia de la distribución del número de incumplimientos, en el caso de las pérdidas no se sabe la forma de la distribución, la probabilidad de que se pierdan \(n\) unidades de \(L\) en la cartera total de créditos se puede obtener mediante la expansión de Taylor de la expresión anterior; es decir: la probabilidad de quen se pierdan \(n\) unidades \(L\) es el coeficiente de \(s^n\) en la expansión de Taylor. El desarrollo se facilita definiendo el polinomio siguiente:\[P(s)=\frac{1}{\mu}\sum_{j=1}^m\mu_js^{v_j}=\frac{\sum_{j=1}^m\frac{\epsilon_j}{{v_j}}s^{v_j}}{\sum_{j=1}^m\frac{\epsilon_j}{{v_j}}}\] donde \(\epsilon_j\) es la pardida esperada de la banda \(j\) y \(v_j\) es la exposición común que comparten los deudores de la banda \(j\).
+Aunque a diferencia de la distribución del número de incumplimientos, en el caso de las pérdidas no se sabe la forma de la distribución, la probabilidad de que se pierdan \(n\) unidades de \(L\) en la cartera total de créditos se puede obtener mediante la expansión de Taylor de la expresión anterior; es decir: la probabilidad de que se pierdan \(n\) unidades \(L\) es el coeficiente de \(s^n\) en la expansión de Taylor. El desarrollo se facilita definiendo el polinomio siguiente:\[P(s)=\frac{1}{\mu}\sum_{j=1}^m\mu_js^{v_j}=\frac{\sum_{j=1}^m\frac{\epsilon_j}{{v_j}}s^{v_j}}{\sum_{j=1}^m\frac{\epsilon_j}{{v_j}}}\] donde \(\epsilon_j\) es la perdida esperada de la banda \(j\) y \(v_j\) es la exposición común que comparten los deudores de la banda \(j\).
 
 Con esto, la FGP de pérdidas se puede expresar de la forma siguiente:\[G(s)=e^{\sum_{j=1}^m\mu_j(s^{v_j}-1)}=e^{\mu[P(s)-1]}=F[P(s)]\]
-La función generadora de probabilidades de las pérdidas comprende dos fuentes de incertidumbre, a saber: el comportamiento \emph{Poisson} del número de incumplimiemntos y la aleatoriedad de las pérdidas dado incumplimiento, que esta asociado a los distintos niveles de exposición del acreedor a los diferentes deudores. Notese que la única información requerida para obtener la distribución de pérdidas es \(\epsilon_j\) y \(v_j\), estas parejas representan un número de datos significativamente menor, que si tuviera que manejar información semejante por cada deudor, aun para carteras con un número muy grandes de créditos.
+La función generadora de probabilidades de las pérdidas comprende dos fuentes de incertidumbre, a saber: el comportamiento \emph{Poisson} del número de incumplimiemntos y la aleatoriedad de las pérdidas dado incumplimiento, que está asociado a los distintos niveles de exposición del acreedor a los diferentes deudores. Notese que la única información requerida para obtener la distribución de pérdidas es \(\epsilon_j\) y \(v_j\), estas parejas representan un número de datos significativamente menor, que si tuviera que manejar información semejante por cada deudor, aun para carteras con un número muy grandes de créditos.
 Para encontrar la distribución de pérdidas, se parte de la expresión:\[G(s)=\sum_n\textrm{ Prob(pérdidas acumuladas}=n\times L)S^n \].
 
 Tomando la expansión de Taylor para \(G(s)\), la probabilidad de pérdida de \(nL\) unidades es\[P_n(L)=\frac{1}{n!}\frac{d^nG(s)}{ds^n}\bigg{|}_{s=0}\]. En el apéndice A 4.1 del manual de CreditRisk+ se deduce una fórmula recursiva sencilla para obtener estas probabilidades, las cuales es:\[P_n(L)=\sum_{j|v_j\le n}\frac{\epsilon_j}{n}P_{n-v_j}(L)=\frac{1}{n}\sum_{j|v_j\le n}\epsilon_jP_{n-v_j}(L)\]
@@ -883,7 +841,7 @@ donde \(P_0(L)=e^{-\mu}\) donde \(\mu=\sum_{j=1}^m\mu_j\)
 \section{Obtención del VaR}\label{obtencion-del-var}}
 
 Para obtener el VaR de una cartera de créditos bajo el esquema de CreditRisk+, simplemente se obtiene la distribución
-de probabilidad acumulada de las pérdidas y, una vez decidido el nivel de confianza \(\alpha\) con el que se quiere trabajar se lee de la tabla el número de unidades estándar de pérdidas que corresponden a una probabilidad acumulada de de pérdida \(1-\alpha\). El paso final es convertir las unidades estándar de pérdida a unidades manetarias, multiplicando las unidades de pérdidas correspondientes al nivel de confianza escogido, por la unidas de pérdida \(L\).
+de probabilidad acumulada de las pérdidas y, una vez decidido el nivel de confianza \(\alpha\) con el que se quiere trabajar se lee de la tabla el número de unidades estándar de pérdidas que corresponden a una probabilidad acumulada de de pérdida \(1-\alpha\). El paso final es convertir las unidades estándar de pérdida a unidades manetarias, multiplicando las unidades de pérdidas correspondientes al nivel de confianza escogido, por la unidad de pérdida \(L\).
 
 \mainmatter
 
@@ -892,10 +850,10 @@ de probabilidad acumulada de las pérdidas y, una vez decidido el nivel de confi
 
 Mientras que en el caso de \textbf{CredictRisk+} se usa un enfoque actuarial mediante el cual se llega ha obtener una forma explícita de la distribución de pérdidas a través de la función generadora de probabilidades, en el caso de \textbf{CredictMetrics}, aunque en teoría existe una representación explícita de la distribución de pérdidas, su obtención supera la capacidad de cálculo disponible en un computador convencional, y por lo tanto, está se estima a través de un proceso de simulación de \emph{MonteCarlo}, otra caractéristica importante es que \textbf{CreditMetric} hace referencia, y utiliza extensamente, información que solo esta disponible en los mercados en desarrollo, aunque esto no impide que se aplique en los mercados emergentes si se hacen las edecuaciones correspondientes.
 
-Para la explicación de esta metodología usamos como guía el documento técnico de \textbf{CreditMetrics}. Iniciaremos con el caso más sencillo en el cual nuestrea cartera de créditos esta integrada por un único credito para luego generalizar el procedimiento a una cartera que puede incluir cualquier número \(N\) de créditos. Pero primero establescamos los elementos básicos que usaremos en esta metodología.
+Para la explicación de esta metodología usamos como guía el documento técnico de \textbf{CreditMetrics}. Iniciaremos con el caso más sencillo en el cual nuestrea cartera de créditos esta integrada por un único crédito para luego generalizar el procedimiento a una cartera que puede incluir cualquier número \(N\) de créditos. Pero primero establescamos los elementos básicos que usaremos en esta metodología.
 
-\hypertarget{elementos-que-usa-credimetrics}{%
-\section{\texorpdfstring{Elementos que usa \textbf{Credimetrics}}{Elementos que usa Credimetrics}}\label{elementos-que-usa-credimetrics}}
+\hypertarget{elementos-de-credimetrics}{%
+\section{\texorpdfstring{Elementos de \textbf{Credimetrics}}{Elementos de Credimetrics}}\label{elementos-de-credimetrics}}
 
 \begin{itemize}
 \item
@@ -903,10 +861,10 @@ Para la explicación de esta metodología usamos como guía el documento técnic
 \item
   Información del mercado en general: Tales como datos sobre las calificaciones e indicadores sobre su calidad.
 \item
-  Información generada internamente por las intituciones que se pueda mapear a los estandares del mercado.
+  Información generada internamente por las instituciones que se pueda mapear a los estándares del mercado.
 \end{itemize}
 
-Historicamente Credimetrics fue desarrollado para abordar el problema de medir el riesgo de credito de que los emisores que colocan papel que se negocia en el mercado de los Estados Unidos incumplan sus compromisos. En general, los elementos que son necesastios en esta metodología estan disponibles en mercados desarrollados, pero las intituciones financieras pueden crear procedimientos y metodologias internas para lograr suplir la falta de información. Los elementos clave del sistema son:
+Históricamente Credimetrics fue desarrollado para abordar el problema de medir el riesgo de crédito de que los emisores que colocan papel que se negocia en el mercado de los Estados Unidos incumplan sus compromisos. En general, los elementos que son necesarios en esta metodología están disponibles en mercados desarrollados, pero las intituciones financieras pueden crear procedimientos y metodologías internas para lograr suplir la falta de información. Los elementos clave del sistema son:
 
 \begin{itemize}
 \item
@@ -921,14 +879,14 @@ Una característica importante de las calificaciones emitidas es que ellas aport
 
 \begin{itemize}
 \item
-  Probabilidades de incumplimiento históricas asociadas a cada calificación, así como las probabilidades de transición entre las categorias.
+  Probabilidades de incumplimiento históricas asociadas a cada calificación, así como las probabilidades de transición entre las categorías.
 \item
-  Las distintas tasas de interes asociadas a cada categoría.
+  Las distintas tasas de interés asociadas a cada categoría.
 \end{itemize}
 
-Otra parte fundamental del análisis es la cantidad que se espera recuperar en caso de que el crédito caiga en la cartera de vencidos. Aunque si el sistema de calificación es robusto raramente se espera que un crédito que halla pasado a la cartera de vencido este en una calificación alta. Pero al final, la calificación no solo depende del sistema interno de la institución, sino tambien de la garantias que ofresca el crédito.
+Otra parte fundamental del análisis es la cantidad que se espera recuperar en caso de que el crédito caiga en la cartera de vencidos. Aunque si el sistema de calificación es robusto raramente se espera que un crédito que halla pasado a la cartera de vencido este en una calificación alta. Pero al final, la calificación no solo depende del sistema interno de la institución, sino también de la garantías que ofresca el crédito.
 
-En general, todos los requerimientos estan entrelazados, por ejemplo las calificaciones que se otorgan dependen de cosas como: historial de incumplimiento, garantias, utilidades de los créditos en los últimos años, el pais de origen, entre otros.
+En general, todos los requerimientos están entrelazados, por ejemplo las calificaciones que se otorgan dependen de cosas como: historial de incumplimiento, garantías, utilidades de los créditos en los últimos años, el país de origen, entre otros.
 
 A manera de ilustración se presenta una matriz de transición publicada por Standard \& Poor's en Abril de 1966. En ella se aprecian las probabilidades de transición de que un bono que se encuentra en una calificación dada migre a otra calificación, por ejemplo en la tabla se aprecia que la probabilidad de que un bono que esta en la calificación BB migre a una calificación C es de un 1\%.
 
@@ -947,7 +905,7 @@ C & 0.22 & 0.00 & 0.22 & 1.30 & 2.38 & 11.24 & 64.86\tabularnewline
 \bottomrule
 \end{longtable}
 
-Las tasas de recuperación de los créditos como ya se menciono son fundamentales, y no son únicamente proporcionadas por las instituciones financieras, estas pueden recurrir a terceros por las calificaciones de los créditos. Acontinuación se presenta una tabla que muestra las tasas de recuperación de créditos elaboradsas por Moody's y otros académicos.
+Las tasas de recuperación de los créditos como ya se menciono son fundamentales, y no son únicamente proporcionadas por las instituciones financieras, estas pueden recurrir a terceros por las calificaciones de los créditos. A continuación se presenta una tabla que muestra las tasas de recuperación de créditos elaboradas por Moody's y otros académicos.
 
 \begin{longtable}[]{@{}ccc@{}}
 \toprule
@@ -962,12 +920,12 @@ Junior Subordinada & 17.09 & 10.90\tabularnewline
 \bottomrule
 \end{longtable}
 
-Una acotación interesante, es que originalmente credimetrics esta direccionada a medir el riesgo de crédito de una cartera de bonos. Sin embargo puede ser aplicado a distintos tipos de posiciones que involucren riesgo de crédito, como por ejemplo: posiciones cortas en divisas, futuros, opciones o como es el caso de interes, créditos tradicionales. Ahora, daremos el ejemplo de credimetrics usando un único crédito.
+Una acotación interesante, es que originalmente credimetrics esta direccionada a medir el riesgo de crédito de una cartera de bonos. Sin embargo puede ser aplicado a distintos tipos de posiciones que involucren riesgo de crédito, como por ejemplo: posiciones cortas en divisas, futuros, opciones o como es el caso de interés, créditos tradicionales. Ahora, daremos el ejemplo de credimetrics usando un único crédito.
 
 \hypertarget{el-caso-de-un-solo-credito}{%
 \section{El caso de un solo crédito}\label{el-caso-de-un-solo-credito}}
 
-Una vez descrito los elementos necesarios para esta metodología vamos a empezar por realizar los pasos que son necesarios para la medición del riesgo de crédito de una cartera de un solo activo. Utilizaremos un ejemplo parecido al que procede del documento de Credimetrics con la diferencia que ellos usan un bono y nosotros un credito personal. Los tres pasos a realizar son:
+Una vez descrito los elementos necesarios para esta metodología vamos a empezar por realizar los pasos que son necesarios para la medición del riesgo de crédito de una cartera de un solo activo. Utilizaremos un ejemplo parecido al que procede del documento de Credimetrics con la diferencia que ellos usan un bono y nosotros un crédito personal. Los tres pasos a realizar son:
 
 \begin{itemize}
 \item
@@ -975,13 +933,13 @@ Una vez descrito los elementos necesarios para esta metodología vamos a empezar
 \item
   Se calcula el saldo o la exposición de los créditos.
 \item
-  Se aplican las probabilidades de migración a la expoción que posee el crédito para obtener la distribución de probabilidad de pérdida o perfil de riesgo del instrumento y las estadísticas que corresponden, es decir, la pérdida esperada, su varianza o desviación estandar, su VaR con un nivel de confianza deseado, entre otros.
+  Se aplican las probabilidades de migración a la expoción que posee el crédito para obtener la distribución de probabilidad de pérdida o perfil de riesgo del instrumento y las estadísticas que corresponden, es decir, la pérdida esperada, su varianza o desviación estándar, su VaR con un nivel de confianza deseado, entre otros.
 \end{itemize}
 
 \hypertarget{ejemplo-1}{%
 \subsection{Ejemplo 1}\label{ejemplo-1}}
 
-Supongamos que tenemos un crédito con calificación BB con exposición de 250, la institución financiera posee la siguiente información sobre las probabilidades calificación de los créditos que estan en una calificación BB:
+Supongamos que tenemos un crédito con calificación BB con exposición de 250, la institución financiera posee la siguiente información sobre las probabilidades calificación de los créditos que están en una calificación BB:
 
 \begin{longtable}[]{@{}cc@{}}
 \toprule
@@ -998,7 +956,7 @@ CCC & 5\tabularnewline
 \bottomrule
 \end{longtable}
 
-Tambien la institución cuenta con las perdidad esperadas por calificación (las cuales representan la inversa aritmética de las tasas de recuperación en caso de que el crédito caiga en default o mora)
+También la institución cuenta con las pérdidas esperadas por calificación (las cuales representan la inversa aritmética de las tasas de recuperación en caso de que el crédito caiga en default o mora)
 
 \begin{longtable}[]{@{}cc@{}}
 \toprule
@@ -1040,7 +998,7 @@ PE = (0.25*0.04)+(7.5*0.05)& \\
 &+(62.5*0.18) +(100*0.05)=40.93
 \end{align*}
 
-Así la pérdida esperada de una cartera de un solo crédito de calificación BB de una exposición de 250 es de 40.935. Ahora para calcular el VaR a un nivel de confianza en especifico por ejemplo al 5\% simplemente sumamos las probabilidad de manera descendentes de las calificaciones hasta llegar 95 en el caso de que se pase se toma la calificación en la cual ocurre el exceso, en nuestro ejemplo el VaR ocurre en la calificación B, así el \(VaR_{5\%}=62.5\).
+Así la pérdida esperada de una cartera de un solo crédito de calificación BB de una exposición de 250 es de 40.935. Ahora para calcular el VaR a un nivel de confianza en especifico por ejemplo al 5\% simplemente sumamos las probabilidad de manera descendentes de las calificaciones hasta llegar 95 en el caso de que se pase se toma la calificación en la cual ocurre el exceso, en nuestro ejemplo el VaR ocurre en la calificación B, así el \(VaR_{95\%}=62.5\).
 
 En general, se suele pensar que una aproximación normal a la distribución de pérdidas puede ser idonea, pero esto es incorrecto pues suele ocurrir que las probabilidades de transición se concentren en los extremos de las calificaciones, esto se verá en el siguiente ejemplo.
 
@@ -1083,7 +1041,7 @@ CCC & 120 & 1\tabularnewline
 \bottomrule
 \end{longtable}
 
-Ahora de igual forma para obtener la paérdida esperada procedemos con el siguiente cálculo.
+Ahora de igual forma para obtener la pérdida esperada procedemos con el siguiente cálculo.
 
 \begin{align*} 
 PE = (0.3*0.15)+(9*0.48)& \\
@@ -1098,7 +1056,7 @@ Con este ejemplo podemos notar que la distribución normal no se ajusta de maner
 \hypertarget{cartera-de-dos-de-creditos-con-probabilidades-de-transicion-independientes.}{%
 \section{Cartera de dos de créditos con probabilidades de transición independientes.}\label{cartera-de-dos-de-creditos-con-probabilidades-de-transicion-independientes.}}
 
-Como en realidad el caso de un solo instrumento no es de interes, pues una cartera de créditos de una institución financiera puede estar conformada por millones de créditos daremos un ejemplo ilustrativo con una cartera de dos créditos, con esto se pretende mostrar como aumenta el nivel de dificultad, mas adelante veremos que en general, no calcularemos la distribución de pérdidas explícitamente, sino realizaremos una aproximación por el método de simulación de Montecarlo.
+Como en realidad el caso de un solo instrumento no es de interés, pues una cartera de créditos de una institución financiera puede estar conformada por millones de créditos daremos un ejemplo ilustrativo con una cartera de dos créditos, con esto se pretende mostrar como aumenta el nivel de dificultad, mas adelante veremos que en general, no calcularemos la distribución de pérdidas explícitamente, sino realizaremos una aproximación por el método de simulación de Montecarlo.
 
 \hypertarget{ejemplo-3}{%
 \subsection{Ejemplo 3}\label{ejemplo-3}}
@@ -1144,12 +1102,12 @@ Ahora realizando todas las correspondientes multiplicaciones de las pérdidas po
 \hypertarget{aproximacion-de-la-distribucion-de-perdidas-de-una-cartera-con-n-creditos.}{%
 \section{\texorpdfstring{Aproximación de la distribución de pérdidas de una cartera con \(n\) créditos.}{Aproximación de la distribución de pérdidas de una cartera con n créditos.}}\label{aproximacion-de-la-distribucion-de-perdidas-de-una-cartera-con-n-creditos.}}
 
-En el ejemplo anterior notamos como una cartera con 2 créditos con 7 posibles calificaciones existen \(7^2\) combinaciones, si tuvieramos 50 créditos en nuestra cartera hubiera \(7^{50}\) combinaciones posibles, es decir, el coste computacional aumenta exponencialmente, por lo tanto, una cartera realista com miles e incluso millones de créditos se vuelve inviable si queremos realizar el cálculo de la misma forma que el ejemplo anterior, por lo tanto nos vemos obligados a realizar una aproximación a la distribución de pérdidas.
+En el ejemplo anterior notamos como una cartera con 2 créditos con 7 posibles calificaciones existen \(7^2\) combinaciones, si tuviéramos 50 créditos en nuestra cartera hubiera \(7^{50}\) combinaciones posibles, es decir, el coste computacional aumenta exponencialmente, por lo tanto, una cartera realista con miles e incluso millones de créditos se vuelve inviable si queremos realizar el cálculo de la misma forma que el ejemplo anterior, por lo tanto nos vemos obligados a realizar una aproximación a la distribución de pérdidas.
 
 \hypertarget{simulacion-de-montecarlo}{%
 \subsection{Simulación de MonteCarlo}\label{simulacion-de-montecarlo}}
 
-Ahora veremos como aproximar la distribución de pérdidad con el método más común, conocido como método de aproximación por simulación de MonteCarlo. Antes de describir el método debemos acotar que en general los eventos de migración crediticia pueden ser supuestos independientes o no entre las migraciones de otros créditos. Sin embargo en mercados poco desarrollodos o donde la información es limitada se tiende a suponer la independencia entre los créditos de una cartera.
+Ahora veremos como aproximar la distribución de pérdidas con el método más común, conocido como método de aproximación por simulación de MonteCarlo. Antes de describir el método debemos acotar que en general los eventos de migración crediticia pueden ser supuestos independientes o no entre las migraciones de otros créditos. Sin embargo en mercados poco desarrollodos o donde la información es limitada se tiende a suponer la independencia entre los créditos de una cartera.
 
 \hypertarget{que-es-un-metodo-de-montecarlo}{%
 \subsubsection{¿Que es un Método de Montecarlo?}\label{que-es-un-metodo-de-montecarlo}}
@@ -1220,309 +1178,585 @@ Ahora para comprobar la eficiencia del método de generación de números pseudo
 
 Ahora una vez se pretenda usar un método algorítmico de generación de números aleatorios, se usa este metódo para generar eventos probabilísticos en los cuales se consideren todos los posibles eventos de transición entre las distintas calificaciones. Cada evento se considera como una simulación de un evento particular, por cada simulación los créditos se encuentran en una calificación determinada por la probabilidad de transición respectiva, este calificación trae con si una pérdida esperada por crédito, asi por cada simulación se obtiene una pérdida.
 
-Ahora si nuestra cartera de crédito posee 1000 créditos, y existen 5 calificaciones, en la sección vimos que existen \(5^{1000}\) posibles eventos, para imaginarnos esta cantidad basta saber que este número es mayor que un billón, por lo tanto debemos realizar un gran número de simulaciones para poder captar información verídica de la pérdida esperada. Una de las bondades de estimar la pérdida esperada de esta forma es que la distribución tendera asintóticamente a una normal donde su media tendera la pérdida esperada de la cartera.
+Ahora si nuestra cartera de crédito posee 1000 créditos, y existen 5 calificaciones, en la sección vimos que existen \(5^{1000}\) posibles eventos, para imaginarnos esta cantidad basta saber que este número es mayor que un billón, por lo tanto debemos realizar un gran número de simulaciones para poder captar información verídica de la pérdida esperada. Una de las bondades de estimar la pérdida esperada de esta forma es que la distribución tenderá asintóticamente a una normal donde su media tenderá la pérdida esperada de la cartera.
 
 \hypertarget{obtencion-de-las-metricas-de-riesgo.}{%
 \subsubsection{Obtención de las métricas de riesgo.}\label{obtencion-de-las-metricas-de-riesgo.}}
 
-Una ves realizadas las simulaciones y obtenida la aproximación de la distribución de pérdidas usando la aproximación normal es facil obtener las métricas de riesgo, pues estas ya estan definidas para la distribución normal. Si la distribucion de pérdidas es como una normal de media \(\mu\) y desvianción estandasr \(\sigma\) las métricas de riesgo son: \[\textrm{Pérdida esperada}=\mu\],\[VaR_{p}=\mu+\sigma\Phi^{-1}(p)\],\[TVaR_p=\mu+\sigma\frac{\phi[\Phi^{-1(p)}]}{1-p}\]
-Donde \(\phi\) y \(\Phi\) representan la función de densidad de probabilidad y la función de probabilidad acumulada de una normal estandar.
+Una ves realizadas las simulaciones y obtenida la aproximación de la distribución de pérdidas usando la aproximación normal es facil obtener las métricas de riesgo, pues estas ya están definidas para la distribución normal. Si la distribucion de pérdidas es como una normal de media \(\mu\) y desvianción estándar \(\sigma\) las métricas de riesgo son: \[\textrm{Pérdida esperada}=\mu\],\[VaR_{p}=\mu+\sigma\Phi^{-1}(p)\],\[TVaR_p=\mu+\sigma\frac{\phi[\Phi^{-1(p)}]}{1-p}\]
+Donde \(\phi\) y \(\Phi\) representan la función de densidad de probabilidad y la función de probabilidad acumulada de una normal estándar.
 
 \mainmatter
 
 \hypertarget{manual-tecnico-de-la-aplicacion-vision-creditrisk}{%
 \chapter{Manual técnico de la aplicación Vision CreditRisk}\label{manual-tecnico-de-la-aplicacion-vision-creditrisk}}
 
-En el presente capítulo, presentaremos el manual técnico de la aplicación Vision CreditRisk, el cual utiliza las nociones teóricas vistas anteriormente para lograr de una forma agradable y de facil entendimiento permtir que el usuario encargado del área de crédito de su institución maneje de forma precisa y adecuada las métricas de riesgo.
+En el presente capítulo, presentaremos el manual técnico de la aplicación Vision CreditRisk, el cual utiliza las nociones teóricas vistas anteriormente para lograr de una forma agradable y de facíl entendimiento permtir que el usuario encargado del área de crédito de su institución maneje de forma precisa y adecuada las métricas de riesgo.
 
 \hypertarget{presentacion-de-la-aplicacion.}{%
 \section{Presentación de la aplicación.}\label{presentacion-de-la-aplicacion.}}
 
-La aplicación esta compuesta de tres secciones, la primera referente a la metodología CreditRisk+, la segunda correspondiente a la metodología Credimetrics y la tercera sección referente a indicadores técnicos.
+La aplicación esta compuesta de ocho secciones, la primera una sección donde se cargan los datos que necesitará la aplicación, la segunda correspondiente a la sección \textbf{Scoring y Rating}, la tercera sección correspondiente a la \textbf{Pérdida por Incumplimiento}, la cuarta correspondiente a la \textbf{Matriz de transición}, la quinta correspondiente a la metodología \textbf{CreditRisk+}, la sexta a la metología \textbf{CreditMetrics}, la septima correspondiente al \textbf{BackTesting} y la octava a correspondiente a los \textbf{Indicadores contables}.
 
 \begin{figure}
 \centering
-\includegraphics{images/portada.png}
+\includegraphics{images/1.png}
 \caption{\label{fig:"sd"}}
 \end{figure}
 
-\hypertarget{primera-seccion-creditrisk}{%
-\section{Primera sección: CreditRisk+}\label{primera-seccion-creditrisk}}
+\hypertarget{primera-seccion-datos}{%
+\section{Primera sección: Datos}\label{primera-seccion-datos}}
 
-En la primera sección que se observa en la columna izquierda, consta de las siguientes secciones: Datos, Estadísticos, Pérdida por incumplimiento, Score de crédito, parámetros y resultados, stressting.
+En esta sección se cargan los datos de las diferentes metodologías
 
 \begin{figure}
 \centering
-\includegraphics{images/datos.png}
+\includegraphics{images/2.png}
 \caption{\label{fig:"sd"}}
 \end{figure}
 
-\hypertarget{datos}{%
-\subsection{Datos}\label{datos}}
+\hypertarget{scoring-y-rating}{%
+\subsection{Scoring y Rating}\label{scoring-y-rating}}
 
-En esta sección se cargan los datos con los que se alimentara la costrucción del score de crédito y parte de la metología, al iniciar veremos la siguiente pantalla:
+En esta sección se cargan los datos con los cuales serán construidos el \textbf{Score y Rating} de crédito.
+
+\hypertarget{scoring}{%
+\subsubsection{Scoring}\label{scoring}}
+
+En esta sección se tendrá dos opciones, la primera será de datos de ejemplo, la cual se muestra a continuación
 
 \begin{figure}
 \centering
-\includegraphics{images/datos1.png}
+\includegraphics{images/4.png}
 \caption{\label{fig:"sd"}}
 \end{figure}
 
-Tendremos dos opciones, una a manera de ejemplo para entender como debe ser el formato de los datos, al seleccionarla se nos desplegara la siguiente pantalla.
+La segunda \emph{Datos Propios} la cual debemos cargar los datos de la aplicación.
 
 \begin{figure}
 \centering
-\includegraphics{images/datos2.png}
+\includegraphics{images/5.png}
 \caption{\label{fig:"sd"}}
 \end{figure}
 
-Ahora del lado que debemos seleccionar, se nos desplagara:
+\hypertarget{proyeccion-scoring}{%
+\subsubsection{Proyección Scoring}\label{proyeccion-scoring}}
+
+En Proyección Scoring cargamos datos para hacer predicciones de nuevos clientes.
 
 \begin{figure}
 \centering
-\includegraphics{images/datos3.png}
+\includegraphics{images/6.png}
 \caption{\label{fig:"sd"}}
 \end{figure}
 
-Debemos hacer click en buscar los datos a seleccionar, estos datos deberan estar conformados por la lista de los clientes, similar a los datos de ejemplo, una de la columnas debe tener el nombre de ``Creditability'' (la cual indica si el cliente esta en mora, valor de \(1\) o no valor de \(0\))
+\hypertarget{rating}{%
+\subsubsection{Rating}\label{rating}}
 
-\hypertarget{estadisticos}{%
-\subsection{Estadísticos:}\label{estadisticos}}
-
-En esta seccion tendremos dos pestañas:
-
-\hypertarget{relacion-de-las-variables-independientes}{%
-\subsubsection{Relación de las variables independientes}\label{relacion-de-las-variables-independientes}}
-
-En esta pestaña, veremos el gráfico estadístico de boxplot para ver el comportamiento de la variable al segmentarla en deudores o no, ademas en la parte inferior tendremos un resumen estadístico de la variable seleccionada.
+En Rating cargamos los datos como se muestra a continuación
 
 \begin{figure}
 \centering
-\includegraphics{images/esta1.png}
+\includegraphics{images/7.png}
 \caption{\label{fig:"sd"}}
 \end{figure}
 
-\hypertarget{seleccion-de-variables}{%
-\subsection{Selección de variables}\label{seleccion-de-variables}}
+\hypertarget{proyeccion-rating}{%
+\subsubsection{Proyección Rating}\label{proyeccion-rating}}
 
-En esta sección el usuario podrá colocar el significancia para escoger las variables cualitativas y cuantitativas que se usaran en el modelo, la pestaña se divide en 2, una para cada tipo de variable.
+En \emph{proyrección rating} tenemos dos opciones, en la primera usamos datos provenientes del Score o datos propios.
 
 \begin{figure}
 \centering
-\includegraphics{images/esta2.png}
+\includegraphics{images/8.png}
 \caption{\label{fig:"sd"}}
 \end{figure}
 
 \hypertarget{perdida-por-incumplimiento}{%
-\section{Pérdida por incumplimiento}\label{perdida-por-incumplimiento}}
+\subsection{Pérdida por Incumplimiento}\label{perdida-por-incumplimiento}}
 
-En esta sección podra calcular la pérdida histórica por incumplimiento. El usuario podrá ver graficamente lo que espera recuprar en caso de incumplimiento, mientras transcurre el tiempo.
+En esta sección cargaremos los datos para estimar las pérdida esperada de los clientes.
+
+\hypertarget{perdida-por-clientes}{%
+\subsubsection{Pérdida por clientes}\label{perdida-por-clientes}}
+
+Se cargan los datos de pérdidas históricas por clientes.
 
 \begin{figure}
 \centering
-\includegraphics{images/perdida.png}
+\includegraphics{images/9.png}
 \caption{\label{fig:"sd"}}
 \end{figure}
 
-\hypertarget{score-de-credito.}{%
-\section{Score de Crédito.}\label{score-de-credito.}}
+\hypertarget{perdida-por-clase}{%
+\subsubsection{Pérdida por clase}\label{perdida-por-clase}}
 
-En esta sección se calculara la probabilidad de incumplimiento, score o pontuja crediticio por cliente, y se haran proyecciones a nuevos clientes.
-
-\hypertarget{seleccion-y-resultados-del-modelo}{%
-\subsection{Selección y resultados del modelo}\label{seleccion-y-resultados-del-modelo}}
-
-En esta sección el usuario seleccionara el modelo que mejor se ajuste a los datos, una vez seleccionado se deplegara la matriz con los resultados del modelo y el grafico ROC para mostrar el nivel de acierto del modelo.
+Se cargan los datos de pérdidas históricas por clientes y sus categorías crediticias.
 
 \begin{figure}
 \centering
-\includegraphics{images/score1.png}
+\includegraphics{images/10.png}
 \caption{\label{fig:"sd"}}
 \end{figure}
 
-\hypertarget{score-de-la-cartera-de-credito.}{%
-\subsection{Score de la cartera de crédito.}\label{score-de-la-cartera-de-credito.}}
+\hypertarget{matriz-de-transicion-1}{%
+\subsection{Matriz de transición}\label{matriz-de-transicion-1}}
 
-Una vez selecionado el modelo, en esta pestaña el usuario podra ver la probabilidad de incumplimiento y el score o puntaje crediticio de los clientes.
+En esta sección solo tendremos una pestaña en la cual se cargarán los datos de las transiciones históricas entre categorías.
 
 \begin{figure}
 \centering
-\includegraphics{images/score2.png}
+\includegraphics{images/11.png}
 \caption{\label{fig:"sd"}}
 \end{figure}
 
-\hypertarget{proyeccion-a-nuevos-clientes.}{%
-\subsection{Proyección a nuevos clientes.}\label{proyeccion-a-nuevos-clientes.}}
+\hypertarget{creditrisk-1}{%
+\subsection{CreditRisk+}\label{creditrisk-1}}
 
-\hypertarget{parametros-y-resultados.}{%
-\section{Parametros y resultados.}\label{parametros-y-resultados.}}
+En esta sección cargaremos los datos de la primera metodología de riesgo de crédito.
 
-En esta sección se pediran los valores de los parámetros básicos y se mostraran los resultados de las principales métricas de riesgo para la metodología CreditRisk+.
+\hypertarget{exposicion}{%
+\subsubsection{Exposición}\label{exposicion}}
+
+Primero cargamos los datos correspondientes a la exposición crediticia de cada cliente.
 
 \begin{figure}
 \centering
-\includegraphics{images/par1.png}
+\includegraphics{images/14.png}
 \caption{\label{fig:"sd"}}
 \end{figure}
 
-\hypertarget{parametros-iniciales}{%
-\subsection{Parámetros iniciales}\label{parametros-iniciales}}
+\hypertarget{probabilidad-de-incumplimiento}{%
+\subsubsection{Probabilidad de incumplimiento}\label{probabilidad-de-incumplimiento}}
 
-En esta sección, deberemos establecer la unidad de pérdida, que no es mas que la unidad de medida que inteta cuantificar la pérdida de una forma mas compacta. Deberemos ingresar el porcentaje de recuperación que se espera recuperar luego que un crédito esta en mora. Debemos cargar las probabilidades de incumplimiento de la cartera de clientes, podemos cargar una data propia generada por mecanismos internos o podemos cargar la proveniente de la sección de Score de crédito, en ambos casos la data debe tener la siguiente estructura:
+Se cargan las probabilidades de incumplimiento de cada cliente, en este caso podemos seleccionar un conjunto de datos propios o los provenientes de la sección Score
 
 \begin{figure}
 \centering
-\includegraphics{images/par2.png}
+\includegraphics{images/13.png}
+\caption{\label{fig:"sd"}}
+\end{figure}
+
+\hypertarget{perdidas-dado-el-incumplimiento}{%
+\subsubsection{Pérdidas dado el incumplimiento}\label{perdidas-dado-el-incumplimiento}}
+
+Se cargan las pérdidas asociadas a cada cliente o seleccionamos la opción \emph{Pérdidas por Clientes} para asociar una única pérdida a todos por igual.
+
+\begin{figure}
+\centering
+\includegraphics{images/12.png}
+\caption{\label{fig:"sd"}}
+\end{figure}
+
+\hypertarget{creditmetric}{%
+\subsection{CreditMetric}\label{creditmetric}}
+
+En esta sección se cargaran los datos correspondientes a la segunda metodología de riesgo de crédito.
+
+\hypertarget{exposicion-1}{%
+\subsubsection{Exposición}\label{exposicion-1}}
+
+Cargamos los datos de las exposiciones de cada cliente y sus calificaciones crediticias.
+
+\begin{figure}
+\centering
+\includegraphics{images/15.png}
+\caption{\label{fig:"sd"}}
+\end{figure}
+
+\hypertarget{matriz-de-transicion-2}{%
+\subsubsection{Matriz de transición}\label{matriz-de-transicion-2}}
+
+Cargamos la matriz de transición, tendremos la opción de cargar la calculada en la sección \emph{Matriz de transición}
+
+\begin{figure}
+\centering
+\includegraphics{images/16.png}
+\caption{\label{fig:"sd"}}
+\end{figure}
+
+\hypertarget{perdidas-dado-el-incumplimiento-1}{%
+\subsubsection{Pérdidas dado el incumplimiento}\label{perdidas-dado-el-incumplimiento-1}}
+
+Cargamos las pérdidas esperadas por categoría, de igual forma tenemos la opción de usar la calculada en la sección \emph{Pérdida por incumplimiento}
+
+\begin{figure}
+\centering
+\includegraphics{images/17.png}
+\caption{\label{fig:"sd"}}
+\end{figure}
+
+\hypertarget{backtesting}{%
+\subsection{BackTesting}\label{backtesting}}
+
+En esta sección cargamos los datos para realizar puebas al VaR
+
+\begin{figure}
+\centering
+\includegraphics{images/19.png}
+\caption{\label{fig:"sd"}}
+\end{figure}
+
+\hypertarget{indicadores-contables}{%
+\subsection{Indicadores Contables}\label{indicadores-contables}}
+
+En esta sección se calcularán algunos indicadores contables, primero debemos seleccionar que metodología se usará y luego cargar el archivo con ciertos datos contables.
+
+\begin{figure}
+\centering
+\includegraphics{images/18.png}
+\caption{\label{fig:"sd"}}
+\end{figure}
+
+\hypertarget{score-y-rating}{%
+\section{Score y rating}\label{score-y-rating}}
+
+Esta sección esta conformada por tres pestañas, estadísticos, Score de crédito y Rating de crédito
+
+\begin{figure}
+\centering
+\includegraphics{images/20.png}
+\caption{\label{fig:"sd"}}
+\end{figure}
+
+\hypertarget{estadisticos}{%
+\subsection{Estadísticos}\label{estadisticos}}
+
+Em esta sección veremos un pequeño resumen estadísticos y criterios para la selección de variables
+
+\hypertarget{relacion-de-las-variables-independientes}{%
+\subsubsection{Relación de las variables independientes}\label{relacion-de-las-variables-independientes}}
+
+Se tendrá la opción de ver el gráfico de caja y bigote de la variable independiente seleccionada y la variable Default. Además se tendrá un resumen estadístico de la variable seleccionada.
+
+\begin{figure}
+\centering
+\includegraphics{images/21.png}
+\caption{\label{fig:"sd"}}
+\end{figure}
+
+\hypertarget{seleccion-de-variables}{%
+\subsubsection{Selección de variables}\label{seleccion-de-variables}}
+
+Tendremos dos opciones, las cuales corresponden a la selección de variables cualitativas y cuantitativas, una vez seleccionada la opción podremos escoger el nivel de significancia de la prueba.
+
+\includegraphics{images/22.png}
+\includegraphics{images/23.png}
+
+\hypertarget{score-de-credito}{%
+\subsection{Score de Crédito}\label{score-de-credito}}
+
+En esta sección contruiremos el \emph{Score} de crédito el cual está basado en un modelo lineal generalizado.
+
+\hypertarget{seleccion-y-resultado-del-modelo}{%
+\subsubsection{Selección y Resultado del modelo}\label{seleccion-y-resultado-del-modelo}}
+
+Primero debemos seleccionar el link del modelo lineal generalizado.
+
+\begin{figure}
+\centering
+\includegraphics{images/24.png}
+\caption{\label{fig:"sd"}}
+\end{figure}
+
+Una vez escogido el link se muestrán los coeficientes del modelos por variable.
+
+\begin{figure}
+\centering
+\includegraphics{images/25.png}
+\caption{\label{fig:"sd"}}
+\end{figure}
+
+Luego se muestra información del modelo en general.
+
+\begin{figure}
+\centering
+\includegraphics{images/26.png}
+\caption{\label{fig:"sd"}}
+\end{figure}
+
+Finalizando con información de las métricas de bondad del modelo.
+\includegraphics{images/27.png}
+
+\hypertarget{score-de-la-cartera-de-credito-de-entrenamiento}{%
+\subsubsection{Score de la cartera de crédito de entrenamiento}\label{score-de-la-cartera-de-credito-de-entrenamiento}}
+
+En esta sección se muestra el Score y probabilidad de incumplimiento de los clientes con los cuales se construyó el modelo.
+
+\begin{figure}
+\centering
+\includegraphics{images/28.png}
+\caption{\label{fig:"sd"}}
+\end{figure}
+
+\hypertarget{proyeccion-a-nuevos-clientes}{%
+\subsubsection{Proyección a nuevos clientes}\label{proyeccion-a-nuevos-clientes}}
+
+En esta sección podemos usar el score para calcular la probabilidad de incumplimiento de nuevos clientes.
+
+\begin{figure}
+\centering
+\includegraphics{images/29.png}
+\caption{\label{fig:"sd"}}
+\end{figure}
+
+\hypertarget{rating-de-credito}{%
+\subsection{Rating de Crédito}\label{rating-de-credito}}
+
+En esta sección crearemos el sistema de rating para clasificar a los clientes.
+
+\hypertarget{construccion-del-modelo-de-rating}{%
+\subsubsection{Construcción del Modelo de Rating}\label{construccion-del-modelo-de-rating}}
+
+En esta sección se muestra la información estadística del modelo rating usando análisis de discriminante.
+
+\begin{figure}
+\centering
+\includegraphics{images/30.png}
+\caption{\label{fig:"sd"}}
+\end{figure}
+
+\hypertarget{rating-de-nuevos-clientes}{%
+\subsubsection{Rating de Nuevos clientes}\label{rating-de-nuevos-clientes}}
+
+Una vez creado el modelo de rating en esta sección se muestra la proyección a nuevos clientes.
+
+\begin{figure}
+\centering
+\includegraphics{images/31.png}
+\caption{\label{fig:"sd"}}
+\end{figure}
+
+\hypertarget{perdida-por-incumplimiento-1}{%
+\section{Pérdida por incumplimiento}\label{perdida-por-incumplimiento-1}}
+
+En esta sección calcularemos las pérdidas esperadas por cliente, tendremos dos opciones: pérdida de la cartera en general y pérdida por clasificación.
+
+\begin{figure}
+\centering
+\includegraphics{images/32.png}
+\caption{\label{fig:"sd"}}
+\end{figure}
+
+\hypertarget{perdida-por-cliente}{%
+\subsection{Pérdida por Cliente}\label{perdida-por-cliente}}
+
+\hypertarget{datos}{%
+\subsubsection{Datos}\label{datos}}
+
+En esta sección veremos un histograma de las pérdidas históricas
+
+\begin{figure}
+\centering
+\includegraphics{images/33.png}
+\caption{\label{fig:"sd"}}
+\end{figure}
+
+\hypertarget{perdidas-usando-bootstrap}{%
+\subsubsection{Pérdidas usando bootstrap}\label{perdidas-usando-bootstrap}}
+
+La técnica bootstrap consiste en simular usando la data muchas submuestras, para obtener estadísticos fáciles de calcular, tendremos dos opciones para iniciar la simulación: Número de sub-muestras y Tamaños de las sub-muestras
+
+\begin{figure}
+\centering
+\includegraphics{images/34.png}
+\caption{\label{fig:"sd"}}
+\end{figure}
+
+\hypertarget{perdida-por-clases}{%
+\subsection{Pérdida por Clases}\label{perdida-por-clases}}
+
+\hypertarget{perdidas-promedios}{%
+\subsubsection{Pérdidas Promedios}\label{perdidas-promedios}}
+
+En esta sección se calculan las pérdidas promedios por clase o categoría.
+
+\begin{figure}
+\centering
+\includegraphics{images/35.png}
+\caption{\label{fig:"sd"}}
+\end{figure}
+
+\hypertarget{perdidas-usando-bootstrap-1}{%
+\subsubsection{Pérdidas usando bootstrap}\label{perdidas-usando-bootstrap-1}}
+
+De igual manera se usa bootstrap, pero en este caso se usa por categoría.
+
+\begin{figure}
+\centering
+\includegraphics{images/36.png}
+\caption{\label{fig:"sd"}}
+\end{figure}
+
+\hypertarget{matriz-de-trnasicion}{%
+\section{Matriz de trnasición}\label{matriz-de-trnasicion}}
+
+En esta sección se calcula la matriz de transición crediticia.
+
+\begin{figure}
+\centering
+\includegraphics{images/37.png}
+\caption{\label{fig:"sd"}}
+\end{figure}
+
+\hypertarget{matriz-de-transicion-3}{%
+\subsection{Matriz de transición}\label{matriz-de-transicion-3}}
+
+Una vez cargados los datos, se calcula la matriz de transición, usando tasas ponderadas históricas.
+
+\begin{figure}
+\centering
+\includegraphics{images/38.png}
+\caption{\label{fig:"sd"}}
+\end{figure}
+
+\hypertarget{creditrisk-2}{%
+\section{CreditRisk+}\label{creditrisk-2}}
+
+Ene sta sección se mostraron los resultados de usar la metodología de riesgo de crédito CreditRisk+, la cual está conformada por dos pestañas.
+
+\begin{figure}
+\centering
+\includegraphics{images/39.png}
 \caption{\label{fig:"sd"}}
 \end{figure}
 
 \hypertarget{resultados}{%
 \subsection{Resultados}\label{resultados}}
 
-En la sección resultados, podremos escoger el nivel de significancia deseado, para mostrar las metrícas usuales de riesgo, tendremos tambien la opción para descargar el roporte proveniente de esta metodología
+En esta sección se mostrarán los resultados correspondiente a la metodología
+
+\hypertarget{perdida-esperada-por-cliente}{%
+\subsubsection{Pérdida esperada por cliente}\label{perdida-esperada-por-cliente}}
+
+En esta sección se muestra una tabla estadística de la información sobre la pérdida de los clientes.
 
 \begin{figure}
 \centering
-\includegraphics{images/par3.png}
+\includegraphics{images/40.png}
 \caption{\label{fig:"sd"}}
 \end{figure}
 
-\hypertarget{stress-testing}{%
-\section{Stress Testing}\label{stress-testing}}
+\hypertarget{incumplimientos}{%
+\subsubsection{Incumplimientos}\label{incumplimientos}}
 
-En esta sección de una manera controlada porcentualmente simularemos resultados extremos de pérdida, para luego mostrar la pérdida esperada tras esto.
+En esta sección se muestra la probabilidad de que ocurran \(n\) incumplimientos en la cartera de clientes
 
 \begin{figure}
 \centering
-\includegraphics{images/stre.png}
+\includegraphics{images/41.png}
 \caption{\label{fig:"sd"}}
 \end{figure}
 
-\hypertarget{segunda-seccion-credimetrics}{%
-\section{Segunda sección: Credimetrics}\label{segunda-seccion-credimetrics}}
-
-En la segunda sección que se observa en la columna izquierda, consta de las siguientes secciones: créditos, matriz de transición, Pérdida por clase, simulación y resultados, stressting.
+Luego se presenta la distribución acumulada del número de incumplimientos
 
 \begin{figure}
 \centering
-\includegraphics{images/sec2.png}
+\includegraphics{images/42.png}
 \caption{\label{fig:"sd"}}
 \end{figure}
 
-\hypertarget{creditos}{%
-\section{Créditos}\label{creditos}}
+\hypertarget{perdida}{%
+\subsubsection{Pérdida}\label{perdida}}
 
-En esta sección, deberemos cargar las exposiciones de los créditos y sus respectivas calificaciones:
+En esta sección se muestra la probabilidad de perder \(n\) unidades de pérdida
 
 \begin{figure}
 \centering
-\includegraphics{images/exp.png}
+\includegraphics{images/43.png}
 \caption{\label{fig:"sd"}}
 \end{figure}
 
-\hypertarget{matriz-de-trancicion}{%
-\section{Matriz de trancición}\label{matriz-de-trancicion}}
-
-En esta sección cargaremos los datos para el cálculo de la matriz de transición crediticia
-
-\hypertarget{calculo-de-la-matriz-de-transicion}{%
-\subsection{Cálculo de la matriz de transición}\label{calculo-de-la-matriz-de-transicion}}
-
-En esta sección debemos cargar los datos históricos de migraciones crediticias en periodos de tiempo especificos, es decir, con que calificación inicio el crédito y con cual finalizo.
-
-\includegraphics{images/mtr.png}
-Una vez cargados los datos en la parte inferior se mostrara la matriz de transición cálculada:
+Luego se presenta la función de distribución de las pérdidas.
 
 \begin{figure}
 \centering
-\includegraphics{images/mtr2.png}
+\includegraphics{images/44.png}
 \caption{\label{fig:"sd"}}
 \end{figure}
 
-\hypertarget{selececcion-de-la-matriz-de-transicion}{%
-\subsection{Selecección de la matriz de transición}\label{selececcion-de-la-matriz-de-transicion}}
+\hypertarget{resultados-1}{%
+\subsubsection{Resultados}\label{resultados-1}}
 
-En esta sección se debera seleccionar la matriz de transición, se puede escoger la ya calculada o en caso de que el banco no posea los datos históricos necesarios, podra cargar su matriz de transición propia, pero debe tener el siguiente formato.
+En esta sección se muestran las métricas de riesgo de la metodología.
 
 \begin{figure}
 \centering
-\includegraphics{images/mtr3.png}
+\includegraphics{images/45.png}
 \caption{\label{fig:"sd"}}
 \end{figure}
 
-\hypertarget{perdida-por-clase.}{%
-\section{Pérdida por clase.}\label{perdida-por-clase.}}
+\hypertarget{strestesting}{%
+\subsection{StresTesting}\label{strestesting}}
 
-En esta sección se calcula o solicita las pérdidas esperadas por calificación crediticia.
-
-\hypertarget{calculo-de-perdida-esperada}{%
-\subsection{Cálculo de pérdida esperada}\label{calculo-de-perdida-esperada}}
-
-En esta pestaña el usuario debe cargar los datos históricos de las pérdidad ocacionadas por clientes dado su calificación.
+En esta sección se muestra el valor de una prueba de estres en la metodología.
 
 \begin{figure}
 \centering
-\includegraphics{images/perd1.png}
+\includegraphics{images/46.png}
 \caption{\label{fig:"sd"}}
 \end{figure}
 
-\hypertarget{perdida-esperada-1}{%
-\subsection{Pérdida esperada}\label{perdida-esperada-1}}
+\hypertarget{creditmetric-1}{%
+\section{CreditMetric}\label{creditmetric-1}}
 
-Al igual que en la sección de la matriz de transición, el usuario podra seleccionar la matriz calculada o introducir una propia:
+En esta sección se presenta la segunda metodología de riesgo de crédito.
 
 \begin{figure}
 \centering
-\includegraphics{images/perd2.png}
+\includegraphics{images/47.png}
 \caption{\label{fig:"sd"}}
 \end{figure}
 
-\hypertarget{simulacion-y-resultados.}{%
-\section{Simulación y resultados.}\label{simulacion-y-resultados.}}
+\hypertarget{simulacion-y-resultados}{%
+\subsection{Simulación y Resultados}\label{simulacion-y-resultados}}
 
-En esta sección el usuario indicara el número de simulaciones para la simulación de MonteCarlo, la aplicación realizara los cálculos y nos presentara las métricas de riesgo y la opción de descargar el reporte.
+En esta sección debemos seleccionar el número de simulaciones para iniciar el cálculo de la metodología.
 
 \begin{figure}
 \centering
-\includegraphics{images/var2.png}
+\includegraphics{images/48.png}
 \caption{\label{fig:"sd"}}
 \end{figure}
 
-\hypertarget{stress-testing.}{%
-\section{Stress Testing.}\label{stress-testing.}}
-
-Una vez llevado a cabo todos los pasos requeridos para la metodología, el usuario podrá realizar una prueba de estres sobre los parámetros del modelo.
+Una vez iniciada la simulación obtendremos el histograma de las pérdidas simuladas y las métricas de riesgo.
 
 \begin{figure}
 \centering
-\includegraphics{images/stress2.png}
+\includegraphics{images/49.png}
 \caption{\label{fig:"sd"}}
 \end{figure}
 
-\hypertarget{tercera-seccion-indicadores-contables}{%
-\section{Tercera sección: Indicadores contables}\label{tercera-seccion-indicadores-contables}}
+\hypertarget{stresstesting}{%
+\subsection{StressTesting}\label{stresstesting}}
 
-En esta sección se calculan indicadores contables, poniendo atención al RAROC de crédito, y otros que dependen exclusimamente del balence de la entidad financiera.
-
-\hypertarget{calculo-del-raroc}{%
-\section{Cálculo del RAROC}\label{calculo-del-raroc}}
-
-Dedicamos una subsección completa debido a su gran uso en las entidades financieras. Lo primero que veremos es una sección informativa:
+En esta sección realizaremos una prueba de estres a la metodología CreditMetrics.
 
 \begin{figure}
 \centering
-\includegraphics{images/cont1.png}
+\includegraphics{images/50.png}
 \caption{\label{fig:"sd"}}
 \end{figure}
 
-\hypertarget{raroc}{%
-\subsection{RAROC}\label{raroc}}
+\hypertarget{backtesting-1}{%
+\section{BackTesting}\label{backtesting-1}}
 
-En esta pestaña, requerimos que el usuario cargue la información del balence necesaria para el cálculo del RAROC y la metodología de riesgo de crédito que uso
+En esta sección se harán pruebas sobre el VaR, usando el test de Haas, Kupiec y el mixto
 
 \begin{figure}
 \centering
-\includegraphics{images/cont2.png}
+\includegraphics{images/51.png}
+\caption{\label{fig:"sd"}}
+\end{figure}
+
+\hypertarget{indicadores-contables-1}{%
+\section{Indicadores Contables}\label{indicadores-contables-1}}
+
+En esta última sección se calcularán ciertos indicadores contables, algunos basados únicamente en los datos contables y otros basados en las métricas de riesgo.
+
+\begin{figure}
+\centering
+\includegraphics{images/52.png}
 \caption{\label{fig:"sd"}}
 \end{figure}
 
@@ -1532,129 +1766,194 @@ En esta pestaña, requerimos que el usuario cargue la información del balence n
 \appendix \addcontentsline{toc}{chapter}{\appendixname}}
 
 
-\hypertarget{software-tools}{%
-\chapter{Software Tools}\label{software-tools}}
+\hypertarget{formato-de-los-datos-de-la-aplicacion}{%
+\chapter{Formato de los datos de la aplicación}\label{formato-de-los-datos-de-la-aplicacion}}
 
-For those who are not familiar with software packages required for using R Markdown, we give a brief introduction to the installation and maintenance of these packages.
+En esta sección se describirá el formato que deben poseer los datos que necesitará la aplicación.
 
-\hypertarget{r-and-r-packages}{%
-\section{R and R packages}\label{r-and-r-packages}}
+\hypertarget{score-y-rating-1}{%
+\section{Score y Rating}\label{score-y-rating-1}}
 
-R can be downloaded and installed from any CRAN (the Comprehensive R Archive Network) mirrors, e.g., \url{https://cran.rstudio.com}. Please note that there will be a few new releases of R every year, and you may want to upgrade R occasionally.
+Este módulo esta compuesto de 4 pestañas:
 
-To install the \textbf{bookdown} package, you can type this in R:
+\hypertarget{scoring-1}{%
+\subsection{Scoring}\label{scoring-1}}
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{install.packages}\NormalTok{(}\StringTok{"bookdown"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
+Este archivo debe tener la extensión \emph{.txt} ó \emph{csv}. Todos sus campos deben ser numéricos, en caso de haber categorías deben estar expresadas en números. Esta data es escencial para la contrucción del modelo de Scoring.
 
-This installs all required R packages. You can also choose to install all optional packages as well, if you do not care too much about whether these packages will actually be used to compile your book (such as \textbf{htmlwidgets}):
+\begin{itemize}
+\tightlist
+\item
+  Una de sus columnas deben tener el nombre ``Creditability''
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{install.packages}\NormalTok{(}\StringTok{"bookdown"}\NormalTok{, }\DataTypeTok{dependencies =} \OtherTok{TRUE}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
+  \begin{itemize}
+  \tightlist
+  \item
+    Para clientes en Default 1
+  \item
+    Para clientes en regla 0
+  \end{itemize}
+\end{itemize}
 
-If you want to test the development version of \textbf{bookdown} on GitHub, you need to install \textbf{devtools} first:
+\hypertarget{proyeccion-scoring-1}{%
+\subsection{Proyección Scoring}\label{proyeccion-scoring-1}}
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\ControlFlowTok{if}\NormalTok{ (}\OperatorTok{!}\KeywordTok{requireNamespace}\NormalTok{(}\StringTok{'devtools'}\NormalTok{)) }\KeywordTok{install.packages}\NormalTok{(}\StringTok{'devtools'}\NormalTok{)}
-\NormalTok{devtools}\OperatorTok{::}\KeywordTok{install_github}\NormalTok{(}\StringTok{'rstudio/bookdown'}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
+En esta sección se realizan predicciones a partir del modelo Score calculado. Los campos de los datos deben ser exatamente igual a los de los datos de entrenamiento, con la excepción de que el campo ``Creditability'' no debería existir.
 
-R packages are also often constantly updated on CRAN or GitHub, so you may want to update them once in a while:
+\hypertarget{rating-1}{%
+\subsection{Rating}\label{rating-1}}
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{update.packages}\NormalTok{(}\DataTypeTok{ask =} \OtherTok{FALSE}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
+Archivo con extensión \emph{.csv} ó \emph{.txt} el cual debe estar conformado por dos campos:
 
-Although it is not required, the RStudio IDE can make a lot of things much easier when you work on R-related projects. The RStudio IDE can be downloaded from \url{https://www.rstudio.com}.
+\begin{itemize}
+\tightlist
+\item
+  pd: Campo numérico indicando probabilidad de incumplimiento
+\item
+  r: Campo categórico que indica rating del cliente
+\end{itemize}
 
-\hypertarget{pandoc}{%
-\section{Pandoc}\label{pandoc}}
+\hypertarget{proyeccion-rating-1}{%
+\subsection{Proyección Rating}\label{proyeccion-rating-1}}
 
-An R Markdown document (\texttt{*.Rmd}) is first compiled to Markdown (\texttt{*.md}) through the \textbf{knitr} package, and then Markdown is compiled to other output formats (such as LaTeX or HTML) through Pandoc.\index{Pandoc} This process is automated by the \textbf{rmarkdown} package. You do not need to install \textbf{knitr} or \textbf{rmarkdown} separately, because they are the required packages of \textbf{bookdown} and will be automatically installed when you install \textbf{bookdown}. However, Pandoc is not an R package, so it will not be automatically installed when you install \textbf{bookdown}. You can follow the installation instructions on the Pandoc homepage (\url{http://pandoc.org}) to install Pandoc, but if you use the RStudio IDE, you do not really need to install Pandoc separately, because RStudio includes a copy of Pandoc. The Pandoc version number can be obtained via:
+Archivo con extensión \emph{.csv} ó \emph{.txt} el cual debe tener una única entrada numérica entre 0 y 1 correspondiente a la probabilidasd de incumplimiento.
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{rmarkdown}\OperatorTok{::}\KeywordTok{pandoc_version}\NormalTok{()}
-\CommentTok{## [1] '2.7.3'}
-\end{Highlighting}
-\end{Shaded}
+\hypertarget{perdida-por-incumplimiento-2}{%
+\section{Pérdida por incumplimiento}\label{perdida-por-incumplimiento-2}}
 
-If you find this version too low and there are Pandoc features only in a later version, you can install the later version of Pandoc, and \textbf{rmarkdown} will call the newer version instead of its built-in version.
+\hypertarget{perdida-por-cliente-1}{%
+\subsection{Pérdida por cliente}\label{perdida-por-cliente-1}}
 
-\hypertarget{latex}{%
-\section{LaTeX}\label{latex}}
+Archivo con extensión \emph{.csv} ó \emph{.txt} el cual debe tener una única data numérica entre 0 y 1 correspondiente al porcentaje de pérdida luego del Default.
 
-LaTeX\index{LaTeX} is required only if you want to convert your book to PDF. The typical choice of the LaTeX distribution depends on your operating system. Windows users may consider MiKTeX (\url{http://miktex.org}), Mac OS X users can install MacTeX (\url{http://www.tug.org/mactex/}), and Linux users can install TeXLive (\url{http://www.tug.org/texlive}). See \url{https://www.latex-project.org/get/} for more information about LaTeX and its installation.
+\hypertarget{perdida-por-cliente-2}{%
+\subsection{Pérdida por cliente}\label{perdida-por-cliente-2}}
 
-Most LaTeX distributions provide a minimal/basic package and a full package. You can install the basic package if you have limited disk space and know how to install LaTeX packages later. The full package is often significantly larger in size, since it contains all LaTeX packages, and you are unlikely to run into the problem of missing packages in LaTeX.
+Archivo con extensión \emph{.csv} ó \emph{.txt} el cual debe tener dos campos
 
-LaTeX error messages may be obscure to beginners, but you may find solutions by searching for the error message online (you have good chances of ending up on \href{http://tex.stackexchange.com}{StackExchange}). In fact, the LaTeX code converted from R Markdown should be safe enough and you should not frequently run into LaTeX problems unless you introduced raw LaTeX content in your Rmd documents. The most common LaTeX problem should be missing LaTeX packages, and the error may look like this:
+\begin{itemize}
+\item
+  clases: Variable categórica correspondiente a las clases crediticias
+\item
+  perdida: variable numérica entre 0 y 100 correspondiente a la pérdida por clase
+\end{itemize}
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{! LaTeX Error: File `titling.sty' not found.}
+\hypertarget{matriz-de-transicion-4}{%
+\section{Matriz de transición}\label{matriz-de-transicion-4}}
 
-\NormalTok{Type X to quit or <RETURN> to proceed,}
-\NormalTok{or enter new name. (Default extension: sty)}
+\hypertarget{migraciones-historicas}{%
+\subsection{Migraciones históricas}\label{migraciones-historicas}}
 
-\NormalTok{Enter file name: }
-\NormalTok{! Emergency stop.}
-\NormalTok{<read *> }
-         
-\NormalTok{l.107 ^^M}
+Archivo con extensión \emph{.csv} ó \emph{.txt} el cual debe tener dos campos
 
-\NormalTok{pandoc: Error producing PDF}
-\NormalTok{Error: pandoc document conversion failed with error 43}
-\NormalTok{Execution halted}
-\end{Highlighting}
-\end{Shaded}
+\begin{itemize}
+\item
+  inicio: Variable categórica correspondiente a la clase inicial del cliente
+\item
+  fin: Variable categórica correspondiente a la clase final del cliente
+\end{itemize}
 
-This means you used a package that contains \texttt{titling.sty}, but it was not installed. LaTeX package names are often the same as the \texttt{*.sty} filenames, so in this case, you can try to install the \texttt{titling} package. Both MiKTeX and MacTeX provide a graphical user interface to manage packages. You can find the MiKTeX package manager from the start menu, and MacTeX's package manager from the application ``TeX Live Utility''. Type the name of the package, or the filename to search for the package and install it. TeXLive may be a little trickier: if you use the pre-built TeXLive packages of your Linux distribution, you need to search in the package repository and your keywords may match other non-LaTeX packages. Personally, I find it frustrating to use the pre-built collections of packages on Linux, and much easier to install TeXLive from source, in which case you can manage packages using the \texttt{tlmgr} command. For example, you can search for \texttt{titling.sty} from the TeXLive package repository:
+\hypertarget{creditrisk-3}{%
+\section{CreditRisk+}\label{creditrisk-3}}
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\ExtensionTok{tlmgr}\NormalTok{ search --global --file titling.sty}
-\CommentTok{# titling:}
-\CommentTok{#    texmf-dist/tex/latex/titling/titling.sty}
-\end{Highlighting}
-\end{Shaded}
+\hypertarget{exposicion-2}{%
+\subsection{Exposición}\label{exposicion-2}}
 
-Once you have figured out the package name, you can install it by:
+Archivo con extensión \emph{.csv} ó \emph{.txt} el cual debe tener una única data numérica correspondiente al valor deudor del crédito.
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\ExtensionTok{tlmgr}\NormalTok{ install titling  }\CommentTok{# may require sudo}
-\end{Highlighting}
-\end{Shaded}
+\hypertarget{probabilidad-de-incumplimiento-1}{%
+\subsection{Probabilidad de incumplimiento}\label{probabilidad-de-incumplimiento-1}}
 
-LaTeX distributions and packages are also updated from time to time, and you may consider updating them especially when you run into LaTeX problems. You can find out the version of your LaTeX distribution by:
+Archivo con extensión \emph{.csv} ó \emph{.txt} el cual debe tener una única data numérica correspondiente a la probabilidad de incumplimiento de cada cliente.
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{system}\NormalTok{(}\StringTok{'pdflatex --version'}\NormalTok{)}
-\CommentTok{## pdfTeX 3.14159265-2.6-1.40.19 (TeX Live 2018)}
-\CommentTok{## kpathsea version 6.3.0}
-\CommentTok{## Copyright 2018 Han The Thanh (pdfTeX) et al.}
-\CommentTok{## There is NO warranty.  Redistribution of this software is}
-\CommentTok{## covered by the terms of both the pdfTeX copyright and}
-\CommentTok{## the Lesser GNU General Public License.}
-\CommentTok{## For more information about these matters, see the file}
-\CommentTok{## named COPYING and the pdfTeX source.}
-\CommentTok{## Primary author of pdfTeX: Han The Thanh (pdfTeX) et al.}
-\CommentTok{## Compiled with libpng 1.6.34; using libpng 1.6.34}
-\CommentTok{## Compiled with zlib 1.2.11; using zlib 1.2.11}
-\CommentTok{## Compiled with xpdf version 4.00}
-\end{Highlighting}
-\end{Shaded}
+\hypertarget{perdidas-dado-el-incumplimiento-2}{%
+\subsection{Pérdidas dado el incumplimiento}\label{perdidas-dado-el-incumplimiento-2}}
+
+Archivo con extensión \emph{.csv} ó \emph{.txt} el cual debe tener una única data numérica correspondiente a la pérdida esperada por cliente en pocentaje de 0 a 1.
+
+\hypertarget{creditmetrics-1}{%
+\section{CreditMetrics}\label{creditmetrics-1}}
+
+\hypertarget{exposicion-3}{%
+\subsection{Exposición}\label{exposicion-3}}
+
+Archivo con extensión \emph{.csv} ó \emph{.txt} el cual debe tener dos campos:
+
+\begin{itemize}
+\item
+  creditos: Variable numérica correspondiente al monto del crédito restante a pagar por el cliente.
+\item
+  calif: Variable categórica correspondiente a la clasificación crediticia del cliente.
+\end{itemize}
+
+\hypertarget{martriz-de-transicion}{%
+\subsection{Martriz de transición}\label{martriz-de-transicion}}
+
+Archivo con extensión \emph{.csv} ó \emph{.txt} el cual debe poseer :
+
+\begin{itemize}
+\item
+  Un campo con nombre \emph{inicio/fin} con las categorias crediticias
+\item
+  Una matriz numérica correspondiente a las probabilidades de transición entre clases, la suma de cada columna debe ser 1.
+\end{itemize}
+
+\hypertarget{perdida-por-clase-1}{%
+\subsection{Pérdida por clase}\label{perdida-por-clase-1}}
+
+Archivo con extensión \emph{.csv} ó \emph{.txt} el cual debe poseer los siguientes campos:
+
+\begin{itemize}
+\item
+  Clase: Variable categórica con las distintas clases crediticias.
+\item
+  Pérdida esperada: variable numérica entre 0 y 100 correspondiente a la pérdida esperada por cliente
+\item
+  Mínimo esperado: variable numérica entre 0 y 100 correspondiente a la mínima pérdida esperada por cliente
+\item
+  Máximo esperado: variable numérica entre 0 y 100 correspondiente a la máxima pérdida esperada por cliente
+\end{itemize}
+
+\hypertarget{backtesting-2}{%
+\section{BackTesting}\label{backtesting-2}}
+
+Archivo con extensión \emph{.csv} ó \emph{.txt} el cual debe poseer los siguientes campos:
+
+\begin{itemize}
+\tightlist
+\item
+  Fecha en formato dia/mes/año (27/03/2018)
+\item
+  Valor numérico que contenga la información del VaR de ese día
+\item
+  Valor numérico que contenga el valor nominal del portafolio
+\end{itemize}
+
+Es importante mencionar que el archivo debe contener 252 observaciones
+
+\hypertarget{indicadores-contables-2}{%
+\section{Indicadores Contables}\label{indicadores-contables-2}}
+
+Archivo con extensión \emph{.csv} ó \emph{.txt} el cual debe poseer los siguientes 2 campos:
+
+\begin{itemize}
+\tightlist
+\item
+  concepto: Nombre de los diferentes indicadores:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Saldo de la Cartera de Crédito vencida al cierre del periodo
+  \item
+    Saldo de la Cartera de Crédito total al cierre del periodo
+  \item
+    Saldo de la estimación preventiva para riesgos crediticios al cierre del periodo
+  \item
+    Resultado contable de los activos financieros
+  \end{itemize}
+\item
+  Valor: Variable numérica que refleja el valor contable.
+\end{itemize}
 
 \end{document}
