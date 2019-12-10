@@ -1674,7 +1674,7 @@ shinyServer(function(input, output, session) {
   
   output$datatablecrm<-renderDataTable({
     
-    ca22 <- try( data4())
+    ca22<- try( data4())
     
     
     if (class(ca22)=="try-error") {
@@ -3048,7 +3048,7 @@ shinyServer(function(input, output, session) {
  
  output$datatableMTR<-renderDataTable({
    
-   ca22 <- try( mattrans())
+   ca22 <- try( t(mattrans()))
    
    
    if (class(ca22)=="try-error") {
