@@ -779,7 +779,7 @@ shinyServer(function(input, output, session) {
     dataaa2()
   })
   
-  
+  ## la proyeccion
   proyec <- reactive({
     
     
@@ -803,7 +803,7 @@ shinyServer(function(input, output, session) {
   
   
   
-  
+  ## Aqui se muestra el score proyectado
   output$proy <- renderDataTable({
     
     pro <- try(proyec())
@@ -1142,7 +1142,7 @@ shinyServer(function(input, output, session) {
   }
   
   
-  ### aqui se muestra la grafica.
+  
   
   bot <- reactive({
     
@@ -1151,7 +1151,7 @@ shinyServer(function(input, output, session) {
     isolate(bootL(data7(),input$boot))
   })
   
-  ############
+  ### aqui se muestra la grafica.
   
   output$booot1 <- renderPlotly({
     
@@ -1800,12 +1800,9 @@ shinyServer(function(input, output, session) {
     # column will contain the local filenames where the data can
     # be found.
     
-    inFile <- input$indices
-    
-    if (is.null(inFile))
-      return(NULL)
-    read.table(inFile$datapath, header = input$headerind,
-               sep = input$sepind, quote = input$quoteind)
+   
+    read.table("data/Datos_Ejemplos/indicadoresContables/contable.csv", header = TRUE,
+               sep = ";", quote = "")
     
   })
   
@@ -2133,10 +2130,14 @@ shinyServer(function(input, output, session) {
    l3 <- ceiling(l2[4]/input$uniper)
    
    names(l3) <- "Unidades de pérdida"
-   
-   
    cbind(l2,l3)
    
+   resul <- cbind(l2,l3)
+   
+   colnames(resul) <-c("Exposición (EAD)", "Probabilidad de incumplimiento (PI)",
+                      "Pérdida dado el incumplimiento (LGD)" ,
+                      "Pérdida esperada (EL)", "Unidades de pérdida")
+   resul
 
  }) 
  
@@ -3705,15 +3706,12 @@ shinyServer(function(input, output, session) {
     # column will contain the local filenames where the data can
     # be found.
     
-    inFile <- input$file_data_back
     
-    if (is.null(inFile))
-      return(NULL)
     
     # read.table(inFile$datapath, header = input$header,
     #            sep = input$sep, quote = input$quote)
-    a <- read.delim2(inFile$datapath, header = input$header_back,
-                     sep = input$sep_back, quote = input$quote_back)
+    a <- read.delim2("data/Datos_Ejemplos/BackTesting/backp.csv", header = FALSE,
+                     sep = ";", quote = "")
     
     return(a)
     
