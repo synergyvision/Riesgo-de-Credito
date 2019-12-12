@@ -3755,9 +3755,73 @@ shinyServer(function(input, output, session) {
                         params = params,
                         envir = new.env(parent = globalenv())
       )
+    })####
+  
+  
+  ##########Seccion de requerimiento del venezuela
+  
+  
+  
+  reque <- reactive({
+    
+    
+    # l<- cbind(datasetInputEXP(),Proba(),perdidaconstr())
+    # l1 <- l[1]*l[2]*l[3]
+    # colnames(l1) <- "Pérdida Esperada"
+    # l2 <- cbind(datasetInputEXP(),Proba(),perdidaconstr(),l1)
+    # 
+    # l3 <- ceiling(l2[4]/input$uniper)
+    # 
+    # names(l3) <- "Unidades de pérdida"
+    # cbind(l2,l3)
+    # 
+    # resul <- cbind(l2,l3)
+    # 
+    # colnames(resul) <-c("Exposición (EAD)", "Probabilidad de incumplimiento (PI)",
+    #                     "Pérdida dado el incumplimiento (LGD)" ,
+    #                     "Pérdida esperada (EL)", "Unidades de pérdida")
+     
+    
+    l <- data6()
+    perdidas_clases <-clasecrm()
+    lgd <- l[2]
+    
+    # as.data.frame(lgd[lgd[1] == "A"])
+    # 
+    # 
+    # for (i in 1:dim(lgd)[1]) {
+    #   
+    #   d <- perdidas_clases(perdidas_clases[1]==lgd[i,1])
+    #   
+    # }
+    # 
+      val <- perdidas_clases[perdidas_clases[1]==as.vector(lgd[23,1])]
+      #as.data.frame(val[2])
+    
+    lgdcli <- NULL
+    
+    for (i in 1:dim(lgd)[1]) {
+      
+      val <- perdidas_clases[perdidas_clases[1]==as.vector(lgd[i,1])]
+      lgdcli[i] <- (as.numeric(val[2])/100)
+      
+    }
+     
+    
+    res <- cbind(l,as.data.frame(lgdcli),l[1]*as.data.frame(lgdcli))
+    colnames(res) <- c("Exposición (EAD)", "Calificación", "Perdida dado el incumplimiento (LGD)", "Pérdida esperada")
+    res
     })
   
   
-
+  
+  
+  output$datatable_per_credime <- renderDataTable({
+    
+    reque()
+    
+  })
+  
+  
   
 })

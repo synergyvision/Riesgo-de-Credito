@@ -989,16 +989,28 @@ shinyUI(
                             fluidRow( column( 12,box(width=12,h2("Reporte"), status = "warning",downloadButton("reporte1","Descargar"))))
                             
                             
-                    )
-                    
-       
-                   ,
+                    ),
                     
                 
+                   
+                   
+                   
                     
                     tabItem( tabName = "RES" , 
                              
                              fluidRow(
+                               
+                               
+                                 tabBox( height = "1250px", width = 12,side = "left",
+                                         
+                                         tabPanel( title = tagList(shiny::icon("gear"), strong('Pérdida por cliente')),
+                                                   fluidRow(
+                                                     box(width=12,title = h1("Pérdida Esperada por Ciente"),status = "warning",dataTableOutput('datatable_per_credime')))
+                                                   
+                                                   
+                                                   ),
+                                         
+                                         tabPanel( title = tagList(shiny::icon("gear"), strong('Simulación y resultados')) , 
                                
                                box(title = h3("Escoga Nivel de Confianza Para el VaR"),width=12,solidHeader = T,status = "warning",radioButtons("conf1","", 
                                                                                                                                                 choices = list("90%" = 90, "95%" = 95,
@@ -1022,7 +1034,7 @@ shinyUI(
                              
                              
                              
-                    ),
+                    ))),
                    
                    tabItem(tabName = "ST2",
                            
