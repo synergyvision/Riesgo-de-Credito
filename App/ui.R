@@ -1005,7 +1005,7 @@ shinyUI(
                                          
                                          tabPanel( title = tagList(shiny::icon("gear"), strong('Pérdida por cliente')),
                                                    fluidRow(
-                                                     box(width=12,title = h1("Pérdida Esperada por Ciente"),status = "warning",dataTableOutput('datatable_per_credime')))
+                                                     box(width=12,title = h1("Pérdida Esperada por Cliente"),status = "warning",dataTableOutput('datatable_per_credime')))
                                                    
                                                    
                                                    ),
@@ -1068,9 +1068,21 @@ shinyUI(
                    
                    
                    tabItem( tabName = "Mor" ,
+                            
+                            fluidPage(withMathJax(),box(width=12,status = "warning",solidHeader = T,title = "Índice de Morosidad", h3(uiOutput('ex5')))),
+                            fluidPage(withMathJax(),box(width=12,status = "warning",solidHeader = T,title = "Índice de Cobertura", h3(uiOutput('ex6')))),
+                            fluidPage(withMathJax(),box(width=12,status = "warning",solidHeader = T,title = "RAROC", h3(uiOutput('ex1')))),
+                            fluidPage(withMathJax(),box(width=12,status = "warning",solidHeader = T,title = "RAR", h3(uiOutput('ex2')))),
+                            fluidPage(withMathJax(),box(width=12,status = "warning",solidHeader = T,title = "RORAC", h3(uiOutput('ex3')))),
+                            fluidPage(withMathJax(),box(width=12,status = "warning",solidHeader = T,title = "RARORAC", h3(uiOutput('ex4')))),
+
+                            
+                            
+                            fluidPage(
+                            
                             fluidRow(column(4,box(width=12,status = "warning",solidHeader = T,title = h3("RAROC"),h3(textOutput("raroc1")))),column(4,box(width=12,solidHeader = T,status = "warning",title = h3("RORAC"),h3(textOutput("roracc")))),column(4, box(width=12,solidHeader = T,status = "warning",title = h3("RARORAC"),h3(textOutput("raroracc"))))),
-                            fluidRow(column(4,box(width=12,solidHeader = T,status = "warning",title = h3("Indice de Morósidad"),h3(textOutput("morosidad")))),column(4,box(width=12,solidHeader = T,status = "warning",title = h3("Indice de Cobertura"),h3(textOutput("cobertura")))),column(4, box(width=12,solidHeader = T,status = "warning",title = h3("RAR"),h3(textOutput("rar")))))
-                              
+                            fluidRow(column(4,box(width=12,solidHeader = T,status = "warning",title = h3("Indice de Morosidad"),h3(textOutput("morosidad")))),column(4,box(width=12,solidHeader = T,status = "warning",title = h3("Indice de Cobertura"),h3(textOutput("cobertura")))),column(4, box(width=12,solidHeader = T,status = "warning",title = h3("RAR"),h3(textOutput("rar")))))
+                            ) 
                             
                             
 
