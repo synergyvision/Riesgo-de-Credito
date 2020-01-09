@@ -1,100 +1,67 @@
 shinyUI(
   dashboardPage(
     
-    dashboardHeader(title = NULL, titleWidth = 188, 
-                    
-                    dropdownMenu(type = "messages",
-                                 
-                                 messageItem(
-                                   from = "Alerta",
-                                   message = "Niveles de Riesgo Atípicos",
-                                   icon = icon("exclamation-triangle"),
-                                   time = "2018-05-12"
-                                 ),
-                                 
-                                 messageItem(
-                                   from = "Señal",
-                                   message = "Volatilidad Anormal",
-                                   icon = icon("life-ring"),
-                                   time = "2018-05-12"
-                                 )
-                    )
+    # put the shinyauthr logout ui module in here
+    dashboardHeader(
+      title = NULL, titleWidth = 188, 
+      tags$li(textOutput("bienvenida"), class = "dropdown", style = "padding: 8px;", shinyauthr::logoutUI(id ="logout",label = "Salir", icon = icon("sign-out")),
+             
+              
+              dropdownMenu(type = "messages",
+                           
+                           messageItem(
+                             from = "Alerta",
+                             message = "Niveles de Riesgo Atípicos",
+                             icon = icon("exclamation-triangle"),
+                             time = "2018-05-12"
+                           ),
+                           
+                           messageItem(
+                             from = "Señal",
+                             message = "Volatilidad Anormal",
+                             icon = icon("life-ring"),
+                             time = "2018-05-12"
+                           )
+              )
+              
+      )
     ),
     
+    # setup a sidebar menu to be rendered server-side
     dashboardSidebar(
-      
-      sidebarSearchForm(label = "Ingrese un Número", "searchText", "searchButton"),
-      
-      
-      sidebarMenu(id = "tabs",
-      
-                  menuItem("Datos", tabName = "datos", icon = icon("fal fa-database"),
-                           menuSubItem("Scoring y Rating", tabName = "subitem1", icon = icon("circle-o")),
-                           menuSubItem("Pérdida por Incumplimiento", tabName = "subitem2", icon = icon("circle-o")),
-                           menuSubItem("Matriz de Transición", tabName = "subitem3", icon = icon("circle-o")),
-                           menuSubItem("CreditRisk+", tabName = "datini", icon = icon("circle-o")),
-                           menuSubItem("CreditMetrics", tabName = "CRED", icon = icon("circle-o")),
-                           menuSubItem("Backtesting", tabName = "datos_back", icon = icon("circle-o")),
-                           menuSubItem("Indicadores Contables", tabName = "RAROC", icon = icon("circle-o"))
-                           ),
-                  
-                  menuItem("Scoring y Rating", tabName = "S_R", icon = icon("fal fa-database"),
-                           menuSubItem("Estadísticos", tabName = "stat", icon = icon("circle-o")),
-                           menuSubItem("Score de Crédito", tabName = "glm", icon = icon("circle-o")),
-                           menuSubItem("Rating de Crédito", tabName = "rat", icon = icon("circle-o"))
-                           
-                           ),
-                  
-                  
-                  menuItem("Pérdida por Incumplimiento", tabName = "LGD", icon = icon("fal fa-database"),
-                           menuSubItem("Pérdida por Cliente", tabName = "lgd", icon = icon("circle-o")),
-                           menuSubItem("Pérdida Por Clase", tabName = "CPC", icon = icon("circle-o"))
-                           
-                           
-                  ),
-                      
-                  
-                  menuItem("Matriz de Transición", tabName = "MT", icon = icon("fal fa-database"),
-                           
-                           menuSubItem("Matriz de Transición", tabName = "CMT", icon = icon("circle-o"))
-                           
-                           ),
-                  
-                          
-                  menuItem("CreditRisk+", tabName = "data", icon = icon("fal fa-database"),
-                           
-                           
-                           menuSubItem("Resultados", tabName = "Param", icon = icon("circle-o")),
-                           menuSubItem("Stress Testing", tabName = "ST1", icon = icon("circle-o"))
-                  ),
-                  
-                  
-                  menuItem("Creditmetrics", icon = icon("fal fa-database"), tabName = "crm",
-                          
-                           menuSubItem("Simulación y Resultados", tabName = "RES", icon = icon("circle-o")),
-                           menuSubItem("Stress Testing", tabName = "ST2", icon = icon("circle-o"))
-                           
-                  ),
-                  menuItem("Backtesting", icon = icon("fal fa-database"), 
-                           
-                           menuSubItem("Resultados", tabName = "resultados_back", icon = icon("circle-o"))
-                  ),
-                  
-                  menuItem("Indicadores Contables", icon = icon("exclamation-circle"), tabName = "raroc",
-                  menuSubItem("Indicadores Contables", tabName = "Mor", icon = icon("circle-o"))
-                  
-                  ),
-                  
-                  
-                  menuItem("Acerca", icon = icon("exclamation-circle"), tabName = "acerca"))
+      collapsed = TRUE, sidebarMenuOutput("sidebar")
     ),
-    dashboardBody(VisionHeader(),
+    
+    
+    dashboardBody(
+      setBackgroundImage(src = "img/logogrande.png", shinydashboard = TRUE),
+      VisionHeader(),
+      shinyjs::useShinyjs(),
+      extendShinyjs(text = "shinyjs.hidehead = function(parm){
+                    $('header').css('display', parm); }"),
+      
+      # put the shinyauthr login ui module here
+      shinyauthr::loginUI(id = "login", title = NULL, user_title = "Usuario",
+                          pass_title = "Clave", login_title = "Ingresar",
+                          error_message = "Usuario o clave inválidos por favor intente de nuevo"
+      ),
+    
+    
+    
+   
+    
+      
+      
+      
+      
+      
+ 
                   
                   tabItems(
                     
                     
                     tabItem(tabName = "subitem1",
-                            
+                            wellPanel(id="panel1",
                            fluidRow(
                              tabBox( height = "1250px", width = 12,side = "left",
                             
@@ -231,9 +198,10 @@ shinyUI(
                                      
                                      )
                              
-                    ))),
+                    )))),
                     
-                    tabItem( tabName = "subitem2",
+                    tabItem( tabName = "subitem2", 
+                             wellPanel( id="panel2",
                              fluidRow(
                                tabBox( height = "1250px", width = 12,side = "left",
                                        
@@ -310,9 +278,9 @@ shinyUI(
                                        )
                                        
                                        
-                               ))),
+                               )))),
                     
-                    tabItem( tabName = "subitem3",
+                    tabItem( tabName = "subitem3",wellPanel(id="panel3",
                              fluidRow(
                                tabBox( height = "1250px", width = 12,side = "left",
                                        
@@ -341,13 +309,13 @@ shinyUI(
                                           
                                           
                                           
-                                          )))),
+                                          ))))),
                     
                     
                     
                     
                     
-                    tabItem( tabName = "datini",
+                    tabItem( tabName = "datini",wellPanel(id="panel4",
                              fluidRow(
                                tabBox( height = "1250px", width = 12,side = "left",
                                        
@@ -475,12 +443,12 @@ shinyUI(
                                        
                                        
                                        
-                               ))),
+                               )))),
                     
                     
                     
                     
-                    tabItem( tabName = "CRED",
+                    tabItem( tabName = "CRED",wellPanel(id="panel5",
                              fluidRow(
                                tabBox( height = "1250px", width = 12,side = "left",
                                        
@@ -602,10 +570,10 @@ shinyUI(
                                       
                                )
                                )
-                    ),
+                    )),
                     
                     
-                    tabItem(tabName = "datos_back",
+                    tabItem(tabName = "datos_back",wellPanel(id="panel6",
                             h2(" Seleccionar archivo"),
                             fluidRow(
                               box(width = 12, title = h3(UPLOADDATA_TEXT),
@@ -628,9 +596,9 @@ shinyUI(
                             )
                             
                             
-                    ),
+                    )),
                     
-                    tabItem( tabName = "RAROC" , 
+                    tabItem( tabName = "RAROC" , wellPanel(id="panel7",
                              
                              fluidRow(
                                tabBox( height = "1250px", width = 12,side = "left",
@@ -668,9 +636,9 @@ shinyUI(
                                                 
                                        )
                                )
-                             )),
+                             ))),
                     
-                    tabItem( tabName = "stat",
+                    tabItem( tabName = "stat",wellPanel(id="panel8",
                              fluidRow(
                                tabBox( height = "1250px", width = 12,side = "left",
                                        
@@ -729,9 +697,9 @@ shinyUI(
                                                   )
                                )
                              )
-                    ),
+                    )),
                     
-                    tabItem(tabName = "glm",
+                    tabItem(tabName = "glm",wellPanel(id="panel9",
                             
                             fluidRow(
                               tabBox( height = "1250px", width = 12,side = "left",
@@ -778,9 +746,9 @@ shinyUI(
                                       
                                       
                                       
-                              ))),
+                              )))),
                     
-                    tabItem(tabName = "rat",
+                    tabItem(tabName = "rat",wellPanel(id="panel10",
                             
                             fluidRow(
                               tabBox( height = "1250px", width = 12,side = "left",
@@ -812,9 +780,9 @@ shinyUI(
                                       )
                                       
                                       
-                              ))),
+                              )))),
                     
-                    tabItem(tabName = "lgd",
+                    tabItem(tabName = "lgd",wellPanel(id="panel11",
                             
                             fluidRow(
                               tabBox(
@@ -844,11 +812,13 @@ shinyUI(
                                           
                                           
                                 )   
-                                )))
+                                ))))
                     
       
                     ,
-                    tabItem( tabName = "CPC", fluidRow(
+                    tabItem( tabName = "CPC", wellPanel(id="panel12",
+                             
+                             fluidRow(
                       tabBox( height = "1250px", width = 12,side = "left"
                               
                               
@@ -882,9 +852,11 @@ shinyUI(
                       
                       
                       
-                    ),                             
+                    )),                             
                                                  
-                    tabItem( tabName = "CMT",fluidRow(
+                    tabItem( tabName = "CMT", wellPanel(id="panel13",
+                             
+                             fluidRow(
                       tabBox( height = "1250px", width = 12,side = "left",
                               
                               
@@ -909,10 +881,10 @@ shinyUI(
                                         
                               )
                               
-                      ))),                          
+                      )))),                          
                     
                     
-                    tabItem( tabName = "Param",
+                    tabItem( tabName = "Param",wellPanel(id="panel14",
                              fluidRow(
                                tabBox( height = "1250px", width = 12,side = "left",
                     
@@ -979,9 +951,9 @@ shinyUI(
                                       
                                       
                                       
-                                                          )))),
+                                                          ))))),
                     
-                    tabItem(tabName = "ST1",
+                    tabItem(tabName = "ST1",wellPanel(id="panel15",
                             
                             fluidRow(column(6,box(height = "300px",width=12,title = h2("StressTesting"),solidHeader = T,status = "warning",radioButtons("estres2", h3("Nivel de Estrés de la Prueba"),
                                                                                                                               choices = list("1 %" = 0.01, "5 %" = 0.05,
@@ -989,14 +961,14 @@ shinyUI(
                             fluidRow( column( 12,box(width=12,h2("Reporte"), status = "warning",downloadButton("reporte1","Descargar"))))
                             
                             
-                    ),
+                    )),
                     
                 
                    
                    
                    
                     
-                    tabItem( tabName = "RES" , 
+                    tabItem( tabName = "RES" , wellPanel(id="panel16",
                              
                              fluidRow(
                                
@@ -1034,9 +1006,9 @@ shinyUI(
                              
                              
                              
-                    ))),
+                    )))),
                    
-                   tabItem(tabName = "ST2",
+                   tabItem(tabName = "ST2",wellPanel(id="panel17",
                            
                            fluidRow(column(6,box(width=12,title = h2("StressTesting"),solidHeader = T,status = "warning",radioButtons("stress3", h3("Nivel de Estrés de la Prueba"),
                                                                                   choices = list("1 %" = 0.01, "5 %" = 0.05,
@@ -1044,11 +1016,11 @@ shinyUI(
                            fluidRow( column( 12,box(width=12,h2("Reporte"), status = "warning",downloadButton("reporte2","Descargar"))))
                            
                            
-                           ),
+                           )),
                     
                    
                    
-                   tabItem(tabName = "resultados_back",
+                   tabItem(tabName = "resultados_back",wellPanel(id="panel18",
                            h3(" Elegir porcentaje del Backtesting:"),
                            box(width = 12, background = "yellow",
                                selectInput( inputId = "porback", "Seleccione Porcentaje del VaR", choices = c(.90, .95, .99), selected = .95)
@@ -1064,10 +1036,10 @@ shinyUI(
                            downloadButton("report_back", "Descargar")
                            
                            
-                   ),
+                   )),
                    
                    
-                   tabItem( tabName = "Mor" ,
+                   tabItem( tabName = "Mor" ,wellPanel(id="panel19",
                             
                             fluidPage(withMathJax(),box(width=12,status = "warning",solidHeader = T,title = "Índice de Morosidad", h3(uiOutput('ex5')))),
                             fluidPage(withMathJax(),box(width=12,status = "warning",solidHeader = T,title = "Índice de Cobertura", h3(uiOutput('ex6')))),
@@ -1086,10 +1058,11 @@ shinyUI(
                             
                             
 
-                            ),
+                            )),
                    
-                    tabItem(tabName = "acerca",
-                            box( width = 9, status="warning",
+                    tabItem(tabName = "acerca",wellPanel(id="panel20",
+                                                         fluidRow(
+                            box( width = 12, status="warning",
                                  h3(ACERTITLE_TEXT),
                                  tags$hr(),
                                  h4(ACERVER_TEXT),
@@ -1105,8 +1078,9 @@ shinyUI(
                                  tagList(shiny::icon("phone"), ACERTLF_TEXT),br(),
                                  tagList(shiny::icon("envelope-o"), ACERCORR_TEXT)
                             )
-                    )
+                    )))
                   )
     )
   )
 )
+

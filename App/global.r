@@ -2,8 +2,29 @@
 rm(list = ls())
 
 
+
+library(shinythemes)
+library(shinyjs)
+library(rmarkdown)
+library(dygraphs)
+library(readr)
+library(glue)
+library(webshot)
+library(rintrojs)
+library(highcharter)
+library(GARPFRM)
+library(rugarch)
+library(jsonlite)
+library(neo4r)
+library(dplyr)
+library(shinyauthr)
+library(reactlog)
+library(tidyr)
+library(sodium)
+library(V8)
 library(fastDummies)
 library(readr)
+library(shinyWidgets)
 library(shiny)
 library(shinydashboard)
 library(latex2exp)
@@ -17,6 +38,15 @@ library(pROC)
 library(plotly)
 library(plyr)
 library(DT)
+
+# sample logins dataframe with passwords hashed by sodium package
+user_base <- tibble(
+  user = c("User1", "user2", "gaby","danshiny"),
+  password = sapply(c("pass1", "pass2","proteino40.","c1037729"), sodium::password_store),
+  permissions = c("admin", "standard","standard", "admin"),
+  name = c("User One", "User Two", "Gabriela Alvarado", "Danny Morales")
+)
+
 
 options("scipen"=100, "digits"=4) 
 

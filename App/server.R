@@ -1,8 +1,205 @@
 shinyServer(function(input, output, session) {
   
   
+  # login status and info will be managed by shinyauthr module and stores here
+  credentials <- callModule(shinyauthr::login, "login",
+                            data = user_base,
+                            user_col = user,
+                            pwd_col = password,
+                            sodium_hashed = TRUE,
+                            log_out = reactive(logout_init()))
+  
+  # logout status managed by shinyauthr module and stored here
+  logout_init <- callModule(shinyauthr::logout, "logout", reactive(credentials()$user_auth))
+  
+  # this opens or closes the sidebar on login/logout
+  observe({
+    if(credentials()$user_auth) {
+      shinyjs::removeClass(selector = "body", class = "sidebar-collapse")
+    } else {
+      shinyjs::addClass(selector = "body", class = "sidebar-collapse")
+    }
+  })
   
   
+   observe( {
+     toggle("panel1",condition = credentials()$user_aut)
+     
+  })
+   
+   observe( {
+     toggle("panel2",condition = credentials()$user_aut)
+     
+   })
+   
+   observe( {
+     toggle("panel3",condition = credentials()$user_aut)
+     
+   })
+   
+   observe( {
+     toggle("panel4",condition = credentials()$user_aut)
+     
+   })
+   
+   observe( {
+     toggle("panel5",condition = credentials()$user_aut)
+     
+   })
+   
+   observe( {
+     toggle("panel6",condition = credentials()$user_aut)
+     
+   })
+   
+   observe( {
+     toggle("panel7",condition = credentials()$user_aut)
+     
+   })
+  
+   observe( {
+     toggle("panel9",condition = credentials()$user_aut)
+     
+   })
+   
+   observe( {
+     toggle("panel10",condition = credentials()$user_aut)
+     
+   })
+   observe( {
+     toggle("panel11",condition = credentials()$user_aut)
+     
+   })
+   observe( {
+     toggle("panel12",condition = credentials()$user_aut)
+     
+   })
+   observe( {
+     toggle("panel13",condition = credentials()$user_aut)
+     
+   })
+   observe( {
+     toggle("panel14",condition = credentials()$user_aut)
+     
+   })
+   observe( {
+     toggle("panel15",condition = credentials()$user_aut)
+     
+   })
+   observe( {
+     toggle("panel16",condition = credentials()$user_aut)
+     
+   })
+   observe( {
+     toggle("panel17",condition = credentials()$user_aut)
+     
+   })
+   observe( {
+     toggle("panel18",condition = credentials()$user_aut)
+     
+   })
+   observe( {
+     toggle("panel19",condition = credentials()$user_aut)
+     
+   })
+   observe( {
+     toggle("panel20",condition = credentials()$user_aut)
+     
+   })
+   
+   
+  
+  observe({
+    if(credentials()$user_auth) {
+      V8::JS(js$hidehead(''))
+    } else {
+      V8::JS(js$hidehead('none'))
+    }
+  })
+  
+  
+  # only when credentials()$user_auth is TRUE, render your desired sidebar menu
+  output$sidebar <- renderMenu({
+    
+    if(credentials()$user_auth) {
+      
+    
+    
+    
+    sidebarMenu(id = "tabs",
+                
+                menuItem("Datos", tabName = "datos", icon = icon("fal fa-database"),
+                         menuSubItem("Scoring y Rating", tabName = "subitem1", icon = icon("circle-o")),
+                         menuSubItem("Pérdida por Incumplimiento", tabName = "subitem2", icon = icon("circle-o")),
+                         menuSubItem("Matriz de Transición", tabName = "subitem3", icon = icon("circle-o")),
+                         menuSubItem("CreditRisk+", tabName = "datini", icon = icon("circle-o")),
+                         menuSubItem("CreditMetrics", tabName = "CRED", icon = icon("circle-o")),
+                         menuSubItem("Backtesting", tabName = "datos_back", icon = icon("circle-o")),
+                         menuSubItem("Indicadores Contables", tabName = "RAROC", icon = icon("circle-o"))
+                ),
+                
+                menuItem("Scoring y Rating", tabName = "S_R", icon = icon("fal fa-database"),
+                         menuSubItem("Estadísticos", tabName = "stat", icon = icon("circle-o")),
+                         menuSubItem("Score de Crédito", tabName = "glm", icon = icon("circle-o")),
+                         menuSubItem("Rating de Crédito", tabName = "rat", icon = icon("circle-o"))
+                         
+                ),
+                
+                
+                menuItem("Pérdida por Incumplimiento", tabName = "LGD", icon = icon("fal fa-database"),
+                         menuSubItem("Pérdida por Cliente", tabName = "lgd", icon = icon("circle-o")),
+                         menuSubItem("Pérdida Por Clase", tabName = "CPC", icon = icon("circle-o"))
+                         
+                         
+                ),
+                
+                
+                menuItem("Matriz de Transición", tabName = "MT", icon = icon("fal fa-database"),
+                         
+                         menuSubItem("Matriz de Transición", tabName = "CMT", icon = icon("circle-o"))
+                         
+                ),
+                
+                
+                menuItem("CreditRisk+", tabName = "data", icon = icon("fal fa-database"),
+                         
+                         
+                         menuSubItem("Resultados", tabName = "Param", icon = icon("circle-o")),
+                         menuSubItem("Stress Testing", tabName = "ST1", icon = icon("circle-o"))
+                ),
+                
+                
+                menuItem("Creditmetrics", icon = icon("fal fa-database"), tabName = "crm",
+                         
+                         menuSubItem("Simulación y Resultados", tabName = "RES", icon = icon("circle-o")),
+                         menuSubItem("Stress Testing", tabName = "ST2", icon = icon("circle-o"))
+                         
+                ),
+                menuItem("Backtesting", icon = icon("fal fa-database"), 
+                         
+                         menuSubItem("Resultados", tabName = "resultados_back", icon = icon("circle-o"))
+                ),
+                
+                menuItem("Indicadores Contables", icon = icon("exclamation-circle"), tabName = "raroc",
+                         menuSubItem("Indicadores Contables", tabName = "Mor", icon = icon("circle-o"))
+                         
+                ),
+                
+                
+                menuItem("Acerca", icon = icon("exclamation-circle"), tabName = "acerca"))
+  
+    } else { menuItem("nada", tabName = "nada", icon = icon("fal fa-database")
+                     
+    ) }
+  })
+  
+  user_info <- reactive({credentials()$info})
+  
+  output$bienvenida <- renderText({
+    req(credentials()$user_auth)
+    
+    glue("Bienvenid@ {user_info()$name}")
+  })
   
   
   ##### Scoring y reting
@@ -3107,7 +3304,7 @@ shinyServer(function(input, output, session) {
  
  
  calvar <-eventReactive(input$goButtonSim,{
-   
+    
    
      
    
