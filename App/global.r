@@ -60,6 +60,7 @@ VisionHeader <- function(){tags$head(
   singleton(includeCSS("www/css/app.css"))
 )}
 
+
 ACERTITLE_TEXT<-"Acerca de VisionRisk™"
 ACERSUBSV_TEXT<-"Tecnología para Especulación, Inversión, Economía, Finanzas y Riesgo"
 ACERVER_TEXT<-"Versión: 1.0.0"

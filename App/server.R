@@ -1,5 +1,7 @@
 shinyServer(function(input, output, session) {
   
+  source("srv-demo.R", local = TRUE)
+  
   
   # login status and info will be managed by shinyauthr module and stores here
   credentials <- callModule(shinyauthr::login, "login",
@@ -21,6 +23,114 @@ shinyServer(function(input, output, session) {
     }
   })
   
+  
+  
+ 
+  
+  observeEvent(input$help2,
+               introjs(session, options = list("nextLabel"="Siguiente",
+                                               "prevLabel"="Regresar",
+                                               "skipLabel"="Salir",
+                                               "doneLabel"="Aceptar",steps=boton()
+               ),
+               events = list(onbeforechange = readCallback("switchTabs"))
+               ))
+  
+  
+  
+  
+  
+  Datos_score <- reactive(data.frame(
+  
+  element=c("#paso1","#paso2","#paso3","#paso4","#paso5","#paso6","#paso7","#paso8","#paso9"),
+  
+  intro=c("Datos de ejemplo para crear el Score de Crédito",
+          "Introduce tus propios datos para crear tu propio Score de crédito",
+          "Escoge la variable que indica el estado del cliente",
+          "Datos de ejemplo para crear proyecciones sobre clientes a partir del Score de crédito",
+          "Datos propios para crear proyecciones sobre clientes a partir del Score de crédito",
+          "Datos de ejemplo para crear el Rating de Crédito",
+          "Introduce tus propios datos para crear tu propio Rating de crédito",
+          "A partir de los datos del Score proyectar ratings a los clientes del Score",
+          "Datos propios para crear proyecciones sobre clientes a partir del Rating de de crédito"
+          ),
+  
+  data.position=c("bottom","bottom","bottom","bottom","bottom","bottom","bottom","bottom","bottom")
+))
+  
+  
+  
+  Datos_perdida <- reactive(data.frame(
+    
+    element=c("#paso10","#paso11","#paso12","#paso13"),
+    
+    intro=c("Datos de ejemplo para calcular la distribución de pérdidas de clientes, estos datos son históricos de pérdidas individuales de clientes.",
+            "Introduce tus propios datos propios.",
+            "Datos de ejemplo para calcular la distribución de pérdidas de clientes, estos datos son históricos de pérdidas de las clases crediticias de clientes.",
+            "Introduce tus propios datos propios."),
+    
+    data.position=c("bottom","bottom","bottom","bottom")
+  ))
+  
+  
+  Datos_matriz <- reactive(data.frame(
+    
+    element=c("#paso14","#paso15"),
+    
+    intro=c("Datos de ejemplo para calcular la matriz de transición, estos datos son históricos de transiciones crediticias.",
+            "Introduce tus propios datos propios."),
+    
+    data.position=c("bottom","bottom")
+  ))
+  
+  Datos_cred1 <- reactive(data.frame(
+    
+    element=c("#paso16","#paso17","#paso18","#paso19","#paso20"),
+    
+    intro=c("Se deben cargar los datos correspondientes a la exposición crediticia de la cartera de clientes",
+            "Se cargan las probabilidades de incumplimients de los clientes de la cartera, deben ser números entro 0 y 1",
+            "Se cargan las probabilidades de incumplimients de los clientes de la cartera a partir del Score calculado.",
+            "Se ingresa una pérdida esperada global a toda la cartera de clientes",
+            "Si se posee, se cargan las pérdidas esperadas por cliente. Deben ser números entre 0 y 1 que represantan porcentajes."),
+    
+    data.position=c("bottom","bottom","bottom","bottom","bottom")
+  ))
+  
+  Datos_cred2 <- reactive(data.frame(
+    
+    element=c("#paso21","#paso22","#paso23","#paso24","#paso25","#paso26"),
+    
+    intro=c("Datos de ejemplo para la exposición crediticia de la sección Credimetrics",
+            "Datos propios, estos deben estat compuesto por dos columnas, una con la exposición y otra con la calificación crediticia",
+            "Se carga la matriz calculada",
+            "Se carga una matriz propia que represta las probabilidades de transición crediticia",
+            "Se cargan las pérdidas por clases calculadas",
+            "Se cargan las pérdidas por clases propias, deben ser números entre 0 y 1 que representen en porcentaje las pérdidas esperadas por clase"),
+    
+    data.position=c("bottom","bottom","bottom","bottom","bottom","bottom")
+  ))
+  
+  
+  
+
+  #CONDICIONALES CON TABITEMS
+  boton <- reactive({
+    if(input$tabs=="subitem3"){
+      return(Datos_matriz())
+    }else if(input$tabs=="subitem1"){
+      return(Datos_score())
+    }else if(input$tabs=="subitem2"){
+      return(Datos_perdida())
+    }else if(input$tabs=="datini"){
+      return(Datos_cred1())
+    }else if(input$tabs=="CRED"){
+      return(Datos_cred2())
+    }else{}
+    
+    
+  })
+    
+
   
    observe( {
      toggle("panel1",condition = credentials()$user_aut)
@@ -186,7 +296,15 @@ shinyServer(function(input, output, session) {
                 ),
                 
                 
-                menuItem("Acerca", icon = icon("exclamation-circle"), tabName = "acerca"))
+                menuItem("Acerca", icon = icon("exclamation-circle"), tabName = "acerca"),
+                
+                introBox(
+                  actionButton("help2", "Instrucciones"),
+                  data.step = 9,
+                  data.intro = "Boton de instrucciones"
+                ) 
+                
+                )
   
     } else { menuItem("nada", tabName = "nada", icon = icon("fal fa-database")
                      
