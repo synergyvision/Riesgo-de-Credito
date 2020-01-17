@@ -112,6 +112,102 @@ shinyServer(function(input, output, session) {
   
   
   
+  Datos_bac <- reactive(data.frame(
+    
+    element=c("#paso27"),
+    
+    intro=c("Debe ingresar los datos correspondientes a la fecha, la pérdida esperada y la pérdida real"),
+    
+    data.position=c("bottom")
+  ))
+  
+  Datos_raroc <- reactive(data.frame(
+    
+    element=c("#paso28","#paso29"),
+    
+    intro=c("Debe seleccionar la metodología de riesgo con la cual se calcularon las métricas de riesgo.",
+            "Se ingresa el archivo con los datos contables del banco."),
+    
+    data.position=c("bottom","bottom")
+  ))
+  
+  
+  seccion_stats <- reactive(data.frame(
+    
+    element=c("#paso30","#paso31","#paso32","#paso33"),
+    
+    intro=c("En esta sección se selecciona la variable a comparar con la variable mora.",
+            "En esta gráfica se muestra la relación con la variable una vez seleccionada.",
+            "Se mueestra la información estadística de la variable seleccionada.",
+            "Se escogen los distintos tipo de selecciones de variables."),
+    
+    data.position=c("bottom","bottom","bottom","bottom")
+  ))
+  
+  seccion_score <- reactive(data.frame(
+    
+    element=c("#paso34","#paso35","#paso36","#paso37","#paso38","#score","#download","#proy","#download1"),
+    
+    intro=c("Escoga el tipo de modelo para calcular el Score",
+            "Coeficientes de las variables independientes del modelo.",
+            "Resumen estadistica del modelo",
+            "Matriz de confusión del modelo, en la cual se aprecia la efectividad.",
+            "Gráfico ROC del modelo, que mide la de forma cualitativa la eficiencia",
+            "Se muestra el score y la probabilidad de incumplimiento de los clientes que se usaron para entrenar el modelo.",
+            "En este boton se permite descargar la data anterior.",
+            "Se muestra la  score y la probabilidad de incumplimiento aplicados a nuevos clientes usando el modelo calculado.",
+            "En este boton se permite descargar la data anterior."),
+    
+    data.position=c("bottom","bottom","bottom","bottom","bottom","bottom","bottom","bottom","bottom")
+  ))
+  
+  seccion_rat <- reactive(data.frame(
+    
+    element=c("#paso39","#paso40","#download2"),
+    
+    intro=c("Una vez cargados los datos del modelo se mostraro la información del mismo",
+            "Proyección del rating de los clientes a través de su probabilidad de incumplimiento.",
+            "En este boton se permite descargar la data anterior."),
+    
+    data.position=c("bottom","bottom","bottom")
+  ))
+  
+  
+  seccion_lgd <- reactive(data.frame(
+    
+    element=c("#paso41","#paso42","#paso43","#paso44","#paso45","#paso46","#paso47"),
+    
+    intro=c( 
+            "Histograma de pérdidas históricas de los clientes",
+            "Ingresar el número de submuestras para realizar la simulación",
+            "Tamaños de las submuestras en comparación con la muestra total", 
+            "Histograma de pérdidas al realizar las simulaciones", 
+            "Promedio de pérdidas de las simulaciones", 
+            "Nivel de confianza para obetener el intervalo de confianza del parámetro de pérdida", 
+            "Intervalo de confianza del parámetro pérdida" 
+            ),
+    
+    data.position=c("bottom","bottom","bottom","bottom","bottom","bottom","bottom")
+  ))
+  
+  
+  seccion_lgd2 <- reactive(data.frame(
+    
+    element=c("#paso48","#paso49","#paso50","#paso51","#paso52"),
+    
+    intro=c( 
+      "Pérdida promedio de cada clase",
+      "Ingresar el número de submuestras para realizar la simulación",
+      "Tamaños de las submuestras en comparación con la muestra total", 
+      "Nivel de confianza para obetener el intervalo de confianza del parámetro de pérdida", 
+      "Resultados de la simulación" 
+    ),
+    
+    data.position=c("bottom","bottom","bottom","bottom","bottom")
+  ))
+  
+  
+  
 
   #CONDICIONALES CON TABITEMS
   boton <- reactive({
@@ -125,6 +221,20 @@ shinyServer(function(input, output, session) {
       return(Datos_cred1())
     }else if(input$tabs=="CRED"){
       return(Datos_cred2())
+    }else if(input$tabs=="datos_back"){
+      return(Datos_bac())
+    }else if(input$tabs=="RAROC"){
+      return(Datos_raroc())
+    }else if(input$tabs=="stat"){
+      return(seccion_stats())
+    }else if(input$tabs=="glm"){
+      return(seccion_score())
+    }else if(input$tabs=="rat"){
+      return(seccion_rat())
+    }else if(input$tabs=="lgd"){
+      return(seccion_lgd())
+    }else if(input$tabs=="CPC"){
+      return(seccion_lgd2())
     }else{}
     
     
