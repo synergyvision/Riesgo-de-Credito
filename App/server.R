@@ -206,8 +206,89 @@ shinyServer(function(input, output, session) {
     data.position=c("bottom","bottom","bottom","bottom","bottom")
   ))
   
+  seccion_mtr <- reactive(data.frame(
+    
+    element=c("#paso53"),
+    
+    intro=c( 
+      "Una vez cargado los datos, se mostrara la matriz de transición crediticia, en ella se muestran las probabilidades de
+      transición entre las clases"
+      ),
+    
+    data.position=c("bottom")
+  ))
   
   
+  
+  seccion_credimas <- reactive(data.frame(
+    
+    element=c("#paso54","#paso55","#paso56","#paso57","#paso58","#paso59","#paso60"
+              ,"#paso61","#paso62","#paso63"),
+    
+    intro=c( 
+      "Unidad de pérdida la cual se usa para agrupar los creditos por bandas de exposición",
+      "Información crediticia necesaria para el cálculo de las métricas de riesgo",
+      "Información de las probabilidades de incumplimiento de la cartera de clientes de la institución",
+      "Distribución acumulada de probabilidad de número de incumplimientos esperados",
+      "Información acerca de las bandas de expoción crediticia por las cuales se agruparon los créditos",
+      "Distribución acumulada de probabilidad de pérdida  esperadas",
+      "Nivel de confianza para el cálculo de las métricas de riesgo",
+      "Pérdida esperada de la cartera de clientes",
+      "Valor en riesgo de la cartera de clientas",
+      "TVaR o VaR estresado de la cartera de clientes"
+    ),
+    
+    data.position=c("bottom","bottom","bottom","bottom","bottom","bottom","bottom","bottom","bottom","bottom")
+    ))
+  
+  
+  
+  seccion_tvar <- reactive(data.frame(
+    
+    element=c("#paso64","#paso65","#paso66"),
+    
+    intro=c( 
+      "Nivel de estres al VaR para realizar la prueba",
+      "Resultado de la prueba estresada",
+      "Podemos descargar un reporte con la información de la metología de riesgo de crédito CreditRisk+"
+    ),
+    
+    data.position=c("bottom","bottom","bottom")
+    ))
+  
+  
+  seccion_credimet <- reactive(data.frame(
+    
+    element=c("#paso67","#paso68","#paso69","#paso70","#paso71","#paso72","#paso73"),
+    
+    intro=c( 
+      "Información crediticia necesaria para el cálculo de las métricas de riesgo",
+      "Nivel de confianza para el cálculo de las métricas de riesgo",
+      "Número de simulaciones para iniciar la prueba",
+      "Histograma de perdidas al realizar la simulasción",
+      "Pérdida esperada de la cartera de clientes",
+      "Valor en riesgo de la cartera de clientas",
+      "TVaR o VaR estresado de la cartera de clientes"
+    ),
+    
+    data.position=c("bottom","bottom","bottom","bottom","bottom","bottom","bottom")
+  ))
+  
+  
+  
+  
+  seccion_tvar2 <- reactive(data.frame(
+    
+    element=c("#paso64","#paso65","#paso66"),
+    
+    intro=c( 
+      "Nivel de estres al VaR para realizar la prueba",
+      "Resultado de la prueba estresada",
+      "Podemos descargar un reporte con la información de la metología de riesgo de crédito Creditmetrics"
+    ),
+    
+    data.position=c("bottom","bottom","bottom")
+  ))
 
   #CONDICIONALES CON TABITEMS
   boton <- reactive({
@@ -235,6 +316,16 @@ shinyServer(function(input, output, session) {
       return(seccion_lgd())
     }else if(input$tabs=="CPC"){
       return(seccion_lgd2())
+    }else if(input$tabs=="CMT"){
+      return(seccion_mtr())
+    }else if(input$tabs=="Param"){
+      return(seccion_credimas())
+    }else if(input$tabs=="ST1"){
+      return(seccion_tvar())
+    }else if(input$tabs=="RES"){
+      return(seccion_credimet())
+    }else if(input$tabs=="ST2"){
+      return(seccion_tvar2())
     }else{}
     
     

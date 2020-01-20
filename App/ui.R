@@ -897,7 +897,7 @@ shinyUI(
                                         
                                         fluidRow(
                                           
-                                          box(title = h3("Matriz de Transición Calculada"),style = "overflow-x:scroll",width=12,status = "warning",dataTableOutput('datatableMTR'))
+                                          box(id="paso53",title = h3("Matriz de Transición Calculada"),style = "overflow-x:scroll",width=12,status = "warning",dataTableOutput('datatableMTR'))
                                         )
                                         
                                         
@@ -918,8 +918,8 @@ shinyUI(
                                        
                                        
                                        tabPanel( title = tagList(shiny::icon("gear"), strong('Pérdida Esperada por Cliente')) ,  
-                                                 fluidRow(box(width = 12, background="yellow",status = "warning", numericInput("uniper","Ingrese Unidad de Pérdida",value = 100))),
-                                                 fluidRow(box(width = 12,title = "Pérdida Esperada por Cliente",status = "warning",dataTableOutput("perclien")))
+                                                 fluidRow(box(id="paso54",width = 12, background="yellow",status = "warning", numericInput("uniper","Ingrese Unidad de Pérdida",value = 100))),
+                                                 fluidRow(box(id="paso55",width = 12,title = "Pérdida Esperada por Cliente",status = "warning",dataTableOutput("perclien")))
                                                 
                                                  
                                                  
@@ -931,8 +931,8 @@ shinyUI(
                             
                             tabPanel( title = tagList(shiny::icon("gear"), strong('Incumplimientos')),
                                       h3("Modelo CreditRisk+"),
-                                      fluidRow(box(style = "overflow-x:scroll",width = 12,title = "Probabilidades Incumplimiento",status = "warning",dataTableOutput("numincum"))),
-                                      fluidRow(box(width = 12,title = "Distribución Acumulada de Número de Incumplimientos",status = "warning",plotlyOutput("comparacion1")))
+                                      fluidRow(box(id="paso56",style = "overflow-x:scroll",width = 12,title = "Probabilidades Incumplimiento",status = "warning",dataTableOutput("numincum"))),
+                                      fluidRow(box(id="paso57",width = 12,title = "Distribución Acumulada de Número de Incumplimientos",status = "warning",plotlyOutput("comparacion1")))
                                       
 
                                       
@@ -949,11 +949,11 @@ shinyUI(
                                       
                                       
                                       fluidRow(
-                                        box(width=12,status = "warning",dataTableOutput('Perd23'))
+                                        box(id="paso58",width=12,status = "warning",dataTableOutput('Perd23'))
                                       ),
                                       
                                       
-                                      fluidRow(box(width = 12,title = "Distribución Acumulada de Pérdidas (En Unidades)",status = "warning",plotlyOutput("comparacion2")))
+                                      fluidRow(box(id="paso59",width = 12,title = "Distribución Acumulada de Pérdidas (En Unidades)",status = "warning",plotlyOutput("comparacion2")))
                                       
                                       
                                      
@@ -966,12 +966,12 @@ shinyUI(
                             
                             tabPanel( title = tagList(shiny::icon("gear"), strong('Resultados')),
                                      
-                                       fluidRow(box(title =h3("Escoga Nivel de Confianza Para el VaR"),solidHeader = T,width=12,status = "warning",radioButtons("conf", "",
+                                       fluidRow(box(id="paso60",title =h3("Escoga Nivel de Confianza Para el VaR"),solidHeader = T,width=12,status = "warning",radioButtons("conf", "",
                                                                                                                 choices = list("90%" = 90, "95%" = 95,
                                                                                                                                "99%" = 99),selected = 95), actionButton("goButtonvar", "Calcular")),   
                                                
                                                
-                                               fluidRow(column(4,box(width=12,status = "warning",h3("Pérdida Esperada"), h2(textOutput("pe")) )),column( 4,box(width=12,status = "warning",h3("Valor en Riesgo"), h2(textOutput("var"))  )),column(4,box(width=12,status = "warning",h3("TVaR"), h2(textOutput("tvar")))))
+                                               fluidRow(column(4,box(id="paso61",width=12,status = "warning",h3("Pérdida Esperada"), h2(textOutput("pe")) )),column( 4,box(id="paso62",width=12,status = "warning",h3("Valor en Riesgo"), h2(textOutput("var"))  )),column(4,box(id="paso63",width=12,status = "warning",h3("TVaR"), h2(textOutput("tvar")))))
                                                )
                                       
                                       
@@ -980,10 +980,10 @@ shinyUI(
                     
                     tabItem(tabName = "ST1",wellPanel(id="panel15",
                             
-                            fluidRow(column(6,box(height = "300px",width=12,title = h2("StressTesting"),solidHeader = T,status = "warning",radioButtons("estres2", h3("Nivel de Estrés de la Prueba"),
+                            fluidRow(column(6,box(id="paso64",height = "300px",width=12,title = h2("StressTesting"),solidHeader = T,status = "warning",radioButtons("estres2", h3("Nivel de Estrés de la Prueba"),
                                                                                                                               choices = list("1 %" = 0.01, "5 %" = 0.05,
-                                                                                                                                             "10 %" = 0.1),selected = 0.01),actionButton("goButtonstre", "Calcular"))),column(6,box(height = "300px",width=12,title = h2("Resultado"),solidHeader = T,status = "warning",h3("El Valor de la Prueba"),h1(textOutput("Stress"))))),
-                            fluidRow( column( 12,box(width=12,h2("Reporte"), status = "warning",downloadButton("reporte1","Descargar"))))
+                                                                                                                                             "10 %" = 0.1),selected = 0.01),actionButton("goButtonstre", "Calcular"))),column(6,box(id="paso65",height = "300px",width=12,title = h2("Resultado"),solidHeader = T,status = "warning",h3("El Valor de la Prueba"),h1(textOutput("Stress"))))),
+                            fluidRow( column( 12,box(id="paso66",width=12,h2("Reporte"), status = "warning",downloadButton("reporte1","Descargar"))))
                             
                             
                     )),
@@ -1002,24 +1002,24 @@ shinyUI(
                                          
                                          tabPanel( title = tagList(shiny::icon("gear"), strong('Pérdida por cliente')),
                                                    fluidRow(
-                                                     box(width=12,title = h1("Pérdida Esperada por Cliente"),status = "warning",dataTableOutput('datatable_per_credime')))
+                                                     box(id="paso67",width=12,title = h1("Pérdida Esperada por Cliente"),status = "warning",dataTableOutput('datatable_per_credime')))
                                                    
                                                    
                                                    ),
                                          
                                          tabPanel( title = tagList(shiny::icon("gear"), strong('Simulación y resultados')) , 
                                
-                               box(title = h3("Escoga Nivel de Confianza Para el VaR"),width=12,solidHeader = T,status = "warning",radioButtons("conf1","", 
+                               box(id="paso68",title = h3("Escoga Nivel de Confianza Para el VaR"),width=12,solidHeader = T,status = "warning",radioButtons("conf1","", 
                                                                                                                                                 choices = list("90%" = 90, "95%" = 95,
                                                                                                                                                                "99%" = 99),selected = 95)),
-                             box(width=8, status = "warning",numericInput("simcrm","Número de Simulaciones",value = 2),actionButton("goButtonSim", "Iniciar Simulación") ),
+                             box(id="paso69",width=8, status = "warning",numericInput("simcrm","Número de Simulaciones",value = 2),actionButton("goButtonSim", "Iniciar Simulación") ),
                             
                              
                              
-                             box(width=12,status = "warning", plotlyOutput("credime")),
-                             fluidRow(column(4, box(title = h3("Pérdida Esperada:"),width=12,status = "warning", h3(textOutput("pe122")) )),
-                                      column(4,box(title = h3("Valor en Riesgo:"),width=12,status = "warning", h3(textOutput("var122")) )),
-                                      column(4, box(title = h3("TVaR:"),width=12,status = "warning",h3(textOutput("tvar122")) 
+                             box(id="paso70",width=12,status = "warning", plotlyOutput("credime")),
+                             fluidRow(column(4, box(id="paso71",title = h3("Pérdida Esperada:"),width=12,status = "warning", h3(textOutput("pe122")) )),
+                                      column(4,box(id="paso72",title = h3("Valor en Riesgo:"),width=12,status = "warning", h3(textOutput("var122")) )),
+                                      column(4, box(id="paso73",title = h3("TVaR:"),width=12,status = "warning",h3(textOutput("tvar122")) 
                                                   )))
                              
                              
@@ -1035,10 +1035,10 @@ shinyUI(
                    
                    tabItem(tabName = "ST2",wellPanel(id="panel17",
                            
-                           fluidRow(column(6,box(width=12,title = h2("StressTesting"),solidHeader = T,status = "warning",radioButtons("stress3", h3("Nivel de Estrés de la Prueba"),
+                           fluidRow(column(6,box(id="paso74",width=12,title = h2("StressTesting"),solidHeader = T,status = "warning",radioButtons("stress3", h3("Nivel de Estrés de la Prueba"),
                                                                                   choices = list("1 %" = 0.01, "5 %" = 0.05,
-                                                                                                 "10 %" = 0.1),selected = 0.1))),column(6,box(width=12,title = h2("Resultado"),solidHeader = T,status = "warning",h3("El Valor de la Prueba"),h1(textOutput("Stres45"))))),
-                           fluidRow( column( 12,box(width=12,h2("Reporte"), status = "warning",downloadButton("reporte2","Descargar"))))
+                                                                                                 "10 %" = 0.1),selected = 0.1))),column(6,box(id="paso75",width=12,title = h2("Resultado"),solidHeader = T,status = "warning",h3("El Valor de la Prueba"),h1(textOutput("Stres45"))))),
+                           fluidRow( column( 12,box(id="paso76",width=12,h2("Reporte"), status = "warning",downloadButton("reporte2","Descargar"))))
                            
                            
                            )),
