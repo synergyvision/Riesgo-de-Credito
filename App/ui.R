@@ -1047,16 +1047,16 @@ shinyUI(
                    
                    tabItem(tabName = "resultados_back",wellPanel(id="panel18",
                            h3(" Elegir porcentaje del Backtesting:"),
-                           box(width = 12, background = "yellow",
+                           box(id="paso77",width = 12, background = "yellow",
                                selectInput( inputId = "porback", "Seleccione Porcentaje del VaR", choices = c(.90, .95, .99), selected = .95)
                            ),
                            verbatimTextOutput("back_porcentaje"),
                            h2("Resultados"),
                            fluidRow(
-                             box(width=12,style="overflow-x:scroll",status = "warning",verbatimTextOutput('result_back'))
+                             box(id="paso78",width=12,style="overflow-x:scroll",status = "warning",verbatimTextOutput('result_back'))
                            ),
                            h2(" Valores críticos"),
-                           plotlyOutput("grafico_back"),
+                           box(id="paso79",width = 12, background = "yellow",plotlyOutput("grafico_back")),
                            h2("Reporte"),
                            downloadButton("report_back", "Descargar")
                            
@@ -1064,22 +1064,23 @@ shinyUI(
                    )),
                    
                    
-                   tabItem( tabName = "Mor" ,wellPanel(id="panel19",
-                            
+                   tabItem( tabName = "Mor" ,wellPanel(id="panel19",fluidPage(
+                            box(id="paso81",width = 12,
                             fluidPage(withMathJax(),box(width=12,status = "warning",solidHeader = T,title = "Índice de Morosidad", h3(uiOutput('ex5')))),
                             fluidPage(withMathJax(),box(width=12,status = "warning",solidHeader = T,title = "Índice de Cobertura", h3(uiOutput('ex6')))),
                             fluidPage(withMathJax(),box(width=12,status = "warning",solidHeader = T,title = "RAROC", h3(uiOutput('ex1')))),
                             fluidPage(withMathJax(),box(width=12,status = "warning",solidHeader = T,title = "RAR", h3(uiOutput('ex2')))),
                             fluidPage(withMathJax(),box(width=12,status = "warning",solidHeader = T,title = "RORAC", h3(uiOutput('ex3')))),
-                            fluidPage(withMathJax(),box(width=12,status = "warning",solidHeader = T,title = "RARORAC", h3(uiOutput('ex4')))),
+                            fluidPage(withMathJax(),box(width=12,status = "warning",solidHeader = T,title = "RARORAC", h3(uiOutput('ex4'))))
 
+                            ),
+                     
                             
                             
-                            fluidPage(
-                            
-                            fluidRow(column(4,box(width=12,status = "warning",solidHeader = T,title = h3("RAROC"),h3(textOutput("raroc1")))),column(4,box(width=12,solidHeader = T,status = "warning",title = h3("RORAC"),h3(textOutput("roracc")))),column(4, box(width=12,solidHeader = T,status = "warning",title = h3("RARORAC"),h3(textOutput("raroracc"))))),
+                            box(id="paso82",width = 12 ,
+                                fluidRow(column(4,box(width=12,status = "warning",solidHeader = T,title = h3("RAROC"),h3(textOutput("raroc1")))),column(4,box(width=12,solidHeader = T,status = "warning",title = h3("RORAC"),h3(textOutput("roracc")))),column(4, box(width=12,solidHeader = T,status = "warning",title = h3("RARORAC"),h3(textOutput("raroracc"))))),
                             fluidRow(column(4,box(width=12,solidHeader = T,status = "warning",title = h3("Indice de Morosidad"),h3(textOutput("morosidad")))),column(4,box(width=12,solidHeader = T,status = "warning",title = h3("Indice de Cobertura"),h3(textOutput("cobertura")))),column(4, box(width=12,solidHeader = T,status = "warning",title = h3("RAR"),h3(textOutput("rar")))))
-                            ) 
+                            ))
                             
                             
 
@@ -1093,7 +1094,7 @@ shinyUI(
                                                            
                                                            
                                                           
-                            box( width = 12, status="warning",
+                            box(id="paso80", width = 12, status="warning",
                                  h3(ACERTITLE_TEXT),
                                  tags$hr(),
                                  h4(ACERVER_TEXT),

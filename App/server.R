@@ -279,7 +279,7 @@ shinyServer(function(input, output, session) {
   
   seccion_tvar2 <- reactive(data.frame(
     
-    element=c("#paso64","#paso65","#paso66"),
+    element=c("#paso74","#paso75","#paso76"),
     
     intro=c( 
       "Nivel de estres al VaR para realizar la prueba",
@@ -289,11 +289,52 @@ shinyServer(function(input, output, session) {
     
     data.position=c("bottom","bottom","bottom")
   ))
+  
+  seccion_back1 <- reactive(data.frame(
+    
+    element=c("#paso77","#paso78","#paso79","#report_back"),
+    
+    intro=c( 
+      "Valor del parámetro para realizar la prueba",
+      "Resultado del backTesting con las distintas metodologías",
+      "Represantación gráfica del BackTestin",
+      "Podemos descargar un reporte con los resultados del BackTestin"
+      
+    ),
+    
+    data.position=c("bottom","bottom","bottom","bottom")
+  ))
+  
+  acerca1 <- reactive(data.frame(
+    
+    element=c("#paso80"),
+    
+    intro=c( 
+      "Información de contacto SynergyVision"
+    ),
+    
+    data.position=c("bottom")
+  ))
+  
+  Mor1 <- reactive(data.frame(
+    
+    element=c("#paso81","#paso82"),
+    
+    intro=c( 
+      "Se presentan las formulas para la contrucción de cada indicador",
+      "Se presentan las resultados de cada indicador"
+    ),
+    
+    data.position=c("bottom","bottom")
+  ))
+  
 
   #CONDICIONALES CON TABITEMS
   boton <- reactive({
     if(input$tabs=="subitem3"){
       return(Datos_matriz())
+    }else if(input$tabs=="resultados_back"){
+      return(seccion_back1())
     }else if(input$tabs=="subitem1"){
       return(Datos_score())
     }else if(input$tabs=="subitem2"){
@@ -326,6 +367,10 @@ shinyServer(function(input, output, session) {
       return(seccion_credimet())
     }else if(input$tabs=="ST2"){
       return(seccion_tvar2())
+    }else if(input$tabs=="acerca"){
+      return(acerca1())
+    }else if(input$tabs=="Mor"){
+      return(Mor1())
     }else{}
     
     
@@ -499,11 +544,8 @@ shinyServer(function(input, output, session) {
                 
                 menuItem("Acerca", icon = icon("exclamation-circle"), tabName = "acerca"),
                 
-                introBox(
-                  actionButton("help2", "Instrucciones"),
-                  data.step = 9,
-                  data.intro = "Boton de instrucciones"
-                ) 
+                
+                  actionButton("help2", "Instrucciones")
                 
                 )
   
