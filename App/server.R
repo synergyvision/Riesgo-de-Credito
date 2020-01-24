@@ -44,15 +44,15 @@ shinyServer(function(input, output, session) {
   
   element=c("#paso1","#paso2","#paso3","#paso4","#paso5","#paso6","#paso7","#paso8","#paso9"),
   
-  intro=c("Datos de ejemplo para crear el Score de Crédito",
-          "Introduce tus propios datos para crear tu propio Score de crédito",
+  intro=c("Datos de ejemplo para crear el score de crédito",
+          "Introduce tus propios datos para crear tu propio score de crédito",
           "Escoge la variable que indica el estado del cliente",
-          "Datos de ejemplo para crear proyecciones sobre clientes a partir del Score de crédito",
-          "Datos propios para crear proyecciones sobre clientes a partir del Score de crédito",
-          "Datos de ejemplo para crear el Rating de Crédito",
-          "Introduce tus propios datos para crear tu propio Rating de crédito",
-          "A partir de los datos del Score proyectar ratings a los clientes del Score",
-          "Datos propios para crear proyecciones sobre clientes a partir del Rating de de crédito"
+          "Datos de ejemplo para crear proyecciones sobre clientes a partir del score de crédito",
+          "Datos propios para crear proyecciones sobre clientes a partir del score de crédito",
+          "Datos de ejemplo para crear el rating de crédito",
+          "Introduce tus propios datos para crear tu propio rating de crédito",
+          "A partir de los datos del score proyectar ratings a los clientes del score",
+          "Datos propios para crear proyecciones sobre clientes a partir del rating de de crédito"
           ),
   
   data.position=c("bottom","bottom","bottom","bottom","bottom","bottom","bottom","bottom","bottom")
@@ -138,8 +138,8 @@ shinyServer(function(input, output, session) {
     
     intro=c("En esta sección se selecciona la variable a comparar con la variable mora.",
             "En esta gráfica se muestra la relación con la variable una vez seleccionada.",
-            "Se mueestra la información estadística de la variable seleccionada.",
-            "Se escogen los distintos tipo de selecciones de variables."),
+            "Se muestra la información estadística de la variable seleccionada.",
+            "Se escogen los distintos tipo de  variables."),
     
     data.position=c("bottom","bottom","bottom","bottom")
   ))
@@ -148,11 +148,11 @@ shinyServer(function(input, output, session) {
     
     element=c("#paso34","#paso35","#paso36","#paso37","#paso38","#score","#download","#proy","#download1"),
     
-    intro=c("Escoga el tipo de modelo para calcular el Score",
+    intro=c("Escoga el tipo de modelo para calcular el score",
             "Coeficientes de las variables independientes del modelo.",
-            "Resumen estadistica del modelo",
+            "Resumen estadístico del modelo",
             "Matriz de confusión del modelo, en la cual se aprecia la efectividad.",
-            "Gráfico ROC del modelo, que mide la de forma cualitativa la eficiencia",
+            "El Gráfico ROC es una medida cualitativa del modelo",
             "Se muestra el score y la probabilidad de incumplimiento de los clientes que se usaron para entrenar el modelo.",
             "En este boton se permite descargar la data anterior.",
             "Se muestra la  score y la probabilidad de incumplimiento aplicados a nuevos clientes usando el modelo calculado.",
@@ -165,7 +165,7 @@ shinyServer(function(input, output, session) {
     
     element=c("#paso39","#paso40","#download2"),
     
-    intro=c("Una vez cargados los datos del modelo se mostraro la información del mismo",
+    intro=c("Una vez cargados los datos del modelo se muestra la información del mismo",
             "Proyección del rating de los clientes a través de su probabilidad de incumplimiento.",
             "En este boton se permite descargar la data anterior."),
     
@@ -183,7 +183,7 @@ shinyServer(function(input, output, session) {
             "Tamaños de las submuestras en comparación con la muestra total", 
             "Histograma de pérdidas al realizar las simulaciones", 
             "Promedio de pérdidas de las simulaciones", 
-            "Nivel de confianza para obetener el intervalo de confianza del parámetro de pérdida", 
+            "Nivel de confianza para obtener el intervalo de confianza del parámetro de pérdida", 
             "Intervalo de confianza del parámetro pérdida" 
             ),
     
@@ -199,7 +199,7 @@ shinyServer(function(input, output, session) {
       "Pérdida promedio de cada clase",
       "Ingresar el número de submuestras para realizar la simulación",
       "Tamaños de las submuestras en comparación con la muestra total", 
-      "Nivel de confianza para obetener el intervalo de confianza del parámetro de pérdida", 
+      "Nivel de confianza para obtener el intervalo de confianza del parámetro de pérdida", 
       "Resultados de la simulación" 
     ),
     
@@ -230,7 +230,7 @@ shinyServer(function(input, output, session) {
       "Información crediticia necesaria para el cálculo de las métricas de riesgo",
       "Información de las probabilidades de incumplimiento de la cartera de clientes de la institución",
       "Distribución acumulada de probabilidad de número de incumplimientos esperados",
-      "Información acerca de las bandas de expoción crediticia por las cuales se agruparon los créditos",
+      "Información acerca de las bandas de exposición crediticia, con las cuales se agruparon los créditos",
       "Distribución acumulada de probabilidad de pérdida  esperadas",
       "Nivel de confianza para el cálculo de las métricas de riesgo",
       "Pérdida esperada de la cartera de clientes",
@@ -250,7 +250,7 @@ shinyServer(function(input, output, session) {
     intro=c( 
       "Nivel de estres al VaR para realizar la prueba",
       "Resultado de la prueba estresada",
-      "Podemos descargar un reporte con la información de la metología de riesgo de crédito CreditRisk+"
+      "Podemos descargar un reporte con la información de la metodología de riesgo de crédito CreditRisk+"
     ),
     
     data.position=c("bottom","bottom","bottom")
@@ -265,9 +265,9 @@ shinyServer(function(input, output, session) {
       "Información crediticia necesaria para el cálculo de las métricas de riesgo",
       "Nivel de confianza para el cálculo de las métricas de riesgo",
       "Número de simulaciones para iniciar la prueba",
-      "Histograma de perdidas al realizar la simulasción",
+      "Histograma de pérdidas al realizar la simulación",
       "Pérdida esperada de la cartera de clientes",
-      "Valor en riesgo de la cartera de clientas",
+      "Valor en riesgo de la cartera de clientes",
       "TVaR o VaR estresado de la cartera de clientes"
     ),
     
@@ -284,7 +284,7 @@ shinyServer(function(input, output, session) {
     intro=c( 
       "Nivel de estres al VaR para realizar la prueba",
       "Resultado de la prueba estresada",
-      "Podemos descargar un reporte con la información de la metología de riesgo de crédito Creditmetrics"
+      "Podemos descargar un reporte con la información de la metodología de riesgo de crédito Creditmetrics"
     ),
     
     data.position=c("bottom","bottom","bottom")
@@ -296,9 +296,9 @@ shinyServer(function(input, output, session) {
     
     intro=c( 
       "Valor del parámetro para realizar la prueba",
-      "Resultado del backTesting con las distintas metodologías",
-      "Represantación gráfica del BackTestin",
-      "Podemos descargar un reporte con los resultados del BackTestin"
+      "Resultado del backtesting con las distintas metodologías",
+      "Represantación gráfica del backtesting",
+      "Podemos descargar un reporte con los resultados del backtesting"
       
     ),
     
