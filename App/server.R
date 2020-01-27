@@ -139,7 +139,7 @@ shinyServer(function(input, output, session) {
     intro=c("En esta sección se selecciona la variable a comparar con la variable mora.",
             "En esta gráfica se muestra la relación con la variable una vez seleccionada.",
             "Se muestra la información estadística de la variable seleccionada.",
-            "Se escogen los distintos tipo de  variables."),
+            "Se escogen los distintos tipos de  variables."),
     
     data.position=c("bottom","bottom","bottom","bottom")
   ))
@@ -183,7 +183,7 @@ shinyServer(function(input, output, session) {
             "Tamaños de las submuestras en comparación con la muestra total", 
             "Histograma de pérdidas al realizar las simulaciones", 
             "Promedio de pérdidas de las simulaciones", 
-            "Nivel de confianza para obtener el intervalo de confianza del parámetro de pérdida", 
+            "Nivel de fiabilidad para obtener el intervalo de confianza del parámetro de pérdida", 
             "Intervalo de confianza del parámetro pérdida" 
             ),
     
@@ -199,7 +199,7 @@ shinyServer(function(input, output, session) {
       "Pérdida promedio de cada clase",
       "Ingresar el número de submuestras para realizar la simulación",
       "Tamaños de las submuestras en comparación con la muestra total", 
-      "Nivel de confianza para obtener el intervalo de confianza del parámetro de pérdida", 
+      "Nivel de fiabilidad para obtener el intervalo de confianza del parámetro de pérdida", 
       "Resultados de la simulación" 
     ),
     
@@ -226,7 +226,7 @@ shinyServer(function(input, output, session) {
               ,"#paso61","#paso62","#paso63"),
     
     intro=c( 
-      "Unidad de pérdida la cual se usa para agrupar los creditos por bandas de exposición",
+      "Unidad de pérdida la cual se usa para agrupar los créditos por bandas de exposición",
       "Información crediticia necesaria para el cálculo de las métricas de riesgo",
       "Información de las probabilidades de incumplimiento de la cartera de clientes de la institución",
       "Distribución acumulada de probabilidad de número de incumplimientos esperados",
@@ -297,7 +297,7 @@ shinyServer(function(input, output, session) {
     intro=c( 
       "Valor del parámetro para realizar la prueba",
       "Resultado del backtesting con las distintas metodologías",
-      "Represantación gráfica del backtesting",
+      "Representación gráfica del backtesting",
       "Podemos descargar un reporte con los resultados del backtesting"
       
     ),
