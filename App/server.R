@@ -994,7 +994,7 @@ shinyServer(function(input, output, session) {
   
   ###############Funcion que crea el modelo para el score
   
-  modprueba <- function(datos,datos2,nom,linkm)  {
+  modprueba <- function(datos,datos2,nom,linkm,selectdir,split)  {
     
     s1 <- datos
     
@@ -1009,11 +1009,11 @@ shinyServer(function(input, output, session) {
     unos <- subset(s1, s1[,posi]==1)
     
     
-    indices0 <- sample( 1:nrow( ceros ), nrow(ceros)*0.7 )
+    indices0 <- sample( 1:nrow( ceros ), nrow(ceros)*(1-split) )
     ceros.muestreado <- ceros[ indices0, ]
     ceros.test <- ceros[-indices0,]
     
-    indices1 <- sample( 1:nrow( unos ), nrow(unos)*0.7 )
+    indices1 <- sample( 1:nrow( unos ), nrow(unos)*(1-split) )
     unos.muestreado <- unos[ indices1, ]
     unos.test <- unos[-indices1,]
     
@@ -1023,12 +1023,24 @@ shinyServer(function(input, output, session) {
     colnames(train)[posi] <- "dependiente"
     colnames(test)[posi] <- "dependiente"
     
-    modelo <- glm(dependiente ~. , data = train, family = binomial(link = linkm))
     
     
-    reduccion = step(modelo)
+    if (selectdir=="backward") {
+      modelo <- glm(dependiente ~. , data = train, family = binomial(link = linkm))
+      reduccion = step(modelo)
+    }else if(selectdir=="forward") {
+      
+      nothing <- glm(dependiente ~ 1 , data = train, family = binomial(link = linkm))
+      fullmod <- glm(dependiente ~. , data = train, family = binomial(link = linkm))
+      
+      
+      reduccion = step(nothing,
+                      scope=list(lower=formula(nothing),upper=formula(fullmod)), direction="forward")
+      
+    }
+   
     
-    return(reduccion)
+    return(list(reduccion,train,test))
     
   }
   
@@ -1036,9 +1048,10 @@ shinyServer(function(input, output, session) {
   ### modelo
   GlmModel <- reactive({
     
+    
     input$goButton3
     
-    isolate(modprueba(data1(),data1org(),input$columns,input$radio1))
+    isolate(modprueba(data1(),data1org(),input$columns,input$radio1,input$stepp, as.numeric(input$div1)))
     
   }
   )
@@ -1069,14 +1082,12 @@ shinyServer(function(input, output, session) {
   
   output$coefglm <- renderDataTable({
     
-    
-    
-    ca134 <- try(coefglm(GlmModel()))
-    if (class(ca134)=="try-error") {
+    ca139 <- try( coefglm(GlmModel()[[1]]))
+    if (class(ca139)=="try-error") {
       
       c()
-    }else{ca134}
-    
+    }else{ca139}
+
     
   })
   
@@ -1090,11 +1101,11 @@ shinyServer(function(input, output, session) {
     
     ND <- round(modelo$null.deviance,2)
     
-    RD <- round(modelo$deviance,2)
+    RD <- round(modelo$deviance)
     
     fis <- modelo$iter
     
-    Est <- c(aic,RD,ND,round(fis,1))
+    Est <- c(aic,RD,ND,fis)
     
     inf <- data.frame(c("Criterio de información de Akaike","Desviación de los residuos","Desviación Nula","Número de iteraciones de Fischer"),Est)
     colnames(inf) <- c("Estadísticos","Resultado")
@@ -1108,7 +1119,7 @@ shinyServer(function(input, output, session) {
   
   output$estglm <- renderDataTable({
     
-    ca139 <- try(estglm(GlmModel()))
+    ca139 <- try(estglm(GlmModel()[[1]]))
     if (class(ca139)=="try-error") {
       
       c()
@@ -1124,36 +1135,12 @@ shinyServer(function(input, output, session) {
   
   calaccur <- reactive(
     {
-      s1 <- data1()
-      
-      nombres <- colnames(data1org())
-      
-      nombre <- input$columns
-      
-      posi <- which(nombres == nombre)
       
       
+     
+      pdata <- predict(GlmModel()[[1]], newdata = GlmModel()[[3]], type = "response")
       
-      ceros <- subset(s1, s1[,posi]==0)
-      unos <- subset(s1, s1[,posi]==1)
-      
-      indices0 <- sample( 1:nrow( ceros ), nrow(ceros)*0.7 )
-      ceros.muestreado <- ceros[ indices0, ]
-      ceros.test <- ceros[-indices0,]
-      
-      indices1 <- sample( 1:nrow( unos ), nrow(unos)*0.7 )
-      unos.muestreado <- unos[ indices1, ]
-      unos.test <- unos[-indices1,]
-      
-      train <- rbind(ceros.muestreado,unos.muestreado)
-      test <- rbind(ceros.test,unos.test)
-      
-      colnames(train)[posi] <- "dependiente"
-      colnames(test)[posi] <- "dependiente"
-      
-      pdata <- predict(modprueba(data1(),data1org(),input$columns,input$radio1), newdata = test, type = "response")
-      
-      pred <- confusionMatrix(data = as.factor(as.numeric(pdata>0.5)), reference = as.factor(test$dependiente))
+      pred <- confusionMatrix(data = as.factor(as.numeric(pdata>0.5)), reference = as.factor(GlmModel()[[3]]$dependiente))
       
       conf <- pred$table
       Valores <- c("Prediccion",0,1)
@@ -1228,7 +1215,7 @@ shinyServer(function(input, output, session) {
   
   output$roc <- renderPlot({
     
-    ca15 <- try(ggroc(calroc(data1(),data1org(),input$columns,modprueba(data1(),data1org(),input$columns,input$radio1)),legacy.axes=T))
+    ca15 <- try(ggroc(calroc(data1(),data1org(),input$columns,GlmModel()[[1]],legacy.axes=T)))
     
     
     if (class(ca15)[1]=="try-error") {
@@ -1257,7 +1244,7 @@ shinyServer(function(input, output, session) {
     posi <- which(nombres == nombre)
     
     
-    reduccion = modprueba(data1(),data1org(),input$columns,input$radio1)
+    reduccion = GlmModel()[[1]]
     
     
     Score <- predict(reduccion, newdata = s1, type = "link")
@@ -1291,6 +1278,46 @@ shinyServer(function(input, output, session) {
       write.csv(scor(), fname)
     }
   )
+  
+  
+  output$split <- renderDataTable({
+    
+    ca16 <- try(GlmModel()[[2]])
+    if (class(ca16)=="try-error") {
+      
+      c()
+    }else{ca16}
+    
+    
+  },options = list(scrollX=T,scrollY=300))
+  
+  
+  output$download10 <- downloadHandler(
+    filename = function(){"split.csv"}, 
+    content = function(fname){
+      write.csv(GlmModel()[[2]], fname)
+    }
+  )
+  
+  output$split1 <- renderDataTable({
+    
+    ca16 <- try(GlmModel()[[3]])
+    if (class(ca16)=="try-error") {
+      
+      c()
+    }else{ca16}
+    
+    
+  },options = list(scrollX=T,scrollY=300))
+  
+  
+  output$download11 <- downloadHandler(
+    filename = function(){"split.csv"}, 
+    content = function(fname){
+      write.csv(GlmModel()[[3]], fname)
+    }
+  )
+  
   
   ### Preyeccion a nuevos clientes
   
@@ -1344,7 +1371,7 @@ shinyServer(function(input, output, session) {
     
     
     
-    reduccion = GlmModel()
+    reduccion = GlmModel()[[1]]
     
     
     Score <- predict(reduccion, newdata = dataaa2(), type = "link")
@@ -2574,7 +2601,7 @@ shinyServer(function(input, output, session) {
    
    
    
-   reduccion = modprueba(data1(),data1org(),input$columns,input$radio1)
+   reduccion = GlmModel()[[1]]
    
    s2 <- data1()
    

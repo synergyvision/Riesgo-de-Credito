@@ -729,15 +729,35 @@ shinyUI(
                                                 
                                                 
                                                 fluidRow(
-                                                  box(id="paso34",width=12, title =h2("Modelos de Probabilidad Lineal"),solidHeader = T,status = "warning",radioButtons("radio1", h3("Escoga el Link del Modelo"),
+                                                  box(height = "360px",id="paso34",width=4, title =h2("Modelos de Probabilidad Lineal"),solidHeader = T,status = "warning",radioButtons("radio1", h3("Escoga el Link del Modelo"),
                                                                                                                                                             choices = list("Modelo Probit" = "probit", "Modelo Logit" = "logit",
-                                                                                                                                                                           "Modelo Cauchit" = "cauchit"),selected = "probit"),actionButton("goButton3", "Actualizar Link")),
+                                                                                                                                                                           "Modelo Cauchit" = "cauchit"),selected = "probit")),
+                                                  box(width=4,height = "360px", title =h2("Selección de variables"),solidHeader = T,status = "warning",radioButtons("stepp", h3("Escoga la dirección de selección de variable"),
+                                                                                                                                                                        choices = list("Forward" = "forward", "Backward" = "backward"
+                                                                                                                                                                                       ))),
+                                                  box(width=4,height = "360px", title =h2("División de la data"),solidHeader = T,status = "warning",numericInput("div1", h3("escoga el porcentaje de división"),value = 0.3,min = 0.01,max = 0.5
+                                                                                                                                                                    ),actionButton("goButton3", "Actualizar")),
                                                   box(id="paso35",width = 12,title = h1("Coeficientes del Modelo"),status = "warning",dataTableOutput("coefglm")),
                                                   box(id="paso36",width = 12,title = h1("Información Estadística del Modelo"),status = "warning",dataTableOutput("estglm")),
                                                   
                                                   box(id="paso37",title = h2("Matriz de Confusión"),width=4,status="warning",tableOutput("accur")),box(id="paso38",title = h2("Gráfico ROC"),width=8,status="warning",plotOutput("roc"))
                                                   
                                                 )),
+                                      
+                                      tabPanel( title = tagList(shiny::icon("gear"), strong('Test y train.')),
+                                                
+                                                h2("Datos Train"),
+                                                dataTableOutput("split"),downloadButton('download10',"Descargar Datos"),
+                                                
+                                                h2("Datos Test"),
+                                                dataTableOutput("split1"),downloadButton('download11',"Descargar Datos")
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                      ),
                                       
                                       
                                       tabPanel( title = tagList(shiny::icon("gear"), strong('Score de la Cartera de Crédito de Entrenamiento.')),
