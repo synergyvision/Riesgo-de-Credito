@@ -1,0 +1,11 @@
+<script src="https://d3js.org/d3-array.v1.min.js"></script>
+<script>
+
+var min = d3.min(array);
+
+
+var array = [{foo: 42}, {foo: 91}];
+d3.scan(array, function(a, b) { return a.foo - b.foo; }); // 0
+d3.scan(array, function(a, b) { return b.foo - a.foo; }); // 1
+
+</script>

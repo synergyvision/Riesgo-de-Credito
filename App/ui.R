@@ -729,11 +729,12 @@ shinyUI(
                                                 
                                                 
                                                 fluidRow(
-                                                  box(height = "360px",id="paso34",width=4, title =h2("Modelos de Probabilidad Lineal"),solidHeader = T,status = "warning",radioButtons("radio1", h3("Escoga el Link del Modelo"),
+                                                  box(height = "360px",id="paso34",width=4, title =h2("Modelos de Probabilidad"),solidHeader = T,status = "warning",radioButtons("radio1", h3("Escoga el Link del Modelo"),
                                                                                                                                                             choices = list("Modelo Probit" = "probit", "Modelo Logit" = "logit",
                                                                                                                                                                            "Modelo Cauchit" = "cauchit"),selected = "probit")),
                                                   box(width=4,height = "360px", title =h2("Selección de variables"),solidHeader = T,status = "warning",radioButtons("stepp", h3("Escoga la dirección de selección de variable"),
                                                                                                                                                                         choices = list("Forward" = "forward", "Backward" = "backward"
+                                                                                                                                                                                       , "Stepwise" = "both"
                                                                                                                                                                                        ))),
                                                   box(width=4,height = "360px", title =h2("División de la data"),solidHeader = T,status = "warning",numericInput("div1", h3("escoga el porcentaje de división"),value = 0.3,min = 0.01,max = 0.5
                                                                                                                                                                     ),actionButton("goButton3", "Actualizar")),

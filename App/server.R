@@ -1037,6 +1037,15 @@ shinyServer(function(input, output, session) {
       reduccion = step(nothing,
                       scope=list(lower=formula(nothing),upper=formula(fullmod)), direction="forward")
       
+    }else if(selectdir=="both") {
+      
+      nothing <- glm(dependiente ~ 1 , data = train, family = binomial(link = linkm))
+      fullmod <- glm(dependiente ~. , data = train, family = binomial(link = linkm))
+      
+      
+      reduccion = step(nothing,
+                       scope=list(lower=formula(nothing),upper=formula(fullmod)), direction="both")
+      
     }
    
     
