@@ -38,6 +38,8 @@ library(pROC)
 library(plotly)
 library(plyr)
 library(DT)
+library(ROCR) 
+library(Metrics)
 
 # sample logins dataframe with passwords hashed by sodium package
 user_base <- tibble(
