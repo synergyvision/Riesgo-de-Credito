@@ -802,7 +802,7 @@ shinyUI(
                                                 box(id="paso39", width=12,status = "warning",conditionalPanel(condition = "input.userFileRat == true|| input.datasetRat == true",
                                                                  
                                                                      fluidRow(
-                                                                   box(style = "overflow-x:scroll",width=12,title = h3("Información del Modelo Basado en Análisis de Disciminante"),dataTableOutput('datatableRatInf'))
+                                                                   box(style = "overflow-x:scroll",width=12,title = h3("Información del Modelo Basado en Análisis de Discriminante"),dataTableOutput('datatableRatInf'))
                                                                  )))
                                                 
                                                 
@@ -846,10 +846,10 @@ shinyUI(
                                 
                                 tabPanel( title = tagList(shiny::icon("gear"), strong('Pérdidas Usando Bootstrap')),
                                           
-                                          fluidRow(box(id="paso42",height = "200px",status = "warning",h3("Número de Sub-Muestras"), numericInput("boot" , label = "",value = 100), actionButton("goButton5", "Actualizar")),
+                                          fluidRow(box(id="paso42",height = "200px",status = "warning",h3("Número de Sub-Muestras"), numericInput("boot" , label = "",value = 100)),
                                                    
                                                    box(id="paso43",height = "200px",h3("Tamaños de las Submuestras en Porcentaje"),status = "warning", 
-                                                       numericInput("bootT",label = "",value = 20,min = 1,max = 100), actionButton("goButton6", "Actualizar") ) ),
+                                                       numericInput("bootT",label = "",value = 20,min = 1,max = 100), actionButton("goButton5", "Actualizar") ) ),
                                           fluidRow(box(id="paso44",width=12,status = "warning", title = h3("Histograma Bootstrap"),plotlyOutput("booot1"))),
                                           fluidRow(box(id="paso45",width=4,status="warning", height = "100px",uiOutput("boots3")),
                                                    box(id="paso46",width=4,status="warning", height = "100px",numericInput("boot23",label = " Nivel de Confianza",max = 100,min = 1,value = 95)),
@@ -879,12 +879,12 @@ shinyUI(
                               
                               
                               tabPanel( title = tagList(shiny::icon("gear"), strong('Pérdidas Usando Bootstrap')),
-                                        fluidRow(box(id="paso49",width = 4,status = "warning",h3("Número de Sub-Muestras"),height = "160px", numericInput("bootC" , label = "",value = 100)),
+                                        fluidRow(box(id="paso49",width = 4,status = "warning",h3("Número de Sub-Muestras"),height = "180px", numericInput("bootC" , label = "",value = 100)),
                                                  
-                                                 box(id="paso50",width = 4,h3("Tamaños de las submuestras"),status = "warning", height = "160px",
+                                                 box(id="paso50",width = 4,h3("Tamaños de las submuestras"),status = "warning", height = "180px",
                                                      numericInput("bootTC",label = "",value = 20,min = 1,max = 100)) ,
-                                                 box(id="paso51",width = 4,h3("Nivel de Confianza"),height = "160px",status = "warning",label = " Nivel de Confianza",
-                                                     numericInput("boot2312",label = " ",max = 100,min = 1,value = 95))),
+                                                 box(id="paso51",width = 4,h3("Nivel de Confianza"),height = "180px",status = "warning",label = " Nivel de Confianza",
+                                                     numericInput("boot2312",label = " ",max = 100,min = 1,value = 95), actionButton("goButton500", "Actualizar"))),
                                         
                                         fluidRow(
                                           box(id="paso52",width=12,status = "warning",dataTableOutput('datatablecrm2')))
@@ -1086,13 +1086,13 @@ shinyUI(
                    
                    
                    tabItem( tabName = "Mor" ,wellPanel(id="panel19",fluidPage(
-                            box(id="paso81",width = 12,
-                            fluidPage(withMathJax(),box(width=12,status = "warning",solidHeader = T,title = "Índice de Morosidad", h3(uiOutput('ex5')))),
-                            fluidPage(withMathJax(),box(width=12,status = "warning",solidHeader = T,title = "Índice de Cobertura", h3(uiOutput('ex6')))),
-                            fluidPage(withMathJax(),box(width=12,status = "warning",solidHeader = T,title = "RAROC", h3(uiOutput('ex1')))),
-                            fluidPage(withMathJax(),box(width=12,status = "warning",solidHeader = T,title = "RAR", h3(uiOutput('ex2')))),
-                            fluidPage(withMathJax(),box(width=12,status = "warning",solidHeader = T,title = "RORAC", h3(uiOutput('ex3')))),
-                            fluidPage(withMathJax(),box(width=12,status = "warning",solidHeader = T,title = "RARORAC", h3(uiOutput('ex4'))))
+                            box(id="paso81",width = 12,withMathJax(),
+                            fluidPage(box(width=12,status = "warning",solidHeader = T,title = "Índice de Morosidad", h3(uiOutput('ex5')))),
+                            fluidPage(box(width=12,status = "warning",solidHeader = T,title = "Índice de Cobertura", h3(uiOutput('ex6')))),
+                            fluidPage(box(width=12,status = "warning",solidHeader = T,title = "RAROC", h3(uiOutput('ex1')))),
+                            fluidPage(box(width=12,status = "warning",solidHeader = T,title = "RAR", h3(uiOutput('ex2')))),
+                            fluidPage(box(width=12,status = "warning",solidHeader = T,title = "RORAC", h3(uiOutput('ex3')))),
+                            fluidPage(box(width=12,status = "warning",solidHeader = T,title = "RARORAC", h3(uiOutput('ex4'))))
 
                             ),
                      
@@ -1136,4 +1136,5 @@ shinyUI(
     )
   )
 )
+
 
