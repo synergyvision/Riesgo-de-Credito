@@ -1224,19 +1224,20 @@ shinyServer(function(input, output, session) {
   
   output$roc <- renderPlot({
     
-    ca15 <- try(ggroc(calroc(data1(),data1org(),input$columns,GlmModel()[[1]],legacy.axes=T)))
     
+    model <-  GlmModel()[[1]]
     
-    if (class(ca15)[1]=="try-error") {
-      
-      df <- data.frame()
-      ggplot(df) + geom_point() + xlim(0, 10) + ylim(0, 100)
-      
-    }else{ca15}
+    log_predict <- predict(model,newdata = GlmModel()[[3]],type = "response")
     
+    log_predict <- ifelse(log_predict > 0.5,1,0)
+
     
-    
-    
+    pr <- prediction(log_predict,GlmModel()[[3]]$dependiente)
+    perf <- performance(pr,measure = "tpr",x.measure = "fpr") 
+    plot(perf,ylab="proporción de verdaderos positivos",
+         xlab="proporción de falsos positivos",xlim=c(0,1),ylim=c(0,1))
+    abline(0,1,col="red")
+
   })
   
   
@@ -1269,9 +1270,9 @@ shinyServer(function(input, output, session) {
   
   
   
-  output$score <- renderDataTable({
+  output$score <-renderDataTable({
     
-    ca16 <- try(scor())
+    ca16 <- try(scor()[,c(2,3)])
     if (class(ca16)=="try-error") {
       
       c()
@@ -1400,7 +1401,7 @@ shinyServer(function(input, output, session) {
   ## Aqui se muestra el score proyectado
   output$proy <- renderDataTable({
     
-    pro <- try(proyec())
+    pro <- try(proyec()[,c(2,3)])
     if (class(pro)=="try-error") {
       
       c()
@@ -1916,7 +1917,7 @@ shinyServer(function(input, output, session) {
     
   }
   
-  clasescal <- reactive({
+  clasescal <- eventReactive(input$goButton500,{
     
     bostCL(data11(), as.integer(input$bootC) , as.integer(input$bootTC)) 
     
