@@ -1375,8 +1375,10 @@ shinyServer(function(input, output, session) {
   })
   
   ## la proyeccion
-  proyec <- reactive({
-    
+  
+  
+  ## Aqui se muestra el score proyectado
+  output$proy <- renderDataTable({
     
     
     
@@ -1389,24 +1391,8 @@ shinyServer(function(input, output, session) {
     n <- length(PD)
     ress <- cbind(1:n,Score,PD)
     colnames(ress) <- c("Posición","Score","Probabilidad de incumplimiento") 
-    return(ress)
-    
-    
-    
-    
-  })
-  
-  
-  
-  ## Aqui se muestra el score proyectado
-  output$proy <- renderDataTable({
-    
-    pro <- try(proyec()[,c(2,3)])
-    if (class(pro)=="try-error") {
-      
-      c()
-    }else{pro}
-    
+    ress
+   
     
   },options = list(scrollX=T,scrollY=300))
   
