@@ -1528,7 +1528,18 @@ shinyServer(function(input, output, session) {
   ####### Datos del score###
   
   datasetSelectRatN <- reactive({
-    datasetSelect <- proyec()
+    
+    
+    
+    reduccion = GlmModel()[[1]]
+    
+    
+    Score <- predict(reduccion, newdata = dataaa2(), type = "link")
+    PD <- predict(reduccion, newdata = dataaa2(), type = "response")
+    n <- length(PD)
+    ress <- cbind(1:n,Score,PD)
+    colnames(ress) <- c("Posición","Score","Probabilidad de incumplimiento") 
+    ress
     
   })
   
