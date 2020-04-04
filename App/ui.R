@@ -475,7 +475,7 @@ shinyUI(
                                        
                                        
                                        
-                                       tabPanel( title = tagList(shiny::icon("gear"), strong('Expocisión')),
+                                       tabPanel( title = tagList(shiny::icon("gear"), strong('Exposición')),
                                                  
                                                  
                                                  fluidRow(column(6,box(id="paso21",background="yellow",width = 200, checkboxInput("dataset0", strong("Datos de Ejemplo"), FALSE))),
